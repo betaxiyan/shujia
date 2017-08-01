@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>master</title>
+    <link type="text/css" rel="stylesheet" href="../resources/css/bootstrap/bootstrap.css">
+    <link type="text/css" rel="stylesheet" href="../resources/css/view/masterView.css">
+    <link type="text/css" rel="stylesheet" href="../resources/css/dataTables/dataTables.bootstrap.css">
+    <link type="text/css" rel="stylesheet" href="../resources/css/upload/ssi-uploader.css">
+</head>
+
+<body>
+    <div class="view_contianer">
+        <div class="view_header">
+            <h3>数据交互</h3>
+            <span>将本地资源上传到自己的租户空间</span>
+        </div>
+        <div class="view_tab">
+            <div class="view_body">
+                <div class="view_search">
+                    <span>租户名称</span><input type="text" name="data_username" value="" />
+                    <span style="margin-left: 20px">文件名称</span><input type="text" name="data_filename" value="">
+                    <span style="margin-left: 20px">储存目录</span>
+                    <select name="savePath">
+                        <option value="FTP/FTP1">FTP/FTP1</option>
+                        <option value="VM">VM</option>
+                    </select>
+                    <button type="button" class="btn btn-danger">搜索</button>
+                    <i class="upload_icon"></i>
+                    <a href="#" class="upload" data-toggle="modal" data-target="#myModal">上传文件</a>
+                    <a href="#" class="export">导出</a>
+                </div>
+                <div class="box">
+                    <div class="box-body table-responsive">
+                        <table id="detail_table" class="table table-bordered">
+                            <thead>
+                                <tr style="text-align: center">
+                                    <th width="10%">序号</th>
+                                    <th width="16%">文件名称</th>
+                                    <th width="10%">文件格式</th>
+                                    <th width="10%">文件大小</th>
+                                    <th width="10%">储存目录</th>
+                                    <th width="14%">上传时间</th>
+                                    <th width="10%">上传状态</th>
+                                    <th width="20%">失败原因</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>srident</td>
+                                    <td>Internet</td>
+                                    <td>Win </td>
+                                    <td> 4</td>
+                                    <td>X</td>
+                                    <td>Win 94+</td>
+                                    <td> 4</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Trident</td>
+                                    <td>Internet </td>
+                                    <td>Win 95+</td>
+                                    <td>5</td>
+                                    <td>C</td>
+                                    <td>Win 94+</td>
+                                    <td> 4</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Tasman</td>
+                                    <td>Internet </td>
+                                    <td>Mac OS</td>
+                                    <td>1</td>
+                                    <td>C</td>
+                                    <td>Win 94+</td>
+                                    <td> 4</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Tasman</td>
+                                    <td>Internet </td>
+                                    <td>Mac OS </td>
+                                    <td>1</td>
+                                    <td>C</td>
+                                    <td>Win 94+</td>
+                                    <td> 4</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Misc</td>
+                                    <td>NetFront</td>
+                                    <td>Embedded </td>
+                                    <td>-</td>
+                                    <td>C</td>
+                                    <td>Win 94+</td>
+                                    <td> 4</td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>Misc</td>
+                                    <td>NetFron</td>
+                                    <td>Embedded </td>
+                                    <td>-</td>
+                                    <td>A</td>
+                                    <td>Win 94+</td>
+                                    <td> 4</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document" style="width: 1000px;height: 500px">
+            <div class="modal-content" style="width: 1000px;">
+                <div class="modal-header">
+                    <div class="modal-header-top">
+                        <button type="button" class="close" id="closeMyModal"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">上传文件</h4>
+                        <a href="#">新手指导</a>
+                    </div>
+                    <div class="modal-header-bottom">
+                        <span>上传到</span>
+                        <select name="savePath">
+                            <option value="FTP/FTP1">FTP/FTP1</option>
+                            <option value="VM">VM</option>
+                        </select>
+                        <input type="text" placeholder="新建目录">
+                        <div class="operateBtn">
+                            <input type="text" name="username" value="" placeholder="用户名">
+                            <input type="password" name="password" value="" placeholder="密码">
+                            <button class="btn btn-primary btn-xs connectBtn" style="display:none;">连接</button>
+                        </div>
+                        <div class="resetOper">
+                            <span class="connectSuccess" style="display:none ">连接成功</span>
+                            <span class="connectFail" style="display:none ">连接失败</span>
+                            <button class="btn btn-primary btn-xs resetInfo" style="display:none;margin-left:20px">重置</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="file" multiple id="ssi-upload" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel">
+        <div class="modal-dialog" role="document" style="width: 350px;">
+            <div class="modal-content" style="width: 350px;">
+                <div class="modal-body" style="text-align: center;font-weight: bold;padding: 30px;">
+                </div>
+                <div class="modal-footer" style="text-align: center;padding: 5px;">
+                    <button type="button" class="btn btn-default btn-xs" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../resources/js/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="../resources/js/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../resources/js/plugins/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="../resources/js/plugins/dataTables.bootstrap.js"></script>
+    <script type="text/javascript" src="../resources/js/master/master_view.js"></script>
+    <script type="text/javascript" src="../resources/js/plugins/ssi-uploader.js"></script>
+    <script type="text/javascript" src="../resources/js/master/uploader_render.js"></script>
+</body>
+
+</html>

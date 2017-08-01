@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"/>
+    <head th:include="frame/common :: header"></head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>master</title>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/view/masterView.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/dataTables/dataTables.bootstrap.css}"/>
+    <script th:inline="javascript"> var ctx = [[@{/}]]; </script>
+</head>
+
+<body>
+    <div class="view_contianer">
+        <div class="view_header">
+            <h3>文件统计</h3>
+            <span>统计文件和文件夹个数生成Excel</span>
+        </div>
+        <div class="view_tab">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist" id="view_tabs">
+                <li role="presentation" class="active"><a href="#view" aria-controls="view" role="tab" data-toggle="tab" id="total-view">文件统计</a></li>
+                <li role="presentation"><a href="#details" aria-controls="details" role="tab" data-toggle="tab" id="detail-view">租户管理</a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="view">
+                    <div class="view_body">
+                        <div class="view_search">
+                            <span style="margin-left: 30px">待处理Excel</span><input type="file" multiple="multiple" name="file" id="file" />
+                            <button type="button" class="btn btn-danger" th:onclick="'submitExcel()'">提交</button>
+                            <a class="export" th:onclick = "'exportExcel()'">导出</a>
+                        </div>
+                        <div class="box">
+                            <div class="box-body table-responsive">
+                                <table id="user_table" class="table table-bordered">
+                                    <thead>
+                                        <tr style="text-align: center">
+                                            <th width="10%">序号</th>
+                                            <th width="20%">租户名称</th>
+                                            <th width="20%">文件个数</th>
+                                            <th width="20%">文件夹个数</th>
+                                            <th width="20%">文件总数</th>
+                                            <th width="10%">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="user_table_tbody">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="details">
+                    <div class="view_body">
+                        <div class="view_search">
+                            <span>租户名称</span><input type="text" name="detail_username" value="" />
+                            <span style="margin-left: 20px">文件名称</span><input type="text" name="filename" value="" />
+                            <span style="margin-left: 20px">文件格式</span><input type="text" name="fileType" value="" />
+                            <button type="button" class="btn btn-danger">搜索</button>
+                            <a href="#" class="export">导出</a>
+                        </div>
+                        <div class="box">
+                            <div class="box-body table-responsive">
+                                <table id="detail_table" class="table table-bordered">
+                                    <thead>
+                                        <tr style="text-align: center">
+                                            <th width="5%">序号</th>
+                                            <th width="10%">租户名称</th>
+                                            <th width="20%">文件名称</th>
+                                            <th width="15%">文件大小</th>
+                                            <th width="10%">文件格式</th>
+                                            <th width="10%">储存目录</th>
+                                            <th width="10%">上传时间</th>
+                                            <th width="10%">上传状态</th>
+                                            <th width="10%">失败原因</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>srident</td>
+                                            <td>Internet Explorer 4.0</td>
+                                            <td>Win 94+</td>
+                                            <td> 4</td>
+                                            <td>X</td>
+                                            <td>Win 94+</td>
+                                            <td> 4</td>
+                                            <td>X</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Trident</td>
+                                            <td>Internet Explorer 5.0</td>
+                                            <td>Win 95+</td>
+                                            <td>5</td>
+                                            <td>C</td>
+                                            <td>Win 94+</td>
+                                            <td> 4</td>
+                                            <td>X</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Tasman</td>
+                                            <td>Internet Explorer 5.1</td>
+                                            <td>Mac OS 7.6-9</td>
+                                            <td>1</td>
+                                            <td>C</td>
+                                            <td>Win 94+</td>
+                                            <td> 4</td>
+                                            <td>X</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>Tasman</td>
+                                            <td>Internet Explorer 5.2</td>
+                                            <td>Mac OS 8-X</td>
+                                            <td>1</td>
+                                            <td>C</td>
+                                            <td>Win 94+</td>
+                                            <td> 4</td>
+                                            <td>X</td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>Misc</td>
+                                            <td>NetFront 3.1</td>
+                                            <td>Embedded devices</td>
+                                            <td>-</td>
+                                            <td>C</td>
+                                            <td>Win 94+</td>
+                                            <td> 4</td>
+                                            <td>X</td>
+                                        </tr>
+                                        <tr>
+                                            <td>6</td>
+                                            <td>Misc</td>
+                                            <td>NetFront 3.4</td>
+                                            <td>Embedded devices</td>
+                                            <td>-</td>
+                                            <td>A</td>
+                                            <td>Win 94+</td>
+                                            <td> 4</td>
+                                            <td>X</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" th:src="@{/js/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/plugins/jquery.dataTables.js}"></script>
+    <script type="text/javascript" th:src="@{/js/plugins/dataTables.bootstrap.js}"></script>
+    <script type="text/javascript" th:src="@{/js/master/filecount_v1.js}"></script>
+    <script>
+        $('#view_tabs #total-view').click(function(e) {
+            e.preventDefault()
+            $.ajax({
+                url: '',
+                type: 'GET',
+                success: function(data) {
+                    if (data.result == 'success') {
+                        data = data.data;
+                        var str = '';
+                        $(data).Each(function(index, item) {
+                            str += `<tr>
+                                            <td>${item.number}</td>
+                                            <td>srident</td>
+                                            <td>Internet Explorer 4.0</td>
+                                            <td>Win 94+</td>
+                                            <td> 4</td>
+                                            <td>X</td>
+                                        </tr>`
+                        })
+                        $('#view').children('tbody').html('str');
+                    }
+                }
+            })
+            $(this).tab('show')
+        })
+    </script>
+</body>
+
+</html>

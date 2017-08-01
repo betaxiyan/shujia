@@ -1,0 +1,233 @@
+a:link,
+a:visited,
+a:active,
+a:hover {
+    text-decoration: none;
+}
+
+a {
+    color: #333;
+}
+
+.view_contianer {
+    margin: 0 20px;
+}
+
+.view_header {
+    margin-bottom: 40px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 30px;
+}
+
+.nav-tabs>li {
+    font-size: 16px;
+    width: 100px;
+    text-align: center;
+}
+
+.nav-tabs>li a {
+    border-radius: 0;
+}
+
+a:focus {
+    text-decoration: none;
+    outline: none;
+    color: #333;
+}
+
+.nav-tabs>li a:hover {
+    text-decoration: none;
+    outline: none;
+    color: #333;
+    background: #fff;
+    border: 1px solid transparent;
+    cursor: default;
+}
+
+#view_tabs .active a {
+    border-top: 2px solid #d9534f;
+    color: #d9534f;
+}
+
+.view_body {
+    margin: 30px 0;
+}
+
+.view_search span {
+    margin: 0 10px;
+}
+
+.view_search {
+    position: relative;
+}
+
+.view_search input[name='fileBegin'],
+.view_search input[name='fileOver'] {
+    width: 100px;
+}
+
+.view_search button {
+    margin: 0 50px;
+}
+
+#user_table,
+#user_table th,
+#detail_table,
+#detail_table th {
+    text-align: center;
+}
+
+.box {
+    margin: 20px 0;
+}
+
+.view_search .upload_icon {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    position: absolute;
+    right: 140px;
+    bottom: -2px;
+    background: url('../../img/users/u67.png') no-repeat center;
+    background-size: cover;
+}
+
+.view_search .upload {
+    position: absolute;
+    right: 80px;
+    bottom: -3px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #d9534f;
+}
+
+.view_search .export {
+    position: absolute;
+    right: 20px;
+    bottom: -3px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #d9534f;
+}
+
+.table-responsive {
+    overflow-x: hidden;
+}
+
+#user_table tr td:nth-child(3) {
+    color: #d9534f;
+    font-weight: bold;
+}
+
+.view_search select,
+.modal-header-bottom select {
+    width: 174px;
+    height: 26px;
+}
+
+thead {
+    background: #eee;
+}
+
+.operateBtn,
+.resetOper {
+    display: inline-block;
+}
+
+.connectSuccess,
+.connectFail {
+    font-weight: bold;
+    margin-left: 20px;
+    color: #2bb50c;
+}
+
+.connectFail {
+    color: #D9534F;
+}
+
+.bg_icon {
+    z-index: 100;
+    background: url('../../img/upload/loading.gif') no-repeat center;
+    background-size: cover;
+    margin: 30px 45px;
+    width: 60px;
+    height: 60px;
+}
+
+#bg-cover {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 150px;
+    height: 100%;
+    z-index: 99;
+    background: rgba(0, 0, 0, 0.3)
+}
+
+#bg-cover span {
+    font-weight: bold;
+    color: #fff;
+    margin-left: 45px;
+}
+
+.ssi-imgToUploadTable {
+    position: relative;
+}
+
+#safe-cover {
+    position: absolute;
+    left: 0;
+    top: 0;
+    border: 4px solid #2bb50c;
+    width: 150px;
+    height: 100%;
+    z-index: 99;
+    background: rgba(0, 0, 0, 0.1)
+}
+
+#unsafe-cover {
+    position: absolute;
+    left: 0;
+    top: 0;
+    border: 4px solid #D9534F;
+    width: 150px;
+    height: 100%;
+    z-index: 99;
+    background: rgba(0, 0, 0, 0.1)
+}
+
+.safe_icon {
+    z-index: 100;
+    background: url('../../img/upload/yes.png') no-repeat center;
+    background-size: cover;
+    width: 20px;
+    height: 20px;
+    float: right;
+}
+
+.unsafe_icon {
+    z-index: 100;
+    background: url('../../img/upload/no.png') no-repeat center;
+    background-size: cover;
+    width: 20px;
+    height: 20px;
+    float: right;
+}
+
+#safe-cover span {
+    font-weight: bold;
+    color: #2bb50c;
+    margin-left: 29px;
+    display: block;
+    margin-top: 85px;
+    font-size: 22px;
+}
+
+#unsafe-cover span {
+    font-weight: bold;
+    color: #D9534F;
+    margin-left: 17px;
+    display: block;
+    margin-top: 85px;
+    font-size: 22px;
+}

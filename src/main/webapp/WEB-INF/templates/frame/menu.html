@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+    <meta charset="utf-8" />
+    
+    <head th:include="frame/common :: header"></head>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/view/menu.css}" />
+    <link type="text/css" rel="stylesheet" th:href="@{/css/view/layout.css}" />
+    <script type="text/javascript" th:src="@{/js/master/menu.js}" ></script>
+</head>
+
+<!-- <header>
+    <div class="head" th:if="${session.cas_enable} == false ">
+        <div class="container">
+	        <div class="logoWrap">
+	            <a th:href="@{/login}">首页</a>
+	        </div>
+	        
+	        <div class="tenantWrap ">
+	            <a th:href="@{/loginout/{id}(id=${session.cur_user.id})}">退出登录</a>
+	        </div>
+	    </div>
+	</div>
+</header> -->
+
+<body>
+    <div ><nav class="navbar-default  navbar-fixed-top" role="navigation" id="nav-side">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="side-menu">
+                <li id="menu_data">
+                    <a href="#" class="first-a"> <i class="fa-nav fa-nav-service"></i> 
+                        <span class="nav-label">数据交互</span>
+                    </a>
+                    <ul class="nav nav-second-level" id="detail-menu">
+                        <li id="li_service"><a class="J_menuItem" th:href="@{/display/manage}" th:if="${session.cur_user.userAutority} == 1">
+                            <i class="fa fa_circle"></i><span style="margin-left:5px">数据管理</span></a>
+                        </li>
+                        <li id="li_storage"><a class="J_menuItem" th:href="@{/display/tenant}" th:if="${session.cur_user.userAutority} == 0">
+                            <i class="fa fa_circle"></i><span style="margin-left:5px">数据展示</span></a>
+                        </li>
+                    </ul>
+                </li>
+                
+                <li id="menu_tool">
+                    <a href="#" class="first-a"> <i class="fa-nav fa-nav-service"></i> 
+                        <span class="nav-label">工具仓库</span>
+                    </a>
+                    <ul class="nav nav-second-level" id="detail-menu">
+                        <li id="li_service"><a class="J_menuItem" th:href="@{/tool/toolrepo}" th:if="${session.cur_user.userAutority} == 1">
+                            <i class="fa fa_circle"></i><span style="margin-left:5px">工具管理</span></a>
+                        </li>
+                        <li id="li_storage"><a class="J_menuItem" th:href="@{/tool/toolrecord}" th:if="${session.cur_user.userAutority} == 1">
+                            <i class="fa fa_circle"></i><span style="margin-left:5px">工具详情</span></a>
+                        </li>
+                        <li id="li_storage"><a class="J_menuItem" th:href="@{/tool/inter}" th:if="${session.cur_user.userAutority} == 0">
+                            <i class="fa fa_circle"></i><span style="margin-left:5px">工具展示</span></a>
+                        </li>
+                    </ul>
+                </li>
+                
+                <li id="menu_log"><a href="#" class="first-a"> 
+                    <i class="fa-nav fa-nav-ci fa-nav-storage"></i>
+                    <span class="nav-label">日志管理</span> 
+                </a>
+                    <ul class="nav nav-second-level">
+                       <li id="li_ci"><a class="J_menuItem" th:href="@{/tool/tooloperateLog}"><i class="fa fa_circle"></i>日志展示</a></li>
+                        <!--  <li id="li_shera"><a class="J_menuItem" href="#"><i class="fa fa_circle"></i>日志管理</a></li>
+                        <li id="li_sonar"><a class="J_menuItem" href="#"><i class="fa fa_circle"></i>Sonar管理</a></li> -->
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+ </div>
+</body>
+
+<script th:inline="javascript">
+
+    $(function(){
+
+        var menu_flag = [[${menu_flag}]];
+        var li_flag = [[${li_flag}]];
+        $("#menu_"+menu_flag).addClass("active");
+        $("#li_"+li_flag).addClass("li-active");
+        $("#menu_"+menu_flag).find('ul').addClass("in");
+        $("#menu_"+menu_flag).find('ul').attr("aria-expanded","ture");
+        
+    });
+    
+</script>
+
+</html>
