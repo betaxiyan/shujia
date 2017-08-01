@@ -15,15 +15,18 @@
 
 <body>
     <div class="view_contianer">
-        <div class="view_header">
+       <!--  <div class="view_header">
             <h3>文件统计</h3>
             <span>统计文件和文件夹个数生成Excel</span>
-        </div>
+        </div> -->
         <div class="view_tab">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist" id="view_tabs">
                 <li role="presentation" class="active"><a href="#view" aria-controls="view" role="tab" data-toggle="tab" id="total-view">文件统计</a></li>
-                <li role="presentation"><a href="#details" aria-controls="details" role="tab" data-toggle="tab" id="detail-view">租户管理</a></li>
+                <li role="presentation"><a href="#details_one" aria-controls="details_one" role="tab" data-toggle="tab" id="detail-one">已划配</a></li>
+                <li role="presentation"><a href="#details_two" aria-controls="details_two" role="tab" data-toggle="tab" id="detail-two">租户计费</a></li>
+                <li role="presentation"><a href="#details_three" aria-controls="details_three" role="tab" data-toggle="tab" id="detail-three">已退租</a></li>
+                <li role="presentation"><a href="#details_tenant" aria-controls="details_tenant" role="tab" data-toggle="tab" id="details_tenant">租户信息</a></li>
             </ul>
             <!-- Tab panes -->
             <div class="tab-content">
@@ -54,7 +57,7 @@
                         </div>
                     </div>
                 </div>
-                <div role="tabpanel" class="tab-pane" id="details">
+                <div role="tabpanel" class="tab-pane" id="details_one">
                     <div class="view_body">
                         <div class="view_search">
                             <span>租户名称</span><input type="text" name="detail_username" value="" />
@@ -113,39 +116,205 @@
                                             <td> 4</td>
                                             <td>X</td>
                                         </tr>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="details_two">
+                    <div class="view_body">
+                        <div class="view_search">
+                            <span>租户名称</span><input type="text" name="detail_username" value="" />
+                            <span style="margin-left: 20px">文件名称</span><input type="text" name="filename" value="" />
+                            <span style="margin-left: 20px">文件格式</span><input type="text" name="fileType" value="" />
+                            <button type="button" class="btn btn-danger">搜索</button>
+                            <a href="#" class="export">导出</a>
+                        </div>
+                        <div class="box">
+                            <div class="box-body table-responsive">
+                                <table id="detail_table" class="table table-bordered">
+                                    <thead>
+                                        <tr style="text-align: center">
+                                            <th width="5%">序号</th>
+                                            <th width="10%">租户名称</th>
+                                            <th width="20%">文件名称</th>
+                                            <th width="15%">文件大小</th>
+                                            <th width="10%">文件格式</th>
+                                            <th width="10%">储存目录</th>
+                                            <th width="10%">上传时间</th>
+                                            <th width="10%">上传状态</th>
+                                            <th width="10%">失败原因</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
                                         <tr>
-                                            <td>4</td>
+                                            <td>1</td>
+                                            <td>srident</td>
+                                            <td>Internet Explorer 4.0</td>
+                                            <td>Win 94+</td>
+                                            <td> 4</td>
+                                            <td>X</td>
+                                            <td>Win 94+</td>
+                                            <td> 4</td>
+                                            <td>X</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Trident</td>
+                                            <td>Internet Explorer 5.0</td>
+                                            <td>Win 95+</td>
+                                            <td>5</td>
+                                            <td>C</td>
+                                            <td>Win 94+</td>
+                                            <td> 4</td>
+                                            <td>X</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
                                             <td>Tasman</td>
-                                            <td>Internet Explorer 5.2</td>
-                                            <td>Mac OS 8-X</td>
+                                            <td>Internet Explorer 5.1</td>
+                                            <td>Mac OS 7.6-9</td>
                                             <td>1</td>
                                             <td>C</td>
                                             <td>Win 94+</td>
                                             <td> 4</td>
                                             <td>X</td>
                                         </tr>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="details_three">
+                    <div class="view_body">
+                        <div class="view_search">
+                            <span>租户名称</span><input type="text" name="detail_username" value="" />
+                            <span style="margin-left: 20px">文件名称</span><input type="text" name="filename" value="" />
+                            <span style="margin-left: 20px">文件格式</span><input type="text" name="fileType" value="" />
+                            <button type="button" class="btn btn-danger">搜索</button>
+                            <a href="#" class="export">导出</a>
+                        </div>
+                        <div class="box">
+                            <div class="box-body table-responsive">
+                                <table id="detail_table" class="table table-bordered">
+                                    <thead>
+                                        <tr style="text-align: center">
+                                            <th width="5%">序号</th>
+                                            <th width="10%">租户名称</th>
+                                            <th width="20%">文件名称</th>
+                                            <th width="15%">文件大小</th>
+                                            <th width="10%">文件格式</th>
+                                            <th width="10%">储存目录</th>
+                                            <th width="10%">上传时间</th>
+                                            <th width="10%">上传状态</th>
+                                            <th width="10%">失败原因</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
                                         <tr>
+                                            <td>1</td>
+                                            <td>srident</td>
+                                            <td>Internet Explorer 4.0</td>
+                                            <td>Win 94+</td>
+                                            <td> 4</td>
+                                            <td>X</td>
+                                            <td>Win 94+</td>
+                                            <td> 4</td>
+                                            <td>X</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Trident</td>
+                                            <td>Internet Explorer 5.0</td>
+                                            <td>Win 95+</td>
                                             <td>5</td>
-                                            <td>Misc</td>
-                                            <td>NetFront 3.1</td>
-                                            <td>Embedded devices</td>
-                                            <td>-</td>
                                             <td>C</td>
                                             <td>Win 94+</td>
                                             <td> 4</td>
                                             <td>X</td>
                                         </tr>
                                         <tr>
-                                            <td>6</td>
-                                            <td>Misc</td>
-                                            <td>NetFront 3.4</td>
-                                            <td>Embedded devices</td>
-                                            <td>-</td>
-                                            <td>A</td>
+                                            <td>3</td>
+                                            <td>Tasman</td>
+                                            <td>Internet Explorer 5.1</td>
+                                            <td>Mac OS 7.6-9</td>
+                                            <td>1</td>
+                                            <td>C</td>
                                             <td>Win 94+</td>
                                             <td> 4</td>
                                             <td>X</td>
                                         </tr>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="details_tenant">
+                    <div class="view_body">
+                        <div class="view_search">
+                            <span>租户名称</span><input type="text" name="detail_username" value="" />
+                            <span style="margin-left: 20px">文件名称</span><input type="text" name="filename" value="" />
+                            <span style="margin-left: 20px">文件格式</span><input type="text" name="fileType" value="" />
+                            <button type="button" class="btn btn-danger">搜索</button>
+                            <a href="#" class="export">导出</a>
+                        </div>
+                        <div class="box">
+                            <div class="box-body table-responsive">
+                                <table id="detail_tenant" class="table table-bordered">
+                                    <thead>
+                                        <tr style="text-align: center">
+                                            <th width="5%">序号</th>
+                                            <th width="10%">租户名称</th>
+                                            <th width="20%">文件名称</th>
+                                            <th width="15%">文件大小</th>
+                                            <th width="10%">文件格式</th>
+                                            <th width="10%">储存目录</th>
+                                            <th width="10%">上传时间</th>
+                                            <th width="10%">上传状态</th>
+                                            <th width="10%">失败原因</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>srident</td>
+                                            <td>Internet Explorer 4.0</td>
+                                            <td>Win 94+</td>
+                                            <td> 4</td>
+                                            <td>X</td>
+                                            <td>Win 94+</td>
+                                            <td> 4</td>
+                                            <td>X</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Trident</td>
+                                            <td>Internet Explorer 5.0</td>
+                                            <td>Win 95+</td>
+                                            <td>5</td>
+                                            <td>C</td>
+                                            <td>Win 94+</td>
+                                            <td> 4</td>
+                                            <td>X</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Tasman</td>
+                                            <td>Internet Explorer 5.1</td>
+                                            <td>Mac OS 7.6-9</td>
+                                            <td>1</td>
+                                            <td>C</td>
+                                            <td>Win 94+</td>
+                                            <td> 4</td>
+                                            <td>X</td>
+                                        </tr>
+                                        
                                     </tbody>
                                 </table>
                             </div>
