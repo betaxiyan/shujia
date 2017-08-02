@@ -15,7 +15,7 @@ import javax.persistence.Id;
 
 /**
  * 
- * 
+ * 资源和账号数据实体类
  * @author yuanpeng
  * @version 2017年7月31日
  * @see ResourceAccountMidEntity
