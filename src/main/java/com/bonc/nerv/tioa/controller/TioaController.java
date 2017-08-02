@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.bonc.nerv.tioa.service.ExternalRestService;
+import com.bonc.nerv.tioa.service.TioaService;
 
 
 /**
@@ -24,6 +25,9 @@ public class TioaController {
      */
     @Autowired
     private ExternalRestService externalRestService;
+    
+    @Autowired
+    private TioaService tioaService;
     
     /**
      * 
@@ -59,5 +63,12 @@ public class TioaController {
     @ResponseBody
     public void accFcountToDb(@RequestParam("sysDate") String sysDate) {
         externalRestService.accFcountToDb(sysDate);
+    }
+    
+    
+    @RequestMapping("/savaToFile")
+    @ResponseBody
+    public void savaToFile(){
+        tioaService.savaToFile();
     }
 }

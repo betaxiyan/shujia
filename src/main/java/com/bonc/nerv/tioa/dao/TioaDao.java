@@ -1,6 +1,11 @@
 package com.bonc.nerv.tioa.dao;
 
+import java.sql.SQLException;
+import java.util.List;
+
 import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Repository;
 
 /**
  * 
@@ -13,5 +18,13 @@ import javax.transaction.Transactional;
  */
 @Transactional
 public interface TioaDao {
-
+    
+    /**
+     * Description: 返回一个集合，供SavaToExeclUtil调用
+     * @return List 集合
+     * @throws SQLException 
+     * @throws ClassNotFoundException 
+     * @see 
+     */
+    List<List<Object>> getAllTioa() throws ClassNotFoundException, SQLException;
 }

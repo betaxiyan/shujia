@@ -1,0 +1,52 @@
+body {
+    background-size: cover;
+    font-family: 'Open Sans', sans-serif;
+    background-attachment: fixed;
+    background-position: center;
+}
+h1,h2,h3,h4,h5,h6{
+    font-family: 'Montserrat', sans-serif;
+    
+}
+
+li{
+	list-style:none;
+}
+
+#tenretired_table{
+	margin-top:20px;
+	border:#CCCCCC solid 1px;
+}
+
+#tenretired_table th{
+	border:#CCCCCC solid 1px ;
+}
+
+#tenretired_table tr td{
+     border:#CCCCCC solid 1px ;
+}
+
+.row{
+	margin-top:20px;
+	margin-bottom:30px;
+}
+
+label{
+  margin-left:20px;
+  margin-top:10px;	
+}
+
+ /* #displayPart{
+	overflow:hidden;
+	text-overflow:ellipsis;
+	display: -webkit-box; 
+	-webkit-line-clamp:5;
+	-webkit-box-orient:vertical;
+	position:relative;
+} 
+ */
+ 
+ .ten-toggle{
+   color:black;
+   width:30px;
+ }
