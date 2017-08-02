@@ -39,5 +39,9 @@ public class ExternalRestServiceImpl implements ExternalRestService {
         params.put("name", value);
         WebClientUtil.doGet("http://www.***.com", params);
     }
+    
+    
+    
+   
 
 }
