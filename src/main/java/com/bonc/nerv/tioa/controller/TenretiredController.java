@@ -8,31 +8,37 @@
 
 package com.bonc.nerv.tioa.controller;
 
+import com.bonc.nerv.tioa.entity.SearchTenretiredData;
+import com.bonc.nerv.tioa.entity.TenretiredEntity;
+import com.bonc.nerv.tioa.service.TenretiredService;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bonc.nerv.tioa.entity.SearchTenretiredData;
-import com.bonc.nerv.tioa.entity.TenretiredEntity;
-import com.bonc.nerv.tioa.service.TenretiredService;
-
-
+/**
+ * 
+ * 已退租户Controller
+ * @author ymm
+ * @version 2017年8月2日
+ * @see TenretiredController
+ * @since
+ */
 @Controller
 public class TenretiredController {
     
+    /**
+     * 引入service层
+     */
     @Autowired
-    TenretiredService tenretiredService;
+    private TenretiredService tenretiredService;
     
     /**
      * Description: 退租用户信息列表
-     * @return 
+     * @return 租户信息列表页面
      * @see
      */
     @RequestMapping(value={"/tenant"},method=RequestMethod.GET)
@@ -42,11 +48,11 @@ public class TenretiredController {
     
     /**
      * Description: 退租用户信息列表
-     * @param searchData
+     * @param searchData 查询对像
      * @param start
      * @param length
      * @param draw
-     * @return 
+     * @return 查询列表
      * @see
      */
     @RequestMapping(value={"/tenant/findTenretiredList"})
@@ -57,8 +63,8 @@ public class TenretiredController {
     
     /**
      * Description: 新增退租用户记录
-     * @param tenretiredEntity
-     * @return 
+     * @param tenretiredEntity 租户实体对象
+     * @return 保存方法
      * @see
      */
     @RequestMapping(value={"/tenant/saveTenretired"})
@@ -68,32 +74,59 @@ public class TenretiredController {
     }
     
     /**
-     * 根据分类id验证是否可以删除
-     * @param cataId 分类id
+     * 
+     * 编辑时根据id回显对象信息
+     * @param tlId 表id
+     * @return 查询对象
+     * @see
+     */
+    @RequestMapping(value = {"/tenant/tenretired/edit"}, method = RequestMethod.GET)
+    @ResponseBody
+    public TenretiredEntity findOne(long tlId) {
+        TenretiredEntity tenretiredEntity= tenretiredService.findOne(tlId);
+        return tenretiredEntity;
+    }
+
+    /**
+    * 
+    * 更新已退租户
+    * @param tenretiredEntity 已退租户对象
+    * @return 更新状态
+    * @see
+    */
+    @RequestMapping(value = {"/tenant/tenretired/update"}, method = RequestMethod.GET)
+    @ResponseBody
+    public String update(TenretiredEntity tenretiredEntity) {
+        return tenretiredService.update(tenretiredEntity);
+    }
+    
+    /**
+     * 根据id验证是否可以删除
+     * @param tlId 
      * @return boolean
      * @see
      */
-    @RequestMapping(value = {"tenant/retired/validateByTlId"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/tenant/retired/validateByTlId"}, method = RequestMethod.GET)
     @ResponseBody
-    public boolean validateByUserId(String tlId) {
+    public boolean validateByUserId(Long tlId) {
         return tenretiredService.validateByTlId(tlId);
     }
     
     /**
-     * 删除类型
-     * @param userId 类型id
+     * 删除已退租户记录
+     * @param tlId 
      * @return 重定向到列表页
      * @see
      */
-    @RequestMapping(value = {"tenant/tenretired/delete"}, method = RequestMethod.GET)
-    public String delete(String tlId) {
-        tenretiredService.delete(Long.parseLong(tlId));
+    @RequestMapping(value = {"/tenant/tenretired/delete"}, method = RequestMethod.GET)
+    public String delete(long tlId) {
+        tenretiredService.delete(tlId);
         return "redirect:/tenant";
     }
+     
     /**
      * 导出已退租户记录
-     * @param searchData
-     * @param request
+     * @param searchData 查询条件实体类
      * @param response 
      * @see
      */

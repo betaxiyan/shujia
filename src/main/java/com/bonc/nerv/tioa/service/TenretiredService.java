@@ -9,9 +9,7 @@
 package com.bonc.nerv.tioa.service;
 
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,19 +36,30 @@ import com.bonc.nerv.tioa.entity.TenretiredEntity;
 import com.bonc.nerv.tioa.util.ExcelUtil_Extend;
 import com.bonc.nerv.tioa.util.ResultPager;
 
+/**
+ * 
+ * 已退租户情况service层
+ * @author ymm
+ * @version 2017年8月2日
+ * @see TenretiredService
+ * @since
+ */
 @Service
 public class TenretiredService {
    
+    /**
+     * 引入dao层
+     */
     @Autowired
-    TenretiredDao  tenretiredDao;
+    private TenretiredDao  tenretiredDao;
     
     /**
      * Description:添加分页的查询
-     * @param searchData
+     * @param searchData 查询条件对象
      * @param start
      * @param length
      * @param draw
-     * @return 
+     * @return  查询结果
      * @see
      */
     public  String findTenretiredList(SearchTenretiredData searchData, Integer start, Integer length, String draw){
@@ -76,37 +85,38 @@ public class TenretiredService {
     
      /**
       * Description: 多条件查询方法
-      * @param bean
-      * @return 
+      * @param bean  查询条件对象
+      * @return 返回查询条件
       * @see
       */
-     private Specification<TenretiredEntity> tenretiredSearch(SearchTenretiredData bean) {
+    private Specification<TenretiredEntity> tenretiredSearch(SearchTenretiredData bean) {
   
-     //封装查询参数
-      Specification<TenretiredEntity> querySpecifi=new Specification<TenretiredEntity>(){
+        //封装查询参数
+        Specification<TenretiredEntity> querySpecifi=new Specification<TenretiredEntity>(){
       
       //内部类
-      @Override
-      public Predicate toPredicate(Root<TenretiredEntity> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-          List<Predicate> predicates = new ArrayList<Predicate>();
+            @Override
+            public Predicate toPredicate(Root<TenretiredEntity> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                List<Predicate> predicates = new ArrayList<Predicate>();
 
-          if (StringUtils.isNotBlank(bean.getTenantName())) {
-              predicates.add(cb.like(root.<String> get("tenantName"), "%" + bean.getTenantName() + "%"));
-          }
+                if (StringUtils.isNotBlank(bean.getTenantName())) {
+                    predicates.add(cb.like(root.<String> get("tenantName"), "%" + bean.getTenantName() + "%"));
+                }
 
-          if (StringUtils.isNotBlank(bean.getTenantInterface())) {
-              predicates.add(cb.like(root.<String> get("tenantInterface"), "%" + bean.getTenantInterface() + "%"));
-          }
+                if (StringUtils.isNotBlank(bean.getTenantInterface())) {
+                    predicates.add(cb.like(root.<String> get("tenantInterface"), "%" + bean.getTenantInterface() + "%"));
+                }
 
-          return cb.and(predicates.toArray(new Predicate[predicates.size()]));
-       }
-    };
-     return querySpecifi;
- }
+                return cb.and(predicates.toArray(new Predicate[predicates.size()]));
+            }
+        };
+        return querySpecifi;
+    }
     
      
     /**
      * 根据条件导出用户记录信息
+     * @param searchData 查询实体对象
      * @return 集合
      * @see
      */
@@ -119,8 +129,8 @@ public class TenretiredService {
     /**
      * 
      * Description: 保存新增退租用户
-     * @param tenretiredEntity
-     * @return 
+     * @param tenretiredEntity  已退租户实体类
+     * @return 返回添加结果
      * @see
      */
     public String save(TenretiredEntity tenretiredEntity){
@@ -128,8 +138,52 @@ public class TenretiredService {
         try {
             tenretiredDao.save(tenretiredEntity);
             map.put("status", "200");
+        }catch (Exception e) {
+            e.printStackTrace();
+            map.put("status", "400");
         }
-        catch (Exception e) {
+       
+        return JSON.toJSONString(map);
+    }
+    
+    
+    /**
+     * 
+     * Description: 保存新增退租用户
+     * @param tenretiredEntity 已退租户实体类
+     * @return 返回更新结果
+     * @see
+     */
+    public String update(TenretiredEntity tenretiredEntity){
+        Map<String,Object> map=new HashMap<String,Object>();
+        try {
+            TenretiredEntity tens=tenretiredDao.findOne(tenretiredEntity.getTlId());
+            tens.setServiceType(tenretiredEntity.getServiceType());
+            tens.setTenantName(tenretiredEntity.getTenantName());
+            tens.setTenantLevel(tenretiredEntity.getTenantLevel());
+            tens.setTenantBoss(tenretiredEntity.getTenantBoss());
+            tens.setTenantTel(tenretiredEntity.getTenantTel());
+            tens.setResourceType(tenretiredEntity.getResourceType());
+            tens.setAskIp(tenretiredEntity.getAskIp());
+            tens.setHostNum(tenretiredEntity.getHostNum());
+            tens.setStorage(tenretiredEntity.getStorage());
+            tens.setStorageUnit(tenretiredEntity.getStorageUnit());
+            tens.setComputingResourceRate(tenretiredEntity.getComputingResourceRate());
+            tens.setComputeRoom(tenretiredEntity.getComputeRoom());
+            tens.setUniplatformNum(tenretiredEntity.getUniplatformNum());
+            tens.setNumOf4a(tenretiredEntity.getNumOf4a());
+            tens.setDemand(tenretiredEntity.getDemand());
+            tens.setServiceName(tenretiredEntity.getServiceName());
+            tens.setSequenceName(tenretiredEntity.getSequenceName());
+            tens.setAskDate(tenretiredEntity.getAskDate());
+            tens.setOpenDate(tenretiredEntity.getOpenDate());
+            tens.setChangeDate(tenretiredEntity.getChangeDate());
+            tens.setEndRentDate(tenretiredEntity.getEndRentDate());
+            tens.setTenantInterface(tenretiredEntity.getTenantInterface());
+            tens.setRemark(tenretiredEntity.getRemark());
+            tenretiredDao.save(tens);
+            map.put("status", "200");
+        }catch (Exception e) {
             e.printStackTrace();
             map.put("status", "400");
         }
@@ -138,29 +192,49 @@ public class TenretiredService {
     }
     
     /**
+     * 
+     * 根据id删除数据
+     * @param tlId 表id
+     * @return 返回验证结果
+     * @see
+     */
+    public boolean validateByTlId(long  tlId) {
+        int num = tenretiredDao.findByTlId(tlId);
+        return num == 0 ? false : true;
+    }
+
+    /**
+     * Description: 根据tlId得到一条记录
+     * @param tlId  表id
+     * @return  实体信息
+     * @see
+     */
+    public TenretiredEntity findOne(long tlId) {
+        return tenretiredDao.findOne(tlId);
+    }
+    
+    /**
      * 删除一条已退租户记录
      * @param tlId 
      * @see
      */
-    public void delete(Long tlId) {
+    public void delete(long tlId) {
         TenretiredEntity tenretiredEntity = tenretiredDao.findOne(tlId);
         tenretiredDao.delete(tenretiredEntity );
     }
     
     /**
-     * 
-     * 导出Excel表
-     * @param askDate 
-     * @param searchData 搜索条件
-     * @return 符合条件的集合
+     * 导出Excel方法
+     * @param list 返回集合
+     * @param response  
      * @see
      */
     public void getExcel(List<TenretiredEntity> list,HttpServletResponse response){
         try {
-           String[] headers={"序号","服务类型","租户","租户级别","租户负责人","联系电话","资源类型","访问IP","主机数量","存储使用量","存储使用量单位","计算资源","机房","统一平台数量","4A数量","需求","服务名","队列名","申请日期","开放日期","变更时间","退租时间","平台接口人","备注"};
-           List<String[]> dataset=getTenList(list);
-           ExcelUtil_Extend.exportExelMerge("测试.xls", headers, dataset, true, response, new Integer[] {1,2,3,4,5,13,14,15,22}, new Integer[] {1,2,3,4,5,13,14,15,22}, new Integer[] {2,3}, new Integer[]{4});
-         System.out.println("excel导出成功！");  
+            String[] headers={"序号","服务类型","租户","租户级别","租户负责人","联系电话","资源类型","访问IP","主机数量","存储使用量","存储使用量单位","计算资源","机房","统一平台数量","4A数量","需求","服务名","队列名","申请日期","开放日期","变更时间","退租时间","平台接口人","备注"};
+            List<String[]> dataset=getTenList(list);
+            ExcelUtil_Extend.exportExelMerge("能力开放平台已退租户情况.xls", headers, dataset, true, response, 
+                                         new Integer[] {1,2,3,4,5,13,14,15,22}, new Integer[] {1,2,3,4,5,13,14,15,22}, new Integer[] {2,3}, new Integer[]{4});
         } catch (FileNotFoundException e) {  
             e.printStackTrace();  
         } catch (IOException e) {  
@@ -266,6 +340,8 @@ public class TenretiredService {
                 case 17:
                     resourceType= "应用服务器";
                     break;
+                default:
+                    break;
             }
             String[] service={Integer.toString(i+1),serviceType,tenantName,tenantLevel,tenantBoss,
                               tenantTel,resourceType,askIp,hostNum,storage,storageUnit,computingResourceRate,
@@ -276,17 +352,6 @@ public class TenretiredService {
          return dataset;
     }
     
-    /**
-     * 
-     * 根据id删除数据
-     * @param tlId
-     * @return 
-     * @see
-     */
-    public boolean validateByTlId(String  tlId) {
-        int num = tenretiredDao.findByTlId(Long.parseLong(tlId));
-        return num == 0 ? false : true;
-    }
     
  }
     
