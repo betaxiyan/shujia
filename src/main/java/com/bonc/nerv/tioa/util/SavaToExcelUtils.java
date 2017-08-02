@@ -118,6 +118,7 @@ public class SavaToExcelUtils {
      * @throws ParseException   Parse异常
      * @throws IOException  Report异常
      */
+    @SuppressWarnings("finally")
     private static File exportExcel(File file, String sheetName, List<String> columnNames,
                                     List<String> sheetTitle, List<List<Object>> objects) throws  IOException, ParseException {
         // 声明一个工作薄
@@ -195,40 +196,52 @@ public class SavaToExcelUtils {
         }
         // 遍历集合数据,产生数据行,前两行为标题行与表头行
         for (List<Object> dataRow : objects) {
-            row = sheet.createRow(lastRowIndex);
-            lastRowIndex++;
+            try{
+                row = sheet.createRow(lastRowIndex);
+                lastRowIndex++;
             
-            String type = (String)dataRow.get(2);
-            if (!type.equals("近期租户")) {
-                //该行隐藏
-                row.setZeroHeight(true);
-            }
-            Date d1 = (Date)dataRow.get(12);//拿到第十三行的到期日期 
-            Boolean flag = false;
-            if (daysBetween(new Date(),d1)<3) {//如果日期小于三天
-                //该行黄色
-                flag = true;
-            }
-            
-            for (int j = 0; j < dataRow.size(); j++) {
-                Cell contentCell = row.createCell(j);
-                Object dataObject = dataRow.get(j);
-                if (flag) {
-                    contentCell.setCellStyle(yellowStyle);//黄色
-                }else {
-                    contentCell.setCellStyle(contentStyle);//常规类型
+                String type = (String)dataRow.get(2);
+                if (!type.equals("10")) {
+                    //该行隐藏
+                    row.setZeroHeight(true);
                 }
-                
-                if (dataObject != null) {//不为空
-                    if (dataObject instanceof Date) {//日期类型
-                        contentCell.setCellValue(getCnDate((Date)dataObject));
-                    }else {//非日期类型
-                        contentCell.setCellValue(dataObject.toString());
+                Boolean flag = false;//是否为黄色标记
+                String format = "yyyyMMdd";
+                SimpleDateFormat sdf = new SimpleDateFormat(format);
+                String enddata = (String) dataRow.get(12);//拿到第十三行的到期日期 
+                if (enddata.length()>=8) {
+                    enddata=enddata.substring(0,8);
+                    Date d1 = sdf.parse(enddata);
+                    if (daysBetween(new Date(),d1)<3 && daysBetween(new Date(),d1)>=0) {//如果日期小于三天
+                        //该行黄色
+                        flag = true;
                     }
-                }else {//如果数据为空, 设置单元格内容为字符型
-                    contentCell.setCellValue("");
-                }   
-            }   
+                }
+            
+                for (int j = 0; j < dataRow.size(); j++) {
+                    Cell contentCell = row.createCell(j);
+                    Object dataObject = dataRow.get(j);
+                    if (flag) {
+                        contentCell.setCellStyle(yellowStyle);//黄色
+                    }else {
+                        contentCell.setCellStyle(contentStyle);//常规类型
+                    }
+                
+                    if (dataObject != null) {//不为空
+                        if (dataObject instanceof Date) {//日期类型
+                            contentCell.setCellValue(getCnDate((Date)dataObject));
+                        }else {//非日期类型
+                            contentCell.setCellValue(dataObject.toString());
+                        }
+                    }else {//如果数据为空, 设置单元格内容为字符型
+                        contentCell.setCellValue("");
+                    }   
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally {
+                continue;
+            }
                 
         }
         //调整列宽

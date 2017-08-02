@@ -16,4 +16,5 @@ import com.bonc.nerv.tioa.entity.TioaTenantChargingShow;
 
 public interface TioaTenantChargingShowDao extends CrudRepository<TioaTenantChargingShow, Long>{
    
+   
 }
