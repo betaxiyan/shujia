@@ -5,7 +5,7 @@ $(document).ready(function(){
             $(this).tab('show')
         });
 
-   $('#detail_table').dataTable({
+   $('#view_table').dataTable({
         "language": {
             "paginate": {
                 "previous": "首页",
@@ -84,7 +84,7 @@ function showFileCountTable(sessionKey){
     		}
     		$('#user_table_tbody').empty().append(str);
     		
-    		table = $('#user_table').dataTable({
+    		table = $('#view_table').dataTable({
     			
     	        "language": {
     	            "paginate": {
@@ -122,7 +122,7 @@ function removeOneFileCount(obj){
 		success : function (data){
 			data = eval('('+data+')');
 			if(data.success){
-				$('#user_table').DataTable().row('.selected').remove().draw(false);
+				$('#view_table').DataTable().row('.selected').remove().draw(false);
 			}
 		}
 	});

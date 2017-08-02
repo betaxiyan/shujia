@@ -26,7 +26,7 @@
                 <li role="presentation"><a href="#details_one" aria-controls="details_one" role="tab" data-toggle="tab" id="detail-one">已划配</a></li>
                 <li role="presentation"><a href="#details_two" aria-controls="details_two" role="tab" data-toggle="tab" id="detail-two">租户计费</a></li>
                 <li role="presentation"><a href="#details_three" aria-controls="details_three" role="tab" data-toggle="tab" id="detail-three">已退租</a></li>
-                <li role="presentation"><a href="#details_tenant" aria-controls="details_tenant" role="tab" data-toggle="tab" id="details_tenant">租户信息</a></li>
+                <li role="presentation"><a href="#details_tenant" aria-controls="details_tenant" role="tab" data-toggle="tab" id="detail-tenant">租户信息</a></li>
             </ul>
             <!-- Tab panes -->
             <div class="tab-content">
@@ -39,7 +39,7 @@
                         </div>
                         <div class="box">
                             <div class="box-body table-responsive">
-                                <table id="user_table" class="table table-bordered">
+                                <table id="view_table" class="table table-bordered">
                                     <thead>
                                         <tr style="text-align: center">
                                             <th width="10%">序号</th>
@@ -68,7 +68,7 @@
                         </div>
                         <div class="box">
                             <div class="box-body table-responsive">
-                                <table id="detail_table" class="table table-bordered">
+                                <table id="distribute_table" class="table table-bordered">
                                     <thead>
                                         <tr style="text-align: center">
                                             <th width="5%">序号</th>
@@ -134,7 +134,7 @@
                         </div>
                         <div class="box">
                             <div class="box-body table-responsive">
-                                <table id="detail_table" class="table table-bordered">
+                                <table id="charging_table" class="table table-bordered">
                                     <thead>
                                         <tr style="text-align: center">
                                             <th width="5%">序号</th>
@@ -200,7 +200,7 @@
                         </div>
                         <div class="box">
                             <div class="box-body table-responsive">
-                                <table id="detail_table" class="table table-bordered">
+                                <table id="leave_table" class="table table-bordered">
                                     <thead>
                                         <tr style="text-align: center">
                                             <th width="5%">序号</th>
@@ -328,8 +328,12 @@
     <script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/plugins/jquery.dataTables.js}"></script>
     <script type="text/javascript" th:src="@{/js/plugins/dataTables.bootstrap.js}"></script>
-    <script type="text/javascript" th:src="@{/js/master/filecount_v1.js}"></script>
-    <script>
+    <script type="text/javascript" th:src="@{/js/view/total_view.js}"></script>
+    <script type="text/javascript" th:src="@{/js/view/charging_view.js}"></script>
+    <script type="text/javascript" th:src="@{/js/view/distribute_view.js}"></script>
+    <script type="text/javascript" th:src="@{/js/view/leave_view.js}"></script>
+    <script type="text/javascript" th:src="@{/js/view/tenant_info.js}"></script>
+    <!-- <script>
         $('#view_tabs #total-view').click(function(e) {
             e.preventDefault()
             $.ajax({
@@ -355,7 +359,7 @@
             })
             $(this).tab('show')
         })
-    </script>
+    </script> -->
 </body>
 
 </html>
