@@ -1,5 +1,7 @@
 package com.bonc.nerv.tioa.dao;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 /**
@@ -13,5 +15,11 @@ import javax.transaction.Transactional;
  */
 @Transactional
 public interface TioaDao {
-
+    
+    /**
+     * Description: 返回一个集合，供SavaToExeclUtil调用
+     * @return List 集合
+     * @see 
+     */
+    List<List<Object>> getAllTioa();
 }
