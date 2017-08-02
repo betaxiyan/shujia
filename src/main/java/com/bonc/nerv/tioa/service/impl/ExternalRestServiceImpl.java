@@ -36,13 +36,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class ExternalRestServiceImpl implements ExternalRestService {
     
     /**
-     * ResourceAccountMidEntityDao
+     * ResourceAccountMidDao
      */
     @Autowired
     private ResourceAccountMidDao resourceAccountMidDao;
     
     /**
-     * AccountFilecountMidEntityDao
+     * AccountFilecountMidDao
      */
     @Autowired
     private AccountFilecountMidDao accountFilecountMidDao;
