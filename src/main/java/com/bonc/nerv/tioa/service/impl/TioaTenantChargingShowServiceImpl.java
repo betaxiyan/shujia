@@ -171,4 +171,25 @@ public class TioaTenantChargingShowServiceImpl implements TioaTenantChargingShow
         }
     }
     
+    
+    /**
+     * 保存新增数据
+     * @param tioaTenantChargingShow
+     * @return 
+     * @see
+     */
+    public void save(TioaTenantChargingShow tioaTenantChargingShow){
+        tioaTenantChargingShowDao.save(tioaTenantChargingShow);
+    }
+    
+    /**
+     * 根据id删除数据
+     * @param id
+     * @return 
+     * @see
+     */
+    public void deleteById(Long id){
+        tioaTenantChargingShowDao.delete(id);
+    }
+    
 }
