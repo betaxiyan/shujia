@@ -38,7 +38,7 @@ public class TioaController {
      */
     @RequestMapping("/view")
     public String inter(){
-        return "filecount/data_view";
+        return "view/data_view";
     }
     
     /**

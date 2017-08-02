@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+  <body>
+      <div th:fragment="view" role="tabpanel" class="tab-pane active" id="view">
+                    <div class="view_body">
+                        <div class="view_search">
+                            <span style="margin-left: 30px">待处理Excel</span><input type="file" multiple="multiple" name="file" id="file" />
+                            <button type="button" class="btn btn-danger" th:onclick="'submitExcel()'">提交</button>
+                            <a class="export" th:onclick = "'exportExcel()'">导出</a>
+                        </div>
+                        <div class="box">
+                            <div class="box-body table-responsive">
+                                <table id="view_table" class="table table-bordered">
+                                    <thead>
+                                        <tr style="text-align: center">
+                                            <th width="10%">序号</th>
+                                            <th width="20%">租户名称</th>
+                                            <th width="20%">文件个数</th>
+                                            <th width="20%">文件夹个数</th>
+                                            <th width="20%">文件总数</th>
+                                            <th width="10%">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="user_table_tbody">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+  </body>
+</html>
