@@ -30,19 +30,25 @@
             </ul>
             <!-- Tab panes -->
             <div class="tab-content">
-            	<!-- 日报改造  -->
+            	<!-- 日报改造界面  -->
                 <div th:replace="fragment/total_frg :: view"></div> 
-                <!-- 已划配 -->
+                <!-- 已划配 界面-->
                 <div th:replace="fragment/distribute_frg :: distribute"></div> 
-                <!-- 租户计费 -->
+                <!-- 租户计费 界面-->
                 <div th:replace="fragment/charging_frg :: charging"></div> 
-                <!-- 已退租 -->
+                <!-- 已退租 界面-->
                 <div th:replace="fragment/leave_frg :: leave"></div> 
-                <!-- 租户信息 -->
+                <!-- 租户信息 界面 -->
                 <div th:replace="fragment/tenant_frg :: tenant"></div> 
             </div>
         </div>
     </div>
+    
+    <div>
+    
+    	<div th:replace="fragment/total_frg :: view_edit"></div> 
+    </div>
+    
     <script type="text/javascript" th:src="@{/js/jquery/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/plugins/jquery.dataTables.js}"></script>

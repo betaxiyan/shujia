@@ -7,6 +7,7 @@
                         <div class="view_search">
                             <span style="margin-left: 30px">待处理Excel</span><input type="file" multiple="multiple" name="file" id="file" />
                             <button type="button" class="btn btn-danger" th:onclick="'submitExcel()'">提交</button>
+                            <a href="#myModal" class="upload" data-toggle="modal" data-target="#myModal">上传文件</a>
                             <a class="export" th:onclick = "'exportExcel()'">导出</a>
                         </div>
                         <div class="box">
@@ -29,5 +30,39 @@
                         </div>
                     </div>
                 </div>
+                
+                
+                
+ <div th:fragment="view_edit" class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+         <div class="modal-dialog" role="document" style="width: 500px;height: 500px">
+            <div class="modal-content" style="width: 500px;">
+                <div class="modal-header">
+                    <div class="modal-header-top">
+                        <button type="button" class="close" id="closeMyModal"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">上传文件</h4>
+                        <a href="#">新手指导</a>
+                    </div>
+                    <div class="modal-header-bottom">
+                        <span>上传到</span>
+                        <select name="savePath">
+                            <option value="FTP/FTP1">FTP/FTP1</option>
+                            <option value="VM">VM</option>
+                        </select>
+                        <input type="text" placeholder="新建目录"/>
+                        <div class="operateBtn">
+                            <input type="text" name="username" value="" placeholder="用户名" />
+                            <input type="password" name="password" value="" placeholder="密码" />
+                            <button class="btn btn-primary btn-xs connectBtn" style="display:none;">连接</button>
+                        </div>
+                        <div class="resetOper">
+                            <span class="connectSuccess" style="display:none ">连接成功</span>
+                            <span class="connectFail" style="display:none ">连接失败</span>
+                            <button class="btn btn-primary btn-xs resetInfo" style="display:none;margin-left:20px">重置</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
   </body>
 </html>
