@@ -339,6 +339,7 @@ $(document).ready(function() {
       		type : "get",
       		data: {serviceType:serviceType,tenantName:tenantName,tenantLevel:tenantLevel,tenantBoss:tenantBoss,tenantTel:tenantTel,resourceType:resourceType,askIp:askIp,hostNum:hostNum,storage:storage,storageUnit:storageUnit,computingResourceRate:computingResourceRate,computeRoom:computeRoom,uniplatformNum:uniplatformNum,numOf4a:numOf4a,demand:demand,serviceName:serviceName,sequenceName:sequenceName,askDate:askDate,openDate:openDate,changeDate:changeDate,endRentDate:endRentDate,tenantInterface:tenantInterface,remark:remark},
       		success : function(data) {
+      			addClean();
       			data = eval("(" + data + ")");
 	      			if (data.status == "200") {
 	      				clickTable();
@@ -400,6 +401,10 @@ $(document).ready(function() {
     function updateClean(){
     	$('#updateTenModal').modal('hide');
 //    	$('#updateTenForm').bootstrapValidator('resetForm', true);
+    }
+    
+    function addClean(){
+    	$('#addTenModal').modal('hide');
     }
     
     //编辑表单关闭
@@ -471,7 +476,6 @@ $(document).ready(function() {
                    }
            	});
            	$('#alertModal').modal('hide');
-           	
            })
        }
      }
@@ -479,64 +483,62 @@ $(document).ready(function() {
     
     $('#leave_table tbody').unbind('click',TenretiredOperate);
     $('#leave_table tbody').bind('click',TenretiredOperate);
-    
-    function addClean(){
-    	$('#addTenModal').modal('hide');
-    	$("#add-tenantName").val("");
-    	$("#add-tenantLevel").val("");
-    	$("#add-tenantBoss").val("");
-    	$("#add-tenantTel").val("");
-    	$("#add-resourceType").val("");
-    	$("#add-askIp").val("");
-    	$("#add-hostNum").val("");
-    	$("#add-storage").val("");
-    	$("#add-storageUnit").val("");
-    	$("#add-computingResourceRate").val("");
-    	$("#add-computeRoom").val("");
-    	$("#add-uniplatformNum").val("");
-    	$("#add-numOf4a").val("");
-    	$("#add-demand").val("");
-    	$("#add-serviceName").val("");
-    	$("#add-sequenceName").val("");
-    	$("#add-askDate").val("");
-    	$("#add-openDate").val("");
-    	$("#add-changeDate").val("");
-    	$("#add-endRentDate").val("");
-    	$("#add-tenantInterface").val("");
-    	$("#add-remark").val("");
-
-    }
-      
-
-    function updateClean(){
-    	$('#updateTenModal').modal('hide');
-    	$("#update-tenantName").val("");
-    	$("#update-tenantLevel").val("");
-    	$("#update-tenantBoss").val("");
-    	$("#update-tenantTel").val("");
-    	$("#update-resourceType").val("");
-    	$("#update-askIp").val("");
-    	$("#update-hostNum").val("");
-    	$("#update-storage").val("");
-    	$("#update-storageUnit").val("");
-    	$("#update-computingResourceRate").val("");
-    	$("#update-computeRoom").val("");
-    	$("#update-uniplatformNum").val("");
-    	$("#update-numOf4a").val("");
-    	$("#update-demand").val("");
-    	$("#update-serviceName").val("");
-    	$("#update-sequenceName").val("");
-    	$("#update-askDate").val("");
-    	$("#update-openDate").val("");
-    	$("#update-changeDate").val("");
-    	$("#update-endRentDate").val("");
-    	$("#update-tenantInterface").val("");
-    	$("#update-remark").val("");
-
-    }
+   
+//    function addClean(){
+//    	$('#addTenModal').modal('hide');
+//    	$("#add-tenantName").val("");
+//    	$("#add-tenantLevel").val("");
+//    	$("#add-tenantBoss").val("");
+//    	$("#add-tenantTel").val("");
+//    	$("#add-resourceType").val("");
+//    	$("#add-askIp").val("");
+//    	$("#add-hostNum").val("");
+//    	$("#add-storage").val("");
+//    	$("#add-storageUnit").val("");
+//    	$("#add-computingResourceRate").val("");
+//    	$("#add-computeRoom").val("");
+//    	$("#add-uniplatformNum").val("");
+//    	$("#add-numOf4a").val("");
+//    	$("#add-demand").val("");
+//    	$("#add-serviceName").val("");
+//    	$("#add-sequenceName").val("");
+//    	$("#add-askDate").val("");
+//    	$("#add-openDate").val("");
+//    	$("#add-changeDate").val("");
+//    	$("#add-endRentDate").val("");
+//    	$("#add-tenantInterface").val("");
+//    	$("#add-remark").val("");
+//
+//    }
+//
+//    function updateClean(){
+//    	$('#updateTenModal').modal('hide');
+//    	$("#update-tenantName").val("");
+//    	$("#update-tenantLevel").val("");
+//    	$("#update-tenantBoss").val("");
+//    	$("#update-tenantTel").val("");
+//    	$("#update-resourceType").val("");
+//    	$("#update-askIp").val("");
+//    	$("#update-hostNum").val("");
+//    	$("#update-storage").val("");
+//    	$("#update-storageUnit").val("");
+//    	$("#update-computingResourceRate").val("");
+//    	$("#update-computeRoom").val("");
+//    	$("#update-uniplatformNum").val("");
+//    	$("#update-numOf4a").val("");
+//    	$("#update-demand").val("");
+//    	$("#update-serviceName").val("");
+//    	$("#update-sequenceName").val("");
+//    	$("#update-askDate").val("");
+//    	$("#update-openDate").val("");
+//    	$("#update-changeDate").val("");
+//    	$("#update-endRentDate").val("");
+//    	$("#update-tenantInterface").val("");
+//    	$("#update-remark").val("");
+//
+//    }
    /*************************/     
 });
-
 
   
 
