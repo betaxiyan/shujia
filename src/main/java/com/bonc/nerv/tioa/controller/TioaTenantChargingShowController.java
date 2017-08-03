@@ -8,6 +8,8 @@ package com.bonc.nerv.tioa.controller;
 
 import java.text.ParseException;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -45,14 +47,15 @@ public class TioaTenantChargingShowController {
     }
 
     /**
-     * Description: 保存新增的数据 
+     * Description: 保存新增的数据
      * 
      * @param data
      * @see
      */
     @RequestMapping("/saveNewData")
     @ResponseBody
-    public String saveNewData(@RequestParam("data") TioaTenantChargingShow data) {
+    public String saveNewData(@Valid TioaTenantChargingShow data){
+
         try {
             tioaTenantChargingShowService.save(data);
 
@@ -69,12 +72,12 @@ public class TioaTenantChargingShowController {
      * Description: 保存修改后的数据，目前和保存新增数据一样
      * 
      * @param data
-     * @return 
-     * @see 
+     * @return
+     * @see
      */
     @RequestMapping("/saveModifyData")
     @ResponseBody
-    public String saveModifyData(@RequestParam("data") TioaTenantChargingShow data) {
+    public String saveModifyData(@Valid TioaTenantChargingShow data) {
         try {
             tioaTenantChargingShowService.save(data);
         } catch (Exception e) {
@@ -84,13 +87,13 @@ public class TioaTenantChargingShowController {
         return JSON.toJSONString("保存修改数据成功！");
 
     }
-    
+
     /**
      * Description: 根据id删除记录
      * 
      * @param id
-     * @return 
-     * @see 
+     * @return
+     * @see
      */
     @RequestMapping("/deleteById")
     @ResponseBody
