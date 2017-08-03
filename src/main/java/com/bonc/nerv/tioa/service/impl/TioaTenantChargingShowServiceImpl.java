@@ -30,7 +30,7 @@ public class TioaTenantChargingShowServiceImpl implements TioaTenantChargingShow
     
     
     @Override
-    public void save(MultipartFile excelFile) throws ParseException {
+    public void saveExcel(MultipartFile excelFile) throws ParseException {
         System.out.println("执行到service");
         List<String[]> list = null;       
         try {

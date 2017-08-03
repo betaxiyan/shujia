@@ -38,7 +38,7 @@ public class TioaTenantChargingShowController {
     @ResponseBody
     public String saveToDB(@RequestParam(value = "upload") MultipartFile excelFile) {
         try {
-            tioaTenantChargingShowService.save(excelFile);
+            tioaTenantChargingShowService.saveExcel(excelFile);
         } catch (ParseException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
