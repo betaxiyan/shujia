@@ -135,7 +135,7 @@ public class TioTenChaShoController {
     }
 
     /**
-     * Description: 保存修改后的数据，目前和保存新增数据一样
+     * Description: 保存修改后的数据，请求的数据应包含tcId项
      * 
      * @param data  
      * @return ""
@@ -162,7 +162,7 @@ public class TioTenChaShoController {
      */
     @RequestMapping("/deleteById")
     @ResponseBody
-    public String deleteById(@RequestParam("id") Long id) {
+    public String deleteById(@RequestParam("tcId") Long id) {
         try {
             tioTenChaShoService.deleteById(id);
         } catch (Exception e) {
