@@ -234,7 +234,7 @@ public class TenretiredService {
             String[] headers={"序号","服务类型","租户","租户级别","租户负责人","联系电话","资源类型","访问IP","主机数量","存储使用量","存储使用量单位","计算资源","机房","统一平台数量","4A数量","需求","服务名","队列名","申请日期","开放日期","变更时间","退租时间","平台接口人","备注"};
             List<String[]> dataset=getTenList(list);
             ExcelUtil_Extend.exportExelMerge("能力开放平台已退租户情况.xls", headers, dataset, true, response, 
-                                         new Integer[] {1,2,3,4,5,13,14,15,22}, new Integer[] {1,2,3,4,5,13,14,15,22}, new Integer[] {2,3}, new Integer[]{4});
+                                         new Integer[] {1,2,3,4,5,13,14,15,22}, new Integer[] {1,2,3,4,5,13,14,15,22}, new Integer[] {0}, new Integer[]{0});
         } catch (FileNotFoundException e) {  
             e.printStackTrace();  
         } catch (IOException e) {  
@@ -263,7 +263,7 @@ public class TenretiredService {
             String hostNum=tenretiredEntity.getHostNum()==null?"":Integer.toString(tenretiredEntity.getHostNum());
             String storage=tenretiredEntity.getStorage()==null?"":Integer.toString(tenretiredEntity.getStorage());
             String storageUnit=tenretiredEntity.getStorageUnit();
-            String computingResourceRate=Double.toString(tenretiredEntity.getComputingResourceRate())==null?"":Double.toString(tenretiredEntity.getComputingResourceRate());
+            String computingResourceRate=tenretiredEntity.getComputingResourceRate()==null?"":Double.toString(tenretiredEntity.getComputingResourceRate());
             String computeRoom=tenretiredEntity.getComputeRoom();
             String uniplatformNum=tenretiredEntity.getUniplatformNum()==null?"":Integer.toString(tenretiredEntity.getUniplatformNum());
             String numOf4a=tenretiredEntity.getNumOf4a()==null?"":Integer.toString(tenretiredEntity.getNumOf4a());

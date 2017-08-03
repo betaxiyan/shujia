@@ -1,7 +1,7 @@
 var table;
 $(document).ready(function() {
 	
-	table = $('#tenretired_table').dataTable({
+	table = $('#leave_table').dataTable({
 		fixedHeader: {
 	        header: true
 	    },
@@ -17,9 +17,6 @@ $(document).ready(function() {
         "bSort": false,
         "bInfo": true,
         "bAutoWidth": true,
-        "createdRow": function ( row, data, index ) {
-        	 $('td', row).eq(15).attr('id',"displayPart");
-        },
         "ajax":{
      		"url":ctx+"tenant/findTenretiredList",
         	"data":function(d){
@@ -295,8 +292,8 @@ $(document).ready(function() {
             "zeroRecords": "无记录",
             "infoEmpty": "共计0",
             "lengthMenu": "每页显示 _MENU_ 记录",
-            "processing": "加载中......"
-            // "infoFiltered": "",
+            "infoFiltered": ""
+            //"processing": "加载中......"
             // "zeroRecords": "没有找到相关内容",
             // "search": "搜索 : "
         },
@@ -481,8 +478,8 @@ $(document).ready(function() {
      }
    }
     
-    $('#tenretired_table tbody').unbind('click',TenretiredOperate);
-    $('#tenretired_table tbody').bind('click',TenretiredOperate);
+    $('#leave_table tbody').unbind('click',TenretiredOperate);
+    $('#leave_table tbody').bind('click',TenretiredOperate);
     function addClean(){
     	$('#addTenModal').modal('hide');
     	$("#add-tenantName").val("");
