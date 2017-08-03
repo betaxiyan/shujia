@@ -489,18 +489,19 @@ $(document).ready(function() {
 });
 
 //搜索按钮
-function clickTable(){
+function clickDisTable(){
 	table.api().ajax.reload();
+	alert("测试");
 };
 
 //清空按钮
-function cleanSearch(){
+function cleanDisSearch(){
 	$("#tenantName").val("");
     $("#tenantBoss").val("");
     clickTable();
 }
 //文件导出
-function exportFile() {
+function exportDisFile() {
 	alert(45);
 	var length = table.api().data().length;
 	if (length < 1) {
