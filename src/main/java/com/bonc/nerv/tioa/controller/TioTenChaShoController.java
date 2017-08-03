@@ -7,6 +7,7 @@ package com.bonc.nerv.tioa.controller;
 
 
 import java.text.ParseException;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -92,9 +93,9 @@ public class TioTenChaShoController {
      */
     @RequestMapping(value = "/findAll")
     @ResponseBody
-    public String findAll(){
-        findTioTenChaShoService.findAllTioTenChaSho();
-        return JSON.toJSONString("查询所有记录成功");
+    public Object findAll(){
+        List<TioaTenantChargingShow> list = findTioTenChaShoService.findAllTioTenChaSho();
+        return JSON.toJSONString(list);
     }
     
     /**
@@ -104,9 +105,9 @@ public class TioTenChaShoController {
      */
     @RequestMapping(value = "/findByServiceType")
     @ResponseBody
-    public String findByServiceType(){
-        findTioTenChaShoService.findTioTenByServiceType(10);
-        return JSON.toJSONString("查询服务类型记录成功");
+    public Object findByServiceType(){
+        List<TioaTenantChargingShow> list =  findTioTenChaShoService.findTioTenByServiceType(10);
+        return JSON.toJSON(list);
     }
     
 
