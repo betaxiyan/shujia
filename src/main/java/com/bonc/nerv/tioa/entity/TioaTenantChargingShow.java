@@ -8,8 +8,6 @@
 
 package com.bonc.nerv.tioa.entity;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +16,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 
+/**
+ * 实体类
+ * @author Jingege
+ * @version 2017年8月3日
+ * @see TioaTenantChargingShow
+ * @since
+ */
 @Entity
 @Table(name = "tioa_tenant_charging_show")
 public class TioaTenantChargingShow{
@@ -44,7 +49,7 @@ public class TioaTenantChargingShow{
     /**
      * 租户分类
      */
-   @Column(name = "tenant_type")
+    @Column(name = "tenant_type")
     private Integer tenantType;
     
     

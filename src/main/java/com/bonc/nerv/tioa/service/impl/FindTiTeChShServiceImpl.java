@@ -29,6 +29,9 @@ import com.bonc.nerv.tioa.service.FindTioTenChaShoService;
 @Service("findTioTenChaShoService")
 public class FindTiTeChShServiceImpl implements FindTioTenChaShoService {
 
+    /**
+     * 自动注入
+     */
     @Autowired
     private TioaTenantChargingShowDao tioaTenantChargingShowDao;
     

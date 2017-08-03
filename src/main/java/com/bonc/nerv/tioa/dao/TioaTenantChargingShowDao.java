@@ -13,23 +13,33 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
 import com.bonc.nerv.tioa.entity.TioaTenantChargingShow;
-
+/**
+ * dao接口
+ * @author Jingege
+ * @version 2017年8月3日
+ * @see TioaTenantChargingShowDao
+ * @since
+ */
 public interface TioaTenantChargingShowDao extends CrudRepository<TioaTenantChargingShow, Long>{
-    /*
+    /**
      * 查询所有数据
      * @see org.springframework.data.repository.CrudRepository#findAll()
      */
-   @Override
-List<TioaTenantChargingShow> findAll();
+    @Override
+    List<TioaTenantChargingShow> findAll();
    
-   /*
+   /**
     * 根据服务类型查询数据
+    * @param serviceType 服务类型
+    * @return list
     */
-   List<TioaTenantChargingShow> findByServiceType(Integer serviceType);
+    List<TioaTenantChargingShow> findByServiceType(Integer serviceType);
        
-   /*
+   /**
     * 根据Id查询一条数据
+    * @param tcId id
+    * @return TioaTenantChargingShow
     */
-   TioaTenantChargingShow findByTcId(Long tcId);
+    TioaTenantChargingShow findByTcId(Long tcId);
    
 }

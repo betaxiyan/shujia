@@ -33,10 +33,23 @@ import org.springframework.web.multipart.MultipartFile;
  * @since
  */
 public class POIUtil {
-    private final static String xls = "xls";
+    /**
+     * xls文档
+     */
+    private static final String XLS = "xls";
 
-    private final static String xlsx = "xlsx";
+    /**
+     * xlsx文档
+     */
+    private static final String XLSX = "xlsx";
 
+    /**
+     * 读取Excel文档
+     * @param file  
+     * @return list
+     * @throws IOException 
+     * @see
+     */
     public static List<String[]> readExcel(MultipartFile file)
         throws IOException {
 
@@ -88,7 +101,7 @@ public class POIUtil {
 
     /**
      * 判断文件是否存在
-     * @param file
+     * @param file  
      * @throws IOException 
      * @see
      */
@@ -101,14 +114,15 @@ public class POIUtil {
         //获得文件名  
         String fileName = file.getOriginalFilename();
         //判断文件是否是excel文件  
-        if (!fileName.endsWith(xls) && !fileName.endsWith(xlsx)) {
+        if (!fileName.endsWith(XLS) && !fileName.endsWith(XLSX)) {
             throw new IOException(fileName + "不是excel文件");
         }
     }
 
     /**
      * 获得Workbook对象
-     * @param file
+     * @param file  
+
      * @return workbook
      * @see
      */
@@ -121,20 +135,23 @@ public class POIUtil {
             //获取excel文件的io流  
             InputStream is = file.getInputStream();
             //根据文件后缀名不同(xls和xlsx)获得不同的Workbook实现类对象  
-            if (fileName.endsWith(xls)) {
+            if (fileName.endsWith(XLS)) {
                 //2003  
                 workbook = new HSSFWorkbook(is);
-            }
-            else if (fileName.endsWith(xlsx)) {
+            } else if (fileName.endsWith(XLSX)) {
                 //2007  
                 workbook = new XSSFWorkbook(is);
             }
-        }
-        catch (IOException e) {}
+        } catch (IOException e) {}
         return workbook;
     }
 
-    @SuppressWarnings("deprecation")
+    /**
+     * 
+     * @param cell 
+     * @return String
+     * @see
+     */
     public static String getCellValue(Cell cell) {
         String cellValue = "";
         if (cell == null) {
