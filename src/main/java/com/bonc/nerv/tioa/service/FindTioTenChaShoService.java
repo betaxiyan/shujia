@@ -32,7 +32,7 @@ public interface FindTioTenChaShoService {
     
     /**
      * 根据条件“服务类型”查询数据
-     * @param serviceType
+     * @param serviceType 
      * @return list
      * @see
      */
@@ -40,7 +40,7 @@ public interface FindTioTenChaShoService {
     
     /**
      * 根据id查询一条数据
-     * @param tcId
+     * @param tcId 
      * @return list
      * @see
      */
