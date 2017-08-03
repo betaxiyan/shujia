@@ -43,6 +43,19 @@ public class TioaController {
     
     /**
      * 
+     * Description: <br>
+     * 进入实施自动化展示页面
+     * @return 
+     * @see
+     */
+    @RequestMapping("/view2")
+    public String inter2(){
+        return "fragment/charging_frg";
+    }
+    
+    
+    /**
+     * 
      * 调用接口获取资源和账号数据写入数据库中
      * @see
      */
