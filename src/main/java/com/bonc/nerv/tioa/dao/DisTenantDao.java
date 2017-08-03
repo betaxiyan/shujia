@@ -18,15 +18,27 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.bonc.nerv.tioa.entity.DisTenantEntity;
 
-
+/**
+ * 
+ * DisTenantDao
+ * 
+ * @author zhangwen
+ * @version 2017年8月2日
+ * @see DisTenantDao
+ * @since
+ */
 public interface DisTenantDao extends CrudRepository<DisTenantEntity, Integer>,JpaRepository<DisTenantEntity, Integer>,JpaSpecificationExecutor<DisTenantEntity>{
 
-
-
+    /*
+     * 查询数据总和
+     */
     @Query("select count(dt) from DisTenantEntity dt where dt.tdId = ?1")
-    public int findById(long tdId);
+    int findById(long tdId);
 
+    /*
+     * 查询每一条数据
+     */
     @Query("select dt from DisTenantEntity dt where dt.tdId = ?1")
-    public DisTenantEntity findOne(long tdId);
+    DisTenantEntity findOne(long tdId);
     
 }
