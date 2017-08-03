@@ -99,7 +99,9 @@ public class TioTenChaShoController {
     @ResponseBody
     public Object findAll(){
         List<TioaTenantChargingShow> list = findTioTenChaShoService.findAllTioTenChaSho();
-        return JSON.toJSONString(list,SerializerFeature.WriteMapNullValue);
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("data",list);
+        return (JSON)JSON.toJSON(map);
     }
     
     /**
