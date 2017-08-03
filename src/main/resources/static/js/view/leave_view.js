@@ -343,7 +343,6 @@ $(document).ready(function() {
 	      			if (data.status == "200") {
 	      				clickTable();
 	      				alert("添加成功");
-	      				addClean();
 	      			} else {
 	      				alert("添加失败");
 	      			}
