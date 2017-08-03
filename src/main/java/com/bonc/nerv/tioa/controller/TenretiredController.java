@@ -41,9 +41,9 @@ public class TenretiredController {
      * @return 租户信息列表页面
      * @see
      */
-    @RequestMapping(value={"/tenant"},method=RequestMethod.GET)
+    @RequestMapping(value={"/view"},method=RequestMethod.GET)
     public String index(){
-        return "tenant/tenretired";
+        return "view/data_view";
     }
     
     /**
@@ -121,7 +121,7 @@ public class TenretiredController {
     @RequestMapping(value = {"/tenant/tenretired/delete"}, method = RequestMethod.GET)
     public String delete(long tlId) {
         tenretiredService.delete(tlId);
-        return "redirect:/tenant";
+        return "redirect:/view";
     }
      
     /**

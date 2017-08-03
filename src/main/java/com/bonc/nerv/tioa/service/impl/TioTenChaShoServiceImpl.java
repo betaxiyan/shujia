@@ -2,7 +2,7 @@
  * 文件名：TioaTenantChargingShowServiceImpl.java
  * 版权：Copyright by www.bonc.com.cn
  * 描述：
- * 修改人：Jingege
+ * 修改人：leijin
  * 修改时间：2017年8月1日
  */
 
@@ -23,7 +23,7 @@ import com.bonc.nerv.tioa.util.POIUtil;
 
 /**
  * 
- * @author Jingege
+ * @author leijin
  * @version 2017年8月3日
  * @see TioTenChaShoServiceImpl
  * @since
@@ -32,7 +32,7 @@ import com.bonc.nerv.tioa.util.POIUtil;
 public class TioTenChaShoServiceImpl implements TioTenChaShoService{
 
     /**
-     * 注入dao
+     * 注入到tioaTenantChargingShowDao
      */
     @Autowired
     private TioaTenantChargingShowDao tioaTenantChargingShowDao;
@@ -99,11 +99,10 @@ public class TioTenChaShoServiceImpl implements TioTenChaShoService{
            
             tioaTenantChargingShowDao.save(tioaTenantChargingShow);
         }
-            
-        
-        
+   
     }
     
+  
     /**
      * 根据字符返回服务类型，TENANT_INTERNAL表示内部，TENANT_EXTERNAL表示外部
      * @param serviceType   

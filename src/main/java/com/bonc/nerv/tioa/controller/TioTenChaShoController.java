@@ -1,5 +1,8 @@
 /*
- * 文件名：TioaTenantChargingShowController.java 版权：Copyright by www.bonc.com.cn 描述： 修改人：Jingege
+ * 文件名：TioaTenantChargingShowController.java 
+ * 版权：Copyright by www.bonc.com.cn 
+ * 描述： 
+ * 修改人：leijin
  * 修改时间：2017年8月1日
  */
 
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.bonc.nerv.tioa.entity.TioaTenantChargingShow;
 import com.bonc.nerv.tioa.service.FindTioTenChaShoService;
 import com.bonc.nerv.tioa.service.TioTenChaShoService;
@@ -100,7 +104,6 @@ public class TioTenChaShoController {
         Map<String,Object> map = new HashMap<String,Object>();
         map.put("data",list);
         return (JSON)JSON.toJSON(map);
-       // return JSON.toJSONString(list);
     }
     
     /**
@@ -139,7 +142,7 @@ public class TioTenChaShoController {
     }
 
     /**
-     * Description: 保存修改后的数据，目前和保存新增数据一样
+     * Description: 保存修改后的数据，请求的数据应包含tcId项
      * 
      * @param data  
      * @return ""
@@ -166,7 +169,7 @@ public class TioTenChaShoController {
      */
     @RequestMapping("/deleteById")
     @ResponseBody
-    public String deleteById(@RequestParam("id") Long id) {
+    public String deleteById(@RequestParam("tcId") Long id) {
         try {
             tioTenChaShoService.deleteById(id);
         } catch (Exception e) {

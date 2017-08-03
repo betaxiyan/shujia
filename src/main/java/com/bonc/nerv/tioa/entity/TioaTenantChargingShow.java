@@ -2,7 +2,7 @@
  * 文件名：TioaTenantChargingShow.java
  * 版权：Copyright by www.bonc.com.cn
  * 描述：
- * 修改人：Jingege
+ * 修改人：leijin
  * 修改时间：2017年8月1日
  */
 
@@ -18,7 +18,7 @@ import javax.persistence.Table;
 
 /**
  * 实体类
- * @author Jingege
+ * @author leijin
  * @version 2017年8月3日
  * @see TioaTenantChargingShow
  * @since

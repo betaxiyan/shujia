@@ -3,6 +3,8 @@ package com.bonc.nerv.tioa;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 
+import com.bonc.nerv.tioa.WebAppConfig;
+
 /**
  * 
  * ServletInitializer

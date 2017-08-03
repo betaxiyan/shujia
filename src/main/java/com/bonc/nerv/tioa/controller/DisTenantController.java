@@ -47,7 +47,7 @@ public class DisTenantController {
      */
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public String showUsers() {
-        return "user/users";
+        return "view/data_view";
     }
 
     /**
