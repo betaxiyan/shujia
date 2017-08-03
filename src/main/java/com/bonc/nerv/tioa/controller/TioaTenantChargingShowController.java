@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
 import com.bonc.nerv.tioa.entity.TioaTenantChargingShow;
+import com.bonc.nerv.tioa.service.FindTioTenChaShoService;
 import com.bonc.nerv.tioa.service.TioaTenantChargingShowService;
 
 
@@ -28,7 +29,11 @@ public class TioaTenantChargingShowController {
     @Autowired
     @Qualifier("tioaTenantChargingShowService")
     private TioaTenantChargingShowService tioaTenantChargingShowService;
-
+    
+    @Autowired
+    @Qualifier("findTioTenChaShoService")
+    private FindTioTenChaShoService findTioTenChaShoService;
+    
     @RequestMapping(value = "/save")
     @ResponseBody
     public String saveToDB(@RequestParam(value = "upload") MultipartFile excelFile) {
@@ -45,6 +50,44 @@ public class TioaTenantChargingShowController {
     public String index() {
         return "index";
     }
+    
+    /**
+     * 根据TcId查询记录
+     * @return 
+     * @see
+     */
+    @RequestMapping(value = "/findByTcId")
+    @ResponseBody
+    public String findByTcId(){
+        findTioTenChaShoService.findTioTenChaShoByTcId((long)148);
+        return JSON.toJSONString("查询TcId成功");
+    }
+    
+    /**
+     * 查询所有记录
+     * @return 
+     * @see
+     */
+    @RequestMapping(value = "/findAll")
+    @ResponseBody
+    public String findAll(){
+        findTioTenChaShoService.findAllTioTenChaSho();
+        return JSON.toJSONString("查询所有记录成功");
+    }
+    
+    /**
+     * 根据服务类型查询记录
+     * @return 
+     * @see
+     */
+    @RequestMapping(value = "/findByServiceType")
+    @ResponseBody
+    public String findByServiceType(){
+        findTioTenChaShoService.findTioTenByServiceType(10);
+        return JSON.toJSONString("查询服务类型记录成功");
+    }
+    
+
 
     /**
      * Description: 保存新增的数据
