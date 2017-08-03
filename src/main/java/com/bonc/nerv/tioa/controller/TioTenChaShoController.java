@@ -7,7 +7,9 @@ package com.bonc.nerv.tioa.controller;
 
 
 import java.text.ParseException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -95,7 +97,10 @@ public class TioTenChaShoController {
     @ResponseBody
     public Object findAll(){
         List<TioaTenantChargingShow> list = findTioTenChaShoService.findAllTioTenChaSho();
-        return JSON.toJSONString(list);
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("data",list);
+        return (JSON)JSON.toJSON(map);
+       // return JSON.toJSONString(list);
     }
     
     /**

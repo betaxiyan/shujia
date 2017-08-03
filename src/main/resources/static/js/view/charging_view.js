@@ -4,35 +4,20 @@ $(document).ready(function(){
             $(this).tab('show')
         });
 */
-	var dataSet = [
-	               ['a','b','c','d','e','f','Internet Explorer 4.0','Win 95+','4'],
-	               ['a1','b1','c','d','e','f','Internet Explorer 4.0','Win 95+','4'],
-	               ['a2','b2','c','d','e','f','Internet Explorer 4.0','Win 95+','4'],
-	               ['a3','b3','c','d','e','f','Internet Explorer 4.0','Win 95+','4'],
-	               ['a4','b4','c','d','e','f','Internet Explorer 4.0','Win 95+','4'],
-	               ['a5','b5','c','d','e','f','Internet Explorer 4.0','Win 95+','4'],
-	               ['a','b','c','d','e','f','Internet Explorer 4.0','Win 95+','4'],
-	               ['a','b','c','d','e','f','Internet Explorer 4.0','Win 95+','4'],
-	               ['a','b','c','d','e','f','Internet Explorer 4.0','Win 95+','4'],
-	               ['a','b','c','d','e','f','Internet Explorer 4.0','Win 95+','4'],
-	               ['a','b','c','d','e','f','Internet Explorer 4.0','Win 95+','4'],
-	               ['a','b','c','d','e','f','Internet Explorer 4.0','Win 95+','4'],
-	               ['a','b','c','d','e','f','Internet Explorer 4.0','Win 95+','4'],
-	               ['a','b','c','d','e','f','Internet Explorer 4.0','Win 95+','4'],
-
-	           ];
+	
 	
 	
    $('#charging_table').dataTable({
         "language": {
             "paginate": {
-                "previous": "首页",
+                "previous": "上一页",
                 "next": "下一页"
             },
             "info": "显示_START_到_END_, 共计_TOTAL_条数据",
             "emptyTable": "无记录",
             "infoEmpty": "共计0",
         },
+       
         /* 分页设置 */
         "bPaginate": true,
         "bLengthChange": false,
@@ -42,10 +27,18 @@ $(document).ready(function(){
         /* 显示总条数 */
         "bInfo": true,
         "bAutoWidth": false,
-        
-        "data": dataSet,//数据源
+        /*	数据源Ajax*/
+        "ajax":{ url:"findAll",},
+    	"columns": [{"mData": "tenantName"},		{"mData": "serviceType"},			{"mData": "tenantType"}, 
+    	            {"mData": "resourceTime"},		{"mData": "uniplatform4aTime"},		{"mData": "havedateTime"},
+    	            {"mData": "resideDuration"},	{"mData": "monthlyFee"},			{"mData": "dataFee"}, 
+    	            {"mData": "beginRentDate"},		{"mData": "tasteDuration"},			{"mData": "chargeBeginDate"},
+    	            {"mData": "chargeEndDate"},		{"mData": "introduceUnicom"},		{"mData": "introduceTenant"}, 
+    	            {"mData": "contact"},			{"mData": "askDate"},				{"mData": "signContract"},
+    	            {"mData": "monthlyFeeRemark"},	{"mData": "endRentDate"},			{"mData": "remark"},null
+    	            ],
         "aoColumnDefs":[//设置列的属性，此处设置第一列不排序
-                        {"bSortable": true, "aTargets": [0]},
+                        {"bSortable": false, "aTargets": [0]},
                         {
                         	"targets":-1,
                             "data": null,
@@ -59,16 +52,16 @@ $(document).ready(function(){
    /**
     * 查看修改
     */
-   $('#detail_table2 tbody').on( 'click', 'a#edit', function () {
-       var data = $('#detail_table2').DataTable().row($(this).parents('tr')).data();
-       alert("查看修改："+data[0] +","+ data[1] );
+   $('#charging_table tbody').on( 'click', 'a#edit', function () {
+       var data = $('#charging_table').DataTable().row($(this).parents('tr')).data();
+       alert("查看修改："+data.tenantName +","+ data.id );
    } );
 
    /**
     * 删除
     */
-   $('#detail_table2 tbody').on( 'click', 'a#del', function () {
-       var data = $('#detail_table2').DataTable().row($(this).parents('tr')).data();
+   $('#charging_table tbody').on( 'click', 'a#del', function () {
+       var data = $('#charging_table').DataTable().row($(this).parents('tr')).data();
        alert("删除："+data );
    }) 
 })
