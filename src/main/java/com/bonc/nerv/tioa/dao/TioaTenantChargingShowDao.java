@@ -2,7 +2,7 @@
  * 文件名：TioaTenantChargingShowDao.java
  * 版权：Copyright by www.bonc.com.cn
  * 描述：
- * 修改人：Jingege
+ * 修改人：leijin
  * 修改时间：2017年8月1日
  */
 
@@ -15,7 +15,7 @@ import org.springframework.data.repository.CrudRepository;
 import com.bonc.nerv.tioa.entity.TioaTenantChargingShow;
 /**
  * dao接口
- * @author Jingege
+ * @author leijin
  * @version 2017年8月3日
  * @see TioaTenantChargingShowDao
  * @since

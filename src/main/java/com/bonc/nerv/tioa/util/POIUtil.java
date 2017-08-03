@@ -2,7 +2,7 @@
  * 文件名：POIUtil.java
  * 版权：Copyright by www.bonc.com.cn
  * 描述：
- * 修改人：Jingege
+ * 修改人：leijin
  * 修改时间：2017年8月1日
  */
 
@@ -27,7 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 /**
  * 
  * 读取Excel
- * @author Jingege
+ * @author leijin
  * @version 2017年8月1日
  * @see POIUtil
  * @since

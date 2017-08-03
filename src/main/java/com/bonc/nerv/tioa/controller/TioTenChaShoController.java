@@ -1,5 +1,8 @@
 /*
- * 文件名：TioaTenantChargingShowController.java 版权：Copyright by www.bonc.com.cn 描述： 修改人：Jingege
+ * 文件名：TioaTenantChargingShowController.java 
+ * 版权：Copyright by www.bonc.com.cn 
+ * 描述： 
+ * 修改人：leijin
  * 修改时间：2017年8月1日
  */
 

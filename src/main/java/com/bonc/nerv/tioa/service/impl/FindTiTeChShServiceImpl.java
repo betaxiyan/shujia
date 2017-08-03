@@ -2,7 +2,7 @@
  * 文件名：FindTiTeChShServiceImpl.java
  * 版权：Copyright by www.bonc.com.cn
  * 描述：
- * 修改人：Jingege
+ * 修改人：leijin
  * 修改时间：2017年8月2日
  */
 
@@ -30,7 +30,7 @@ import com.bonc.nerv.tioa.service.FindTioTenChaShoService;
 public class FindTiTeChShServiceImpl implements FindTioTenChaShoService {
 
     /**
-     * 自动注入
+     * 自动注入tioaTenantChargingShowDao
      */
     @Autowired
     private TioaTenantChargingShowDao tioaTenantChargingShowDao;
@@ -56,7 +56,6 @@ public class FindTiTeChShServiceImpl implements FindTioTenChaShoService {
     @Override
     public List<TioaTenantChargingShow> findTioTenByServiceType(Integer serviceType) {
         List<TioaTenantChargingShow> list = tioaTenantChargingShowDao.findByServiceType(serviceType);
-        
         return list;
     }
     
