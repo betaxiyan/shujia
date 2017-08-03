@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.bonc.nerv.tioa.entity.TioaTenantChargingShow;
 import com.bonc.nerv.tioa.service.FindTioTenChaShoService;
 import com.bonc.nerv.tioa.service.TioTenChaShoService;
@@ -95,7 +96,7 @@ public class TioTenChaShoController {
     @ResponseBody
     public Object findAll(){
         List<TioaTenantChargingShow> list = findTioTenChaShoService.findAllTioTenChaSho();
-        return JSON.toJSONString(list);
+        return JSON.toJSONString(list,SerializerFeature.WriteMapNullValue);
     }
     
     /**

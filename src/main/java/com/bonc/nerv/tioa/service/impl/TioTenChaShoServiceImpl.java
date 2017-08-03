@@ -99,11 +99,10 @@ public class TioTenChaShoServiceImpl implements TioTenChaShoService{
            
             tioaTenantChargingShowDao.save(tioaTenantChargingShow);
         }
-            
-        
-        
+   
     }
     
+  
     /**
      * 根据字符返回服务类型，TENANT_INTERNAL表示内部，TENANT_EXTERNAL表示外部
      * @param serviceType   
