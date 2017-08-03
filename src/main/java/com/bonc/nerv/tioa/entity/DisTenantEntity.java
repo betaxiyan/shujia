@@ -116,7 +116,7 @@ public class DisTenantEntity {
      */
     @Basic
     @Column(name = "storage_usage_rate", length = 45)
-    private double storageUsageRate;
+    private Double storageUsageRate;
 
     /*
      * cpu 核数
@@ -278,11 +278,11 @@ public class DisTenantEntity {
         this.storageUsageUnit = storageUsageUnit;
     }
 
-    public double getStorageUsageRate() {
+    public Double getStorageUsageRate() {
         return storageUsageRate;
     }
 
-    public void setStorageUsageRate(double storageUsageRate) {
+    public void setStorageUsageRate(Double storageUsageRate) {
         this.storageUsageRate = storageUsageRate;
     }
 
