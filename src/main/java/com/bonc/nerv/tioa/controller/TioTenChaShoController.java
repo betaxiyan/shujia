@@ -7,6 +7,7 @@ package com.bonc.nerv.tioa.controller;
 
 
 import java.text.ParseException;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -20,20 +21,43 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
 import com.bonc.nerv.tioa.entity.TioaTenantChargingShow;
-import com.bonc.nerv.tioa.service.TioaTenantChargingShowService;
+import com.bonc.nerv.tioa.service.FindTioTenChaShoService;
+import com.bonc.nerv.tioa.service.TioTenChaShoService;
 
+/**
 
+ * @author Jingege
+ * @version 2017年8月3日
+ * @see TioTenChaShoController
+ * @since
+ */
 @Controller
-public class TioaTenantChargingShowController {
+public class TioTenChaShoController {
+    /**
+     * 自动注入
+     */
     @Autowired
     @Qualifier("tioaTenantChargingShowService")
-    private TioaTenantChargingShowService tioaTenantChargingShowService;
-
+    private TioTenChaShoService tioTenChaShoService;
+    
+    /**
+     * 自动注入
+     */
+    @Autowired
+    @Qualifier("findTioTenChaShoService")
+    private FindTioTenChaShoService findTioTenChaShoService;
+    
+    /**
+     *
+     * @param excelFile  
+     * @return ""
+     * @see
+     */
     @RequestMapping(value = "/save")
     @ResponseBody
     public String saveToDB(@RequestParam(value = "upload") MultipartFile excelFile) {
         try {
-            tioaTenantChargingShowService.save(excelFile);
+            tioTenChaShoService.saveExcel(excelFile);
         } catch (ParseException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -41,15 +65,57 @@ public class TioaTenantChargingShowController {
         return JSON.toJSONString("导入数据库成功！");
     }
 
+    /**
+     * @return  index
+     * @see
+     */
     @RequestMapping(value = "/")
     public String index() {
         return "index";
     }
+    
+    /**
+     * 根据TcId查询记录
+     * @return ""
+     * @see
+     */
+    @RequestMapping(value = "/findByTcId")
+    @ResponseBody
+    public String findByTcId(){
+        findTioTenChaShoService.findTioTenChaShoByTcId((long)148);
+        return JSON.toJSONString("查询TcId成功");
+    }
+    
+    /**
+     * 查询所有记录
+     * @return ""
+     * @see
+     */
+    @RequestMapping(value = "/findAll")
+    @ResponseBody
+    public Object findAll(){
+        List<TioaTenantChargingShow> list = findTioTenChaShoService.findAllTioTenChaSho();
+        return JSON.toJSONString(list);
+    }
+    
+    /**
+     * 根据服务类型查询记录
+     * @return ""
+     * @see
+     */
+    @RequestMapping(value = "/findByServiceType")
+    @ResponseBody
+    public Object findByServiceType(){
+        List<TioaTenantChargingShow> list =  findTioTenChaShoService.findTioTenByServiceType(10);
+        return JSON.toJSON(list);
+    }
+    
+
 
     /**
      * Description: 保存新增的数据
-     * 
-     * @param data
+     * @param data  
+     * @return ""
      * @see
      */
     @RequestMapping("/saveNewData")
@@ -57,10 +123,9 @@ public class TioaTenantChargingShowController {
     public String saveNewData(@Valid TioaTenantChargingShow data){
 
         try {
-            tioaTenantChargingShowService.save(data);
+            tioTenChaShoService.save(data);
 
         } catch (Exception e) {
-            // TODO: handle exception
             e.printStackTrace();
         }
 
@@ -71,17 +136,16 @@ public class TioaTenantChargingShowController {
     /**
      * Description: 保存修改后的数据，目前和保存新增数据一样
      * 
-     * @param data
-     * @return
+     * @param data  
+     * @return ""
      * @see
      */
     @RequestMapping("/saveModifyData")
     @ResponseBody
     public String saveModifyData(@Valid TioaTenantChargingShow data) {
         try {
-            tioaTenantChargingShowService.save(data);
+            tioTenChaShoService.save(data);
         } catch (Exception e) {
-            // TODO: handle exception
             e.printStackTrace();
         }
         return JSON.toJSONString("保存修改数据成功！");
@@ -91,17 +155,16 @@ public class TioaTenantChargingShowController {
     /**
      * Description: 根据id删除记录
      * 
-     * @param id
-     * @return
+     * @param id  
+     * @return ""
      * @see
      */
     @RequestMapping("/deleteById")
     @ResponseBody
     public String deleteById(@RequestParam("id") Long id) {
         try {
-            tioaTenantChargingShowService.deleteById(id);
+            tioTenChaShoService.deleteById(id);
         } catch (Exception e) {
-            // TODO: handle exception
             e.printStackTrace();
         }
 

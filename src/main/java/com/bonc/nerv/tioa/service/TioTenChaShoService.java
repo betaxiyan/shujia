@@ -13,9 +13,21 @@ import java.text.ParseException;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bonc.nerv.tioa.entity.TioaTenantChargingShow;
-
-public interface TioaTenantChargingShowService {
-    public void save(MultipartFile file) throws ParseException;
+/**
+ * 
+ * @author Jingege
+ * @version 2017年8月3日
+ * @see TioaTenantChargingShowService
+ * @since
+ */
+public interface TioTenChaShoService {
+    /**
+     * 将Excel文件保存到数据库
+     * @param file   
+     * @throws ParseException 
+     * @see
+     */
+    void saveExcel(MultipartFile file) throws ParseException;
     
     /**
      * Description: 保存新增数据
