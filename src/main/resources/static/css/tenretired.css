@@ -19,11 +19,16 @@ li{
 }
 
 #tenretired_table th{
+	width:200px;
 	border:#CCCCCC solid 1px ;
 }
 
 #tenretired_table tr td{
      border:#CCCCCC solid 1px ;
+}
+
+#tenretired_table tr td{
+    width:100px;
 }
 
 .row{
@@ -35,16 +40,6 @@ label{
   margin-left:20px;
   margin-top:10px;	
 }
-
- /* #displayPart{
-	overflow:hidden;
-	text-overflow:ellipsis;
-	display: -webkit-box; 
-	-webkit-line-clamp:5;
-	-webkit-box-orient:vertical;
-	position:relative;
-} 
- */
  
  .ten-toggle{
    color:black;

@@ -24,16 +24,38 @@ import org.springframework.stereotype.Repository;
 
 import com.bonc.nerv.tioa.entity.TenretiredEntity;
 
-
-@Repository
-public interface TenretiredDao extends CrudRepository<TenretiredEntity, Long>,JpaSpecificationExecutor<TenretiredEntity> {
-   
+/**
+ * 
+ * 已退租户情况dao层
+ * @author ymm
+ * @version 2017年8月2日
+ * @see TenretiredDao
+ * @since
+ */
+@Transactional
+public interface TenretiredDao extends CrudRepository<TenretiredEntity,Long>,JpaSpecificationExecutor<TenretiredEntity> {
+    
+    /**
+     * 租户列表分页条件查询
+     * @param pageable 分页实体对象
+     * @param querySpecifi 查询条件
+     * @return 分页租户信息
+     */
     Page<TenretiredEntity> findAll(Specification<TenretiredEntity> querySpecifi, Pageable pageable);
     
+    /**
+     * 查询所有已退租户
+     * @return 所有租户
+     */
     List<TenretiredEntity> findAll();
     
-    @Modifying
-    @Transactional
+    /**
+     * 
+     * Description: 根据tlId查询租户记录
+     * @param tlId 表id
+     * @return  租户记录数
+     * @see
+     */
     @Query("select count(ten) from TenretiredEntity ten where ten.tlId = ?1")
     int findByTlId(long tlId);
 }
