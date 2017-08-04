@@ -1,84 +1,83 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
-<head>
-  <meta charset="UTF-8" />
-</head>
   <body>
-      <div th:fragment="leave" role="tabpanel" class="tab-pane" id="details_three">
-           <div class="view_body">
-               <div class="view_search">
-                   <span>租户名称</span><input type="text" name="tenantName" id="tenantName" th:value="${tenantName}"/>
-                   <span style="margin-left: 20px">平台接口人：</span><input type="text" name="tenantInterface" id="tenantInterface" th:value="${tenantInterface}"/>
-                   <button type="button" class="btn btn-danger" th:onclick="'clickTable()'">搜索</button>
-                   <button type="button" class="btn btn-danger"  style="margin-left:-20px" th:onclick="'cleanSearch()'">清空</button>
+     <div th:fragment="leave" role="tabpanel" class="tab-pane" id="details_three">
+        <div class="view_body">
+              <div class="view_search">
+                   <span>租户名称</span><input type="text" style="width:140px;height:26px;" id="tenantLeaveName" name="tenantName" value="" />                       
+                   <span>平台接口人</span><input type="text" style="width:140px;height:26px;" id="tenantInterface" name="tenantInterface" value=""/>   
+                   <button type="button" class="btn btn-danger" style="margin-left:90px;margin-right:30px" th:onclick="'clickLeaveTable()'">查询</button>
+                   <button type="button" class="btn btn-danger" th:onclick="'cleanLeaveSearch()'" style="margin-left:-20px;">清空</button>
                    <a href="#" class="export" th:onclick="'exportFile()'">导出</a>
+              </div>
+              <div class="tools-header">
+                   <i class="upload_icon"></i>
+                   <a href="#" class="update" data-toggle="modal" data-target="#addTenModal" style="margin-left:1200px;">新增</a>
                </div>
-               <a class="upload" data-toggle="modal" data-target="#addTenModal">新增</a>
-               <div class="box">
-                   <div class="box-body table-responsive">
-                       <table id="leave_table" class="table table-bordered">
-                           <thead>
-					           <tr style="text-align: center">
-					                <th>序号</th>
-					               <th>服务类型</th>
-					               <th>租户</th>
-					               <th>租户级别</th>
-					               <th>租户负责人</th>
-					               <th>租户负责人联系电话</th>
-					               <th>资源类型</th>
-					               <th>访问Ip</th>
-					               <th>主机数量</th>
-					               <th>存储使用量</th>
-					               <th>存储使用量单位</th>
-					               <th>计算资源</th>
-					               <th>机房</th>
-					               <th>统一平台数量</th>
-					               <th>4A数量</th>
-					               <th>需求</th>
-					               <th>服务名</th>
-					               <th>队列名</th>
-					               <th>申请日期</th>
-					               <th>开放日期</th>
-					               <th>变更时间</th>
-					               <th>退租时间</th>
-					               <th>平台接口人</th>
-					               <th>备注</th>
-					               <th>操作</th>
-					           </tr>
-					       </thead>
-					       <tbody>
-					       </tbody>
-                       </table>
-                   </div>
-               </div>
-          </div>
-    <div class="modal fade" id="addTenModal" tabindex="-1" role="dialog" aria-labelledby="addTenModalLabel">
-        <div class="modal-dialog" role="document">
-             <div class="modal-content"> 
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">新增</h4>
-                </div>
-                <div class="modal-body" style="padding-left: 20px;">
-                    <form id="addTenForm"  class="form-horizontal" method="get">
+              <div class="box">
+                 <div class="box-body table-responsive">
+                    <table id="leave_table" class="table table-bordered" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr style="text-align: center">
+                                         <th>序号</th>
+                                         <th>服务类型</th>
+                                         <th>租户</th>
+                                         <th>租户级别</th>
+                                         <th>租户负责人</th>
+                                         <th>租户负责人联系电话</th>
+                                         <th>资源类型</th>
+                                         <th>访问Ip</th>
+                                         <th>主机数量</th>
+                                         <th>存储使用量</th>
+                                         <th>存储使用量单位</th>
+                                         <th>计算资源</th>
+                                         <th>机房</th>
+                                         <th>统一平台数量</th>
+                                         <th>4A数量</th>
+                                         <th>需求</th>
+                                         <th>服务名</th>
+                                         <th>队列名</th>
+                                         <th>申请日期</th>
+                                         <th>开放日期</th>
+                                         <th>变更时间</th>
+                                         <th>退租时间</th>
+                                         <th>平台接口人</th>
+                                         <th>备注</th>
+                                         <th>操作</th>
+                                       </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                     </table>
+                  </div>
+              </div>
+       </div>
+        <div class="modal fade" id="addTenModal" tabindex="-1" role="dialog" aria-labelledby="addToolModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">新增内容</h4>
+                    </div>
+                    <div class="modal-body" style="padding-left: 20px;">
+                      <form id="addTenForm"  class="form-horizontal"  method="get">
                         <div class="form-group">
                             <label for="serviceType" class="control-label col-md-2 ">服务类型</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="add-serviceType" name="serviceType" placeholder="请输入服务类型"/>
+                                <input type="text" class="form-control" id="addleave-serviceType" name="serviceType" placeholder="请输入服务类型"/>
                             </div>
                         </div>
-                          <div class="form-group">
+                        <div class="form-group">
                             <label for="tenantName" class="control-label col-md-2 ">租户名称</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="add-tenantName" name="tenantName" placeholder="请输入租户"/>
+                                <input type="text" class="form-control" id="addleave-tenantName" name="tenantName" placeholder="请输入租户"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="tenantLevel" class="control-label col-md-2 ">租户级别</label>
                             <div class="col-md-9">
-                                <select  class="form-control" id="add-tenantLevel">
-                                    <option  value="">------</option>
+                                <select  class="form-control" id="addleave-tenantLevel">
                                     <option  value="0">小</option>
                                     <option  value="1">中</option>
                                     <option  value="2">大</option>
@@ -88,20 +87,19 @@
                         <div class="form-group">
                             <label for="tenantBoss" class="control-label col-md-2 ">租户负责人</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="add-tenantBoss" name="tenantBoss" placeholder="请输入租户负责人"/>
+                                <input type="text" class="form-control" id="addleave-tenantBoss" name="tenantBoss" placeholder="请输入租户负责人"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="tenantTel" class="control-label col-md-2 ">联系电话</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="add-tenantTel" name="tenantTel" placeholder="请输入联系电话"/>
+                                <input type="text" class="form-control" id="addleave-tenantTel" name="tenantTel" placeholder="请输入联系电话"/>
                             </div>
                         </div>
                         <div class="form-group">
                           <label for="resourceType" class="control-label col-md-2 ">资源类型</label>
                             <div class="col-md-9">
-                                 <select  class="form-control" id="add-resourceType">
-                                    <option  value="">-------</option>
+                                 <select  class="form-control" id="addleave-resourceType">
                                     <option  value="1">Flume</option>
                                     <option  value="2">FTP集群</option>
                                     <option  value="3">Hbase</option>
@@ -125,140 +123,140 @@
                         <div class="form-group">
                             <label for="askIp" class="control-label col-md-2 ">访问Ip</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="add-askIp" name="askIp" placeholder="请输入联系电话"/>
+                                <input type="text" class="form-control" id="addleave-askIp" name="askIp" placeholder="请输入联系电话"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="hostNum" class="control-label col-md-2 ">主机数量</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="add-hostNum" name="hostNum" placeholder="请输入主机数量"/>
+                                <input type="text" class="form-control" id="addleave-hostNum" name="hostNum" placeholder="请输入主机数量"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="storage" class="control-label col-md-2 ">存储使用量</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="add-storage" name="storage" placeholder="存储容量"/>
+                                <input type="text" class="form-control" id="addleave-storage" name="storage" placeholder="存储容量"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="storageUnit" class="control-label col-md-2 ">存储使用量单位</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="add-storageUnit" name="storageUnit" placeholder="存储使用量单位"/>
+                                <input type="text" class="form-control" id="addleave-storageUnit" name="storageUnit" placeholder="存储使用量单位"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="computingResourceRate" class="control-label col-md-2 ">计算资源</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="add-computingResourceRate" name="computingResourceRate" placeholder="计算资源"/>
+                                <input type="text" class="form-control" id="addleave-computingResourceRate" name="computingResourceRate" placeholder="计算资源"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="computeRoom" class="control-label col-md-2 ">机房</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="add-computeRoom" name="computeRoom" placeholder="输入机房"/>
+                                <input type="text" class="form-control" id="addleave-computeRoom" name="computeRoom" placeholder="输入机房"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="uniplatformNum" class="control-label col-md-2 ">统一平台数量</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="add-uniplatformNum" name="uniplatformNum" placeholder="输入统一平台数量"/>
+                                <input type="text" class="form-control" id="addleave-uniplatformNum" name="uniplatformNum" placeholder="输入统一平台数量"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="numOf4a" class="control-label col-md-2 ">4A数量</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="add-numOf4a" name="numOf4a" placeholder="输入统4A数量"/>
+                                <input type="text" class="form-control" id="addleave-numOf4a" name="numOf4a" placeholder="输入统4A数量"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="demand" class="control-label col-md-2 ">需求</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="add-demand" name="demand" placeholder="输入需求"/>
+                                <input type="text" class="form-control" id="addleave-demand" name="demand" placeholder="输入需求"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="serviceName" class="control-label col-md-2 ">服务名</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="add-serviceName" name="serviceName" placeholder="输入账号"/>
+                                <input type="text" class="form-control" id="addleave-serviceName" name="serviceName" placeholder="输入账号"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="sequenceName" class="control-label col-md-2 ">队列名</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="add-sequenceName" name="sequenceName" placeholder="输入队列名"/>
+                                <input type="text" class="form-control" id="addleave-sequenceName" name="sequenceName" placeholder="输入队列名"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="askDate" class="control-label col-md-2 ">申请日期</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="add-askDate" name="askDate" placeholder="输入申请日期"/>
+                                <input type="text" class="form-control" id="addleave-askDate" name="askDate" placeholder="输入申请日期"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="openDate" class="control-label col-md-2 ">开放日期</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="add-openDate" name="openDate" placeholder="输入开放日期"/>
+                                <input type="text" class="form-control" id="addleave-openDate" name="openDate" placeholder="输入开放日期"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="changeDate" class="control-label col-md-2 ">变更时间</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="add-changeDate" name="changeDate" placeholder="输入变更时间"/>
+                                <input type="text" class="form-control" id="addleave-changeDate" name="changeDate" placeholder="输入变更时间"/>
                             </div>
                         </div>
-                         <div class="form-group">
+                        <div class="form-group">
                             <label for="endRentDate" class="control-label col-md-2 ">退租时间</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="add-endRentDate" name="endRentDate" placeholder="输入退租时间"/>
+                                <input type="text" class="form-control" id="addleave-endRentDate" name="endRentDate" placeholder="输入退租时间"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="tenantInterface" class="control-label col-md-2 ">平台接口人</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="add-tenantInterface" name="tenantInterface" placeholder="输入平台接口人"/>
+                                <input type="text" class="form-control" id="addleave-tenantInterface" name="tenantInterface" placeholder="输入平台接口人"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="remark" class="control-label col-md-2 ">备注</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="add-remark" name="remark" placeholder="输入备注"/>
+                                <input type="text" class="form-control" id="addleave-remark" name="remark" placeholder="输入备注"/>
                             </div>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
+                      </form>
+                    </div>
+                  <div class="modal-footer">
                     <button type="button" class="btn btn-danger" id="addTenBtn">提交</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal" id="addReloadHTML">关闭</button>
+                  </div>
                 </div>
-         <!--     </div>-->
-        </div>
-    </div>
-    <div class="modal fade" id="updateTenModal" tabindex="-1" role="dialog" aria-labelledby="uploadUserModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">编辑类型</h4>
-                </div>
-                <div class="modal-body" style="padding-left: 20px;">
-                    <form id="updateTenForm"  class="form-horizontal"  method="get">
-                         <input id="update-tlId" type="hidden" name="tlId"/>
-                         <div class="form-group">
+            </div>
+        </div>    
+        <div class="modal fade" id="updateTenModal" tabindex="-1" role="dialog" aria-labelledby="uploadToolModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">编辑内容</h4>
+                    </div>
+                    <div class="modal-body" style="padding-left: 20px;">
+                      <form id="updateTenForm" class="form-horizontal"  method="get">
+                        <input id="updateleave-tlId" type="hidden" name="tlId"/>
+                        <div class="form-group">
                             <label for="serviceType" class="control-label col-md-2 ">服务类型</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-serviceType" name="serviceType" placeholder="请输入服务类型"/>
+                                <input type="text" class="form-control" id="updateleave-serviceType" name="serviceType" placeholder="请输入服务类型"/>
                             </div>
                         </div>
-                          <div class="form-group">
+                        <div class="form-group">
                             <label for="tenantName" class="control-label col-md-2 ">租户名称</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-tenantName" name="tenantName" placeholder="请输入租户"/>
+                                <input type="text" class="form-control" id="updateleave-tenantName" name="tenantName" placeholder="请输入租户"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="tenantLevel" class="control-label col-md-2 ">租户级别</label>
                             <div class="col-md-9">
-                                <select  class="form-control" id="update-tenantLevel">
+                                <select  class="form-control" id="updateleave-tenantLevel">
                                     <option  value="0">小</option>
                                     <option  value="1">中</option>
                                     <option  value="2">大</option>
@@ -268,19 +266,19 @@
                         <div class="form-group">
                             <label for="tenantBoss" class="control-label col-md-2 ">租户负责人</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-tenantBoss" name="tenantBoss" placeholder="请输入租户负责人"/>
+                                <input type="text" class="form-control" id="updateleave-tenantBoss" name="tenantBoss" placeholder="请输入租户负责人"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="tenantTel" class="control-label col-md-2 ">联系电话</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-tenantTel" name="tenantTel" placeholder="请输入联系电话"/>
+                                <input type="text" class="form-control" id="updateleave-tenantTel" name="tenantTel" placeholder="请输入联系电话"/>
                             </div>
                         </div>
                         <div class="form-group">
                           <label for="resourceType" class="control-label col-md-2 ">资源类型</label>
                             <div class="col-md-9">
-                                <select  class="form-control" id="update-resourceType">
+                                <select  class="form-control" id="updateleave-resourceType">
                                     <option  value="1">Flume</option>
                                     <option  value="2">FTP集群</option>
                                     <option  value="3">Hbase</option>
@@ -304,135 +302,134 @@
                         <div class="form-group">
                             <label for="askIp" class="control-label col-md-2 ">访问Ip</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-askIp" name="askIp" placeholder="请输入联系电话"/>
+                                <input type="text" class="form-control" id="updateleave-askIp" name="askIp" placeholder="请输入联系电话"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="hostNum" class="control-label col-md-2 ">主机数量</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-hostNum" name="hostNum" placeholder="请输入主机数量"/>
+                                <input type="text" class="form-control" id="updateleave-hostNum" name="hostNum" placeholder="请输入主机数量"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="storage" class="control-label col-md-2 ">存储使用量</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-storage" name="storage" placeholder="存储容量"/>
+                                <input type="text" class="form-control" id="updateleave-storage" name="storage" placeholder="存储容量"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="storageUnit" class="control-label col-md-2 ">存储使用量单位</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-storageUnit" name="storageUnit" placeholder="存储使用量单位"/>
+                                <input type="text" class="form-control" id="updateleave-storageUnit" name="storageUnit" placeholder="存储使用量单位"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="computingResourceRate" class="control-label col-md-2 ">计算资源</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-computingResourceRate" name="computingResourceRate" placeholder="计算资源"/>
+                                <input type="text" class="form-control" id="updateleave-computingResourceRate" name="computingResourceRate" placeholder="计算资源"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="computeRoom" class="control-label col-md-2 ">机房</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-computeRoom" name="computeRoom" placeholder="输入机房"/>
+                                <input type="text" class="form-control" id="updateleave-computeRoom" name="computeRoom" placeholder="输入机房"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="uniplatformNum" class="control-label col-md-2 ">统一平台数量</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-uniplatformNum" name="uniplatformNum" placeholder="输入统一平台数量"/>
+                                <input type="text" class="form-control" id="updateleave-uniplatformNum" name="uniplatformNum" placeholder="输入统一平台数量"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="numOf4a" class="control-label col-md-2 ">4A数量</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-numOf4a" name="numOf4a" placeholder="输入统4A数量"/>
+                                <input type="text" class="form-control" id="updateleave-numOf4a" name="numOf4a" placeholder="输入统4A数量"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="demand" class="control-label col-md-2 ">需求</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-demand" name="demand" placeholder="输入需求"/>
+                                <input type="text" class="form-control" id="updateleave-demand" name="demand" placeholder="输入需求"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="serviceName" class="control-label col-md-2 ">服务名</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-serviceName" name="serviceName" placeholder="输入账号"/>
+                                <input type="text" class="form-control" id="updateleave-serviceName" name="serviceName" placeholder="输入账号"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="sequenceName" class="control-label col-md-2 ">队列名</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-sequenceName" name="sequenceName" placeholder="输入队列名"/>
+                                <input type="text" class="form-control" id="updateleave-sequenceName" name="sequenceName" placeholder="输入队列名"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="askDate" class="control-label col-md-2 ">申请日期</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-askDate" name="askDate" placeholder="输入申请日期"/>
+                                <input type="text" class="form-control" id="updateleave-askDate" name="askDate" placeholder="输入申请日期"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="openDate" class="control-label col-md-2 ">开放日期</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-openDate" name="openDate" placeholder="输入开放日期"/>
+                                <input type="text" class="form-control" id="updateleave-openDate" name="openDate" placeholder="输入开放日期"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="changeDate" class="control-label col-md-2 ">变更时间</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-changeDate" name="changeDate" placeholder="输入变更时间"/>
+                                <input type="text" class="form-control" id="updateleave-changeDate" name="changeDate" placeholder="输入变更时间"/>
                             </div>
                         </div>
-                         <div class="form-group">
+                        <div class="form-group">
                             <label for="endRentDate" class="control-label col-md-2 ">退租时间</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-endRentDate" name="endRentDate" placeholder="输入退租时间"/>
+                                <input type="text" class="form-control" id="updateleave-endRentDate" name="endRentDate" placeholder="输入退租时间"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="tenantInterface" class="control-label col-md-2 ">平台接口人</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-tenantInterface" name="tenantInterface" placeholder="输入平台接口人"/>
+                                <input type="text" class="form-control" id="updateleave-tenantInterface" name="tenantInterface" placeholder="输入平台接口人"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="remark" class="control-label col-md-2 ">备注</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-remark" name="remark" placeholder="输入备注"/>
+                                <input type="text" class="form-control" id="updateleave-remark" name="remark" placeholder="输入备注"/>
                             </div>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" id="updateTenBtn" th:onclick="'click()'">提交</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal" id="updateReloadHTML">关闭</button>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="updateTenBtn">提交</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="updateReloadHTML">关闭</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel">
-        <div class="modal-dialog" role="document" style="width: 350px;">
+        <div class="modal fade" id="alertModal2" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel">
+          <div class="modal-dialog" role="document" style="width: 350px;">
             <div class="modal-content" style="width: 350px;">
                 <div class="modal-body" style="text-align: center;font-weight: bold;padding: 30px;">
                 </div>
                 <div class="modal-footer" style="text-align: center;padding: 5px;">
-                    <button type="button" class="btn btn-danger btn-xs" id="removeTool">确定</button>
+                    <button type="button" class="btn btn-danger btn-xs" id="removeTen">确定</button>
                     <button type="button" class="btn btn-default btn-xs" data-dismiss="modal">取消</button>
                 </div>
             </div>
-        </div>
+         </div>
     </div>
-    <form id="deleteTenForm" th:action="@{/tenant/tenretired/delete}" method="get">
-        <input type="hidden" id="delete-tlId" name="tlId"/>
-    </form>
-    <script type="text/javascript" th:inline="javascript">
-     window.onscroll = function(){
-            $('.fixedHeader-floating th').css('text-align','center');
-    } 
-    </script>
-      </div>
+        <form id="deleteTenForm" th:action="@{/tenant/tenretired/delete}" method="get">
+           <input type="hidden" id="delete-tlId" name="tlId"/>
+        </form>
+        <script type="text/javascript" th:inline="javascript">
+         window.onscroll = function(){
+                $('.fixedHeader-floating th').css('text-align','center');
+        } 
+        </script>
      </div>
   </body>
 </html>

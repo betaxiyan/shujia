@@ -203,7 +203,7 @@ public class PoiUtils {
 	private static HSSFCellStyle createHeadStyle(HSSFWorkbook workbook){
 		//标题单元格样式
 		HSSFCellStyle headStyle = workbook.createCellStyle();   
-		headStyle.setFillForegroundColor(HSSFColor.SKY_BLUE.index);  
+		headStyle.setFillForegroundColor(HSSFColor.GREY_25_PERCENT.index);  
 		headStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);  
 		headStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);  
 		headStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);  
@@ -212,7 +212,7 @@ public class PoiUtils {
 		headStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);  
 		//标题单元格字体  
 		HSSFFont headFont = workbook.createFont();  
-		headFont.setColor(HSSFColor.VIOLET.index);  
+		headFont.setColor(HSSFColor.BLACK.index);  
 		headFont.setFontHeightInPoints((short) 12);  
 		headFont.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);  
 		// 把字体应用到当前的样式  
@@ -228,7 +228,7 @@ public class PoiUtils {
 	private static HSSFCellStyle createCommonDataStyle(HSSFWorkbook workbook){
 		//普通数据单元格样式 
 		HSSFCellStyle commonDataStyle = workbook.createCellStyle();  
-		commonDataStyle.setFillForegroundColor(HSSFColor.LIGHT_YELLOW.index);  
+		commonDataStyle.setFillForegroundColor(HSSFColor.WHITE.index);  
 		commonDataStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);  
 		commonDataStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);  
 		commonDataStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);  

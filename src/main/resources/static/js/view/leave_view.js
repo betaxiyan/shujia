@@ -20,7 +20,7 @@ $(document).ready(function() {
         "ajax":{
      		"url":ctx+"tenant/findTenretiredList",
         	"data":function(d){
-        		d.tenantName = $("#tenantName").val();
+        		d.tenantName = $("#tenantLeaveName").val();
         		d.tenantInterface= $("#tenantInterface").val();
              }
         },
@@ -250,7 +250,7 @@ $(document).ready(function() {
                  	 }
                 },
                 {
-                 	 data:"end_rent_date",
+                 	 data:"endRentDate",
                  	 render:function(data, type, row) {
                  		 if(data == "" || data == null) {
                  			 return "-";
@@ -311,29 +311,29 @@ $(document).ready(function() {
 //        var bootstrapValidator = $('#addUserForm').data('bootstrapValidator');
 //        bootstrapValidator.validate();
 //        if (bootstrapValidator.isValid()) {
-    	 var serviceType= $("#add-serviceType").val();
-    	 var tenantName=$("#add-tenantName").val();
-    	 var tenantLevel=$("#add-tenantLevel").val();
-    	 var tenantBoss=$("#add-tenantBoss").val();
-    	 var tenantTel=$("#add-tenantTel").val();
-    	 var resourceType=$("#add-resourceType").val();
-    	 var askIp=$("#add-askIp").val();
-    	 var hostNum=$("#add-hostNum").val();
-    	 var storage=$("#add-storage").val();
-    	 var storageUnit=$("#add-storageUnit").val();
-    	 var computingResourceRate=$("#add-computingResourceRate").val();
-    	 var computeRoom=$("#add-computeRoom").val();
-    	 var uniplatformNum=$("#add-uniplatformNum").val();
-    	 var numOf4a=$("#add-numOf4a").val();
-    	 var demand=$("#add-demand").val();
-    	 var serviceName=$("#add-serviceName").val();
-    	 var sequenceName=$("#add-sequenceName").val();
-    	 var askDate=$("#add-askDate").val();
-    	 var openDate=$("#add-openDate").val();
-    	 var changeDate=$("#add-changeDate").val();
-    	 var endRentDate=$("#add-endRentDate").val();
-    	 var tenantInterface=$("#add-tenantInterface").val();
-    	 var remark=$("#add-remark").val();
+    	 var serviceType= $("#addleave-serviceType").val();
+    	 var tenantName=$("#addleave-tenantName").val();
+    	 var tenantLevel=$("#addleave-tenantLevel").val();
+    	 var tenantBoss=$("#addleave-tenantBoss").val();
+    	 var tenantTel=$("#addleave-tenantTel").val();
+    	 var resourceType=$("#addleave-resourceType").val();
+    	 var askIp=$("#addleave-askIp").val();
+    	 var hostNum=$("#addleave-hostNum").val();
+    	 var storage=$("#addleave-storage").val();
+    	 var storageUnit=$("#addleave-storageUnit").val();
+    	 var computingResourceRate=$("#addleave-computingResourceRate").val();
+    	 var computeRoom=$("#addleave-computeRoom").val();
+    	 var uniplatformNum=$("#addleave-uniplatformNum").val();
+    	 var numOf4a=$("#addleave-numOf4a").val();
+    	 var demand=$("#addleave-demand").val();
+    	 var serviceName=$("#addleave-serviceName").val();
+    	 var sequenceName=$("#addleave-sequenceName").val();
+    	 var askDate=$("#addleave-askDate").val();
+    	 var openDate=$("#addleave-openDate").val();
+    	 var changeDate=$("#addleave-changeDate").val();
+    	 var endRentDate=$("#addleave-endRentDate").val();
+    	 var tenantInterface=$("#addleave-tenantInterface").val();
+    	 var remark=$("#addleave-remark").val();
     	$.ajax({
       		url :ctx + "tenant/saveTenretired",
       		type : "get",
@@ -361,30 +361,30 @@ $(document).ready(function() {
 //       var bootstrapValidator = $('#updateUserForm').data('bootstrapValidator');
 //        bootstrapValidator.validate();
 //        if (bootstrapValidator.isValid()) {
-    	 var tlId=$("#update-tlId").val();
-    	 var serviceType= $("#update-serviceType").val();
-    	 var tenantName=$("#update-tenantName").val();
-    	 var tenantLevel=$("#update-tenantLevel").val();
-    	 var tenantBoss=$("#update-tenantBoss").val();
-    	 var tenantTel=$("#update-tenantTel").val();
-    	 var resourceType=$("#update-resourceType").val();
-    	 var askIp=$("#update-askIp").val();
-    	 var hostNum=$("#update-hostNum").val();
-    	 var storage=$("#update-storage").val();
-    	 var storageUnit=$("#update-storageUnit").val();
-    	 var computingResourceRate=$("#update-computingResourceRate").val();
-    	 var computeRoom=$("#update-computeRoom").val();
-    	 var uniplatformNum=$("#update-uniplatformNum").val();
-    	 var numOf4a=$("#update-numOf4a").val();
-    	 var demand=$("#update-demand").val();
-    	 var serviceName=$("#add-serviceName").val();
-    	 var sequenceName=$("#update-sequenceName").val();
-    	 var askDate=$("#update-askDate").val();
-    	 var openDate=$("#update-openDate").val();
-    	 var changeDate=$("#update-changeDate").val();
-    	 var endRentDate=$("#update-endRentDate").val();
-    	 var tenantInterface=$("#update-tenantInterface").val();
-    	 var remark=$("#update-remark").val();
+    	 var tlId=$("#updateleave-tlId").val();
+    	 var serviceType= $("#updateleave-serviceType").val();
+    	 var tenantName=$("#updateleave-tenantName").val();
+    	 var tenantLevel=$("#updateleave-tenantLevel").val();
+    	 var tenantBoss=$("#updateleave-tenantBoss").val();
+    	 var tenantTel=$("#updateleave-tenantTel").val();
+    	 var resourceType=$("#updateleave-resourceType").val();
+    	 var askIp=$("#updateleave-askIp").val();
+    	 var hostNum=$("#updateleave-hostNum").val();
+    	 var storage=$("#updateleave-storage").val();
+    	 var storageUnit=$("#updateleave-storageUnit").val();
+    	 var computingResourceRate=$("#updateleave-computingResourceRate").val();
+    	 var computeRoom=$("#updateleave-computeRoom").val();
+    	 var uniplatformNum=$("#updateleave-uniplatformNum").val();
+    	 var numOf4a=$("#updateleave-numOf4a").val();
+    	 var demand=$("#updateleave-demand").val();
+    	 var serviceName=$("#updateleave-serviceName").val();
+    	 var sequenceName=$("#updateleave-sequenceName").val();
+    	 var askDate=$("#updateleave-askDate").val();
+    	 var openDate=$("#updateleave-openDate").val();
+    	 var changeDate=$("#updateleave-changeDate").val();
+    	 var endRentDate=$("#updateleave-endRentDate").val();
+    	 var tenantInterface=$("#updateleave-tenantInterface").val();
+    	 var remark=$("#updateleave-remark").val();
         	 $.ajax({
            		url :ctx+"tenant/tenretired/update",
            		type : "get",
@@ -403,9 +403,6 @@ $(document).ready(function() {
 //    	$('#updateTenForm').bootstrapValidator('resetForm', true);
     }
     
-    function addClean(){
-    	$('#addTenModal').modal('hide');
-    }
     
     //编辑表单关闭
     $('#updateReloadHTML').click(function(){
@@ -430,38 +427,38 @@ $(document).ready(function() {
                     url:ctx+"tenant/tenretired/edit",
                     data:{"tlId":tarval},
                     success:function(data){
-                    	$("#update-tlId").val(data.tlId);
-                   	    $("#update-serviceType").val(data.serviceType);
-                   	    $("#update-tenantName").val(data.tenantName);
-                   	    $("#update-tenantLevel").val(data.tenantLevel);
-                   	    $("#update-tenantBoss").val(data.tenantBoss);
-                   	    $("#update-tenantTel").val(data.tenantTel);
-                   	    $("#update-resourceType").val(data.resourceType);
-                   	    $("#update-askIp").val(data.askIp);
-                   	    $("#update-hostNum").val(data.hostNum);
-                   	    $("#update-storage").val(data.storage);
-                   	    $("#update-storageUnit").val(data.storage);
-                   	    $("#update-computingResourceRate").val(data.computingResourceRate);
-                   	    $("#update-computeRoom").val(data.computeRoom);
-                   	    $("#update-uniplatformNum").val(data.uniplatformNum);
-                   	    $("#update-numOf4a").val(data.numOf4a);
-                   	    $("#update-demand").val(data.demand);
-                   	    $("#update-serviceName").val(data.serviceName);
-                   	    $("#update-sequenceName").val(data.sequenceName);
-                   	    $("#update-askDate").val(data.askDate);
-                   	    $("#update-openDate").val(data.openDate);
-                   	    $("#update-changeDate").val(data.changeDate);
-                   	    $("#update-endRentDate").val(data.endRentDate);
-                   	    $("#update-tenantInterface").val(data.tenantInterface);
-                   	    $("#update-remark").val(data.remark);
+                    	    $("#updateleave-tlId").val(data.tlId);
+                    	    $("#updateleave-serviceType").val(data.serviceType);
+                    	    $("#updateleave-tenantName").val(data.tenantName);
+                    	    $("#updateleave-tenantLevel").val(data.tenantLevel);
+                    	    $("#updateleave-tenantBoss").val(data.tenantBoss);
+                    	    $("#updateleave-tenantTel").val(data.tenantTel);
+                    	    $("#updateleave-resourceType").val(data.resourceType);
+                    	    $("#updateleave-askIp").val(data.askIp);
+                    	    $("#updateleave-hostNum").val(data.hostNum);
+                    	    $("#updateleave-storage").val(data.storage);
+                    	    $("#updateleave-storageUnit").val(data.storageUnit);
+                    	    $("#updateleave-computingResourceRate").val(data.computingResourceRate);
+                    	    $("#updateleave-computeRoom").val(data.computeRoom);
+                    	    $("#updateleave-uniplatform").val(data.uniplatform);
+                    	    $("#updateleave-numOf4a").val(data.numOf4a);
+                    	    $("#updateleave-demand").val(data.demand);
+                    	    $("#updateleave-serviceName").val(data.serviceName);
+                    	    $("#updateleave-sequenceName").val(data.sequenceName);
+                    	    $("#updateleave-askDate").val(data.askDate);
+                    	    $("#updateleave-openDate").val(data.openDate);
+                    	    $("#updateleave-changeDate").val(data.changeDate);
+                    	    $("#updateleave-endRentDate").val(data.endRentDate);
+                    	    $("#updateleave-tenantInterface").val(data.tenantInterface);
+                    	    $("#updateleave-remark").val(data.remark);
                     }
            	});
               $('#updateTenModal').modal('show');
           }else if (tarHTML == '删除') {
-              $('#alertModal .modal-body').html('确定要删除？');
-              $('#alertModal').modal('show');
-              $('#removeTool').unbind('click');
-              $('#removeTool').click(function() {
+              $('#alertModal2 .modal-body').html('确定要删除？');
+              $('#alertModal2').modal('show');
+              $('#removeTen').unbind('click');
+              $('#removeTen').click(function() {
            	$.ajax({
           		 type:"get",
                    url:ctx + "tenant/retired/validateByTlId",
@@ -484,73 +481,74 @@ $(document).ready(function() {
     $('#leave_table tbody').unbind('click',TenretiredOperate);
     $('#leave_table tbody').bind('click',TenretiredOperate);
    
-//    function addClean(){
-//    	$('#addTenModal').modal('hide');
-//    	$("#add-tenantName").val("");
-//    	$("#add-tenantLevel").val("");
-//    	$("#add-tenantBoss").val("");
-//    	$("#add-tenantTel").val("");
-//    	$("#add-resourceType").val("");
-//    	$("#add-askIp").val("");
-//    	$("#add-hostNum").val("");
-//    	$("#add-storage").val("");
-//    	$("#add-storageUnit").val("");
-//    	$("#add-computingResourceRate").val("");
-//    	$("#add-computeRoom").val("");
-//    	$("#add-uniplatformNum").val("");
-//    	$("#add-numOf4a").val("");
-//    	$("#add-demand").val("");
-//    	$("#add-serviceName").val("");
-//    	$("#add-sequenceName").val("");
-//    	$("#add-askDate").val("");
-//    	$("#add-openDate").val("");
-//    	$("#add-changeDate").val("");
-//    	$("#add-endRentDate").val("");
-//    	$("#add-tenantInterface").val("");
-//    	$("#add-remark").val("");
-//
-//    }
-//
-//    function updateClean(){
-//    	$('#updateTenModal').modal('hide');
-//    	$("#update-tenantName").val("");
-//    	$("#update-tenantLevel").val("");
-//    	$("#update-tenantBoss").val("");
-//    	$("#update-tenantTel").val("");
-//    	$("#update-resourceType").val("");
-//    	$("#update-askIp").val("");
-//    	$("#update-hostNum").val("");
-//    	$("#update-storage").val("");
-//    	$("#update-storageUnit").val("");
-//    	$("#update-computingResourceRate").val("");
-//    	$("#update-computeRoom").val("");
-//    	$("#update-uniplatformNum").val("");
-//    	$("#update-numOf4a").val("");
-//    	$("#update-demand").val("");
-//    	$("#update-serviceName").val("");
-//    	$("#update-sequenceName").val("");
-//    	$("#update-askDate").val("");
-//    	$("#update-openDate").val("");
-//    	$("#update-changeDate").val("");
-//    	$("#update-endRentDate").val("");
-//    	$("#update-tenantInterface").val("");
-//    	$("#update-remark").val("");
-//
-//    }
+    function addClean(){
+    	$('#addTenModal').modal('hide');
+    	$("#add-tenantName").val("");
+    	$("#add-tenantLevel").val("");
+    	$("#add-tenantBoss").val("");
+    	$("#add-tenantTel").val("");
+    	$("#add-resourceType").val("");
+    	$("#add-askIp").val("");
+    	$("#add-hostNum").val("");
+    	$("#add-storage").val("");
+    	$("#add-storageUnit").val("");
+    	$("#add-computingResourceRate").val("");
+    	$("#add-computeRoom").val("");
+    	$("#add-uniplatformNum").val("");
+    	$("#add-numOf4a").val("");
+    	$("#add-demand").val("");
+    	$("#add-serviceName").val("");
+    	$("#add-sequenceName").val("");
+    	$("#add-askDate").val("");
+    	$("#add-openDate").val("");
+    	$("#add-changeDate").val("");
+    	$("#add-endRentDate").val("");
+    	$("#add-tenantInterface").val("");
+    	$("#add-remark").val("");
+
+    }
+
+    function updateClean(){
+    	$('#updateTenModal').modal('hide');
+    	$("#update-tenantName").val("");
+    	$("#update-tenantLevel").val("");
+    	$("#update-tenantBoss").val("");
+    	$("#update-tenantTel").val("");
+    	$("#update-resourceType").val("");
+    	$("#update-askIp").val("");
+    	$("#update-hostNum").val("");
+    	$("#update-storage").val("");
+    	$("#update-storageUnit").val("");
+    	$("#update-computingResourceRate").val("");
+    	$("#update-computeRoom").val("");
+    	$("#update-uniplatformNum").val("");
+    	$("#update-numOf4a").val("");
+    	$("#update-demand").val("");
+    	$("#update-serviceName").val("");
+    	$("#update-sequenceName").val("");
+    	$("#update-askDate").val("");
+    	$("#update-openDate").val("");
+    	$("#update-changeDate").val("");
+    	$("#update-endRentDate").val("");
+    	$("#update-tenantInterface").val("");
+    	$("#update-remark").val("");
+
+    }
    /*************************/     
 });
 
   
 
 //查询操作按钮
-function clickTable() {
+function clickLeaveTable(){
 	table.api().ajax.reload();
 }
 
 //清除查询数据
-function cleanSearch() {
-	$("#tenantName").val("");
+function cleanLeaveSearch() {
+	$("#tenantLeaveName").val("");
 	$("#tenantInterface").val("");
+	clickLeaveTable();
 }
 
 //文件导出
@@ -567,5 +565,3 @@ function exportFile() {
 	var tenantInterface=$("#tenantInterface").val();
 	location.href=ctx+'tenant/exportTenretired?tenantName='+tenantName+ '&tenantInterface='+tenantInterface;
 }
-
-
