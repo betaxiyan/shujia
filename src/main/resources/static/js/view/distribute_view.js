@@ -306,7 +306,6 @@ $(document).ready(function() {
 
     //新增表单提交
     $('#addToolBtn').click(function() {
-    	alert(121323243);
         	var serviceType=$("#add-serviceType").val();
         	var tenantName=$("#add-tenantName").val();
         	var tenantLevel=$("#add-tenantLevel").val();
@@ -346,7 +345,6 @@ $(document).ready(function() {
     
     //编辑表单提交
     $('#updateToolBtn').click(function() {
-    	alert("红色");
     	var serviceType=$("#update-serviceType").val();
     	var tenantName=$("#update-tenantName").val();
     	var tenantLevel=$("#update-tenantLevel").val();
@@ -366,11 +364,9 @@ $(document).ready(function() {
     	var memoryMax=$("#update-memoryMax").val();
     	var memoryAvg=$("#update-memoryAvg").val();
     	var askDate=$("#update-askDate").val();
-    	alert(askDate);
     	var changeDate=$("#update-changeDate").val();
     	var openDate=$("#update-openDate").val();	
         var tdId=$("#update-tdId").val();
-        alert(tdId);
         	 $.ajax({
            		url :ctx + "users/updateP",
            		type : "get",
@@ -409,7 +405,6 @@ $(document).ready(function() {
     
     //编辑上传工具
     function ToolOperate(e) {
-    	alert(12);
         e = e || window.event;
         var tar = e.target || e.srcElement;
         var tarName = tar.tagName;
@@ -457,7 +452,6 @@ $(document).ready(function() {
                 $('#alertModal').modal('show');
                 $('#removeTool').unbind('click');
                 $('#removeTool').click(function() {
-                	alert(89);
                 	$.ajax({
                		 type:"get",
                         url:ctx + "users/validateById",
@@ -501,7 +495,6 @@ function cleanDisSearch(){
 }
 //文件导出
 function exportDisFile() {
-	alert(45);
 	var length = tables.api().data().length;
 	if (length < 1) {
 		layui.use('layer', function(){
@@ -511,7 +504,6 @@ function exportDisFile() {
 		return;
 	}
 	
-	//var userName=$("#userName").val();
 	location.href=ctx+'users/disExport' ;
 }
 
