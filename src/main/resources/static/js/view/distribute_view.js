@@ -1,6 +1,6 @@
 var table;
 $(document).ready(function() {
-    table= $('#tools_table').dataTable({
+    tables= $('#tools_table').dataTable({
     	fixedHeader: {
 	        header: true
 	    },
@@ -490,20 +490,19 @@ $(document).ready(function() {
 
 //搜索按钮
 function clickDisTable(){
-	table.api().ajax.reload();
-	alert("测试");
+	tables.api().ajax.reload();
 };
 
 //清空按钮
 function cleanDisSearch(){
 	$("#tenantName").val("");
     $("#tenantBoss").val("");
-    clickTable();
+    clickDisTable();
 }
 //文件导出
 function exportDisFile() {
 	alert(45);
-	var length = table.api().data().length;
+	var length = tables.api().data().length;
 	if (length < 1) {
 		layui.use('layer', function(){
 			  var layer = layui.layer;
@@ -513,7 +512,6 @@ function exportDisFile() {
 	}
 	
 	//var userName=$("#userName").val();
-	location.href=ctx+'users/export' ;
-	alert(95);
+	location.href=ctx+'users/disExport' ;
 }
 

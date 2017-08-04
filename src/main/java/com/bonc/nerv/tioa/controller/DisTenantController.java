@@ -76,7 +76,7 @@ public class DisTenantController {
      * @throws Exception 抛出异常
      * @see
      */
-    @RequestMapping(value = "/users/export")
+    @RequestMapping(value = "/users/disExport")
     public void exportFile(HttpServletRequest request, HttpServletResponse response)
         throws Exception {
         List<DisTenantEntity> list = distenantService.exportFile();
