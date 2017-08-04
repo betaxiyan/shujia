@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.springframework.stereotype.Repository;
 
 /**
  * 

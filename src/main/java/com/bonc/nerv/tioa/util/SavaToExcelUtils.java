@@ -269,7 +269,6 @@ public class SavaToExcelUtils {
      * @return CellStyle 样式
      * @see 
      */
-    @SuppressWarnings("deprecation")
     private static CellStyle createCellHeadStyle(Workbook workbook) {
         CellStyle style = workbook.createCellStyle();
         // 设置边框样式
@@ -299,7 +298,6 @@ public class SavaToExcelUtils {
      * @param workbook 工作薄
      * @return CellStyle 样式
      */
-    @SuppressWarnings("deprecation")
     private static CellStyle createCellContentStyle(Workbook workbook) {
         CellStyle style = workbook.createCellStyle();
         // 设置边框样式
@@ -326,7 +324,6 @@ public class SavaToExcelUtils {
      * @param workbook 工作薄
      * @return CellStyle 样式
      */
-    @SuppressWarnings("deprecation")
     private static CellStyle createCellYellowStyle(Workbook workbook) {
         CellStyle style = workbook.createCellStyle();
         // 设置边框样式

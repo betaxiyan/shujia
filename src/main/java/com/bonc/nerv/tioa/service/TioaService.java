@@ -1,7 +1,5 @@
 package com.bonc.nerv.tioa.service;
 
-import java.sql.SQLException;
-
 /**
  * 
  * 〈一句话功能简述〉
@@ -39,5 +37,5 @@ public interface TioaService {
      */
     void testTwo();
 
-    void savaToFile();
+    
 }

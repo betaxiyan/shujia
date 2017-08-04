@@ -10,16 +10,19 @@ package com.bonc.nerv.tioa.service.impl;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bonc.nerv.tioa.dao.TioTenChaSho_2Dao;
 import com.bonc.nerv.tioa.dao.TioaTenantChargingShowDao;
 import com.bonc.nerv.tioa.entity.TioaTenantChargingShow;
 import com.bonc.nerv.tioa.service.TioTenChaShoService;
 import com.bonc.nerv.tioa.util.POIUtil;
+import com.bonc.nerv.tioa.util.SavaToExcelUtils;
 
 /**
  * 
@@ -36,6 +39,12 @@ public class TioTenChaShoServiceImpl implements TioTenChaShoService{
      */
     @Autowired
     private TioaTenantChargingShowDao tioaTenantChargingShowDao;
+    
+    /**
+     * 注入到tioTenChaSho_2Dao
+     */
+    @Autowired
+    private TioTenChaSho_2Dao tioTenChaSho_2Dao;
     
     
     @Override
@@ -194,6 +203,68 @@ public class TioTenChaShoServiceImpl implements TioTenChaShoService{
      */
     public void deleteById(Long id){
         tioaTenantChargingShowDao.delete(id);
+    }
+    
+    /**
+     * Description: 将数据保存到excel文件
+     * @see 
+     */
+    @Override
+    public void savaToFile() {
+        
+        List<String> title = new ArrayList<String>();
+        title.add("租户");
+        title.add("服务类型"); 
+        title.add("租户分类");
+        title.add("资源具备日期"); 
+        title.add(null); 
+        title.add(null); 
+        title.add("计费日期确定"); 
+        title.add(null); 
+        title.add(null);
+        title.add(null); 
+        title.add(null);
+        title.add(null); 
+        title.add(null);
+        title.add("联通引入方"); 
+        title.add("引入方联系人（租户管理员）"); 
+        title.add("联系方式"); 
+        title.add("申请日期");
+        title.add("是否签署合同");
+        title.add("月租备注");
+        title.add("退租时间");
+        title.add("备注");
+        
+        
+        List<String> columnNames = new ArrayList<String>();
+        columnNames.add(null);
+        columnNames.add(null);
+        columnNames.add(null);
+        columnNames.add("资源");
+        columnNames.add("统一及4A");
+        columnNames.add("数据实际具备");
+        columnNames.add("入住时长"); 
+        columnNames.add("月租费用（元/月）"); 
+        columnNames.add("数据报价/万元"); 
+        columnNames.add("起租日期"); 
+        columnNames.add("试用期"); 
+        columnNames.add("计费时期"); 
+        columnNames.add("到期日期"); 
+        columnNames.add(null);
+        columnNames.add(null);
+        columnNames.add(null);
+        columnNames.add(null);
+        columnNames.add(null);
+        columnNames.add(null);
+        columnNames.add(null);
+        columnNames.add(null);
+        try {
+            List<List<Object>> list = tioTenChaSho_2Dao.getAllTioa();
+            SavaToExcelUtils.writeExcel("E:\\temp", "qqq","租户计费情况" ,columnNames ,title ,list );
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
 }

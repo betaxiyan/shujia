@@ -18,10 +18,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
-import com.bonc.nerv.tioa.dao.TioaDao;
+
+import com.bonc.nerv.tioa.dao.TioTenChaSho_2Dao;
 
 @Repository
-public class TioaDaoImpl implements TioaDao {
+public class TioTenChaSho_2DaoImpl implements TioTenChaSho_2Dao {
     @Value("${spring.datasource.url}")
     private  String DbUrl;
     @Value("${spring.datasource.username}")
@@ -32,10 +33,7 @@ public class TioaDaoImpl implements TioaDao {
     private  String jdbcName;
     
     
-    
-    
-    
-public List<List<Object>> getAllTioa() throws ClassNotFoundException, SQLException {
+    public List<List<Object>> getAllTioa() throws ClassNotFoundException, SQLException {
     
         Class.forName(jdbcName);
         Connection connection = DriverManager.getConnection(DbUrl,DbUserName,password);

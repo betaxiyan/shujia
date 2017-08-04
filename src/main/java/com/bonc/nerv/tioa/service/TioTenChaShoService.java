@@ -43,4 +43,10 @@ public interface TioTenChaShoService {
      * @see 
      */
     void deleteById(Long id);
+    
+    /**
+     * Description: 将数据保存到excel文件
+     * @see 
+     */
+    void savaToFile();
 }

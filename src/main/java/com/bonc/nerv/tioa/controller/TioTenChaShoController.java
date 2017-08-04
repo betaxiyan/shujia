@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
+
 import com.bonc.nerv.tioa.entity.TioaTenantChargingShow;
 import com.bonc.nerv.tioa.service.FindTioTenChaShoService;
 import com.bonc.nerv.tioa.service.TioTenChaShoService;
@@ -178,5 +178,16 @@ public class TioTenChaShoController {
 
         return JSON.toJSONString("数据删除成功！");
 
+    }
+    
+    
+    /**
+     * Description:将表中数据保存到execl文件。
+     * @see 
+     */
+    @RequestMapping("/savaToFile")
+    @ResponseBody
+    public void savaToFile(){
+        tioTenChaShoService.savaToFile();
     }
 }
