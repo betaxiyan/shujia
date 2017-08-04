@@ -7,33 +7,12 @@
  */
 
 package com.bonc.nerv.tioa.service;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.bonc.nerv.tioa.dao.TenretiredDao;
 import com.bonc.nerv.tioa.entity.SearchTenretiredData;
 import com.bonc.nerv.tioa.entity.TenretiredEntity;
-import com.bonc.nerv.tioa.util.ResultPager;
 
 /**
  * 
