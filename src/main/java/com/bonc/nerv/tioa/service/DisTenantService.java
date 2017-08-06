@@ -111,5 +111,16 @@ public interface DisTenantService {
      * @see
      */
     String updateP(DisTenantEntity ditenantEntity);
+    
+    /**
+     * 
+     * 获取中间表数据到tioa_tenant_distribute_show 表中
+     * Implement: <br>
+     * 1、…<br>
+     * 2、…<br>
+     *  
+     * @see
+     */
+    void getMidDataToTtd();
 
 }

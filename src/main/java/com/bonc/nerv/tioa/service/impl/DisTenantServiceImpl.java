@@ -358,4 +358,16 @@ public class DisTenantServiceImpl implements DisTenantService{
         }
         return JSON.toJSONString(map);
     }
+    
+    /**
+     * 获取中间表数据到tioa_tenant_distribute_show 表中
+     */
+    @Override
+    public void getMidDataToTtd() {
+        /**
+         * 调用接口更新中间表数据
+         * 
+         * 将中间表数据汇总到展示表中
+         */
+    }
 }

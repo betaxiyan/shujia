@@ -361,4 +361,18 @@ public class TenretiredServiceImpl implements  TenretiredService{
         }
         return dataset;
     }
+    
+    /**
+     * 获取中间表数据到tioa_tenant_leave_show表
+     */
+    @Override
+    public void getMidDateToTtl() {
+        /**
+         * 调用接口更新中间表数据
+         * 
+         * 将中间表数据汇总到展示表中
+         * （但是，只将中间表中日期大于展示表中日期的数据进行计算和汇总）
+         */
+
+    }
 }
