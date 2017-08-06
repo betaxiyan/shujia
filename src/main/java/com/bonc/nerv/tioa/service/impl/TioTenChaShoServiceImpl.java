@@ -266,5 +266,14 @@ public class TioTenChaShoServiceImpl implements TioTenChaShoService{
             e.printStackTrace();
         }
     }
+
+
+    /**
+     * 定时向接口人发送邮件（调用消息渠道的接口）
+     */
+    @Override
+    public void sendEmailToInterface() {
+        
+    }
     
 }
