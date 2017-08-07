@@ -40,9 +40,23 @@ public interface ExternalRestService {
      */
     void accFcountToDb(String sysDate);
     
-    
+    /**
+     * 
+     * Description: <br>
+     * 通过日期查询文件统计
+     * @param sysDate 
+     * @return   List<AccountFilecountMidEntity>
+     * @see
+     */
     List<AccountFilecountMidEntity> accFcountRest(String sysDate);
     
+    /**
+     * 
+     * Description: <br>
+     * 查询租户信息
+     * @return  List<ResourceAccountMidEntity>
+     * @see
+     */
     List<ResourceAccountMidEntity> resAccRest();
     
     

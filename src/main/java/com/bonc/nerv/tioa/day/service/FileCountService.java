@@ -45,7 +45,7 @@ public interface FileCountService {
      * 
      * Description: <br>
      * 新增一个文件数统计
-     * @return 
+     * @return   FileCountEntity  
      * @see
      */
     FileCountEntity addOneFc(FileCountEntity fileCountEntity);
@@ -62,7 +62,7 @@ public interface FileCountService {
      * 
      * Description: <br>
      * 修改一个文件数统计
-     * @return 
+     * @return FileCountEntity
      * @see
      */
     FileCountEntity editOneFc(FileCountEntity fileCountEntity);
