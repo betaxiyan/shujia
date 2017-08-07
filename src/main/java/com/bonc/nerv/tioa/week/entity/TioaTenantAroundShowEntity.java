@@ -58,9 +58,54 @@ public class TioaTenantAroundShowEntity {
     private String tenantTel;
     
     /**
+     * 统一平台个数
+     */
+    private Integer numOfUnifiedPlatform;
+    
+    
+    /**
+     * 4A个数
+     */
+    private Integer numOf4a;
+    
+    /**
+     * 需求
+     */
+    private String tenantReqirement;
+    
+    /**
      * 平台接口人
      */
     private String tenantInterface;
+    
+
+    public Integer getNumOfUnifiedPlatform() {
+        return numOfUnifiedPlatform;
+    }
+
+    public void setNumOfUnifiedPlatform(Integer numOfUnifiedPlatform) {
+        this.numOfUnifiedPlatform = numOfUnifiedPlatform;
+    }
+
+    public Integer getNumOf4a() {
+        return numOf4a;
+    }
+
+    public void setNumOf4a(Integer numOf4a) {
+        this.numOf4a = numOf4a;
+    }
+
+    public String getTenantReqirement() {
+        return tenantReqirement;
+    }
+
+    public void setTenantReqirement(String tenantReqirement) {
+        this.tenantReqirement = tenantReqirement;
+    }
+
+    public Long getTtaId() {
+        return ttaId;
+    }
 
     public void setTtaId(Long ttaId) {
         this.ttaId = ttaId;
