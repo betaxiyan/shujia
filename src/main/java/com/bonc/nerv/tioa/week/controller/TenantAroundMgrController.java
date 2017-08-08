@@ -120,5 +120,4 @@ public class TenantAroundMgrController {
         map.put("message", "200");
         return JSON.toJSONString(map);
     }
-
 }
