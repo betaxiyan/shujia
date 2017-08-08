@@ -84,12 +84,22 @@ public class MergePOIUtils {
      * @param sumCells 要求和的列
      * @param timeCells 时间列 可选
      */
-    public static XSSFWorkbook createExcelMerge(String title, final String[] headers,List<String[]> dataset,boolean isSortDataSet,final Integer[] mergeBasis, final Integer[] mergeCells, final Integer[] sumCells, final Integer[] timeCells){
+    public static XSSFWorkbook createExcelMerge(String title, final String[] headers,List<String[]> dataset,boolean isSortDataSet,
+                                                final Integer[] mergeBasis, final Integer[] mergeCells, final Integer[] sumCells, final Integer[] timeCells){
         XSSFWorkbook workbook = new XSSFWorkbook();
         if(headers == null || headers.length <= 0){
             return workbook;
         }
         XSSFSheet sheet = workbook.createSheet(title);
+        createSheetMerge(title, headers,dataset,isSortDataSet,
+            mergeBasis, mergeCells, 
+            sumCells, timeCells, sheet, workbook);
+        return workbook;
+    }
+    
+    public static void createSheetMerge(String title, final String[] headers,List<String[]> dataset,boolean isSortDataSet,
+                                                final Integer[] mergeBasis, final Integer[] mergeCells, 
+                                                final Integer[] sumCells, final Integer[] timeCells, XSSFSheet sheet, XSSFWorkbook workbook){
         sheet.setDefaultColumnWidth(15); // 设置表格默认列宽度为15个字节  
         XSSFCellStyle headStyle = createHeadStyle(workbook); // 生成头部样式 
         XSSFCellStyle commonDataStyle = createCommonDataStyle(workbook); // 生成一般数据样式  
@@ -148,9 +158,10 @@ public class MergePOIUtils {
         } catch (Exception e) {  
             e.printStackTrace();  
         } 
-        return workbook;
-    }
     
+    
+    }
+
     
     /**
      * 合并单元格

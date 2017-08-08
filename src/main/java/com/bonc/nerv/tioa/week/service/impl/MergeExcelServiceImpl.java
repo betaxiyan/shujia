@@ -35,6 +35,7 @@ import com.bonc.nerv.tioa.week.service.TenretiredService;
 import com.bonc.nerv.tioa.week.util.CopyPOIUtils;
 import com.bonc.nerv.tioa.week.util.DateUtils;
 import com.bonc.nerv.tioa.week.util.MergePOIUtils;
+import com.bonc.nerv.tioa.week.util.SavaToExcelUtils;
 
 /**
  * 
@@ -151,20 +152,21 @@ public class MergeExcelServiceImpl implements MergeExcelService{
         columnNames.add(null);
         columnNames.add(null);
         columnNames.add(null);
-        XSSFWorkbook chargeWorkbook= new XSSFWorkbook();
+        XSSFWorkbook weekInfoWorkbook = new XSSFWorkbook();
+        XSSFSheet sheetOne = weekInfoWorkbook.createSheet("sheetOno");
+        XSSFSheet sheetTwo = weekInfoWorkbook.createSheet("sheetTwo");
+        XSSFSheet sheetThree = weekInfoWorkbook.createSheet("sheetThree");
         try {
             List<List<Object>> chargeList = tioTenChaSho_2Dao.getAllTioa();
             JSON jsonsss = (JSON)JSON.toJSON(chargeList);
             System.out.println(jsonsss);
             String titleCharge = "租户计费情况";
             try {
-                chargeWorkbook = MergePOIUtils.exportExcel(titleCharge, columnNames, title, chargeList);
-            }
-            catch (IOException e) {
+                SavaToExcelUtils.exportSheet(titleCharge, columnNames, title, chargeList, weekInfoWorkbook, sheetThree);
+            }catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-            }
-            catch (ParseException e) {
+            }catch (ParseException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
@@ -179,31 +181,22 @@ public class MergeExcelServiceImpl implements MergeExcelService{
         String fileName = DateUtils.formatDateToString(new Date(), "yyyyMMddHHmmss") + ".xlsx";
         try {
             String titleDis = "已划配租户情况";
-            XSSFWorkbook disTenWorkbook = MergePOIUtils.createExcelMerge(titleDis, disHeaders, disData, true,
+            MergePOIUtils.createSheetMerge(titleDis, disHeaders, disData, true,
                 new Integer[] {5, 4, 2}, new Integer[] {1, 2, 3, 4, 5, 7}, new Integer[] {7},
-                new Integer[] {4});
+                new Integer[] {4}, sheetOne, weekInfoWorkbook);
             
             String titleTen = "已退租户";
-            XSSFWorkbook tenRetireWorkbook = MergePOIUtils.createExcelMerge(titleTen, tenRetiredHeaders, 
+            MergePOIUtils.createSheetMerge(titleTen, tenRetiredHeaders, 
                 tenData, true, new Integer[] {1,2,3,4,5,13,14,15,22}, new Integer[] {1,2,3,4,5,13,14,15,22},
-                new Integer[] {0}, new Integer[]{0});
-            XSSFWorkbook weekInfoWorkbook = new XSSFWorkbook();
-            XSSFSheet sheet1 = weekInfoWorkbook.createSheet();
-            XSSFSheet sheet2 = disTenWorkbook.createSheet();
-            XSSFSheet sheet3 = disTenWorkbook.createSheet();
-            //CopyPOIUtils.copySheet(disTenWorkbook, weekInfoWorkbook, 0, 0);
-            CopyPOIUtils.copySheet(chargeWorkbook, disTenWorkbook, 0, 1);
-            CopyPOIUtils.copySheet(tenRetireWorkbook, disTenWorkbook, 0, 2);
-            if (disTenWorkbook !=null) {
-                response.setContentType("application/vnd.ms-excel;charset=utf-8"); 
-                response.setHeader("Content-disposition", "attachment;filename=" + URLEncoder.encode(fileName, "utf-8"));
-                disTenWorkbook.write(response.getOutputStream());
-                //tenRetireWorkbook.write(response.getOutputStream());
-                //disTenWorkbook.write(response.getOutputStream());
-                //chargeWorkbook.write(response.getOutputStream());
-                response.setStatus(HttpServletResponse.SC_OK);
-                response.flushBuffer();
-            }
+                new Integer[] {0}, new Integer[]{0}, sheetTwo, weekInfoWorkbook);
+            response.setContentType("application/vnd.ms-excel;charset=utf-8"); 
+            response.setHeader("Content-disposition", "attachment;filename=" + URLEncoder.encode(fileName, "utf-8"));
+            weekInfoWorkbook.write(response.getOutputStream());
+            //tenRetireWorkbook.write(response.getOutputStream());
+            //disTenWorkbook.write(response.getOutputStream());
+            //chargeWorkbook.write(response.getOutputStream());
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.flushBuffer();
             System.out.println("excel导出成功！");
         } catch (Exception e) {
             e.printStackTrace();
