@@ -326,6 +326,7 @@ function cleanLeaveSearch() {
 //文件导出
 function exportFile() {
 	var length = table.api().data().length;
+	alert(length);
 	if (length < 1) {
 		layui.use('layer', function(){
 			  var layer = layui.layer;
@@ -333,7 +334,15 @@ function exportFile() {
 		});   
 		return;
 	}
-	var tenantName=$("#tenantName").val();
-	var tenantInterface=$("#tenantInterface").val();
-	location.href=ctx+'tenant/exportTenretired?tenantName='+tenantName+ '&tenantInterface='+tenantInterface;
+	location.href=ctx+'manange/exportTenantAroundMgr';
+}
+
+function uploadFile(){
+ 	$('#uploadFileModal').modal('show');
+}
+
+function uploadFileSubmit(){
+	$('#uploadFileForm').submit();
+	$('#uploadFileModal').modal('hide');
+	
 }
