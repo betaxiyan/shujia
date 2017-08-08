@@ -92,5 +92,31 @@ public class TenantAroundMgrController {
         map.put("data", list);
         return map;
     }
+    
+    /**
+     * 删除一条数据 
+     * @param ttaId   
+     * @return ""
+     * @see
+     */
+    @RequestMapping("/manage/deleteTenantAroundMgr")
+    @ResponseBody
+    public String deleteTenantAroundMgr(Long  ttaId){
+        tenantAroundMgrService.deleteTenantAroundMgr(ttaId);
+        return JSON.toJSONString("删除成功");
+    }
+    
+    /**
+     * 保存一条记录到数据库
+     * @param tioaTenantAroundShowEntity  
+     * @return ""
+     * @see
+     */
+    @RequestMapping("/manage/saveTenantAroundMgr")
+    @ResponseBody
+    public String saveTenantAroundMgr(TioaTenantAroundShowEntity tioaTenantAroundShowEntity){
+        tenantAroundMgrService.saveTenantAroundMgr(tioaTenantAroundShowEntity);
+        return JSON.toJSONString("修改成功");
+    }
 
 }

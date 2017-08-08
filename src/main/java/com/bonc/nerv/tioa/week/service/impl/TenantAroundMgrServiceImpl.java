@@ -90,4 +90,20 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService{
         list = tenantAroundMgrDao.findAll();
         return list;
     }
+    
+    /**
+     * 删除一条记录
+     * @param  tioaTenantAroundShowEntity  
+     */
+    public void deleteTenantAroundMgr(Long  ttaId){
+        tenantAroundMgrDao.delete(ttaId);
+    }
+    
+    /**
+     * 修改后保存一条记录到数据库
+     * @param tioaTenantAroundShowEntity  
+     */
+    public void saveTenantAroundMgr(TioaTenantAroundShowEntity tioaTenantAroundShowEntity) {
+        tenantAroundMgrDao.save(tioaTenantAroundShowEntity);
+    }
 }
