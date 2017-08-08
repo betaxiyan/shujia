@@ -3,54 +3,207 @@
     xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
   <body>
       <div th:fragment="charging" role="tabpanel" class="tab-pane" id="details_two">
-                    <div class="view_body">
-                        <div class="view_search">
-                            <span>租户名称</span><input type="text" name="detail_username" value="" />
-                            <span style="margin-left: 20px">文件名称</span><input type="text" name="filename" value="" />
-                            <span style="margin-left: 20px">文件格式</span><input type="text" name="fileType" value="" />
-                            <button type="button" class="btn btn-danger">搜索</button>
-                            <a href="#" class="export">导出</a>
-                        </div>
-                        <div class="box">
-                            <div class="box-body table-responsive">
-                                <table id="charging_table" class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                <th rowspan="2">租户</th>
-                <th rowspan="2">服务类型</th>
-                <th rowspan="2">租户分类</th>
-                <th colspan="3">资源具备期</th>
-                <th colspan="7">计费日期确定</th>
-                <th rowspan="2">联通引入方</th>
-                <th rowspan="2">引入方联系人（租户管理员）</th>
-                <th rowspan="2">联系方式</th>
-                <th rowspan="2">申请日期</th>
-                <th rowspan="2">是否签署合同</th>
-                <th rowspan="2">月租备注</th>
-                <th rowspan="2">退租时间</th>
-                <th rowspan="2">备注</th>
-                <th rowspan="2">选项</th>
-             </tr>
-            <tr>
-                <th>资源</th>
-                <th>统一及4A</th>
-                <th>数据实际具备</th>
-                <th>入驻时长</th>
-                <th>月租费用（元/月）</th>
-                <th>数据报价/万元</th>
-                <th>起租日期</th>
-                <th>试用期</th>
-                <th>计费时期</th>
-                <th>到期时期</th>
-            </tr>
-                                       
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+          <div class="view_body">
+               <div class="view_search">
+                    <span>租户名称</span><input type="text" name="detail_username" value="" />
+                    <span style="margin-left: 20px">文件名称</span><input type="text" name="filename" value="" />
+                    <span style="margin-left: 20px">文件格式</span><input type="text" name="fileType" value="" />
+                    <button type="button" class="btn btn-danger">搜索</button>
+                    <a href="#" class="export">导出</a>
+               </div>
+               <div class="box">
+                    <div class="box-body table-responsive">
+                    <table id="charging_table" class="table table-bordered">
+                    <thead>
+                         <tr>
+                              <th rowspan="2" >编号</th>
+                              <th rowspan="2" >租户</th>
+                              <th rowspan="2" >服务类型</th>
+                              <th rowspan="2" >租户分类</th>
+                              <th colspan="3" >资源具备期</th>
+                              <th colspan="7" >计费日期确定</th>
+                              <th rowspan="2" >联通引入方</th>
+                              <th rowspan="2" >引入方联系人（租户管理员）</th>
+                              <th rowspan="2" >联系方式</th>
+                              <th rowspan="2" >申请日期</th>
+                              <th rowspan="2" >是否签署合同</th>
+                              <th rowspan="2" >月租备注</th>
+                              <th rowspan="2" >退租时间</th>
+                              <th rowspan="2" >备注</th>
+                              <th rowspan="2" >选项</th>
+                         </tr>
+                         <tr>
+                              <th>资源</th>
+                              <th>统一及4A</th>
+                              <th>数据实际具备</th>
+                              <th>入驻时长</th>
+                              <th>月租费用（元/月）</th>
+                              <th>数据报价/万元</th>
+                              <th>起租日期</th>
+                              <th>试用期</th>
+                              <th>计费时期</th>
+                              <th>到期时期</th>
+                         </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                   </table>
+                </div>
+             </div>
+        </div>
+                    
+       <div class="modal fade" id="jfeditmodel" tabindex="-1" role="dialog" aria-labelledby="uploadToolModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">编辑内容</h4>
                     </div>
+                    <div class="modal-body" style="padding-left: 20px;">
+                        <form id="updateToolForm" class="form-horizontal"  method="get">
+                           <input id="update-tdId" type="hidden" name="tdId"/>
+                           <div class="form-group">
+                                <label for="tenantName" class="control-label col-md-2 ">租户：</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" id="jfedittenantName" name="tenantName" />
+                                </div>
+                            </div>
+                             <div class="form-group">
+                                <label for="serviceType" class="control-label col-md-2 ">服务类型</label>
+                                <div class="col-md-9">
+                                    <select name="serviceType" id="jfeditserviceType" >
+                                        <option value="10">内部</option>
+                                        <option value="20">外部</option>
+                                    </select>                                
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="tenantType" class="control-label col-md-2 ">租户分类</label>
+                                <div class="col-md-9">
+                                    <select name="tenantType" id="jfedittenantType" >
+                                        <option value="10">近期租户</option>
+                                        <option value="20">历史租户</option>
+                                    </select>
+                                </div>
+                            </div>
+                             <div class="form-group">
+                                <label for="resourceTime" class="control-label col-md-2 ">资源</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" id="jfeditresourceTime" name="resourceTime" />
+                                </div>
+                            </div>
+                             <div class="form-group">
+                                <label for="uniplatform4aTime" class="control-label col-md-2 ">统一及4A</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" id="jfedituniplatform4aTime" name="uniplatform4aTime" />
+                                </div>
+                            </div>
+                             <div class="form-group">
+                                <label for="havedateTime" class="control-label col-md-2 ">数据实际具备</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" id="jfedithavedateTime" name="havedateTime" />
+                                
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="resideDuration" class="control-label col-md-2 ">入驻时长</label>
+                                <div class="col-md-9">
+                                    <input  class="form-control" id="jfeditresideDuration" name="resideDuration" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="monthlyFee" class="control-label col-md-2 ">月租费用（元/月）</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" id="jfeditmonthlyFee" name="monthlyFee" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="dataFee" class="control-label col-md-2 ">数据报价/万元</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" id="jfeditdataFee" name="dataFee" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="beginRentDate" class="control-label col-md-2 ">起租日期</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" id="jfeditbeginRentDate" name="beginRentDate" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="tasteDuration" class="control-label col-md-2 ">试用期</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" id="jfedittasteDuration" name="tasteDuration" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="chargeBeginDate" class="control-label col-md-2 ">计费时期</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" id="jfeditchargeBeginDate" name="chargeBeginDate" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="chargeEndDate" class="control-label col-md-2 ">到期时期</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" id="jfeditchargeEndDate" name="chargeEndDate" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="introduceUnicom" class="control-label col-md-2 ">联通引入方</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" id="jfeditintroduceUnicom" name="introduceUnicom" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="introduceTenant" class="control-label col-md-2 ">引入方联系人（租户管理员）</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" id="jfeditintroduceTenant" name="introduceTenant" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact" class="control-label col-md-2 ">联系方式</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" id="jfeditcontact" name="contact" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="askDate" class="control-label col-md-2 ">申请日期</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" id="jfeditaskDate" name="askDate" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="signContract" class="control-label col-md-2 ">是否签署合同</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" id="jfeditsignContract" name="signContract" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="askDatemonthlyFeeRemark" class="control-label col-md-2 ">月租备注</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" id="jfeditmonthlyFeeRemark" name="monthlyFeeRemark" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="endRentDate" class="control-label col-md-2 ">退租时间</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" id="jfeditendRentDate" name="endRentDate" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="remark" class="control-label col-md-2 ">备注</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" id="jfeditremark" name="remark" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="jfeditsubmit">提交修改</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="jfeditclose">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         </div>
     </body>
 </html>
