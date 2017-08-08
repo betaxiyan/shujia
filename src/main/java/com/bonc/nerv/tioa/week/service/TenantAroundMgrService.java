@@ -10,6 +10,10 @@ package com.bonc.nerv.tioa.week.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
+import com.bonc.nerv.tioa.week.entity.SearchTenretiredData;
+import com.bonc.nerv.tioa.week.entity.TenretiredEntity;
 import com.bonc.nerv.tioa.week.entity.TioaTenantAroundShowEntity;
 
 /**
@@ -42,4 +46,41 @@ public interface TenantAroundMgrService {
      * @see
      */
     void importToTenantAroundMgr();
+    
+    /**
+     * 获取TioaTenantAroundShowEntity所有数据
+     * @return list
+     * @see
+     */
+    List<TioaTenantAroundShowEntity> findAllTenantAroundMgr();
+    
+    /**
+     * 修改一条记录后保存到数据库
+     * @param tioaTenantAroundShowEntity  
+     * @see
+     */
+    void saveTenantAroundMgr(TioaTenantAroundShowEntity tioaTenantAroundShowEntity);
+    
+    /**
+     * 删除一条记录
+     * @param ttaId   
+     * @see
+     */
+    void deleteTenantAroundMgr(Long  ttaId);
+    
+    
+    /**
+     * 导出Excel方法
+     * @param list 返回集合
+     * @param response  
+     * @see
+     */
+    void getExcel(List<TioaTenantAroundShowEntity> list, HttpServletResponse response);
+    
+    /**
+     * Description: 导出Excel
+     * @return  list
+     * @see
+     */
+    List<TioaTenantAroundShowEntity> exportTenretired();
 }
