@@ -22,4 +22,6 @@ public interface TenantAroundMgrDao extends CrudRepository<TioaTenantAroundShowE
      * return list
      */
     List<TioaTenantAroundShowEntity> findAll();
+    
+    
 }

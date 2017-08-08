@@ -49,4 +49,18 @@ public interface TenantAroundMgrService {
      * @see
      */
     List<TioaTenantAroundShowEntity> findAllTenantAroundMgr();
+    
+    /**
+     * 修改一条记录后保存到数据库
+     * @param tioaTenantAroundShowEntity  
+     * @see
+     */
+    void saveTenantAroundMgr(TioaTenantAroundShowEntity tioaTenantAroundShowEntity);
+    
+    /**
+     * 删除一条记录
+     * @param ttaId   
+     * @see
+     */
+    void deleteTenantAroundMgr(Long  ttaId);
 }
