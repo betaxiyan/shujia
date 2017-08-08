@@ -8,16 +8,22 @@
 
 package com.bonc.nerv.tioa.week.service.impl;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bonc.nerv.tioa.week.dao.TenantAroundMgrDao;
+import com.bonc.nerv.tioa.week.entity.TenretiredEntity;
 import com.bonc.nerv.tioa.week.entity.TioaTenantAroundShowEntity;
 import com.bonc.nerv.tioa.week.service.TenantAroundMgrService;
 import com.bonc.nerv.tioa.week.util.POIUtil;
+import com.bonc.nerv.tioa.week.util.PoiUtils;
 import com.bonc.nerv.tioa.week.util.WebClientUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -106,4 +112,61 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService{
     public void saveTenantAroundMgr(TioaTenantAroundShowEntity tioaTenantAroundShowEntity) {
         tenantAroundMgrDao.save(tioaTenantAroundShowEntity);
     }
-}
+    
+    
+    /**
+     * Description: 导出Excel
+     * @return  list
+     * @see
+     */
+    public List<TioaTenantAroundShowEntity>  exportTenretired(){
+        List<TioaTenantAroundShowEntity> list=tenantAroundMgrDao.findAll();
+        return list;
+    }
+    
+    /**
+     * 导出Excel方法
+     * @param list 返回集合
+     * @param response  
+     * @see
+     */
+    @Override
+    public void getExcel(List<TioaTenantAroundShowEntity> list, HttpServletResponse response){
+        try {
+            String[] headers={"序号","租户id","租户名","租户级别","租户负责人","联系电话","统一平台个数","4A个数","需求","平台接口人"};
+            List<String[]> dataset=getTenList(list);
+            PoiUtils.exportExelMerge("能力开放平台周边信息情况表.xls", headers, dataset, true, response, 
+                                         new Integer[] {0}, new Integer[] {0}, new Integer[] {0}, new Integer[]{0});
+        } catch (FileNotFoundException e) {  
+            e.printStackTrace();  
+        } catch (IOException e) {  
+            e.printStackTrace();  
+        }
+        
+    }
+    
+    /**
+     * Description: 数据放到list集合中
+     * @param list
+     * @return 
+     * @see
+     */
+    private List<String[]> getTenList(List<TioaTenantAroundShowEntity> list){
+        List<String[]> dataset=new ArrayList<String[]>();
+            for(int i=0,size=list.size();i<size;i++){
+                TioaTenantAroundShowEntity tioaTenantAroundShowEntity=list.get(i);
+                String tenantId=tioaTenantAroundShowEntity.getTenantId();
+                String tenantName=tioaTenantAroundShowEntity.getTenantName();
+                String tenantLevel=tioaTenantAroundShowEntity.getTenantLevel()==null?"":Integer.toString(tioaTenantAroundShowEntity.getTenantLevel());
+                String tenantBoss=tioaTenantAroundShowEntity.getTenantBoss();
+                String tenantTel=tioaTenantAroundShowEntity.getTenantTel();
+                String numOfUniplatformNum=tioaTenantAroundShowEntity.getNumOfUnifiedPlatform()==null?"":Integer.toString(tioaTenantAroundShowEntity.getNumOfUnifiedPlatform());
+                String numOf4a=tioaTenantAroundShowEntity.getNumOf4a()==null?"":Integer.toString(tioaTenantAroundShowEntity.getNumOf4a());
+                String tenantReqirement=tioaTenantAroundShowEntity.getTenantReqirement();
+                String tenantInterface=tioaTenantAroundShowEntity.getTenantInterface();
+                String[] service={Integer.toString(i+1),tenantId,tenantName,tenantLevel,tenantBoss,tenantTel,numOfUniplatformNum,numOf4a,tenantReqirement,tenantInterface};
+                dataset.add(service);
+            }
+        return dataset;
+        }
+    }

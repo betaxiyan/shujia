@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
+import com.bonc.nerv.tioa.week.entity.SearchTenretiredData;
+import com.bonc.nerv.tioa.week.entity.TenretiredEntity;
 import com.bonc.nerv.tioa.week.entity.TioaTenantAroundShowEntity;
 import com.bonc.nerv.tioa.week.service.TenantAroundMgrService;
 
@@ -117,6 +121,18 @@ public class TenantAroundMgrController {
     public String saveTenantAroundMgr(TioaTenantAroundShowEntity tioaTenantAroundShowEntity){
         tenantAroundMgrService.saveTenantAroundMgr(tioaTenantAroundShowEntity);
         return JSON.toJSONString("修改成功");
+    }
+    
+    /**
+     * 导出租户周边信息管理情况表
+     * @param response 
+     * @see
+     */
+    @RequestMapping(value={"/manange/exportTenantAroundMgr"})
+    @ResponseBody
+    public void exportTenretired(HttpServletResponse response){
+        List<TioaTenantAroundShowEntity> list=tenantAroundMgrService.exportTenretired();
+        tenantAroundMgrService.getExcel(list, response);
     }
 
 }
