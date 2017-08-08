@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+  <body>
+      <div th:fragment="fcView" role="tabpanel" class="tab-pane active" id="fcView">
+               <div class="view_body">
+               <span>日期</span>
+               <input type="text" class="Wdate"  id = "fc_date" name="fc_date" th:onClick="'WdatePicker()'"/>
+               <span> 时间</span>
+				<select id= "fc_time" name ="fc_time">
+					<option value="1600">16时00分</option>  
+					<option value="1630">16时30分</option>  
+				</select>
+                <button class="btn btn-primary btn-xs connectBtn" onClick ="fcSearch()" > 查询</button>
+                <div class="view_search">
+                    <a href="#myModal" class="upload" data-toggle="modal" data-target="#myModal">新增</a>
+                    <a class="export" th:onclick = "'exportExcel()'">导出</a>
+                </div>
+                <div class="box">
+                    <div class="box-body table-responsive">
+                        <table id="fcView_table" class="table table-bordered">
+                            <thead>
+                                <tr style="text-align: center">
+                               <th width="5%">序号</th>
+                               <th width="20%">租户名称</th>
+                               <th width="20%">文件个数</th>
+                               <th width="20%">文件夹个数</th>
+                               <th width="20%">文件总数</th>
+                               <th width="15%">操作</th>
+                           </tr>
+                       </thead>
+                       <tbody id="user_table_tbody">
+                       </tbody>
+                   </table>
+               </div>
+           </div>
+          </div>
+      </div>
+                
+                
+                
+ <div th:fragment="fcView_edit" class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+         <div class="modal-dialog" role="document" style="width: 500px;height: 500px">
+            <div class="modal-content" style="width: 500px;">
+                <div class="modal-header">
+                    <div class="modal-header-top">
+                        <button type="button" class="close" id="closeMyModal"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">上传文件</h4>
+                        <a href="#">新手指导</a>
+                    </div>
+                    <div class="modal-header-bottom">
+                        <span>上传到</span>
+                        <select name="savePath">
+                            <option value="FTP/FTP1">FTP/FTP1</option>
+                            <option value="VM">VM</option>
+                        </select>
+                        <input type="text" placeholder="新建目录"/>
+                        <div class="operateBtn">
+                            <input type="text" name="username" value="" placeholder="用户名" />
+                            <input type="password" name="password" value="" placeholder="密码" />
+                            <button class="btn btn-primary btn-xs connectBtn" style="display:none;">连接</button>
+                        </div>
+                        <div class="resetOper">
+                            <span class="connectSuccess" style="display:none ">连接成功</span>
+                            <span class="connectFail" style="display:none ">连接失败</span>
+                            <button class="btn btn-primary btn-xs resetInfo" style="display:none;margin-left:20px">重置</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </body>
+</html>
