@@ -80,4 +80,14 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService{
     public void importToTenantAroundMgr(){
         
     }
+    
+    /**
+     * 查询所有记录显示到页面
+     * @return list
+     */
+    public List<TioaTenantAroundShowEntity> findAllTenantAroundMgr(){
+        List<TioaTenantAroundShowEntity> list = new ArrayList<TioaTenantAroundShowEntity>();
+        list = tenantAroundMgrDao.findAll();
+        return list;
+    }
 }

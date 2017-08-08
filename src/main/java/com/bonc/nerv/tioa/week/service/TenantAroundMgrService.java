@@ -42,4 +42,11 @@ public interface TenantAroundMgrService {
      * @see
      */
     void importToTenantAroundMgr();
+    
+    /**
+     * 获取TioaTenantAroundShowEntity所有数据
+     * @return list
+     * @see
+     */
+    List<TioaTenantAroundShowEntity> findAllTenantAroundMgr();
 }
