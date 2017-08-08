@@ -1,8 +1,10 @@
 $(function(){
+	loaddata()
+})
 
-	var tcId	//保存tcId
+function loaddata() {
 	
-   $('#charging_table').dataTable({
+	$('#charging_table').dataTable({
         "language": {
             "paginate": {
                 "previous": "上一页",
@@ -13,7 +15,7 @@ $(function(){
             "infoEmpty": "共计0",
         },
         "scrollX": true,
-        
+        "destroy":true, //Cannot reinitialise DataTable,解决重新加载表格内容问题
         "bAutoWidth": true,        
         /* 分页设置 */
         "bPaginate": true,
@@ -37,7 +39,7 @@ $(function(){
     	            null
     	            ],
         "aoColumnDefs":[
-                        {
+                        {//倒数第一列
                         	"targets":-1,
                         	"bSortable": false,
                         	render: function(data, type, row) {
@@ -45,7 +47,7 @@ $(function(){
                                 return html;
                         	}
                         },
-                        {
+                        {//第二列 服务类型
                         	"targets":2,
                         	render: function(data, type, row) {
                         		if (data == 10) {
@@ -54,7 +56,7 @@ $(function(){
 									return "外部"; //20：外部
                         	}
                         },
-                        {
+                        {//第三列 租户分类
                         	"targets":3,
                         	render: function(data, type, row) {
                         		if (data == 10) {
@@ -62,14 +64,44 @@ $(function(){
 								}else
 									return "历史租户";//20：历史租户
                         	}
+                        },
+                        {//倒数第五列是否签署合同
+                        	"targets":-5,
+                        	render: function(data, type, row) {
+                        		if (data == 10) {
+                        			return "已签署" //10：已签署
+								}else
+									return "未签署";//20：未签署
+                        	}
+                        },
+                        {//第13列 到期日期 
+                        	"targets":13,
+                        	createdCell: function(td, cellData, rowData) {
+                        		var data = cellData
+                        		if ((data+"").length>=8) {
+                        			var data1 = data.substr(0,4)+"/"+data.substr(4,2)+"/"+data.substr(6,2)
+                        			var da_1 = new Date(Date.parse(data1));  
+                        			var da_2 = new Date();
+                        			if ((da_1-da_2)/1000/3600/24 < 4 && (da_1-da_2)/1000/3600/24 > 0) {//三天内到期
+										/*该行变色*/
+                        				$(td).parents('tr').css("background-color","yellow");
+                        				$(td).css("color","red");
+									}
+                        			return data
+                        		}else
+                        			return data
+                        	},
+                        	 
                         }
+                        
                     ],
     });
-   /*	显示修改页面	*/
+}
+
+
+/*	显示修改页面		*/
    $('#charging_table tbody').on( 'click', 'button.jfedit', function () {
-       
        var jstcId = $(this).val();//获得tcId 主码
-       
        var data_1
        /*AJAX获取被修改的一行数据*/
        $.ajax({
@@ -146,15 +178,13 @@ $(function(){
    
      
    	  $('#jfeditmodel').modal('show');
-      
-       
-   } );
+   });
    
-   /*	点击保存按钮	*/
+/*	  点击保存按钮	  */
    $('#jfeditsubmit').on("click",function(){
 	   
 	   /* 获取数据*/
-	   var tenantName = $('#jfedittenantName').val();  //租户
+	   	  var tenantName = $('#jfedittenantName').val();  //租户
 	      
 	      var serviceType = $('#jfeditserviceType').val();//服务类型
 	     
@@ -213,12 +243,12 @@ $(function(){
 					 function(data){
 						 alert(data)
 						 $('#jfeditmodel').modal('hide');
-						 location.reload();
+						 loaddata();
 					 })
 		  }
    })
    
-   /*删除*/
+   /*   删除   */
    $('#charging_table tbody').on( 'click', 'button.jfdelete', function () {
 	   var jstcId = $(this).val();//获得tcId 主码
 	   /* 删除前的提示 */
@@ -229,7 +259,7 @@ $(function(){
 	  		  	  { tcId:jstcId,},
 	  	  			function(data){
 	  		  		  alert(data)
-	  		  		  location.reload();
+	  		  		  loaddata();
 	  	  		    }
 	  		  	  )
 	    
@@ -238,9 +268,3 @@ $(function(){
 	    }
 	   
 	});
-   
-   function p_del() {
-	    
-	}
-   
-})

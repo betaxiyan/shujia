@@ -172,20 +172,21 @@ public class SavaToExcelUtils {
             cell.setCellValue(text);
         }
         // 遍历集合数据,产生数据行,前两行为标题行与表头行
-        for (List<Object> dataRow : objects) {
+        for ( int q = 0; q < objects.size(); q++) {
+            List<Object> dataRow = objects.get(q);
             try{
                 row = sheet.createRow(lastRowIndex);
                 lastRowIndex++;
             
-                String type = (String)dataRow.get(2);
-                if (!type.equals("10")) {
+                Integer type = (Integer)dataRow.get(2);
+                if (type!=10) {
                     //该行隐藏
                     row.setZeroHeight(true);
                 }
                 Boolean flag = false;//是否为黄色标记
                 String format = "yyyyMMdd";
                 SimpleDateFormat sdf = new SimpleDateFormat(format);
-                String enddata = (String) dataRow.get(12);//拿到第十三行的到期日期 
+                String enddata = dataRow.get(12).toString();//拿到第十三行的到期日期 
                 if (enddata.length()>=8) {
                     enddata=enddata.substring(0,8);
                     Date d1 = sdf.parse(enddata);
@@ -208,7 +209,27 @@ public class SavaToExcelUtils {
                         if (dataObject instanceof Date) {//日期类型
                             contentCell.setCellValue(getCnDate((Date)dataObject));
                         }else {//非日期类型
-                            contentCell.setCellValue(dataObject.toString());
+                            if (j==1) {//第二列 服务类型
+                                if (((Integer)dataObject)==20) {//20 指外部
+                                    contentCell.setCellValue("外部");
+                                }else {
+                                    contentCell.setCellValue("内部");//10 指内部
+                                }
+                            }else if (j==2) {//第三列 租户分类
+                                if (((Integer)dataObject)==20) {//20 指历史租户
+                                    contentCell.setCellValue("历史租户");
+                                }else {
+                                    contentCell.setCellValue("近期租户");//10 近期租户
+                                }
+                            }else if (j==17) {//第18列 是否签署合同
+                                if (((Integer)dataObject)==20) {//20 指 未签署
+                                    contentCell.setCellValue("未签署");
+                                }else {
+                                    contentCell.setCellValue("已签署");//10 已签署
+                                }
+                            }else {
+                                contentCell.setCellValue(dataObject.toString());
+                            }
                         }
                     }else {//如果数据为空, 设置单元格内容为字符型
                         contentCell.setCellValue("");
