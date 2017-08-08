@@ -48,8 +48,8 @@ public class TioTenChaSho_2DaoImpl implements TioTenChaSho_2Dao {
             while (rs.next()) {
                 List<Object> list2 = new ArrayList<>();
                 list2.add(rs.getString("tenant_name"));//租户
-                list2.add(rs.getString("service_type"));//服务类型
-                list2.add(rs.getString("tenant_type"));//租户分类
+                list2.add(rs.getInt("service_type"));//服务类型
+                list2.add(rs.getInt("tenant_type"));//租户分类
                 
                 list2.add(rs.getString("resource_time"));//资源
                 
@@ -57,7 +57,7 @@ public class TioTenChaSho_2DaoImpl implements TioTenChaSho_2Dao {
                 list2.add(rs.getString("havedate_time"));//数据实际具备
                 list2.add(rs.getString("reside_duration"));//入住时长
                 list2.add(rs.getInt("monthly_fee"));//月租费用（元/月）
-                list2.add(rs.getInt("data_fee"));//数据报价/万元
+                list2.add(rs.getFloat("data_fee"));//数据报价/万元
                 list2.add(rs.getString("begin_rent_date"));//起租日期
                 list2.add(rs.getString("taste_duration"));//试用期
                 list2.add(rs.getString("charge_begin_date"));//计费时期

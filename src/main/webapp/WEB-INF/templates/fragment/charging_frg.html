@@ -5,11 +5,7 @@
       <div th:fragment="charging" role="tabpanel" class="tab-pane" id="details_two">
           <div class="view_body">
                <div class="view_search">
-                    <span>租户名称</span><input type="text" name="detail_username" value="" />
-                    <span style="margin-left: 20px">文件名称</span><input type="text" name="filename" value="" />
-                    <span style="margin-left: 20px">文件格式</span><input type="text" name="fileType" value="" />
-                    <button type="button" class="btn btn-danger">搜索</button>
-                    <a href="#" class="export">导出</a>
+                    <a href="/savaToFile" class="export">导出</a>
                </div>
                <div class="box">
                     <div class="box-body table-responsive">
@@ -41,8 +37,8 @@
                               <th>数据报价/万元</th>
                               <th>起租日期</th>
                               <th>试用期</th>
-                              <th>计费时期</th>
-                              <th>到期时期</th>
+                              <th>计费日期</th>
+                              <th>到期日期</th>
                          </tr>
                       </thead>
                       <tbody>
