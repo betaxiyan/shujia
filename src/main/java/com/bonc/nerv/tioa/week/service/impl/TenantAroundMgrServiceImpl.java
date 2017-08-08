@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.bonc.nerv.tioa.week.dao.TenantAroundMgrDao;
@@ -34,12 +35,15 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService{
     @Autowired
     private TenantAroundMgrDao tenantAroundMgrDao;
     
+    @Value("${bonc.restful.findAllAroundTenant}")
+    private String findAllAroundTenant;
+    
     /**
      * 从接口导入数据到数据库
      */
     @Override
     public void saveIdAndNameFromHttp() {
-        String jsonStr = WebClientUtil.doGet("http://coptest.bonc.yz/portal/pure/tenant/list",null);
+        String jsonStr = WebClientUtil.doGet("findAllAroundTenant",null);
         ObjectMapper map = new ObjectMapper();
         List<TioaTenantAroundShowEntity>list = new ArrayList<TioaTenantAroundShowEntity>();
         try {

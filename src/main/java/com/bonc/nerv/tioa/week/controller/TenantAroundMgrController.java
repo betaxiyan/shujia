@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
@@ -100,10 +101,9 @@ public class TenantAroundMgrController {
      * @see
      */
     @RequestMapping("/manage/deleteTenantAroundMgr")
-    @ResponseBody
     public String deleteTenantAroundMgr(Long  ttaId){
         tenantAroundMgrService.deleteTenantAroundMgr(ttaId);
-        return JSON.toJSONString("删除成功");
+        return "manage/tenant_arount_show";
     }
     
     /**
@@ -112,11 +112,13 @@ public class TenantAroundMgrController {
      * @return ""
      * @see
      */
-    @RequestMapping("/manage/saveTenantAroundMgr")
+    @RequestMapping(value={ "/manage/saveTenantAroundMgr"} , method = RequestMethod.POST)
     @ResponseBody
     public String saveTenantAroundMgr(TioaTenantAroundShowEntity tioaTenantAroundShowEntity){
+        Map<String, Object> map = new HashMap<String, Object>();
         tenantAroundMgrService.saveTenantAroundMgr(tioaTenantAroundShowEntity);
-        return JSON.toJSONString("修改成功");
+        map.put("message", "200");
+        return JSON.toJSONString(map);
     }
 
 }

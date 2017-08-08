@@ -25,7 +25,21 @@ $(document).ready(function() {
              }
         },
         "columns":[{data:"ttaId",},               {data:"tenantId",},  {data:"tenantName",},
-                   {data:"tenantLevel",},         {data:"tenantBoss",},{data:"tenantTel", },
+                   {data:"tenantLevel",
+        				render:function(data, type, row) {
+        						if(data == "" || data == null) {
+        							return "";
+        						}else if(data==2){
+        							return "大";
+        						}else if(data==1){
+        							return "中";
+        						}else if(data==0){
+        							return "小";
+        						}
+        						return data;
+        				}
+                   },         
+                   {data:"tenantBoss",},{data:"tenantTel", },
                    {data:"numOfUnifiedPlatform",},{data:"numOf4a",},   {data:"tenantReqirement",},
                    {data:"tenantInterface",},      null,                null
                   ],
@@ -101,23 +115,18 @@ $(document).ready(function() {
     	 var numOfUnifiedPlatform=$("#addaround-numOfUnifiedPlatform").val();
     	 var numOf4a=$("#addaround-numOf4a").val();
     	 var tenantReqirement=$("#addaround-tenantReqirement").val();
-    	 var serviceName=$("#addaround-serviceName").val();
-    	 var sequenceName=$("#addaround-sequenceName").val();
-    	 var askDate=$("#addaround-askDate").val();
-    	 var openDate=$("#addaround-openDate").val();
-    	 var changeDate=$("#addaround-changeDate").val();
-    	 var endRentDate=$("#addaround-endRentDate").val();
     	 var tenantInterface=$("#addaround-tenantInterface").val();
-    	 var remark=$("#addleave-remark").val();
     	$.ajax({
-      		url :ctx + "tenant/saveTenretired",
-      		type : "get",
-      		data: {serviceType:serviceType,tenantName:tenantName,tenantLevel:tenantLevel,tenantBoss:tenantBoss,tenantTel:tenantTel,resourceType:resourceType,askIp:askIp,hostNum:hostNum,storage:storage,storageUnit:storageUnit,computingResourceRate:computingResourceRate,computeRoom:computeRoom,uniplatformNum:uniplatformNum,numOf4a:numOf4a,demand:demand,serviceName:serviceName,sequenceName:sequenceName,askDate:askDate,openDate:openDate,changeDate:changeDate,endRentDate:endRentDate,tenantInterface:tenantInterface,remark:remark},
+      		url :ctx + "manage/saveTenantAroundMgr",
+      		type : "post",
+      		data: {tenantId:tenantId,tenantName:tenantName,tenantLevel:tenantLevel,
+      			tenantBoss:tenantBoss,tenantTel:tenantTel,numOfUnifiedPlatform:numOfUnifiedPlatform,
+      			numOf4a:numOf4a,tenantReqirement:tenantReqirement,tenantInterface:tenantInterface,},
       		success : function(data) {
       			//清空表单信息
       			addClean();
       			data = eval("(" + data + ")");
-	      			if (data.status == "200") {
+	      			if (data.message == "200") {
 	      				clickTable();
 	      				alert("添加成功");
 	      			} else {
@@ -125,9 +134,9 @@ $(document).ready(function() {
 	      			}
       			}
       		});
-//    }
-});
+    });
     
+	//点击关闭按钮重新加载表格
     $('#addReloadHTML').click(function(){
     	window.location.reload();
     });
@@ -258,32 +267,7 @@ $(document).ready(function() {
     $('#leave_table tbody').unbind('click',TenretiredOperate);
     $('#leave_table tbody').bind('click',TenretiredOperate);
    
-    function addClean(){
-    	$('#addTenModal').modal('hide');
-    	$("#add-tenantName").val("");
-    	$("#add-tenantLevel").val("");
-    	$("#add-tenantBoss").val("");
-    	$("#add-tenantTel").val("");
-    	$("#add-resourceType").val("");
-    	$("#add-askIp").val("");
-    	$("#add-hostNum").val("");
-    	$("#add-storage").val("");
-    	$("#add-storageUnit").val("");
-    	$("#add-computingResourceRate").val("");
-    	$("#add-computeRoom").val("");
-    	$("#add-uniplatformNum").val("");
-    	$("#add-numOf4a").val("");
-    	$("#add-demand").val("");
-    	$("#add-serviceName").val("");
-    	$("#add-sequenceName").val("");
-    	$("#add-askDate").val("");
-    	$("#add-openDate").val("");
-    	$("#add-changeDate").val("");
-    	$("#add-endRentDate").val("");
-    	$("#add-tenantInterface").val("");
-    	$("#add-remark").val("");
-
-    }
+   
 
     function updateClean(){
     	$('#updateTenModal').modal('hide');
@@ -314,7 +298,18 @@ $(document).ready(function() {
    /*************************/     
 });
 
-  
+function addClean(){
+	$('#addAroundTenantModal').modal('hide');
+	$("#addaround-tenantId").val("");
+	$("#addaround-tenantName").val("");
+	$("#addaround-tenantLevel").val("");
+	$("#addaround-tenantBoss").val("");
+	$("#addaround-tenantTel").val("");
+	$("#addaround-numOfUnifiedPlatform").val("");
+	$("#addaround-numOf4a").val("");
+	$("#addaround-tenantReqirement").val("");
+	$("#addaround-tenantInterface").val("");
+}
 
 //查询操作按钮
 function clickLeaveTable(){
