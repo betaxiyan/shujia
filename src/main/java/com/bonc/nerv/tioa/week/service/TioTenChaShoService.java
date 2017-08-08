@@ -10,6 +10,9 @@ package com.bonc.nerv.tioa.week.service;
 
 import java.text.ParseException;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bonc.nerv.tioa.week.entity.TioaTenantChargingShow;
@@ -46,9 +49,12 @@ public interface TioTenChaShoService {
     
     /**
      * Description: 将数据保存到excel文件
+     * @param request 请求的request对象
+     * @param response  响应的response对象
      * @see 
      */
-    void savaToFile();
+    void savaToFile(HttpServletRequest request,
+                    HttpServletResponse response);
     
     /**
      * 

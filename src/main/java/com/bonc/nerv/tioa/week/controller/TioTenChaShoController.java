@@ -14,6 +14,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,9 +88,9 @@ public class TioTenChaShoController {
      */
     @RequestMapping(value = "/findByTcId")
     @ResponseBody
-    public String findByTcId(){
-        findTioTenChaShoService.findTioTenChaShoByTcId((long)148);
-        return JSON.toJSONString("查询TcId成功");
+    public String findByTcId(@RequestParam("jstcId") Long id){
+        TioaTenantChargingShow tiao = findTioTenChaShoService.findTioTenChaShoByTcId(id);
+        return JSON.toJSONString(tiao);
     }
     
     /**
@@ -182,11 +184,13 @@ public class TioTenChaShoController {
     
     /**
      * Description:将表中数据保存到execl文件。
+     * @param request 请求的request对象
+     * @param response  响应的response对象
      * @see 
      */
     @RequestMapping("/savaToFile")
     @ResponseBody
-    public void savaToFile(){
-        tioTenChaShoService.savaToFile();
+    public void savaToFile(HttpServletRequest request, HttpServletResponse response){
+        tioTenChaShoService.savaToFile(request, response);
     }
 }
