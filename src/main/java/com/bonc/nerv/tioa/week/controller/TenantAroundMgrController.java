@@ -136,5 +136,4 @@ public class TenantAroundMgrController {
         List<TioaTenantAroundShowEntity> list=tenantAroundMgrService.exportTenretired();
         tenantAroundMgrService.getExcel(list, response);
     }
-
 }
