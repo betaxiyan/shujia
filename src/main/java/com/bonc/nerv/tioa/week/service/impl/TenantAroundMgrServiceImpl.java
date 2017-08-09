@@ -19,9 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bonc.nerv.tioa.week.dao.TenantAroundMgrDao;
-import com.bonc.nerv.tioa.week.entity.TenretiredEntity;
 import com.bonc.nerv.tioa.week.entity.TioaTenantAroundShowEntity;
-import com.bonc.nerv.tioa.week.entity.TioaTenantChargingShow;
 import com.bonc.nerv.tioa.week.service.TenantAroundMgrService;
 import com.bonc.nerv.tioa.week.util.POIUtil;
 import com.bonc.nerv.tioa.week.util.PoiUtils;
@@ -58,12 +56,14 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
         try {
             JsonNode jsonNode = map.readTree(jsonStr);
             String success = jsonNode.get("success").toString();
+            System.out.println(success);
             if (!success.equals("true")) {
                 return;
             }
             JsonNode dataNode = jsonNode.get("data");
             for (JsonNode nodeOne : dataNode) {
                 TioaTenantAroundShowEntity tioaTenantAroundShowEntity = new TioaTenantAroundShowEntity();
+                System.out.println(nodeOne.get("tenantId").asText());
                 tioaTenantAroundShowEntity.setTenantId(nodeOne.get("tenantId").asText());
                 System.out.println(nodeOne.get("tenantId").asText());
                 tioaTenantAroundShowEntity.setTenantName(nodeOne.get("tenantName").asText());
