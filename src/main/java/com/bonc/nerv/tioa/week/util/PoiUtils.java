@@ -1,32 +1,49 @@
 package com.bonc.nerv.tioa.week.util;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-
+import java.util.Set; 
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.usermodel.HSSFRichTextString;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFRichTextString;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author zhangwen
  */
 public class PoiUtils {
+    
+    /**
+     * xls文档
+     */
+    private static final String XLS = "xls";
+
+    /**
+     * xlsx文档
+     */
+    private static final String XLSX = "xlsx";
 	/**
 	 * @param fileName 文件名称
 	 * @param headers 表头
@@ -63,22 +80,22 @@ public class PoiUtils {
 	 * @param timeCells 时间列 可选
 	 */
 	public static void createExcelMerge(String title, final String[] headers,List<String[]> dataset,boolean isSortDataSet, OutputStream out, final Integer[] mergeBasis, final Integer[] mergeCells, final Integer[] sumCells, final Integer[] timeCells){
-		HSSFWorkbook workbook = new HSSFWorkbook();
-		HSSFSheet sheet = workbook.createSheet(title);
+		XSSFWorkbook workbook = new XSSFWorkbook();
+		XSSFSheet sheet = workbook.createSheet(title);
 		
 		sheet.setDefaultColumnWidth(15); // 设置表格默认列宽度为15个字节  
-		HSSFCellStyle headStyle = createHeadStyle(workbook); // 生成头部样式 
-		HSSFCellStyle commonDataStyle = createCommonDataStyle(workbook); // 生成一般数据样式  
+		XSSFCellStyle headStyle = createHeadStyle(workbook); // 生成头部样式 
+		XSSFCellStyle commonDataStyle = createCommonDataStyle(workbook); // 生成一般数据样式  
 
 		if(headers == null || headers.length <= 0){
 			return;
 		}
 		
-		HSSFRow row = sheet.createRow(0); // 产生表格标题行  
+		XSSFRow row = sheet.createRow(0); // 产生表格标题行  
 		for (int i = 0; i < headers.length; i++) {
-			HSSFCell cell = row.createCell(i);
+			XSSFCell cell = row.createCell(i);
 			cell.setCellStyle(headStyle);
-			HSSFRichTextString text = new HSSFRichTextString(headers[i]);
+			XSSFRichTextString text = new XSSFRichTextString(headers[i]);
 			cell.setCellValue(text);
 		}
 		
@@ -115,7 +132,7 @@ public class PoiUtils {
 			row = sheet.createRow(index);  
 			String[] dataSources = it.next() ;
 			for (int i = 0; i < dataSources.length; i++) {  
-				HSSFCell cell = row.createCell(i);  
+				XSSFCell cell = row.createCell(i);  
 				cell.setCellStyle(commonDataStyle);
 				cell.setCellValue(dataSources[i]);
 			}
@@ -148,10 +165,10 @@ public class PoiUtils {
 	 * @param workbook
 	 * @param mergeBasis
 	 */
-	private static void mergedRegion(HSSFSheet sheet, int cellLine,int startRow, int endRow, HSSFWorkbook workbook, Integer[] mergeBasis) {
-		HSSFCellStyle style = workbook.createCellStyle(); 			// 样式对象  
-        style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);	// 垂直  
-        style.setAlignment(HSSFCellStyle.ALIGN_CENTER);				// 水平  
+	private static void mergedRegion(XSSFSheet sheet, int cellLine,int startRow, int endRow, XSSFWorkbook workbook, Integer[] mergeBasis) {
+		XSSFCellStyle style = workbook.createCellStyle(); 			// 样式对象  
+        style.setVerticalAlignment(XSSFCellStyle.VERTICAL_CENTER);	// 垂直  
+        style.setAlignment(XSSFCellStyle.ALIGN_CENTER);				// 水平  
         String s_will = sheet.getRow(startRow).getCell(cellLine).getStringCellValue();  // 获取第一行的数据,以便后面进行比较  
         int count = 0;  
         Set<Integer> set = new HashSet<Integer>();
@@ -200,21 +217,21 @@ public class PoiUtils {
 	 * @param workbook
 	 * @return
 	 */
-	private static HSSFCellStyle createHeadStyle(HSSFWorkbook workbook){
+	private static XSSFCellStyle createHeadStyle(XSSFWorkbook workbook){
 		//标题单元格样式
-		HSSFCellStyle headStyle = workbook.createCellStyle();   
-		headStyle.setFillForegroundColor(HSSFColor.GREY_25_PERCENT.index);  
-		headStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);  
-		headStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);  
-		headStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);  
-		headStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);  
-		headStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);  
-		headStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);  
+		XSSFCellStyle headStyle = workbook.createCellStyle();   
+		headStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());  
+		headStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);  
+		headStyle.setBorderBottom(XSSFCellStyle.BORDER_THIN);  
+		headStyle.setBorderLeft(XSSFCellStyle.BORDER_THIN);  
+		headStyle.setBorderRight(XSSFCellStyle.BORDER_THIN);  
+		headStyle.setBorderTop(XSSFCellStyle.BORDER_THIN);  
+		headStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER);  
 		//标题单元格字体  
-		HSSFFont headFont = workbook.createFont();  
-		headFont.setColor(HSSFColor.BLACK.index);  
+		XSSFFont headFont = workbook.createFont();  
+		headFont.setColor(IndexedColors.BLACK.getIndex());  
 		headFont.setFontHeightInPoints((short) 12);  
-		headFont.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);  
+		headFont.setBoldweight(XSSFFont.BOLDWEIGHT_BOLD);  
 		// 把字体应用到当前的样式  
 		headStyle.setFont(headFont);  
 		return headStyle;
@@ -225,23 +242,168 @@ public class PoiUtils {
 	 * @param workbook
 	 * @return
 	 */
-	private static HSSFCellStyle createCommonDataStyle(HSSFWorkbook workbook){
+	private static XSSFCellStyle createCommonDataStyle(XSSFWorkbook workbook){
 		//普通数据单元格样式 
-		HSSFCellStyle commonDataStyle = workbook.createCellStyle();  
-		commonDataStyle.setFillForegroundColor(HSSFColor.WHITE.index);  
-		commonDataStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);  
-		commonDataStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);  
-		commonDataStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);  
-		commonDataStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);  
-		commonDataStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);  
-		commonDataStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);  
-		commonDataStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);  
+		XSSFCellStyle commonDataStyle = workbook.createCellStyle();  
+		commonDataStyle.setFillForegroundColor(IndexedColors.WHITE.getIndex());  
+		commonDataStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);  
+		commonDataStyle.setBorderBottom(XSSFCellStyle.BORDER_THIN);  
+		commonDataStyle.setBorderLeft(XSSFCellStyle.BORDER_THIN);  
+		commonDataStyle.setBorderRight(XSSFCellStyle.BORDER_THIN);  
+		commonDataStyle.setBorderTop(XSSFCellStyle.BORDER_THIN);  
+		commonDataStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER);  
+		commonDataStyle.setVerticalAlignment(XSSFCellStyle.VERTICAL_CENTER);  
 		//普通数据单元格字体  
-		HSSFFont commonDataFont = workbook.createFont();  
-		commonDataFont.setBoldweight(HSSFFont.BOLDWEIGHT_NORMAL);  
+		XSSFFont commonDataFont = workbook.createFont();  
+		commonDataFont.setBoldweight(XSSFFont.BOLDWEIGHT_NORMAL);  
 		//把字体应用到当前的样式  
 		commonDataStyle.setFont(commonDataFont); 
 		return commonDataStyle;
 	}
 	
+	
+	  /**
+     * 读取Excel文档
+     * @param file  
+     * @return list
+     * @throws IOException 
+     * @see
+     */
+    public static List<String[]> readExcel(MultipartFile file)
+        throws IOException {
+
+        //检查文件是否存在
+        checkFile(file);
+
+        //获得工作簿对象
+        Workbook workbook = getWorkBook(file);
+
+        //创建返回对象，把每行的值作为一个数组，所有行作为一个集合返回
+        List<String[]> list = new ArrayList<String[]>();
+
+        if (workbook != null) {
+            // for(int sheetNum = 0;sheetNum < workbook.getNumberOfSheets();sheetNum++){  
+            //获得当前sheet工作表  
+            Sheet sheet = workbook.getSheetAt(0);
+            /*if(sheet == null){  
+                continue;  
+            }*/
+            //获得当前sheet的开始行  
+            int firstRowNum = sheet.getFirstRowNum();
+
+            //获得当前sheet的结束行  
+            int lastRowNum = sheet.getLastRowNum();
+            //循环除了第二行的所有行  
+            for (int rowNum = firstRowNum + 2; rowNum <= lastRowNum; rowNum++ ) {
+                //获得当前行  
+                Row row = sheet.getRow(rowNum);
+                if (row.getCell(0) == null || row.getCell(0).equals("")) {
+                    break;
+                }
+                //获得当前行的开始列  
+                int firstCellNum = row.getFirstCellNum();
+                //获得当前行的列数  
+                int lastCellNum = row.getPhysicalNumberOfCells();
+                String[] cells = new String[row.getPhysicalNumberOfCells()];
+                //循环当前行  
+                for (int cellNum = firstCellNum; cellNum < lastCellNum; cellNum++ ) {
+                    Cell cell = row.getCell(cellNum);
+                    cells[cellNum] = getCellValue(cell);
+                }
+                list.add(cells);
+            }
+            //}  
+            //workbook.close();
+        }
+        return list;
+    }
+
+    /**
+     * 判断文件是否存在
+     * @param file  
+     * @throws IOException 
+     * @see
+     */
+    public static void checkFile(MultipartFile file)
+        throws IOException {
+        //判断文件是否存在  
+        if (null == file) {
+            throw new FileNotFoundException("文件不存在！");
+        }
+        //获得文件名  
+        String fileName = file.getOriginalFilename();
+        //判断文件是否是excel文件  
+        if (!fileName.endsWith(XLS) && !fileName.endsWith(XLSX)) {
+            throw new IOException(fileName + "不是excel文件");
+        }
+    }
+
+    /**
+     * 获得Workbook对象
+     * @param file  
+
+     * @return workbook
+     * @see
+     */
+    public static Workbook getWorkBook(MultipartFile file) {
+        //获得文件名  
+        String fileName = file.getOriginalFilename();
+        //创建Workbook工作薄对象，表示整个excel  
+        Workbook workbook = null;
+        try {
+            //获取excel文件的io流  
+            InputStream is = file.getInputStream();
+            //根据文件后缀名不同(xls和xlsx)获得不同的Workbook实现类对象  
+            if (fileName.endsWith(XLS)) {
+                //2003  
+                workbook = new HSSFWorkbook(is);
+            } else if (fileName.endsWith(XLSX)) {
+                //2007  
+                workbook = new XSSFWorkbook(is);
+            }
+        } catch (IOException e) {}
+        return workbook;
+    }
+
+    /**
+     * 
+     * @param cell 
+     * @return String
+     * @see
+     */
+    public static String getCellValue(Cell cell) {
+        String cellValue = "";
+        if (cell == null) {
+            return cellValue;
+        }
+        //把数字当成String来读，避免出现1读成1.0的情况  
+        if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+            cell.setCellType(Cell.CELL_TYPE_STRING);
+        }
+        //判断数据的类型  
+        switch (cell.getCellType()) {
+            case Cell.CELL_TYPE_NUMERIC: //数字  
+                cellValue = String.valueOf(cell.getNumericCellValue());
+                break;
+            case Cell.CELL_TYPE_STRING: //字符串  
+                cellValue = String.valueOf(cell.getStringCellValue());
+                break;
+            case Cell.CELL_TYPE_BOOLEAN: //Boolean  
+                cellValue = String.valueOf(cell.getBooleanCellValue());
+                break;
+            case Cell.CELL_TYPE_FORMULA: //公式  
+                cellValue = String.valueOf(cell.getCellFormula());
+                break;
+            case Cell.CELL_TYPE_BLANK: //空值   
+                cellValue = "";
+                break;
+            case Cell.CELL_TYPE_ERROR: //故障  
+                cellValue = "非法字符";
+                break;
+            default:
+                cellValue = "未知类型";
+                break;
+        }
+        return cellValue;
+    }
 }

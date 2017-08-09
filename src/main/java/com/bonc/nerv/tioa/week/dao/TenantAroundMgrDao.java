@@ -10,6 +10,7 @@ package com.bonc.nerv.tioa.week.dao;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.bonc.nerv.tioa.week.entity.TioaTenantAroundShowEntity;
@@ -22,6 +23,9 @@ public interface TenantAroundMgrDao extends CrudRepository<TioaTenantAroundShowE
      * return list
      */
     List<TioaTenantAroundShowEntity> findAll();
+
+    @Query("select count(tse) from TioaTenantAroundShowEntity tse where tse.ttaId = ?1")
+    int findById(Long ttaId);
     
     
 }

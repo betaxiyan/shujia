@@ -142,7 +142,7 @@ public class FileCountServiceImpl implements FileCountService {
 
     @Override
     public FileCountEntity editOneFc(FileCountEntity fileCountEntity) {
-        fileCountEntity.setTotalNum(fileCountEntity.getFileNum() + fileCountEntity.getFloderNum());
+        
         FileCountEntity newFileCountEntity = fileCountDao.save(fileCountEntity);
         return newFileCountEntity;
     }

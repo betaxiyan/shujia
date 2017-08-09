@@ -25,7 +25,7 @@ $(document).ready(function() {
          	}
          },
          "columns":[
- 	 		{"data": null,"targets": 0},
+                 {"data": null,"targets": 0},
 	             {
 	            	 data:"serviceType",
 	            	 render:function(data, type, row) {

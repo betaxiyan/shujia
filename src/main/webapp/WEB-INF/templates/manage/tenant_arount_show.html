@@ -7,25 +7,32 @@
   <script type="text/javascript" th:src="@{/manage/tenant_arount_show.js}"></script>
 </head>
 <body>
-     <div class="row" style="margin-left: 100px; margin-top: 30px;"
+    <div id = "test">
+        <button value = "test">test</button>
+    </div>
+     <div class="row" style="margin-left: 100px; margin-top: 30px;" 
             role="tabpanel" id="details">
             <div class="form-inline details-search-form ">
-                <label>租户：</label>
+                <!-- <label>租户：</label>
                 <input type="text" name="tenantName" id="tenantName" class="form-control input-sm" style="height: 34px; width: 180px"  th:value="${tenantName}" />
                 <label>平台接口人：</label>
                 <input type="text" name="tenantInterface" id="tenantInterface" class="form-control input-sm" style="height: 34px; width: 180px"  th:value="${tenantInterface}"/>
                 <button type="button" class="btn btn-danger" style="margin-left:30px;margin-right:30px;" th:onclick="'clickTable()'">查询</button>
-                <button type="button" class="btn btn-danger" th:onclick="'cleanSearch()'">清空</button>
-                <button class="btn btn-danger import" style="margin-left:30px;margin-right:30px;" th:onclick="'uploadFile()'">
+                <button type="button" class="btn btn-danger" th:onclick="'cleanSearch()'">清空</button> -->
+                <button class="btn btn-danger import" style="margin-left:700px;margin-right:30px;" th:onclick="'uploadFile()'">
                     <i class="layui-icon"></i> 导入
                 </button>
-                <button class="btn btn-danger export" style="margin-left:25px;margin-right:30px;" th:onclick="'exportFile()'">
-                    <i class="layui-icon"></i> 导出
+                <button class = "btn btn-danger export" style = "margin-left:30px;margin-right:30px;" th:onclick="'exportFile()'">
+                    <i class = "layui-icon"></i>导出
                 </button>
+                <button class = "btn btn-danger add" style = "margin-left:30px;margin-right:30px;"    th:onclick="'addAroundTenantModal()'">
+                    <i class = "layui-icon"></i>新增
+                </button>
+                <button type="button" th:onclick="'wer()'"> 111</button>
             </div>
      </div>
     <!--  <a th:href="@{admin/users/add}"  class="btn btn-danger" style="float: right; margin-right: 150px; margin-top:-20px;margin-bottom:10px;">添加</a>--> 
-      <a href="#" class="upload" data-toggle="modal" data-target="#addAroundTenantModal">新增</a>
+    <!-- <a href="#" class="upload" data-toggle="modal" data-target="#addAroundTenantModal">新增</a> -->
     <!-- id="tenretired_table" -->
      <table id = "tenant_arount_show_table" class="table table-bordered table-hover" width="100%">
          <thead>
@@ -40,8 +47,7 @@
                  <th>4A个数</th>
                  <th>需求</th>
                  <th>平台接口人</th>                 
-                 <th>修改</th>
-                 <th>删除</th>
+                 <th>操作</th>
              </tr>
          </thead>
          <tbody>
@@ -131,8 +137,7 @@
         </div>
     </div>
     
-    
-     <div class="modal fade" id="uploadTenModal" tabindex="-1" role="dialog" aria-labelledby="uploadTenModalLabel">
+     <div class="modal fade" id="uploadTenArrModal" tabindex="-1" role="dialog" aria-labelledby="uploadTenModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -141,90 +146,98 @@
                 </div>
                 <div class="modal-body" style="padding-left: 20px;">
                     <form id="updateTenForm"  class="form-horizontal"  method="get">
-                       <input id="update-tlId" type="hidden" name="tlId"/>
+                       <input id="updatearound-ttaId" type="hidden" name="ttaId"/>
                          <div class="form-group">
                             <label for="tenantId" class="control-label col-md-2 ">租户Id</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-tenantId" name="tenantId" placeholder="请输入租户Id"/>
+                                <input type="text" class="form-control" id="updatearound-tenantId" name="tenantId" readonly="readonly"  placeholder="请输入租户Id"/>
                             </div>
                         </div>
                           <div class="form-group">
                             <label for="tenantName" class="control-label col-md-2 ">租户名称</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-tenantName" name="tenantName" placeholder="请输入租户"/>
+                                <input type="text" class="form-control" id="updatearound-tenantName" name="tenantName" readonly="readonly" placeholder="请输入租户"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="tenantLevel" class="control-label col-md-2 ">租户级别</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-tenantLevel" name="tenantLevel" placeholder="请输入租户级别"/>
-                            </div>
+	                            <select name="tenantLevel" id="updatearound-tenantLevel" >
+	                                   <option value="0">小</option>
+	                                   <option value="1">中</option>
+	                                   <option value="2">大</option>
+	                            </select>
+                             </div>
                         </div>
                         <div class="form-group">
                             <label for="tenantBoss" class="control-label col-md-2 ">租户负责人</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-tenantBoss" name="tenantBoss" placeholder="请输入租户负责人"/>
+                                <input type="text" class="form-control" id="updatearound-tenantBoss" name="tenantBoss" placeholder="请输入租户负责人"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="tenantTel" class="control-label col-md-2 ">联系电话</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-tenantTel" name="tenantTel" placeholder="请输入联系电话"/>
+                                <input type="text" class="form-control" id="updatearound-tenantTel" name="tenantTel" placeholder="请输入联系电话"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="numOfUnifiedPlatform" class="control-label col-md-2 ">统一平台数量</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-numOfUnifiedPlatform" name="numOfUnifiedPlatform" placeholder="输入统一平台数量"/>
+                                <input type="text" class="form-control" id="updatearound-numOfUnifiedPlatform" name="numOfUnifiedPlatform" placeholder="输入统一平台数量"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="numOf4a" class="control-label col-md-2 ">4A数量</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-numOf4a" name="numOf4a" placeholder="输入统4A数量"/>
+                                <input type="text" class="form-control" id="updatearound-numOf4a" name="numOf4a" placeholder="输入统4A数量"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="tenantReqirement" class="control-label col-md-2 ">需求</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-tenantReqirement" name="tenantReqirement" placeholder="输入需求"/>
+                                <input type="text" class="form-control" id="updatearound-tenantReqirement" name="tenantReqirement" placeholder="输入需求"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="tenantInterface" class="control-label col-md-2 ">平台接口人</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-tenantInterface" name="tenantInterface" placeholder="输入平台接口人"/>
+                                <input type="text" class="form-control" id="updatearound-tenantInterface" name="tenantInterface" placeholder="输入平台接口人"/>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" id="updateTenBtn" th:onclick="'click()'">提交</button>
+                    <button type="button" class="btn btn-danger" id="updateTenArrBtn" th:onclick="'click()'">提交</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal" id="updateReloadHTML">关闭</button>
                 </div>
             </div>
         </div>
     </div>
     
-    
-      <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel">
+      <div class="modal fade" id="alertTenArrModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel">
         <div class="modal-dialog" role="document" style="width: 350px;">
             <div class="modal-content" style="width: 350px;">
                 <div class="modal-body" style="text-align: center;font-weight: bold;padding: 30px;">
                 </div>
                 <div class="modal-footer" style="text-align: center;padding: 5px;">
-                    <button type="button" class="btn btn-danger btn-xs" id="removeTool">确定</button>
+                    <button type="button" class="btn btn-danger btn-xs" id="removeTenArrTool">确定</button>
                     <button type="button" class="btn btn-default btn-xs" data-dismiss="modal">取消</button>
                 </div>
             </div>
         </div>
     </div>
     
+     <form id="deleteTenArrForm" th:action="@{/manage/deleteTenantAroundMgr}" method="get">
+        <input type="hidden" id="delete-ttaId" name="ttaId"/>
+    </form>
+    
+    
     <div class="modal fade" id="uploadFileModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel">
         <div class="modal-dialog" role="document" style="width: 350px;">
             <div class="modal-content" style="width: 350px;">
                 <div class="modal-body" style="text-align: center;font-weight: bold;padding: 30px;">
-                    <form enctype="multipart/form-data" id="uploadFileForm" method="post" action = "">  
+                    <form enctype="multipart/form-data" id="uploadFileForm" method="post" action = "/manage/saveTenantAroundMgrExcel">  
                       <input type="file" name="upload"  id="upload"></input>  
                     </form>
                 </div>
@@ -235,10 +248,6 @@
             </div>
         </div>
     </div>
-    
-     <form id="deleteTenForm" th:action="@{/tenant/tenretired/delete}" method="get">
-        <input type="hidden" id="delete-tlId" name="tlId"/>
-    </form>
     
     <script type="text/javascript" th:inline="javascript">
      window.onscroll = function(){

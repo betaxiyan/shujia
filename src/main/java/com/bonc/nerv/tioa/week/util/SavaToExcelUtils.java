@@ -48,7 +48,7 @@ public class SavaToExcelUtils {
     /**
      *  默认宽度
      */
-    private static final int DEFAULT_COLUMN_SIZE = 30;
+    private static final int DEFAULT_COLUMN_SIZE = 15;
     
     
     
@@ -136,6 +136,9 @@ public class SavaToExcelUtils {
         CellStyle contentStyle = cellStyleMap.get("content");
         //黄色背景
         CellStyle yellowStyle = cellStyleMap.get("yellow");
+        //黄色背景
+        CellStyle redStyle = cellStyleMap.get("red");
+        // 生成一个表格
         
         //最新Excel列索引,从0开始
         int lastRowIndex = sheet.getLastRowNum();
@@ -197,15 +200,22 @@ public class SavaToExcelUtils {
         for ( int q = 0; q < objects.size(); q++) {
             List<Object> dataRow = objects.get(q);
             try{
+                Boolean redflag = false;//是否为红色标记
                 row = sheet.createRow(lastRowIndex);
                 lastRowIndex++;
             
                 Integer type = (Integer)dataRow.get(2);
-                if (type!=10) {
+                if (type==20) {
                     //该行隐藏
                     row.setZeroHeight(true);
+                    //该行红色
+                    redflag=true;
+                    
                 }
-                Boolean flag = false;//是否为黄色标记
+                Boolean yellowflag = false;//是否为黄色标记
+                
+                
+                
                 String format = "yyyyMMdd";
                 SimpleDateFormat sdf = new SimpleDateFormat(format);
                 String enddata = dataRow.get(12).toString();//拿到第十三行的到期日期 
@@ -214,16 +224,18 @@ public class SavaToExcelUtils {
                     Date d1 = sdf.parse(enddata);
                     if (daysBetween(new Date(),d1)<3 && daysBetween(new Date(),d1)>=0) {//如果日期小于三天
                         //该行黄色
-                        flag = true;
+                        yellowflag = true;
                     }
                 }
             
                 for (int j = 0; j < dataRow.size(); j++) {
                     Cell contentCell = row.createCell(j);
                     Object dataObject = dataRow.get(j);
-                    if (flag) {
+                    if (yellowflag) {
                         contentCell.setCellStyle(yellowStyle);//黄色
-                    }else {
+                    }else if (redflag) {
+                        contentCell.setCellStyle(redStyle);//红色
+                    } else {
                         contentCell.setCellStyle(contentStyle);//常规类型
                     }
                 
@@ -264,10 +276,13 @@ public class SavaToExcelUtils {
             }
                 
         }
+        
         //调整列宽
-        for(int col =0;col<21;col++){
+        /*for(int col =0;col<21;col++){
             sheet.autoSizeColumn((short)col); //调整第col列宽度
         }
+        */
+     
         
     }
     
@@ -353,7 +368,32 @@ public class SavaToExcelUtils {
         return style;
     }
 
-    
+    /**
+     * 创建单元格品红色背景样式
+     *
+     * @param workbook 工作薄
+     * @return CellStyle 样式
+     */
+    private static CellStyle createCellRedStyle(Workbook workbook) {
+        CellStyle style = workbook.createCellStyle();
+        // 设置边框样式
+        style.setBorderBottom(XSSFCellStyle.BORDER_THIN);
+        style.setBorderLeft(XSSFCellStyle.BORDER_THIN);
+        style.setBorderRight(XSSFCellStyle.BORDER_THIN);
+        style.setBorderTop(XSSFCellStyle.BORDER_THIN);
+        //设置对齐样式
+        style.setAlignment(XSSFCellStyle.ALIGN_CENTER);
+        // 生成字体
+        Font font = workbook.createFont();
+        // 正文样式
+        style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);//设置前景填充样式
+        style.setFillForegroundColor(HSSFColor.TAN.index);//前景填充色
+        
+        font.setBoldweight(XSSFFont.BOLDWEIGHT_NORMAL);
+        // 把字体应用到当前的样式
+        style.setFont(font);
+        return style;
+    }
 
   
     /**
@@ -366,6 +406,7 @@ public class SavaToExcelUtils {
         styleMap.put("head", createCellHeadStyle(workbook));
         styleMap.put("content", createCellContentStyle(workbook));
         styleMap.put("yellow", createCellYellowStyle(workbook));
+        styleMap.put("red", createCellRedStyle(workbook));
         return styleMap;
     }
 

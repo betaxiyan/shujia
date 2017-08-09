@@ -163,9 +163,12 @@ public class TioaTenantAroundShowEntity {
     public String toString() {
         return "TioaTenantAroundShowEntity [ttaId=" + ttaId + ", tenantId=" + tenantId
                + ", tenantName=" + tenantName + ", tenantLevel=" + tenantLevel + ", tenantBoss="
-               + tenantBoss + ", tenantTel=" + tenantTel + ", tenantInterface=" + tenantInterface
-               + "]";
+               + tenantBoss + ", tenantTel=" + tenantTel + ", numOfUnifiedPlatform="
+               + numOfUnifiedPlatform + ", numOf4a=" + numOf4a + ", tenantReqirement="
+               + tenantReqirement + ", tenantInterface=" + tenantInterface + "]";
     }
+
+   
     
     
 }

@@ -149,7 +149,7 @@ public class DisTenantServiceImpl implements DisTenantService{
 
         // 添加Excel内容
         List<String[]> dataset = getList(list);
-        String fileName = DateUtils.formatDateToString(new Date(), "yyyyMMddHHmmss") + ".xls";
+        String fileName = DateUtils.formatDateToString(new Date(), "yyyyMMddHHmmss") + ".xlsx";
         try {
             PoiUtils.exportExelMerge(fileName, headers, dataset, true, response,
                 new Integer[] {5, 4, 2}, new Integer[] {1, 2, 3, 4, 5, 7}, new Integer[] {7},
@@ -268,7 +268,7 @@ public class DisTenantServiceImpl implements DisTenantService{
             }
            
             //遍历集合，处理数据
-            String[] service = {tdId, serviceType, tenantName, tenantLevel, tenantBoss, tenantTel,
+            String[] service = {Integer.toString(i+1), serviceType, tenantName, tenantLevel, tenantBoss, tenantTel,
                 resourceType, fileCount, storage, storageUnit, storageUsage, storageUsageUnit,
                 storageUsageRate, cpuNum, cpuMax, cpuAvg, memorySize, memoryMax, memoryAvg,
                 askDate, changeDate, openDate};
