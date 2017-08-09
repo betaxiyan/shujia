@@ -7,7 +7,6 @@ $(document).ready(function() {
 	    "dom": '<lf<t>ip>',
  	    "pagingType": "full_numbers",		// 设置分页控件的模式
  	    "processing": false, 				// 打开数据加载时的等待效果
-        "ordering" : false,
         "bPaginate": true,                  // 分页设置
         "bLengthChange": true,              //
         "bSort": false,
@@ -65,31 +64,21 @@ $(document).ready(function() {
             "processing": "加载中......",
             "sSearch": "查询:  "
         },
-        "fnDrawCallback": function(){
+        
+        //设置序号列
+       "fnDrawCallback": function(){
         	var api = this.api();
-        	var startIndex= api.context[0]._iDisplayStart;//获取到本页开始的条数
+        	//var startIndex= api.context[0]._iDisplayStart;//获取到本页开始的条数
         	api.column(0).nodes().each(function(cell, i) {
-        		cell.innerHTML = startIndex + i + 1;
+        		cell.innerHTML = i + 1;
         	});
         }
     });
 	
-	/**
-	    * 查看修改
-	    */
-	  /* $('#tenant_arount_show_table tbody').on( 'click', 'a#edit', function () {
-	       var data = $('#tenant_arount_show_table').DataTable().row($(this).parents('tr')).data();
-	       $('#uploadTenModal').modal();
-	       alert("查看修改："+data.tenantName +","+ data.ttaId );
-	   } );*/
+	
+	
+	
 
-	   /**
-	    * 删除
-	    */
-	  /* $('#tenant_arount_show_table tbody').on( 'click', 'a#del', function () {
-	       var data = $('#tenant_arount_show_table').DataTable().row($(this).parents('tr')).data();
-	       alert("删除："+data );
-	   })*/
 	
 	
   //新增表单提交

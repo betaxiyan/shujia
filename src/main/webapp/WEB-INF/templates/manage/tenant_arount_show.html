@@ -7,7 +7,10 @@
   <script type="text/javascript" th:src="@{/manage/tenant_arount_show.js}"></script>
 </head>
 <body>
-     <div class="row" style="margin-left: 100px; margin-top: 30px;"
+    <div id = "test">
+        <button value = "test">test</button>
+    </div>
+     <div class="row" style="margin-left: 100px; margin-top: 30px;" 
             role="tabpanel" id="details">
             <div class="form-inline details-search-form ">
                 <!-- <label>租户：</label>
@@ -16,7 +19,7 @@
                 <input type="text" name="tenantInterface" id="tenantInterface" class="form-control input-sm" style="height: 34px; width: 180px"  th:value="${tenantInterface}"/>
                 <button type="button" class="btn btn-danger" style="margin-left:30px;margin-right:30px;" th:onclick="'clickTable()'">查询</button>
                 <button type="button" class="btn btn-danger" th:onclick="'cleanSearch()'">清空</button> -->
-                <button class="btn btn-danger import" style="margin-left:300px;margin-right:30px;" th:onclick="'uploadFile()'">
+                <button class="btn btn-danger import" style="margin-left:700px;margin-right:30px;" th:onclick="'uploadFile()'">
                     <i class="layui-icon"></i> 导入
                 </button>
                 <button class="btn btn-danger export" style="margin-left:25px;margin-right:30px;" th:onclick="'exportFile()'">

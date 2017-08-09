@@ -100,7 +100,7 @@ public class TenantAroundMgrController {
     public Map<String,Object> findAllTenantAroundMgr(){
         List<TioaTenantAroundShowEntity> list = tenantAroundMgrService.findAllTenantAroundMgr();
         Map<String,Object> map = new HashMap<String,Object>();
-        //map.put("draw","1");
+        map.put("draw","1");
         map.put("recordsFiltered", list.size());
         map.put("recordsTotal", list.size());
         map.put("data", list);
