@@ -22,8 +22,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
-import com.bonc.nerv.tioa.week.entity.SearchTenretiredData;
-import com.bonc.nerv.tioa.week.entity.TenretiredEntity;
 import com.bonc.nerv.tioa.week.entity.TioaTenantAroundShowEntity;
 import com.bonc.nerv.tioa.week.service.TenantAroundMgrService;
 
@@ -37,6 +35,9 @@ import com.bonc.nerv.tioa.week.service.TenantAroundMgrService;
  */
 @Controller
 public class TenantAroundMgrController {
+    /**
+     * 
+     */
     @Autowired
     @Qualifier("tenantAroundMgrService")
     private TenantAroundMgrService tenantAroundMgrService;
@@ -86,6 +87,11 @@ public class TenantAroundMgrController {
         return JSON.toJSONString("导入Excel到数据库成功");
     }
     
+    /**
+     * 获取所有租户周边信息管理信息
+     * @return map
+     * @see
+     */
     @RequestMapping("manage/findAllTenantAroundMgr")
     @ResponseBody
     public Map<String,Object> findAllTenantAroundMgr(){

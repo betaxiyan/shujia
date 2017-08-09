@@ -1,22 +1,21 @@
 var table;
 $(document).ready(function() {
-	console.log("进入js");
 	table = $('#tenant_arount_show_table').dataTable({
 		fixedHeader: {
 	        header: true
 	    },
-	    "dom": '<<t>ilp>',   		
+	    "dom": '<<t>ilp>',
  	    "pagingType": "simple_numbers",		// 设置分页控件的模式
  	    "processing": false, 				// 打开数据加载时的等待效果
-        //"serverSide": true,				// 打开后台分页
         "ordering" : false,
         "order": [[1, 'asc']],
         "bPaginate": true,                  // 分页设置
         "bLengthChange": true,
-        "bFilter": false,                   // 搜索设置
-        "bSort": false,
+        "bFilter": true,                   // 搜索设置
+        "bSort": true,
         "bInfo": true,
         "bAutoWidth": true,
+        "bsearching":true,
         "ajax":{
      		"url":ctx+"manage/findAllTenantAroundMgr",
         	"data":function(d){
@@ -70,10 +69,11 @@ $(document).ready(function() {
             "zeroRecords": "无记录",
             "infoEmpty": "共计0",
             "lengthMenu": "每页显示 _MENU_ 记录",
-            "infoFiltered": ""
-            //"processing": "加载中......"
+            "infoFiltered": "",
+            "processing": "加载中......",
             // "zeroRecords": "没有找到相关内容",
-            // "search": "搜索 : "
+             "bsearch": "搜索 : ",
+            "sSearch": "查询:  "
         },
         "fnDrawCallback": function(){
         	var api = this.api();
