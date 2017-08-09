@@ -268,7 +268,7 @@ public class DisTenantServiceImpl implements DisTenantService{
             }
            
             //遍历集合，处理数据
-            String[] service = {tdId, serviceType, tenantName, tenantLevel, tenantBoss, tenantTel,
+            String[] service = {Integer.toString(i+1), serviceType, tenantName, tenantLevel, tenantBoss, tenantTel,
                 resourceType, fileCount, storage, storageUnit, storageUsage, storageUsageUnit,
                 storageUsageRate, cpuNum, cpuMax, cpuAvg, memorySize, memoryMax, memoryAvg,
                 askDate, changeDate, openDate};

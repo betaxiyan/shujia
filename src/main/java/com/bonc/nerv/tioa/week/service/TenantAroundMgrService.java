@@ -102,4 +102,13 @@ public interface TenantAroundMgrService {
      * @see
      */
     Boolean validateById(Long ttaId);
+
+    /**
+     * 获取修改的数据
+     * 
+     * @param ttaId
+     * @return 
+     * @see
+     */
+    TioaTenantAroundShowEntity updateTenantAroundMg(Long ttaId);
 }

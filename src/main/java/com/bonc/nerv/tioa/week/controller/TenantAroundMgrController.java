@@ -135,6 +135,22 @@ public class TenantAroundMgrController {
     }
     
     /**
+     * 获取修改数据
+     * 
+     * @param ttaId
+     * @return 
+     * @see
+     */
+    @RequestMapping("/manage/update")
+    @ResponseBody
+    public TioaTenantAroundShowEntity updateTenantAroundMgr(Long ttaId){
+        TioaTenantAroundShowEntity tioaTenAro =  tenantAroundMgrService.updateTenantAroundMg(ttaId);
+       System.out.println(tioaTenAro);
+        return tioaTenAro;
+        
+    }
+    
+    /**
      * 保存一条记录到数据库
      * @param tioaTenantAroundShowEntity  
      * @return ""

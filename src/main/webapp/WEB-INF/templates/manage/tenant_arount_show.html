@@ -130,8 +130,7 @@
         </div>
     </div>
     
-    
-     <div class="modal fade" id="uploadTenModal" tabindex="-1" role="dialog" aria-labelledby="uploadTenModalLabel">
+     <div class="modal fade" id="uploadTenArrModal" tabindex="-1" role="dialog" aria-labelledby="uploadTenModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -140,71 +139,74 @@
                 </div>
                 <div class="modal-body" style="padding-left: 20px;">
                     <form id="updateTenForm"  class="form-horizontal"  method="get">
-                       <input id="update-tlId" type="hidden" name="tlId"/>
+                       <input id="updatearound-ttaId" type="hidden" name="ttaId"/>
                          <div class="form-group">
                             <label for="tenantId" class="control-label col-md-2 ">租户Id</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-tenantId" name="tenantId" placeholder="请输入租户Id"/>
+                                <input type="text" class="form-control" id="updatearound-tenantId" name="tenantId" readonly="readonly"  placeholder="请输入租户Id"/>
                             </div>
                         </div>
                           <div class="form-group">
                             <label for="tenantName" class="control-label col-md-2 ">租户名称</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-tenantName" name="tenantName" placeholder="请输入租户"/>
+                                <input type="text" class="form-control" id="updatearound-tenantName" name="tenantName" readonly="readonly" placeholder="请输入租户"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="tenantLevel" class="control-label col-md-2 ">租户级别</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-tenantLevel" name="tenantLevel" placeholder="请输入租户级别"/>
-                            </div>
+	                            <select name="tenantLevel" id="updatearound-tenantLevel" >
+	                                   <option value="0">小</option>
+	                                   <option value="1">中</option>
+	                                   <option value="2">大</option>
+	                            </select>
+                             </div>
                         </div>
                         <div class="form-group">
                             <label for="tenantBoss" class="control-label col-md-2 ">租户负责人</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-tenantBoss" name="tenantBoss" placeholder="请输入租户负责人"/>
+                                <input type="text" class="form-control" id="updatearound-tenantBoss" name="tenantBoss" placeholder="请输入租户负责人"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="tenantTel" class="control-label col-md-2 ">联系电话</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-tenantTel" name="tenantTel" placeholder="请输入联系电话"/>
+                                <input type="text" class="form-control" id="updatearound-tenantTel" name="tenantTel" placeholder="请输入联系电话"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="numOfUnifiedPlatform" class="control-label col-md-2 ">统一平台数量</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-numOfUnifiedPlatform" name="numOfUnifiedPlatform" placeholder="输入统一平台数量"/>
+                                <input type="text" class="form-control" id="updatearound-numOfUnifiedPlatform" name="numOfUnifiedPlatform" placeholder="输入统一平台数量"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="numOf4a" class="control-label col-md-2 ">4A数量</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-numOf4a" name="numOf4a" placeholder="输入统4A数量"/>
+                                <input type="text" class="form-control" id="updatearound-numOf4a" name="numOf4a" placeholder="输入统4A数量"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="tenantReqirement" class="control-label col-md-2 ">需求</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-tenantReqirement" name="tenantReqirement" placeholder="输入需求"/>
+                                <input type="text" class="form-control" id="updatearound-tenantReqirement" name="tenantReqirement" placeholder="输入需求"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="tenantInterface" class="control-label col-md-2 ">平台接口人</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="update-tenantInterface" name="tenantInterface" placeholder="输入平台接口人"/>
+                                <input type="text" class="form-control" id="updatearound-tenantInterface" name="tenantInterface" placeholder="输入平台接口人"/>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" id="updateTenBtn" th:onclick="'click()'">提交</button>
+                    <button type="button" class="btn btn-danger" id="updateTenArrBtn" th:onclick="'click()'">提交</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal" id="updateReloadHTML">关闭</button>
                 </div>
             </div>
         </div>
     </div>
-    
     
       <div class="modal fade" id="alertTenArrModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel">
         <div class="modal-dialog" role="document" style="width: 350px;">
