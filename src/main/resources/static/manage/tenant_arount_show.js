@@ -4,18 +4,15 @@ $(document).ready(function() {
 		fixedHeader: {
 	        header: true
 	    },
-	    "dom": '<<t>ilp>',
- 	    "pagingType": "simple_numbers",		// 设置分页控件的模式
+	    "dom": '<lf<t>ip>',
+ 	    "pagingType": "full_numbers",		// 设置分页控件的模式
  	    "processing": false, 				// 打开数据加载时的等待效果
         "ordering" : false,
-        "order": [[1, 'asc']],
         "bPaginate": true,                  // 分页设置
-        "bLengthChange": true,
-        "bFilter": true,                   // 搜索设置
-        "bSort": true,
+        "bLengthChange": true,              //
+        "bSort": false,
         "bInfo": true,
         "bAutoWidth": true,
-        "bsearching":true,
         "ajax":{
      		"url":ctx+"manage/findAllTenantAroundMgr",
         	"data":function(d){
@@ -23,7 +20,7 @@ $(document).ready(function() {
         		d.tenantInterface= $("#tenantInterface").val();
              }
         },
-        "columns":[{data:"ttaId",},               {data:"tenantId",},  {data:"tenantName",},
+        "columns":[{data:null,"targets":0,},             {data:"tenantId",},  {data:"tenantName",},
                    {data:"tenantLevel",
         				render:function(data, type, row) {
         						if(data == "" || data == null) {
@@ -42,28 +39,30 @@ $(document).ready(function() {
                    {data:"numOfUnifiedPlatform",},{data:"numOf4a",},   {data:"tenantReqirement",},
                    {data:"tenantInterface",},      null,                null
                   ],
-         //修改列
+         /*
          "aoColumnDefs":[
                              {
-                             	"targets":10,
+                             	"targets":-2,
                                  "data": null,
                                  "bSortable": false,
                                  "defaultContent": "<p>&nbsp;&nbsp;&nbsp;&nbsp;<a id=\"edit\" href=\"#\">修改</a></p>"
                              },
                              {
-                              	"targets":11,
+                              	"targets":-1,
                                   "data": null,
                                   "bSortable": false,
                                   "defaultContent": "<p>&nbsp;&nbsp;&nbsp;&nbsp;<a id=\"del\"  href=\"#\">删除</a></p>"
                               }
                              
-                         ],
+                         ],*/
              
              
         "language": {
 	        "paginate": {
-	                 "previous": "首页",
-	                 "next": "下一页"
+	        	"sFirst": "首页",
+                "sPrevious": "前一页",
+                "sNext": "后一页",
+                "sLast": "尾页"
 	        },
             "info": "显示_START_到_END_, 共计_TOTAL_条数据",
             "zeroRecords": "无记录",
@@ -71,8 +70,6 @@ $(document).ready(function() {
             "lengthMenu": "每页显示 _MENU_ 记录",
             "infoFiltered": "",
             "processing": "加载中......",
-            // "zeroRecords": "没有找到相关内容",
-             "bsearch": "搜索 : ",
             "sSearch": "查询:  "
         },
         "fnDrawCallback": function(){
@@ -87,19 +84,19 @@ $(document).ready(function() {
 	/**
 	    * 查看修改
 	    */
-	   $('#tenant_arount_show_table tbody').on( 'click', 'a#edit', function () {
+	  /* $('#tenant_arount_show_table tbody').on( 'click', 'a#edit', function () {
 	       var data = $('#tenant_arount_show_table').DataTable().row($(this).parents('tr')).data();
 	       $('#uploadTenModal').modal();
 	       alert("查看修改："+data.tenantName +","+ data.ttaId );
-	   } );
+	   } );*/
 
 	   /**
 	    * 删除
 	    */
-	   $('#tenant_arount_show_table tbody').on( 'click', 'a#del', function () {
+	  /* $('#tenant_arount_show_table tbody').on( 'click', 'a#del', function () {
 	       var data = $('#tenant_arount_show_table').DataTable().row($(this).parents('tr')).data();
 	       alert("删除："+data );
-	   })
+	   })*/
 	
 	
   //新增表单提交
@@ -320,6 +317,12 @@ function addClean(){
 	$("#addaround-tenantInterface").val("");
 }
 
+//新增按钮
+function addAroundTenantModal(){
+	
+	$('#addAroundTenantModal').modal('show');
+}
+
 //查询操作按钮
 function clickLeaveTable(){
 	table.api().ajax.reload();
@@ -328,12 +331,6 @@ function clickLeaveTable(){
 
 function clickTable(){
 	table.api().ajax.reload();
-}
-//清除查询数据
-function cleanLeaveSearch() {
-	$("#tenantLeaveName").val("");
-	$("#tenantInterface").val("");
-	clickLeaveTable();
 }
 
 //文件导出
