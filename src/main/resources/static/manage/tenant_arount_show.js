@@ -213,8 +213,7 @@ $(document).ready(function() {
     
     $('#tenant_arount_show_table tbody').unbind('click',TenretiredOperate);
     $('#tenant_arount_show_table tbody').bind('click',TenretiredOperate);
-   
-   
+    
 });
 
 function addClean(){
@@ -230,9 +229,10 @@ function addClean(){
 	$("#addaround-tenantInterface").val("");
 }
 
+
+
 //新增按钮
 function addAroundTenantModal(){
-	
 	$('#addAroundTenantModal').modal('show');
 }
 
@@ -244,6 +244,8 @@ function clickLeaveTable(){
 
 function clickTable(){
 	table.api().ajax.reload();
+}
+
 //清除查询数据
 function cleanLeaveSearch() {
 	$("#tenantLeaveName").val("");
@@ -251,10 +253,10 @@ function cleanLeaveSearch() {
 	clickLeaveTable();
 }
 
+
 //文件导出
-function exportFile() {
+function exportFile(){
 	var length = table.api().data().length;
-	alert(length);
 	if (length < 1) {
 		layui.use('layer', function(){
 			  var layer = layui.layer;
@@ -265,6 +267,7 @@ function exportFile() {
 	location.href=ctx+'manange/exportTenantAroundMgr';
 }
 
+//上传文件
 function uploadFile(){
  	$('#uploadFileModal').modal('show');
 }
@@ -272,6 +275,7 @@ function uploadFile(){
 function uploadFileSubmit(){
 	$('#uploadFileForm').submit();
 	$('#uploadFileModal').modal('hide');
-	
 }
-}
+
+
+
