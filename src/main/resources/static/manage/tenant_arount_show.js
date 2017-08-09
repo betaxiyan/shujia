@@ -20,7 +20,9 @@ $(document).ready(function() {
         		d.tenantInterface= $("#tenantInterface").val();
              }
         },
-        "columns":[{data:null,"targets":0,},             {data:"tenantId",},  {data:"tenantName",},
+        "columns":[{data:null,"targets":0,},             
+                   {data:"tenantId",},  
+                   {data:"tenantName",},
                    {data:"tenantLevel",
         				render:function(data, type, row) {
         						if(data == "" || data == null) {
@@ -35,27 +37,18 @@ $(document).ready(function() {
         						return data;
         				}
                    },         
-                   {data:"tenantBoss",},{data:"tenantTel", },
-                   {data:"numOfUnifiedPlatform",},{data:"numOf4a",},   {data:"tenantReqirement",},
-                   {data:"tenantInterface",},      null,                null
+                   {data:"tenantBoss",},
+                   {data:"tenantTel", },
+                   {data:"numOfUnifiedPlatform",},
+                   {data:"numOf4a",},   
+                   {data:"tenantReqirement",},
+                   {data:"tenantInterface",}, 
+                   {
+                  	 data:"ttaId",
+  	            	 render:function(data, type, row) {
+  	            		 return '<td><button class="btn btn-xs btn-danger" value="'+data+'">编辑</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-xs btn-danger" value="'+data+'">删除</button></td>';
+  	            	 }}
                   ],
-         /*
-         "aoColumnDefs":[
-                             {
-                             	"targets":-2,
-                                 "data": null,
-                                 "bSortable": false,
-                                 "defaultContent": "<p>&nbsp;&nbsp;&nbsp;&nbsp;<a id=\"edit\" href=\"#\">修改</a></p>"
-                             },
-                             {
-                              	"targets":-1,
-                                  "data": null,
-                                  "bSortable": false,
-                                  "defaultContent": "<p>&nbsp;&nbsp;&nbsp;&nbsp;<a id=\"del\"  href=\"#\">删除</a></p>"
-                              }
-                             
-                         ],*/
-             
              
         "language": {
 	        "paginate": {
@@ -110,15 +103,7 @@ $(document).ready(function() {
     	 var tenantBoss=$("#addaround-tenantBoss").val();
     	 var tenantTel=$("#addaround-tenantTel").val();
     	 var numOfUnifiedPlatform=$("#addaround-numOfUnifiedPlatform").val();
-    	 if (isNaN(numOfUnifiedPlatform)){
-    		 alert("请输入统一平台个数时输入整数");
-    		 $("#addaround-numOfUnifiedPlatform").val("");
-    	 }
     	 var numOf4a=$("#addaround-numOf4a").val();
-    	 if (isNaN(numOf4a)){
-    		 alert("请输入4A个数时输入整数");
-    		 $("#addaround-numOf4a").val("");
-    	 }
     	 var tenantReqirement=$("#addaround-tenantReqirement").val();
     	 var tenantInterface=$("#addaround-tenantInterface").val();
     	$.ajax({
@@ -246,31 +231,35 @@ $(document).ready(function() {
            	});
               $('#updateTenModal').modal('show');
           }else if (tarHTML == '删除') {
-              $('#alertModal2 .modal-body').html('确定要删除？');
-              $('#alertModal2').modal('show');
-              $('#removeTen').unbind('click');
-              $('#removeTen').click(function() {
+              $('#alertTenArrModal .modal-body').html('确定要删除？');
+              $('#alertTenArrModal').modal('show');
+              $('#removeTenArrTool').unbind('click');
+              $('#removeTenArrTool').click(function() {
+            	  alert("你就");
            	$.ajax({
           		 type:"get",
-                   url:ctx + "tenant/retired/validateByTlId",
-                   data:{"tlId":tarval},
+	          		url:ctx + "manage/validateById",
+	                data:{"ttaId":tarval},
                    success:function(data){
                    	if(data){
-                   		$("#delete-tlId").val(tarval);
-                       	$("#deleteTenForm").submit();
+                   		$("#delete-ttaId").val(tarval);
+                    	$("#deleteTenArrForm").submit();
                    	}else{ 
-                   		alert("无法删除！");
+                   		layui.use('layer', function(){
+                  			var layer = layui.layer;
+                  			layer.alert('此类型有工具引用无法删除', {icon: 5});
+                  		}); 
                    	}
                    }
            	});
-           	$('#alertModal').modal('hide');
+           	$('#alertTenArrModal').modal('hide');
            })
        }
      }
    }
     
-    $('#leave_table tbody').unbind('click',TenretiredOperate);
-    $('#leave_table tbody').bind('click',TenretiredOperate);
+    $('#tenant_arount_show_table tbody').unbind('click',TenretiredOperate);
+    $('#tenant_arount_show_table tbody').bind('click',TenretiredOperate);
    
    
 
@@ -303,7 +292,6 @@ $(document).ready(function() {
    /*************************/     
 });
 
-
 function addClean(){
 	$('#addAroundTenantModal').modal('hide');
 	$("#addaround-tenantId").val("");
@@ -331,6 +319,11 @@ function clickLeaveTable(){
 
 function clickTable(){
 	table.api().ajax.reload();
+//清除查询数据
+function cleanLeaveSearch() {
+	$("#tenantLeaveName").val("");
+	$("#tenantInterface").val("");
+	clickLeaveTable();
 }
 
 //文件导出
@@ -355,4 +348,5 @@ function uploadFileSubmit(){
 	$('#uploadFileForm').submit();
 	$('#uploadFileModal').modal('hide');
 	
+}
 }

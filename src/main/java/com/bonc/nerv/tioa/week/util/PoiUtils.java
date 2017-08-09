@@ -8,20 +8,18 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-
+import java.util.Set; 
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.usermodel.HSSFRichTextString;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFRichTextString;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  * @author zhangwen
@@ -63,22 +61,22 @@ public class PoiUtils {
 	 * @param timeCells 时间列 可选
 	 */
 	public static void createExcelMerge(String title, final String[] headers,List<String[]> dataset,boolean isSortDataSet, OutputStream out, final Integer[] mergeBasis, final Integer[] mergeCells, final Integer[] sumCells, final Integer[] timeCells){
-		HSSFWorkbook workbook = new HSSFWorkbook();
-		HSSFSheet sheet = workbook.createSheet(title);
+		XSSFWorkbook workbook = new XSSFWorkbook();
+		XSSFSheet sheet = workbook.createSheet(title);
 		
 		sheet.setDefaultColumnWidth(15); // 设置表格默认列宽度为15个字节  
-		HSSFCellStyle headStyle = createHeadStyle(workbook); // 生成头部样式 
-		HSSFCellStyle commonDataStyle = createCommonDataStyle(workbook); // 生成一般数据样式  
+		XSSFCellStyle headStyle = createHeadStyle(workbook); // 生成头部样式 
+		XSSFCellStyle commonDataStyle = createCommonDataStyle(workbook); // 生成一般数据样式  
 
 		if(headers == null || headers.length <= 0){
 			return;
 		}
 		
-		HSSFRow row = sheet.createRow(0); // 产生表格标题行  
+		XSSFRow row = sheet.createRow(0); // 产生表格标题行  
 		for (int i = 0; i < headers.length; i++) {
-			HSSFCell cell = row.createCell(i);
+			XSSFCell cell = row.createCell(i);
 			cell.setCellStyle(headStyle);
-			HSSFRichTextString text = new HSSFRichTextString(headers[i]);
+			XSSFRichTextString text = new XSSFRichTextString(headers[i]);
 			cell.setCellValue(text);
 		}
 		
@@ -115,7 +113,7 @@ public class PoiUtils {
 			row = sheet.createRow(index);  
 			String[] dataSources = it.next() ;
 			for (int i = 0; i < dataSources.length; i++) {  
-				HSSFCell cell = row.createCell(i);  
+				XSSFCell cell = row.createCell(i);  
 				cell.setCellStyle(commonDataStyle);
 				cell.setCellValue(dataSources[i]);
 			}
@@ -148,10 +146,10 @@ public class PoiUtils {
 	 * @param workbook
 	 * @param mergeBasis
 	 */
-	private static void mergedRegion(HSSFSheet sheet, int cellLine,int startRow, int endRow, HSSFWorkbook workbook, Integer[] mergeBasis) {
-		HSSFCellStyle style = workbook.createCellStyle(); 			// 样式对象  
-        style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);	// 垂直  
-        style.setAlignment(HSSFCellStyle.ALIGN_CENTER);				// 水平  
+	private static void mergedRegion(XSSFSheet sheet, int cellLine,int startRow, int endRow, XSSFWorkbook workbook, Integer[] mergeBasis) {
+		XSSFCellStyle style = workbook.createCellStyle(); 			// 样式对象  
+        style.setVerticalAlignment(XSSFCellStyle.VERTICAL_CENTER);	// 垂直  
+        style.setAlignment(XSSFCellStyle.ALIGN_CENTER);				// 水平  
         String s_will = sheet.getRow(startRow).getCell(cellLine).getStringCellValue();  // 获取第一行的数据,以便后面进行比较  
         int count = 0;  
         Set<Integer> set = new HashSet<Integer>();
@@ -200,21 +198,21 @@ public class PoiUtils {
 	 * @param workbook
 	 * @return
 	 */
-	private static HSSFCellStyle createHeadStyle(HSSFWorkbook workbook){
+	private static XSSFCellStyle createHeadStyle(XSSFWorkbook workbook){
 		//标题单元格样式
-		HSSFCellStyle headStyle = workbook.createCellStyle();   
-		headStyle.setFillForegroundColor(HSSFColor.GREY_25_PERCENT.index);  
-		headStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);  
-		headStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);  
-		headStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);  
-		headStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);  
-		headStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);  
-		headStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);  
+		XSSFCellStyle headStyle = workbook.createCellStyle();   
+		headStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());  
+		headStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);  
+		headStyle.setBorderBottom(XSSFCellStyle.BORDER_THIN);  
+		headStyle.setBorderLeft(XSSFCellStyle.BORDER_THIN);  
+		headStyle.setBorderRight(XSSFCellStyle.BORDER_THIN);  
+		headStyle.setBorderTop(XSSFCellStyle.BORDER_THIN);  
+		headStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER);  
 		//标题单元格字体  
-		HSSFFont headFont = workbook.createFont();  
-		headFont.setColor(HSSFColor.BLACK.index);  
+		XSSFFont headFont = workbook.createFont();  
+		headFont.setColor(IndexedColors.BLACK.getIndex());  
 		headFont.setFontHeightInPoints((short) 12);  
-		headFont.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);  
+		headFont.setBoldweight(XSSFFont.BOLDWEIGHT_BOLD);  
 		// 把字体应用到当前的样式  
 		headStyle.setFont(headFont);  
 		return headStyle;
@@ -225,20 +223,20 @@ public class PoiUtils {
 	 * @param workbook
 	 * @return
 	 */
-	private static HSSFCellStyle createCommonDataStyle(HSSFWorkbook workbook){
+	private static XSSFCellStyle createCommonDataStyle(XSSFWorkbook workbook){
 		//普通数据单元格样式 
-		HSSFCellStyle commonDataStyle = workbook.createCellStyle();  
-		commonDataStyle.setFillForegroundColor(HSSFColor.WHITE.index);  
-		commonDataStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);  
-		commonDataStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);  
-		commonDataStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);  
-		commonDataStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);  
-		commonDataStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);  
-		commonDataStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);  
-		commonDataStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);  
+		XSSFCellStyle commonDataStyle = workbook.createCellStyle();  
+		commonDataStyle.setFillForegroundColor(IndexedColors.WHITE.getIndex());  
+		commonDataStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);  
+		commonDataStyle.setBorderBottom(XSSFCellStyle.BORDER_THIN);  
+		commonDataStyle.setBorderLeft(XSSFCellStyle.BORDER_THIN);  
+		commonDataStyle.setBorderRight(XSSFCellStyle.BORDER_THIN);  
+		commonDataStyle.setBorderTop(XSSFCellStyle.BORDER_THIN);  
+		commonDataStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER);  
+		commonDataStyle.setVerticalAlignment(XSSFCellStyle.VERTICAL_CENTER);  
 		//普通数据单元格字体  
-		HSSFFont commonDataFont = workbook.createFont();  
-		commonDataFont.setBoldweight(HSSFFont.BOLDWEIGHT_NORMAL);  
+		XSSFFont commonDataFont = workbook.createFont();  
+		commonDataFont.setBoldweight(XSSFFont.BOLDWEIGHT_NORMAL);  
 		//把字体应用到当前的样式  
 		commonDataStyle.setFont(commonDataFont); 
 		return commonDataStyle;

@@ -8,10 +8,7 @@
 
 package com.bonc.nerv.tioa.day.service;
 
-import java.io.IOException;
 import java.util.List;
-
-import javax.servlet.http.HttpServletResponse;
 
 import com.bonc.nerv.tioa.day.entity.FileCountEntity;
 
@@ -29,7 +26,6 @@ public interface FileCountService {
      * 
      * Description: <br>
      * 查找一条记录的service方法
-     * @param fcId 
      * @return FileCountEntity
      * @see
      */
@@ -49,7 +45,6 @@ public interface FileCountService {
      * 
      * Description: <br>
      * 新增一个文件数统计
-     * @param fileCountEntity  
      * @return   FileCountEntity  
      * @see
      */
@@ -59,7 +54,6 @@ public interface FileCountService {
      * 
      * Description: <br>
      * 删除一个文件数统计
-     * @param fcId  
      * @see
      */
     void deleteOneFc(Long fcId);
@@ -68,20 +62,8 @@ public interface FileCountService {
      * 
      * Description: <br>
      * 修改一个文件数统计
-     * @param  fileCountEntity  
      * @return FileCountEntity
      * @see
      */
     FileCountEntity editOneFc(FileCountEntity fileCountEntity);
-
-    /**
-     * 
-     * Description: <br>
-     * 导出excel的service
-     * @param sysDate  
-     * @param response  
-     * @exception IOException  
-     * @see
-     */
-    void exportExcel(String sysDate, HttpServletResponse response) throws IOException;
 }

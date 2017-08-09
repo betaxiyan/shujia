@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"/>
+    <head th:include="frame/common :: header"></head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>master</title>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/view/masterView.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/dataTables/dataTables.bootstrap.css}"/>
+    <script th:inline="javascript"> var ctx = [[@{/}]]; </script>
+</head>
+<body>
+	<div class="view_contianer">
+        <div class="view_tab">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist" id="view_tabs">
+                <li role="presentation"><a href="#details_health" aria-controls="details_health" role="tab" data-toggle="tab" id="detail-health">接口健康</a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <!-- 接口健康界面 -->
+                <div th:replace="fragment/health_frg :: health"></div> 
+            </div>
+        </div>
+    </div>
+    
+    <div>
+        <!-- 日报改造界面 的弹框样例 -->
+        <div th:replace="fragment/total_frg :: view_edit"></div> 
+    </div>
+    
+    <script type="text/javascript" th:src="@{/js/view/health_view.js}"></script>
+</body>
+</html>
