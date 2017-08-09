@@ -244,6 +244,7 @@ function clickLeaveTable(){
 
 function clickTable(){
 	table.api().ajax.reload();
+}
 //清除查询数据
 function cleanLeaveSearch() {
 	$("#tenantLeaveName").val("");
@@ -274,4 +275,4 @@ function uploadFileSubmit(){
 	$('#uploadFileModal').modal('hide');
 	
 }
-}
+
