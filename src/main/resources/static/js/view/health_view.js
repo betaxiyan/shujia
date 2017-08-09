@@ -1,6 +1,4 @@
 
-var totalpage;
-var currentpage = 1;
 $(document).ready(function() {
     $("#test_health").click(restfulHealth);
     $("#update").click(updateTable);
