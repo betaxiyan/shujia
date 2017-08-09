@@ -132,13 +132,13 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="chargeBeginDate" class="control-label col-md-2 ">计费时期</label>
+                                <label for="chargeBeginDate" class="control-label col-md-2 ">计费日期</label>
                                 <div class="col-md-9">
                                     <input class="form-control" id="jfeditchargeBeginDate" name="chargeBeginDate" />
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="chargeEndDate" class="control-label col-md-2 ">到期时期</label>
+                                <label for="chargeEndDate" class="control-label col-md-2 ">到期日期</label>
                                 <div class="col-md-9">
                                     <input class="form-control" id="jfeditchargeEndDate" name="chargeEndDate" />
                                 </div>
@@ -170,7 +170,10 @@
                             <div class="form-group">
                                 <label for="signContract" class="control-label col-md-2 ">是否签署合同</label>
                                 <div class="col-md-9">
-                                    <input class="form-control" id="jfeditsignContract" name="signContract" />
+                                    <select name="signContract" id="jfeditsignContract" >
+                                        <option value="10">已签署</option>
+                                        <option value="20">未签署</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">

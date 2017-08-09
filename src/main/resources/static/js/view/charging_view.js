@@ -152,6 +152,9 @@ function loaddata() {
       var jfeditchargeBeginDate = data_1.chargeBeginDate; //计费时期
       $('#jfeditchargeBeginDate').val(jfeditchargeBeginDate);
       
+      var jfeditchargeEndDate = data_1.chargeEndDate; //到期日期
+      $('#jfeditchargeEndDate').val(jfeditchargeEndDate);
+      
       var jfeditintroduceUnicom = data_1.introduceUnicom; //联通引入方
       $('#jfeditintroduceUnicom').val(jfeditintroduceUnicom);  
       
@@ -206,7 +209,10 @@ function loaddata() {
 	      
 	      var tasteDuration = $('#jfedittasteDuration').val();  //试用期
 	      
-	      var chargeBeginDat = $('#jfeditchargeBeginDate').val();//计费时期
+	      var chargeBeginDate = $('#jfeditchargeBeginDate').val();//计费日期
+	      
+	      var chargeEndDate = $('#jfeditchargeEndDate').val();//到期日期
+	      
 	      
 	      var introduceUnicom = $('#jfeditintroduceUnicom').val();  //联通引入方
 	      
@@ -234,7 +240,7 @@ function loaddata() {
 	    	  	  		uniplatform4aTime: uniplatform4aTime, 		havedateTime:havedateTime, 
 	    	  	  		resideDuration:resideDuration, 		monthlyFee:monthlyFee,
 	    	  	  		dataFee:dataFee , 			beginRentDate:beginRentDate,
-	    	  	  		tasteDuration:tasteDuration ,		chargeBeginDat:chargeBeginDat ,
+	    	  	  		tasteDuration:tasteDuration ,		chargeBeginDate:chargeBeginDate ,chargeEndDate:chargeEndDate,
 	    	  	  		introduceUnicom:introduceUnicom ,		introduceTenant:introduceTenant ,
 	    	  	  		contact:contact ,			askDate:askDate ,
 	    	  	  		signContract:signContract ,		monthlyFeeRemark:monthlyFeeRemark,
