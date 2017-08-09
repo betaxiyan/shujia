@@ -10,6 +10,7 @@ package com.bonc.nerv.tioa.week.service.impl;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,10 +19,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bonc.nerv.tioa.week.dao.TenantAroundMgrDao;
 import com.bonc.nerv.tioa.week.entity.TenretiredEntity;
 import com.bonc.nerv.tioa.week.entity.TioaTenantAroundShowEntity;
+import com.bonc.nerv.tioa.week.entity.TioaTenantChargingShow;
 import com.bonc.nerv.tioa.week.service.TenantAroundMgrService;
 import com.bonc.nerv.tioa.week.util.POIUtil;
 import com.bonc.nerv.tioa.week.util.PoiUtils;
@@ -173,4 +176,53 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService{
             }
         return dataset;
         }
+     
+    /**
+      * 将文件导入到数据库
+      */
+     @Override
+     public void saveExcel(MultipartFile excelFile) throws ParseException {    
+        List<String[]> list = null;       
+        try {
+            list = POIUtil.readExcel(excelFile);
+            System.out.println(list.size());       
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }      
+        for (int i = 0;i < list.size();i ++) {
+         
+            TioaTenantAroundShowEntity  tioaTenantAroundShow = new TioaTenantAroundShowEntity();
+            //租户
+            if(list.get(i)[0] == null || 0 == list.get(i)[0].length()){
+                continue;
+            }
+            tioaTenantAroundShow.setTenantId(list.get(i)[0]);
+            tioaTenantAroundShow.setTenantName(list.get(i)[1]);
+            tioaTenantAroundShow.setTenantLevel(getInteger(list.get(i)[2]));
+            tioaTenantAroundShow.setTenantTel(list.get(i)[3]);
+            tioaTenantAroundShow.setTenantBoss(list.get(i)[4]);
+            tioaTenantAroundShow.setNumOfUnifiedPlatform(getInteger(list.get(i)[5]));
+            tioaTenantAroundShow.setNumOf4a(getInteger(list.get(i)[6]));
+            tioaTenantAroundShow.setTenantReqirement(list.get(i)[7]);
+            tioaTenantAroundShow.setTenantInterface(list.get(i)[8]);
+            tenantAroundMgrDao.save(tioaTenantAroundShow);
+        }
+   
     }
+
+         
+       /**
+         * 字符串转整形
+         * @param str   
+         * @return  int
+         * @see
+         */
+         public Integer getInteger(String str){
+             if (str != null && !str.equals("")) {
+                 return Integer.parseInt(str);
+             } else {
+                 return null;
+             }
+         }
+}
