@@ -8,6 +8,11 @@
 
 package com.bonc.nerv.tioa.day.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  * 
  * 文件统计日报
@@ -16,12 +21,15 @@ package com.bonc.nerv.tioa.day.entity;
  * @see FileCountEntity
  * @since
  */
+@Entity
 public class FileCountEntity {
 
     /**
      * id
      */
-    private Long id;
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Long fcId;
     
     /**
      * 系统日期
@@ -46,19 +54,33 @@ public class FileCountEntity {
     /**
      * 文件数
      */
-    private Long fileNum;
+    private Integer fileNum;
     
     /**
      * 文件夹数
      */
-    private Long folderNum;
+    private Integer folderNum;
+    
+    /**
+     * 总数
+     */
+    private Integer totalNum;
+    
 
-    public Long getId() {
-        return id;
+    public Integer getTotalNum() {
+        return totalNum;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setTotalNum(Integer totalNum) {
+        this.totalNum = totalNum;
+    }
+
+    public Long getFcId() {
+        return fcId;
+    }
+
+    public void setFcId(Long fcId) {
+        this.fcId = fcId;
     }
 
     public String getSysDate() {
@@ -93,21 +115,22 @@ public class FileCountEntity {
         this.type = type;
     }
 
-    public Long getFileNum() {
+    public Integer getFileNum() {
         return fileNum;
     }
 
-    public void setFileNum(Long fileNum) {
+    public void setFileNum(Integer fileNum) {
         this.fileNum = fileNum;
     }
 
-    public Long getFolderNum() {
+    public Integer getFolderNum() {
         return folderNum;
     }
 
-    public void setFolderNum(Long folderNum) {
+    public void setFolderNum(Integer folderNum) {
         this.folderNum = folderNum;
     }
-    
+
+
     
 }

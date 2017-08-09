@@ -8,6 +8,11 @@
 
 package com.bonc.nerv.tioa.week.service;
 
+import java.util.List;
+
+import com.bonc.nerv.tioa.week.entity.AccountFilecountMidEntity;
+import com.bonc.nerv.tioa.week.entity.ResourceAccountMidEntity;
+
 /**
  * 
  * 调用外部restful接口的服务类
@@ -34,4 +39,25 @@ public interface ExternalRestService {
      * @see
      */
     void accFcountToDb(String sysDate);
+    
+    /**
+     * 
+     * Description: <br>
+     * 通过日期查询文件统计
+     * @param sysDate 
+     * @return   List<AccountFilecountMidEntity>
+     * @see
+     */
+    List<AccountFilecountMidEntity> accFcountRest(String sysDate);
+    
+    /**
+     * 
+     * Description: <br>
+     * 查询租户信息
+     * @return  List<ResourceAccountMidEntity>
+     * @see
+     */
+    List<ResourceAccountMidEntity> resAccRest();
+    
+    
 }

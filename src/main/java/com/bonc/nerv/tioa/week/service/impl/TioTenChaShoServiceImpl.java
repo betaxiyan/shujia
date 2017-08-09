@@ -13,6 +13,9 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -207,10 +210,14 @@ public class TioTenChaShoServiceImpl implements TioTenChaShoService{
     
     /**
      * Description: 将数据保存到excel文件
+     * @param request 请求的request对象
+     * @param response  响应的response对象
      * @see 
      */
+    
     @Override
-    public void savaToFile() {
+    public void savaToFile(HttpServletRequest request,
+                           HttpServletResponse response) {
         
         List<String> title = new ArrayList<String>();
         title.add("租户");
@@ -260,7 +267,7 @@ public class TioTenChaShoServiceImpl implements TioTenChaShoService{
         columnNames.add(null);
         try {
             List<List<Object>> list = tioTenChaSho_2Dao.getAllTioa();
-            SavaToExcelUtils.writeExcel("E:\\temp", "qqq","租户计费情况" ,columnNames ,title ,list );
+            SavaToExcelUtils.writeExcel( response, "租户计费情况.xlsx","租户计费情况" ,columnNames ,title ,list );
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -21,10 +21,9 @@ import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFRichTextString;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -32,6 +31,8 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -47,35 +48,9 @@ public class SavaToExcelUtils {
     /**
      *  默认宽度
      */
-    private static final int DEFAULT_COLUMN_SIZE = 30;
+    private static final int DEFAULT_COLUMN_SIZE = 15;
     
-    /**
-     * 断言Excel文件写入之前的条件
-     *
-     * @param directory 目录
-     * @param fileName  文件名
-     * @return file
-     * @throws IOException IO异常
-     */
-    private static File assertFile(String directory, String fileName) throws IOException {
-        File tmpFile = new File(directory + File.separator + fileName + ".xlsx");
-        if (tmpFile.exists()) {
-            if (tmpFile.isDirectory()) {
-                throw new IOException("File '" + tmpFile + "' exists but is a directory");
-            }
-            if (!tmpFile.canWrite()) {
-                throw new IOException("File '" + tmpFile + "' cannot be written to");
-            }
-        } else {
-            File parent = tmpFile.getParentFile();
-            if (parent != null) {
-                if (!parent.mkdirs() && !parent.isDirectory()) {
-                    throw new IOException("Directory '" + parent + "' could not be created");
-                }
-            }
-        }
-        return tmpFile;
-    }
+    
     
     /**
      * 日期转化为字符串,格式为yyyyMMdd
@@ -91,35 +66,37 @@ public class SavaToExcelUtils {
     
     /**
      * Excel 导出，POI实现 
-     * @param directory   文件路径
+     * @param response   HttpServletResponse
      * @param fileName    文件名
      * @param sheetName   sheet页名称
      * @param columnNames 表头列表名
      * @param sheetTitle  sheet页Title
      * @param objects     目标数据集
-     * @return File       写入的文件
      * @throws ParseException   Parse异常
      * @throws IOException  IO异常
      */
-    public static File writeExcel(String directory, String fileName, String sheetName, List<String> columnNames,
+    public static void writeExcel(HttpServletResponse response,String fileName, String sheetName, List<String> columnNames,
                                   List<String>  sheetTitle, List<List<Object>> objects) throws  IOException, ParseException {
-        File tmpFile = assertFile(directory, fileName);
-        return exportExcel(tmpFile, sheetName, columnNames, sheetTitle, objects);
+        response.setContentType("application/vnd.ms-excel;charset=utf-8"); 
+        response.setHeader("Content-disposition", "attachment;filename=" + URLEncoder.encode(fileName, "utf-8"));
+         
+        exportExcel(response.getOutputStream(), sheetName, columnNames, sheetTitle, objects);
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.flushBuffer();
     }
     
     /**
      * 导出字符串数据
-     * @param file        文件名
+     * @param out        OutputStream
      * @param sheetName sheet名字 
      * @param columnNames 表头
      * @param sheetTitle  sheet页Title
      * @param objects     目标数据
-     * @return File       返回文件
      * @throws ParseException   Parse异常
      * @throws IOException  Report异常
      */
     @SuppressWarnings("finally")
-    private static File exportExcel(File file, String sheetName, List<String> columnNames,
+    private static void exportExcel(OutputStream out, String sheetName, List<String> columnNames,
                                     List<String> sheetTitle, List<List<Object>> objects) throws  IOException, ParseException {
         // 声明一个工作薄
         Workbook workBook;
@@ -133,6 +110,8 @@ public class SavaToExcelUtils {
         CellStyle contentStyle = cellStyleMap.get("content");
         //黄色背景
         CellStyle yellowStyle = cellStyleMap.get("yellow");
+        //黄色背景
+        CellStyle redStyle = cellStyleMap.get("red");
         // 生成一个表格
         Sheet sheet = workBook.getSheet(sheetName);
         if (sheet == null) {
@@ -195,35 +174,45 @@ public class SavaToExcelUtils {
             cell.setCellValue(text);
         }
         // 遍历集合数据,产生数据行,前两行为标题行与表头行
-        for (List<Object> dataRow : objects) {
+        for ( int q = 0; q < objects.size(); q++) {
+            List<Object> dataRow = objects.get(q);
             try{
+                Boolean redflag = false;//是否为红色标记
                 row = sheet.createRow(lastRowIndex);
                 lastRowIndex++;
             
-                String type = (String)dataRow.get(2);
-                if (!type.equals("10")) {
+                Integer type = (Integer)dataRow.get(2);
+                if (type==20) {
                     //该行隐藏
                     row.setZeroHeight(true);
+                    //该行红色
+                    redflag=true;
+                    
                 }
-                Boolean flag = false;//是否为黄色标记
+                Boolean yellowflag = false;//是否为黄色标记
+                
+                
+                
                 String format = "yyyyMMdd";
                 SimpleDateFormat sdf = new SimpleDateFormat(format);
-                String enddata = (String) dataRow.get(12);//拿到第十三行的到期日期 
+                String enddata = dataRow.get(12).toString();//拿到第十三行的到期日期 
                 if (enddata.length()>=8) {
                     enddata=enddata.substring(0,8);
                     Date d1 = sdf.parse(enddata);
                     if (daysBetween(new Date(),d1)<3 && daysBetween(new Date(),d1)>=0) {//如果日期小于三天
                         //该行黄色
-                        flag = true;
+                        yellowflag = true;
                     }
                 }
             
                 for (int j = 0; j < dataRow.size(); j++) {
                     Cell contentCell = row.createCell(j);
                     Object dataObject = dataRow.get(j);
-                    if (flag) {
+                    if (yellowflag) {
                         contentCell.setCellStyle(yellowStyle);//黄色
-                    }else {
+                    }else if (redflag) {
+                        contentCell.setCellStyle(redStyle);//红色
+                    } else {
                         contentCell.setCellStyle(contentStyle);//常规类型
                     }
                 
@@ -231,7 +220,27 @@ public class SavaToExcelUtils {
                         if (dataObject instanceof Date) {//日期类型
                             contentCell.setCellValue(getCnDate((Date)dataObject));
                         }else {//非日期类型
-                            contentCell.setCellValue(dataObject.toString());
+                            if (j==1) {//第二列 服务类型
+                                if (((Integer)dataObject)==20) {//20 指外部
+                                    contentCell.setCellValue("外部");
+                                }else {
+                                    contentCell.setCellValue("内部");//10 指内部
+                                }
+                            }else if (j==2) {//第三列 租户分类
+                                if (((Integer)dataObject)==20) {//20 指历史租户
+                                    contentCell.setCellValue("历史租户");
+                                }else {
+                                    contentCell.setCellValue("近期租户");//10 近期租户
+                                }
+                            }else if (j==17) {//第18列 是否签署合同
+                                if (((Integer)dataObject)==20) {//20 指 未签署
+                                    contentCell.setCellValue("未签署");
+                                }else {
+                                    contentCell.setCellValue("已签署");//10 已签署
+                                }
+                            }else {
+                                contentCell.setCellValue(dataObject.toString());
+                            }
                         }
                     }else {//如果数据为空, 设置单元格内容为字符型
                         contentCell.setCellValue("");
@@ -245,20 +254,24 @@ public class SavaToExcelUtils {
                 
         }
         //调整列宽
+        /*
         for(int col =0;col<21;col++){
             sheet.autoSizeColumn((short)col); //调整第col列宽度
         }
-        
+        */
         
         try {
-            OutputStream ops = new FileOutputStream(file);
-            workBook.write(ops);
-            ops.flush();
-            ops.close();
+            workBook.write(out);
         } catch (IOException e) {
             throw new IOException(e);
+        }finally {
+            try {
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        return file;
+        
     }
 
   
@@ -345,7 +358,32 @@ public class SavaToExcelUtils {
         return style;
     }
 
-    
+    /**
+     * 创建单元格品红色背景样式
+     *
+     * @param workbook 工作薄
+     * @return CellStyle 样式
+     */
+    private static CellStyle createCellRedStyle(Workbook workbook) {
+        CellStyle style = workbook.createCellStyle();
+        // 设置边框样式
+        style.setBorderBottom(XSSFCellStyle.BORDER_THIN);
+        style.setBorderLeft(XSSFCellStyle.BORDER_THIN);
+        style.setBorderRight(XSSFCellStyle.BORDER_THIN);
+        style.setBorderTop(XSSFCellStyle.BORDER_THIN);
+        //设置对齐样式
+        style.setAlignment(XSSFCellStyle.ALIGN_CENTER);
+        // 生成字体
+        Font font = workbook.createFont();
+        // 正文样式
+        style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);//设置前景填充样式
+        style.setFillForegroundColor(HSSFColor.TAN.index);//前景填充色
+        
+        font.setBoldweight(XSSFFont.BOLDWEIGHT_NORMAL);
+        // 把字体应用到当前的样式
+        style.setFont(font);
+        return style;
+    }
 
   
     /**
@@ -358,6 +396,7 @@ public class SavaToExcelUtils {
         styleMap.put("head", createCellHeadStyle(workbook));
         styleMap.put("content", createCellContentStyle(workbook));
         styleMap.put("yellow", createCellYellowStyle(workbook));
+        styleMap.put("red", createCellRedStyle(workbook));
         return styleMap;
     }
 
