@@ -59,7 +59,7 @@ public class FileCountEntity {
     /**
      * 文件夹数
      */
-    private Integer folderNum;
+    private Integer floderNum;
     
     /**
      * 总数
@@ -123,14 +123,11 @@ public class FileCountEntity {
         this.fileNum = fileNum;
     }
 
-    public Integer getFolderNum() {
-        return folderNum;
+    public Integer getFloderNum() {
+        return floderNum;
     }
 
-    public void setFolderNum(Integer folderNum) {
-        this.folderNum = folderNum;
+    public void setFloderNum(Integer floderNum) {
+        this.floderNum = floderNum;
     }
-
-
-    
 }

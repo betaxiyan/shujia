@@ -34,8 +34,12 @@
     </div>
     
     <div>
-   		<!-- 日报改造界面 的弹框样例 -->
-    	<div th:replace="fragment/fcount_frg :: fcView_edit"></div> 
+   		<!-- 日报改造界面 新增的弹框-->
+    	<div th:replace="fragment/fcount_frg :: fcView_add"></div> 
+    	<!-- 日报改造界面 修改的弹框 -->
+    	<div th:replace="fragment/fcount_frg :: fcView_edit"></div>
+    	<!-- 警告弹框  -->
+    	<div th:replace="fragment/fcount_frg :: fcAlert"></div>
     </div>
     
     <script type="text/javascript" th:src="@{/js/jquery/jquery.min.js}"></script>

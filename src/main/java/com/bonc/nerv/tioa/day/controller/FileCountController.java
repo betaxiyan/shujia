@@ -76,12 +76,32 @@ public class FileCountController {
     /**
      * 
      * Description: <br>
+     * 查询一个文件统计
+     * @param fcId  id
+     * @return  JSON
+     * @see
+     */
+    @RequestMapping(value = {"/fcount/findOneFc"})
+    @ResponseBody
+    public String findOneFc(Long fcId){
+        Map<String,Object> map = new HashMap<String, Object>();
+        FileCountEntity fileCountEntity = fileCountService.findOneFc(fcId);
+        map.put("message", "200");
+        map.put("fileCountEntity", fileCountEntity);
+        return JSON.toJSONString(map);
+        
+    }
+    
+    /**
+     * 
+     * Description: <br>
      * 删除一条数据
      * @param fcId  
      * @return JSON
      * @see
      */
     @RequestMapping(value = {"/fcount/deleteOne"})
+    @ResponseBody
     public String deleteOne(Long fcId){
         Map<String,Object> map = new HashMap<String, Object>();
         fileCountService.deleteOneFc(fcId);
@@ -94,11 +114,16 @@ public class FileCountController {
      * Description: <br>
      * 新增一条数据
      * @param fileCountEntity 
+     * @return JSON
      * @see
      */
     @RequestMapping(value = {"/fcount/addOne"}, method = RequestMethod.POST)
-    public void addOne(FileCountEntity fileCountEntity){
+    @ResponseBody
+    public String addOne(FileCountEntity fileCountEntity){
+        Map<String,Object> map = new HashMap<String, Object>();
         fileCountService.addOneFc(fileCountEntity);
+        map.put("message", "200");
+        return JSON.toJSONString(map);
     }
     
     /**
@@ -106,11 +131,16 @@ public class FileCountController {
      * Description: <br>
      * 修改一条数据
      * @param fileCountEntity 
+     * @return JSON
      * @see
      */
     @RequestMapping(value = {"/fcount/editOne"}, method = RequestMethod.POST)
-    public void editOne(FileCountEntity fileCountEntity){
+    @ResponseBody
+    public String editOne(FileCountEntity fileCountEntity){
+        Map<String,Object> map = new HashMap<String, Object>();
         fileCountService.editOneFc(fileCountEntity);
+        map.put("message", "200");
+        return JSON.toJSONString(map);
     }
     
     /**

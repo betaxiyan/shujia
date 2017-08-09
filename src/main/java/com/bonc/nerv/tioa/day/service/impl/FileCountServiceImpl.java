@@ -80,7 +80,7 @@ public class FileCountServiceImpl implements FileCountService {
                 Integer folderNumTemp = accountFilecountMidEntity.getDfileNum();
                 String typeTemp = accountFilecountMidEntity.getType();
                 fileCountEntity.setFileNum(fileNumTemp);
-                fileCountEntity.setFolderNum(folderNumTemp);
+                fileCountEntity.setFloderNum(folderNumTemp);
                 fileCountEntity.setTotalNum(fileNumTemp + folderNumTemp);
                 fileCountEntity.setType(typeTemp);
                 fileCountEntity.setSysDate(sysDate);
@@ -115,7 +115,7 @@ public class FileCountServiceImpl implements FileCountService {
                         continue;
                     }else{
                         fctEntity.setFileNum(fctEntity.getFileNum() + fileCountEntity.getFileNum()); 
-                        fctEntity.setFolderNum(fctEntity.getFolderNum() + fileCountEntity.getFolderNum());
+                        fctEntity.setFloderNum(fctEntity.getFloderNum() + fileCountEntity.getFloderNum());
                         fctEntity.setTotalNum(fctEntity.getTotalNum() + fileCountEntity.getTotalNum());
                         fcMapTemp.put(fileCountEntity.getTenant(), fctEntity);
                     }
@@ -129,7 +129,7 @@ public class FileCountServiceImpl implements FileCountService {
     
     @Override
     public FileCountEntity addOneFc(FileCountEntity fileCountEntity) {
-        
+        fileCountEntity.setTotalNum(fileCountEntity.getFileNum() + fileCountEntity.getFloderNum());
         FileCountEntity newFileCountEntity = fileCountDao.save(fileCountEntity);
         return newFileCountEntity;
     }
@@ -142,7 +142,7 @@ public class FileCountServiceImpl implements FileCountService {
 
     @Override
     public FileCountEntity editOneFc(FileCountEntity fileCountEntity) {
-        
+        fileCountEntity.setTotalNum(fileCountEntity.getFileNum() + fileCountEntity.getFloderNum());
         FileCountEntity newFileCountEntity = fileCountDao.save(fileCountEntity);
         return newFileCountEntity;
     }

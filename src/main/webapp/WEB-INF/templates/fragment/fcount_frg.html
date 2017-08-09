@@ -13,7 +13,7 @@
 				</select>
                 <button class="btn btn-primary btn-xs connectBtn" onClick ="fcSearch()" > 查询</button>
                 <div class="view_search">
-                    <a href="#myModal" class="upload" data-toggle="modal" data-target="#myModal">新增</a>
+                    <a href="#addFcModel" class="upload" data-toggle="modal" data-target="#addFcModel">新增</a>
                     <a class="export" th:onclick = "'exportExcel()'">导出</a>
                 </div>
                 <div class="box">
@@ -36,39 +36,95 @@
            </div>
           </div>
       </div>
-                
-                
-                
- <div th:fragment="fcView_edit" class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-         <div class="modal-dialog" role="document" style="width: 500px;height: 500px">
-            <div class="modal-content" style="width: 500px;">
-                <div class="modal-header">
-                    <div class="modal-header-top">
-                        <button type="button" class="close" id="closeMyModal"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">上传文件</h4>
-                        <a href="#">新手指导</a>
+    
+   <div th:fragment="fcView_add" class="modal fade" id="addFcModel" tabindex="-1" role="dialog" aria-labelledby="addFcModelLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">新增内容</h4>
                     </div>
-                    <div class="modal-header-bottom">
-                        <span>上传到</span>
-                        <select name="savePath">
-                            <option value="FTP/FTP1">FTP/FTP1</option>
-                            <option value="VM">VM</option>
-                        </select>
-                        <input type="text" placeholder="新建目录"/>
-                        <div class="operateBtn">
-                            <input type="text" name="username" value="" placeholder="用户名" />
-                            <input type="password" name="password" value="" placeholder="密码" />
-                            <button class="btn btn-primary btn-xs connectBtn" style="display:none;">连接</button>
+                    <div class="modal-body" style="padding-left: 20px;">
+                      <form id="addFcForm"  class="form-horizontal"  method="get">
+                        <div class="form-group">
+                            <label for="tenantName" class="control-label col-md-2 ">租户名</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" id="fcTenantName" name="tenant" placeholder="请输入租户名"/>
+                            </div>
                         </div>
-                        <div class="resetOper">
-                            <span class="connectSuccess" style="display:none ">连接成功</span>
-                            <span class="connectFail" style="display:none ">连接失败</span>
-                            <button class="btn btn-primary btn-xs resetInfo" style="display:none;margin-left:20px">重置</button>
+                        <div class="form-group">
+                            <label for="fileNum" class="control-label col-md-2 ">文件个数</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" id="fcFileNum" name="fileNum" placeholder="文件个数"/>
+                            </div>
                         </div>
+                         <div class="form-group">
+                            <label for="floderNum" class="control-label col-md-2 ">文件夹数</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" id="fcFloderNum" name="folderNum" placeholder="请输入文件夹数"/>
+                            </div>
+                        </div>
+                      </form>
                     </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="addFcBtn" data-dismiss="modal" onClick="addOneFileCount()">提交</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="addReloadHTML">关闭</button>
+                  </div>
                 </div>
             </div>
         </div>
+        
+        <div th:fragment="fcView_edit" class="modal fade" id="editFcModel" tabindex="-1" role="dialog" aria-labelledby="editFcModelLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">修改内容</h4>
+                    </div>
+                    <div class="modal-body" style="padding-left: 20px;">
+                      <form id="editFcForm"  class="form-horizontal"  method="get">
+                        <input type="hidden" id="fcIdEdit" name="fcId" value="" />
+                        <input type="hidden" id="fcSysDateEdit" name="fcSysDateEdit" value="" />
+                        <div class="form-group">
+                            <label for="tenantName" class="control-label col-md-2 ">租户名</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" id="fcTenantNameEdit" name="tenant" placeholder="请输入租户名"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="fileNum" class="control-label col-md-2 ">文件个数</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" id="fcFileNumEdit" name="fileNum" placeholder="文件个数"/>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label for="floderNum" class="control-label col-md-2 ">文件夹数</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" id="fcFloderNumEdit" name="folderNum" placeholder="请输入文件夹数"/>
+                            </div>
+                        </div>
+                      </form>
+                    </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="editFcBtn" onClick="editOneFileCount()">提交</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="editReloadHTML">关闭</button>
+                  </div>
+                </div>
+            </div>
+        </div>
+        
+        <div th:fragment="fcAlert" class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel">
+          <div class="modal-dialog" role="document" style="width: 350px;">
+            <div class="modal-content" style="width: 350px;">
+                <div class="modal-body" style="text-align: center;font-weight: bold;padding: 30px;">
+                </div>
+                <div class="modal-footer" style="text-align: center;padding: 5px;">
+                    <button type="button" class="btn btn-danger btn-xs" id="removeFc">确定</button>
+                    <button type="button" class="btn btn-default btn-xs" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+         </div>
     </div>
+        
   </body>
 </html>

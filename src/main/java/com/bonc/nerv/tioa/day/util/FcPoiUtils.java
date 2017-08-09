@@ -138,7 +138,7 @@ public class FcPoiUtils {
                 conCell.setCellStyle(contentstyle);
             }
             conCell.setCellType(XSSFCell.CELL_TYPE_NUMERIC);
-            conCell.setCellValue(context.get(i).getFolderNum());
+            conCell.setCellValue(context.get(i).getFloderNum());
             
             conCell = row.createCell(3);
             sheet.setColumnWidth(3, 10 * 250);
