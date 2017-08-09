@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<body>
+	<div th:fragment="health" role="tabpanel" class="tab-pane"
+		id="details_health">
+		<div class="view_body">
+			<div class="view_test">
+				<button id="test_health" type="button" class="btn btn-danger"
+					style="margin-left: 50%">测试接口</button>
+
+			</div>
+		</div>
+		<div class="box">
+			<div class="box-body table-responsive">
+				<table id="detail_health" class="table table-bordered">
+					<thead>
+						<tr style="text-align: center">
+							<!-- <th width="5%">序号</th>  -->
+							<th width="10%">接口名</th>
+							<th width="25%">访问地址</th>
+							<th width="10%">接口状态</th>
+							<th width="15%">检查日期</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+				<table id="upTableData" class="table table-bordered">
+					<thead>
+						<tr style="text-align: center">
+							<th width="10%">表名</th>
+							<th width="15%">更新日期</th>
+							<th width="10%">更新结果</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr id="Ttl">
+							<td>tioa_tenant_leave_show</td>
+							<td>未刷新</td>
+							<td class="updateresult"></td>
+						</tr>
+						<tr id="Ttd">
+                            <td>tioa_tenant_distribute_show</td>
+                            <td>未刷新</td>
+                            <td class="updateresult"></td>
+                        </tr>
+					</tbody>
+
+				</table>
+			</div>
+		</div>
+		<button id="update" type="button" class="btn btn-danger"
+			style="margin-left: 45%">刷新数据表数据</button>
+
+	</div>
+
+</body>
+</html>
