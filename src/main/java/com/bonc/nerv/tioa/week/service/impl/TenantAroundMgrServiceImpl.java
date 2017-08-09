@@ -104,6 +104,12 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService{
         return list;
     }
     
+    @Override
+    public Boolean validateById(Long ttaId) {
+        int num = tenantAroundMgrDao.findById(ttaId);
+        return num == 0 ? false : true ;
+    }
+    
     /**
      * 删除一条记录
      * @param  tioaTenantAroundShowEntity  
@@ -225,4 +231,6 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService{
                  return null;
              }
          }
+
+   
 }

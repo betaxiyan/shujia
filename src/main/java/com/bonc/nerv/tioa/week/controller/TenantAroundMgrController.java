@@ -108,6 +108,21 @@ public class TenantAroundMgrController {
     }
     
     /**
+     * 
+     * 判断是否删除一条数据
+     * 
+     * @param ttaId
+     * @return 
+     * @see
+     */
+    @RequestMapping("/manage/validateById")
+    @ResponseBody
+    public Boolean validateById(Long ttaId){
+        return tenantAroundMgrService.validateById(ttaId);
+        
+    }
+    
+    /**
      * 删除一条数据 
      * @param ttaId   
      * @return ""

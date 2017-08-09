@@ -40,24 +40,13 @@ $(document).ready(function() {
                    },         
                    {data:"tenantBoss",},{data:"tenantTel", },
                    {data:"numOfUnifiedPlatform",},{data:"numOf4a",},   {data:"tenantReqirement",},
-                   {data:"tenantInterface",},      null,                null
+                   {data:"tenantInterface",}, 
+                   {
+                  	 data:"ttaId",
+  	            	 render:function(data, type, row) {
+  	            		 return '<td><button class="btn btn-xs btn-danger" value="'+data+'">编辑</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-xs btn-danger" value="'+data+'">删除</button></td>';
+  	            	 }}
                   ],
-         //修改列
-         "aoColumnDefs":[
-                             {
-                             	"targets":10,
-                                 "data": null,
-                                 "bSortable": false,
-                                 "defaultContent": "<p>&nbsp;&nbsp;&nbsp;&nbsp;<a id=\"edit\" href=\"#\">修改</a></p>"
-                             },
-                             {
-                              	"targets":11,
-                                  "data": null,
-                                  "bSortable": false,
-                                  "defaultContent": "<p>&nbsp;&nbsp;&nbsp;&nbsp;<a id=\"del\"  href=\"#\">删除</a></p>"
-                              }
-                             
-                         ],
              
              
         "language": {
@@ -241,31 +230,35 @@ $(document).ready(function() {
            	});
               $('#updateTenModal').modal('show');
           }else if (tarHTML == '删除') {
-              $('#alertModal2 .modal-body').html('确定要删除？');
-              $('#alertModal2').modal('show');
-              $('#removeTen').unbind('click');
-              $('#removeTen').click(function() {
+              $('#alertTenArrModal .modal-body').html('确定要删除？');
+              $('#alertTenArrModal').modal('show');
+              $('#removeTenArrTool').unbind('click');
+              $('#removeTenArrTool').click(function() {
+            	  alert("你就");
            	$.ajax({
           		 type:"get",
-                   url:ctx + "tenant/retired/validateByTlId",
-                   data:{"tlId":tarval},
+	          		url:ctx + "manage/validateById",
+	                data:{"ttaId":tarval},
                    success:function(data){
                    	if(data){
-                   		$("#delete-tlId").val(tarval);
-                       	$("#deleteTenForm").submit();
+                   		$("#delete-ttaId").val(tarval);
+                    	$("#deleteTenArrForm").submit();
                    	}else{ 
-                   		alert("无法删除！");
+                   		layui.use('layer', function(){
+                  			var layer = layui.layer;
+                  			layer.alert('此类型有工具引用无法删除', {icon: 5});
+                  		}); 
                    	}
                    }
            	});
-           	$('#alertModal').modal('hide');
+           	$('#alertTenArrModal').modal('hide');
            })
        }
      }
    }
     
-    $('#leave_table tbody').unbind('click',TenretiredOperate);
-    $('#leave_table tbody').bind('click',TenretiredOperate);
+    $('#tenant_arount_show_table tbody').unbind('click',TenretiredOperate);
+    $('#tenant_arount_show_table tbody').bind('click',TenretiredOperate);
    
    
 

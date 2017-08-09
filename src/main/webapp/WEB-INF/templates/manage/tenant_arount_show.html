@@ -40,8 +40,7 @@
                  <th>4A个数</th>
                  <th>需求</th>
                  <th>平台接口人</th>                 
-                 <th>修改</th>
-                 <th>删除</th>
+                 <th>操作</th>
              </tr>
          </thead>
          <tbody>
@@ -207,18 +206,23 @@
     </div>
     
     
-      <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel">
+      <div class="modal fade" id="alertTenArrModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel">
         <div class="modal-dialog" role="document" style="width: 350px;">
             <div class="modal-content" style="width: 350px;">
                 <div class="modal-body" style="text-align: center;font-weight: bold;padding: 30px;">
                 </div>
                 <div class="modal-footer" style="text-align: center;padding: 5px;">
-                    <button type="button" class="btn btn-danger btn-xs" id="removeTool">确定</button>
+                    <button type="button" class="btn btn-danger btn-xs" id="removeTenArrTool">确定</button>
                     <button type="button" class="btn btn-default btn-xs" data-dismiss="modal">取消</button>
                 </div>
             </div>
         </div>
     </div>
+    
+     <form id="deleteTenArrForm" th:action="@{/manage/deleteTenantAroundMgr}" method="get">
+        <input type="hidden" id="delete-ttaId" name="ttaId"/>
+    </form>
+    
     
     <div class="modal fade" id="uploadFileModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel">
         <div class="modal-dialog" role="document" style="width: 350px;">
@@ -235,10 +239,6 @@
             </div>
         </div>
     </div>
-    
-     <form id="deleteTenForm" th:action="@{/tenant/tenretired/delete}" method="get">
-        <input type="hidden" id="delete-tlId" name="tlId"/>
-    </form>
     
     <script type="text/javascript" th:inline="javascript">
      window.onscroll = function(){

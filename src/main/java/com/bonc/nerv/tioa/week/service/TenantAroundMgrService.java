@@ -92,4 +92,14 @@ public interface TenantAroundMgrService {
      * @see
      */
     List<TioaTenantAroundShowEntity> exportTenretired();
+
+    /**
+     * 
+     * 判断是否删除数据
+     * 
+     * @param ttaId
+     * @return 
+     * @see
+     */
+    Boolean validateById(Long ttaId);
 }
