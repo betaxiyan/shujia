@@ -103,6 +103,32 @@ public class SavaToExcelUtils {
         // 声明一个工作薄
         workBook = new XSSFWorkbook();
         
+        
+        // 生成一个表格
+        Sheet sheet = workBook.getSheet(sheetName);
+        if (sheet == null) {
+            sheet = workBook.createSheet(sheetName);
+        }
+        exportSheet(sheetName, columnNames,
+            sheetTitle, objects, workBook, sheet);
+        
+        try {
+            workBook.write(out);
+        } catch (IOException e) {
+            throw new IOException(e);
+        }finally {
+            try {
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    public static void exportSheet(String sheetName, List<String> columnNames,
+                                    List<String> sheetTitle, List<List<Object>> objects, Workbook workBook, Sheet sheet) throws  IOException, ParseException {
+        
         Map<String, CellStyle> cellStyleMap = styleMap(workBook);
         // 表头样式
         CellStyle headStyle = cellStyleMap.get("head");
@@ -113,10 +139,7 @@ public class SavaToExcelUtils {
         //黄色背景
         CellStyle redStyle = cellStyleMap.get("red");
         // 生成一个表格
-        Sheet sheet = workBook.getSheet(sheetName);
-        if (sheet == null) {
-            sheet = workBook.createSheet(sheetName);
-        }
+        
         //最新Excel列索引,从0开始
         int lastRowIndex = sheet.getLastRowNum();
         if (lastRowIndex > 0) {
@@ -253,28 +276,15 @@ public class SavaToExcelUtils {
             }
                 
         }
+        
         //调整列宽
-        /*
-        for(int col =0;col<21;col++){
+        /*for(int col =0;col<21;col++){
             sheet.autoSizeColumn((short)col); //调整第col列宽度
         }
         */
-        
-        try {
-            workBook.write(out);
-        } catch (IOException e) {
-            throw new IOException(e);
-        }finally {
-            try {
-                out.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+     
         
     }
-
-  
     
     /**
      * 创建单元格标题行样式

@@ -77,7 +77,8 @@ public class RestfulTableMgrController {
         Map<String,Object> mapTtl = new HashMap<>();
         //调用getMidDateToTtl()，用休眠模拟
         try {
-            Thread.currentThread().sleep(3000);
+            Thread.currentThread();
+            Thread.sleep(3000);
         } catch (InterruptedException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
@@ -120,7 +121,8 @@ public class RestfulTableMgrController {
         Map<String,Object> mapTtd = new HashMap<>();
         //调用getMidDateToTtd(),用休眠模拟，
         try {
-            Thread.currentThread().sleep(6000);
+            Thread.currentThread();
+            Thread.sleep(6000);
         } catch (InterruptedException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
