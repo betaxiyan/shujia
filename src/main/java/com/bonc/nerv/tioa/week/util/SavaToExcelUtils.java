@@ -48,7 +48,7 @@ public class SavaToExcelUtils {
     /**
      *  默认宽度
      */
-    private static final int DEFAULT_COLUMN_SIZE = 30;
+    private static final int DEFAULT_COLUMN_SIZE = 15;
     
     
     
@@ -265,9 +265,9 @@ public class SavaToExcelUtils {
                 
         }
         //调整列宽
-        for(int col =0;col<21;col++){
+        /*for(int col =0;col<21;col++){
             sheet.autoSizeColumn((short)col); //调整第col列宽度
-        }
+        }*/
         
     }
     
