@@ -13,12 +13,13 @@
                 <button class="btn btn-danger import" style="margin-left:500px;margin-right:30px;" th:onclick="'uploadFile()'">
                     <i class="layui-icon"></i> 导入
                 </button>
-                <button class="btn btn-danger export" style="margin-left:25px;margin-right:30px;" th:onclick="'exportFile()'">
-                    <i class="layui-icon"></i> 导出
+                <button class = "btn btn-danger export" style = "margin-left:30px;margin-right:30px;" th:onclick="'exportFile()'">
+                    <i class = "layui-icon"></i>导出
                 </button>
-                <button class = "btn btn-danger add" style = "margin-left:30px;margin-right:30px;" th:onclick="'addAroundTenantModal()'">
+                <button class = "btn btn-danger add" style = "margin-left:30px;margin-right:30px;"    th:onclick="'addAroundTenantModal()'">
                     <i class = "layui-icon"></i>新增
                 </button>
+                <button type="button" th:onclick="'wer()'"> 111</button>
             </div>
      </div>
      <table id = "tenant_arount_show_table" class="table table-bordered table-hover" width="100%">
