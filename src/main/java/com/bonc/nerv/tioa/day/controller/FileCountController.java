@@ -8,26 +8,17 @@
 
 package com.bonc.nerv.tioa.day.controller;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSON;
 import com.bonc.nerv.tioa.day.entity.FileCountEntity;
 import com.bonc.nerv.tioa.day.service.FileCountService;
 
 /**
  * 
- * 日报文件统计控制器
+ * 〈一句话功能简述〉
+ * 〈功能详细描述〉
  * @author yuanpeng
  * @version 2017年8月7日
  * @see FileCountController
@@ -45,48 +36,23 @@ public class FileCountController {
     /**
      * 
      * Description: <br>
-     * 跳转到日报页面
-     * @return JSON
-     * @see
-     */
-    @RequestMapping(value = {"/day/inter"})
-    public String inter(){
-        return "view/fcount_view";
-    }
-    
-    /**
-     * 
-     * Description: <br>
      * 查询所有的文件数统计
-     * @param sysDate  
-     * @return JSON
+     *  
      * @see
      */
-    @RequestMapping(value = {"/fcount/findAllFileCount"})
-    @ResponseBody
-    public String findAllFileCount(String sysDate){
-        Map<String,Object> map = new HashMap<String, Object>();
-        List<FileCountEntity> fileCountEntities = fileCountService.findAllFc(sysDate);
-        map.put("message", "200");
-        map.put("fileCountList", fileCountEntities);
-        return JSON.toJSONString(map);
-        
+    @RequestMapping(value = {"/findAllFileCount"})
+    public void findAllFileCount(String sysDate){
+        fileCountService.findAllFc(sysDate);
     }
 
     /**
      * 
      * Description: <br>
      * 删除一条数据
-     * @param fcId  
-     * @return JSON
      * @see
      */
-    @RequestMapping(value = {"/fcount/deleteOne"})
-    public String deleteOne(Long fcId){
-        Map<String,Object> map = new HashMap<String, Object>();
-        fileCountService.deleteOneFc(fcId);
-        map.put("message", "200");
-        return JSON.toJSONString(map);
+    public void deleteOne(String fcId){
+        
     }
     
     /**
@@ -96,37 +62,19 @@ public class FileCountController {
      * @param fileCountEntity 
      * @see
      */
-    @RequestMapping(value = {"/fcount/addOne"}, method = RequestMethod.POST)
     public void addOne(FileCountEntity fileCountEntity){
-        fileCountService.addOneFc(fileCountEntity);
+        
     }
     
     /**
      * 
      * Description: <br>
      * 修改一条数据
+     * 
      * @param fileCountEntity 
      * @see
      */
-    @RequestMapping(value = {"/fcount/editOne"}, method = RequestMethod.POST)
     public void editOne(FileCountEntity fileCountEntity){
-        fileCountService.editOneFc(fileCountEntity);
-    }
-    
-    /**
-     * 
-     * Description: <br>
-     * 导出excel
-     * @param sysDate 
-     * @param response  
-     * @see
-     */
-    @RequestMapping(value = {"/fcount/exportExcel"}, method = RequestMethod.GET)
-    public void exportExcel(String sysDate, HttpServletResponse response){
-        try {
-            fileCountService.exportExcel(sysDate, response);
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
+        
     }
 }

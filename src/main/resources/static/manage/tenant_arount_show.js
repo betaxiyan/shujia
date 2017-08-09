@@ -113,15 +113,7 @@ $(document).ready(function() {
     	 var tenantBoss=$("#addaround-tenantBoss").val();
     	 var tenantTel=$("#addaround-tenantTel").val();
     	 var numOfUnifiedPlatform=$("#addaround-numOfUnifiedPlatform").val();
-    	 if (isNaN(numOfUnifiedPlatform)){
-    		 alert("请输入统一平台个数时输入整数");
-    		 $("#addaround-numOfUnifiedPlatform").val("");
-    	 }
     	 var numOf4a=$("#addaround-numOf4a").val();
-    	 if (isNaN(numOf4a)){
-    		 alert("请输入4A个数时输入整数");
-    		 $("#addaround-numOf4a").val("");
-    	 }
     	 var tenantReqirement=$("#addaround-tenantReqirement").val();
     	 var tenantInterface=$("#addaround-tenantInterface").val();
     	$.ajax({
@@ -306,7 +298,6 @@ $(document).ready(function() {
    /*************************/     
 });
 
-
 function addClean(){
 	$('#addAroundTenantModal').modal('hide');
 	$("#addaround-tenantId").val("");
@@ -325,10 +316,6 @@ function clickLeaveTable(){
 	table.api().ajax.reload();
 }
 
-
-function clickTable(){
-	table.api().ajax.reload();
-}
 //清除查询数据
 function cleanLeaveSearch() {
 	$("#tenantLeaveName").val("");
