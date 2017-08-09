@@ -45,18 +45,6 @@ public interface TenantAroundMgrService {
     void saveIdAndNameFromHttp();
     
     /**
-     * 从数据库导出到Excel进行批量修改
-     * @see
-     */
-    void exportFromTenantAroundMgr();
-    
-    /**
-     * 将批量修改的Excel导入到数据库
-     * @see
-     */
-    void importToTenantAroundMgr();
-    
-    /**
      * 获取TioaTenantAroundShowEntity所有数据
      * @return list
      * @see

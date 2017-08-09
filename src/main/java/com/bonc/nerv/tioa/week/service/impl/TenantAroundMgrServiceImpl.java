@@ -206,7 +206,7 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
         throws ParseException {
         List<String[]> list = null;
         try {
-            list = POIUtil.readExcel(excelFile);
+            list = PoiUtils.readExcel(excelFile);
             System.out.println(list.size());
         }
         catch (IOException e) {

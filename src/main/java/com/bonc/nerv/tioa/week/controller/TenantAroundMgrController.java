@@ -66,17 +66,6 @@ public class TenantAroundMgrController {
         return JSON.toJSONString("");
     }
     
-    /**
-     * 从数据库导出到Excel进行批量修改
-     * @return ""
-     * @see
-     */
-    @RequestMapping("/exportFromTenantAroundMgr")
-    @ResponseBody
-    public String exportFromTenantAroundMgr(){
-        tenantAroundMgrService.exportFromTenantAroundMgr();
-        return JSON.toJSONString("从数据库导出Excel成功");
-    }
     
     /**
      * 对Excel进行批量修改后导入数据库
