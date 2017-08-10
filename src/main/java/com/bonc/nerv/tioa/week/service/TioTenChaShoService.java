@@ -57,6 +57,12 @@ public interface TioTenChaShoService {
                     HttpServletResponse response);
     
     /**
+     * Description: 删除全部表记录
+     * @see 
+     */
+    void deleteAll();
+    
+    /**
      * 
      * Description: <br>
      * 向接口人发送邮件
