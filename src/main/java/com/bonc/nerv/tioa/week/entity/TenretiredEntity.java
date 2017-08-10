@@ -81,12 +81,7 @@ public class TenretiredEntity {
     /**
      * 存储使用量
      */
-    private Integer storage;
-    
-    /**
-     * 存储使用量单位
-     */
-    private String storageUnit;
+    private String storage;
     
     /**
      * 计算资源
@@ -228,20 +223,12 @@ public class TenretiredEntity {
         this.hostNum = hostNum;
     }
     
-    public Integer getStorage() {
+    public String getStorage() {
         return storage;
     }
 
-    public void setStorage(Integer storage) {
+    public void setStorage(String storage) {
         this.storage = storage;
-    }
-    
-    public String getStorageUnit() {
-        return storageUnit;
-    }
-
-    public void setStorageUnit(String storageUnit) {
-        this.storageUnit = storageUnit;
     }
     
     public Double getComputingResourceRate() {
@@ -352,9 +339,8 @@ public class TenretiredEntity {
     public String toString() {
         return "TenretiredEntity [tlId=" + tlId + ", serviceType=" + serviceType
                + ", tenantName=" + tenantName + ", tenantLevel=" + tenantLevel + ", tenantBoss="
-               + tenantBoss + ", tenantTel=" + tenantTel +", resourceType=" + resourceType 
-               +", askIp=" + askIp +", hostNum=" + hostNum +", storage=" + storage 
-               +", storageUnit=" + storageUnit +", computingResourceRate=" + computingResourceRate
+               + tenantBoss + ", tenantTel=" + tenantTel +", resourceType=" + resourceType +", askIp=" + askIp 
+               +", hostNum=" + hostNum +", storage=" + storage+", computingResourceRate=" + computingResourceRate
                +", computeRoom=" + computeRoom +", uniplatformNum=" + uniplatformNum 
                +", numOf4a=" + numOf4a +", demand=" + demand +", serviceName=" + serviceName 
                +", sequenceName=" +sequenceName+", askDate=" + askDate +", openDate=" + openDate

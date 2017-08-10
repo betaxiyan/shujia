@@ -49,9 +49,9 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
      */
     @Override
     public void saveIdAndNameFromHttp() {
-        String jsonStr = WebClientUtil.doGet("findAllAroundTenant", null);
+        String jsonStr = WebClientUtil.doGet(findAllAroundTenant, null);
         ObjectMapper map = new ObjectMapper();
-        List<TioaTenantAroundShowEntity> list = new ArrayList<TioaTenantAroundShowEntity>();
+        List<TioaTenantAroundShowEntity> listInterface = new ArrayList<TioaTenantAroundShowEntity>();
         try {
             JsonNode jsonNode = map.readTree(jsonStr);
             String success = jsonNode.get("success").toString();
@@ -62,19 +62,38 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
             JsonNode dataNode = jsonNode.get("data");
             for (JsonNode nodeOne : dataNode) {
                 TioaTenantAroundShowEntity tioaTenantAroundShowEntity = new TioaTenantAroundShowEntity();
-                System.out.println(nodeOne.get("tenantId").asText());
                 tioaTenantAroundShowEntity.setTenantId(nodeOne.get("tenantId").asText());
-                System.out.println(nodeOne.get("tenantId").asText());
                 tioaTenantAroundShowEntity.setTenantName(nodeOne.get("tenantName").asText());
-                list.add(tioaTenantAroundShowEntity);
+                listInterface.add(tioaTenantAroundShowEntity);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
+        //获取数据库中的数据与接口中的数据进行比较
+        List<TioaTenantAroundShowEntity> listFromDB = this.findAllTenantAroundMgr();
+        listFromDB.removeAll(listInterface);
+        
+        //比较两个list的差集
+        //用从接口获取的list减去从数据库获取的list，将差集添加到从数据库获取的list
+        int temp = 0;
+        for (int i = 0;i < listInterface.size(); i ++) {
+            temp = 0;
+            for (int j = 0; j < listFromDB.size(); j ++) {
+                if (listInterface.get(i).getTenantId().equals(listFromDB.get(j).getTenantId())) {
+                    temp = 1;
+                    continue;
+                }
+            }
+            
+            if (temp == 0) {
+                listFromDB.add(listInterface.get(i));
+            }
+            
+        }
+   
         // 保存到数据库
-        tenantAroundMgrDao.save(list);
+        tenantAroundMgrDao.save(listFromDB);
         System.out.println("保存到数据库成功");
     }
 

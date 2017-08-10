@@ -13,6 +13,7 @@ function loaddata() {
             "info": "显示_START_到_END_, 共计_TOTAL_条数据",
             "emptyTable": "无记录",
             "infoEmpty": "共计0",
+            "search":"搜索："
         },
         "scrollX": true,
         "destroy":true, //Cannot reinitialise DataTable,解决重新加载表格内容问题
@@ -28,7 +29,7 @@ function loaddata() {
         "bAutoWidth": false,
         /*	数据源Ajax*/
         "ajax":{ url:"findAll"},
-    	"columns": [{"mData": "tcId"},				
+    	"columns": [				
     	            {"mData": "tenantName"},		{"mData": "serviceType"},			{"mData": "tenantType"}, 
     	            {"mData": "resourceTime"},		{"mData": "uniplatform4aTime"},		{"mData": "havedateTime"},
     	            {"mData": "resideDuration"},	{"mData": "monthlyFee"},			{"mData": "dataFee"}, 
@@ -48,7 +49,7 @@ function loaddata() {
                         	}
                         },
                         {//第二列 服务类型
-                        	"targets":2,
+                        	"targets":1,
                         	render: function(data, type, row) {
                         		if (data == 10) {
                         			return "内部"  //10：内部
@@ -57,7 +58,7 @@ function loaddata() {
                         	}
                         },
                         {//第三列 租户分类
-                        	"targets":3,
+                        	"targets":2,
                         	render: function(data, type, row) {
                         		if (data == 10) {
                         			return "近期租户" //10：近期租户
@@ -75,7 +76,7 @@ function loaddata() {
                         	}
                         },
                         {//第13列 到期日期 
-                        	"targets":13,
+                        	"targets":12,
                         	createdCell: function(td, cellData, rowData) {
                         		var data = cellData
                         		if ((data+"").length>=8) {
@@ -254,6 +255,85 @@ function loaddata() {
 		  }
    })
    
+   
+   /*	显示新增页面		*/
+   $('#addjfbutton').on( 'click', function () {
+	   $('#jfaddmodel').modal('show');
+   });
+   
+   /*     新增		*/
+
+   $('#jfeditsubmit1').on("click",function(){
+	   
+	   /* 获取数据*/
+	   	  var tenantName = $('#jfedittenantName1').val();  //租户
+	      
+	      var serviceType = $('#jfeditserviceType1').val();//服务类型
+	     
+	      var tenantType = $('#jfedittenantType1').val();   //租户分类
+	      
+	      var resourceTime = $('#jfeditresourceTime1').val(); //资源 
+	     
+	      var uniplatform4aTime = $('#jfedituniplatform4aTime1').val();  //统一及4A
+	      
+	      var havedateTime = $('#jfedithavedateTime1').val(); //数据实际具备
+	      
+	      var resideDuration = $('#jfeditresideDuration1').val();  //入住时长
+	      
+	      var monthlyFee = $('#jfeditmonthlyFee1').val(); //月租费用（元/月）
+	      
+	      var dataFee = $('#jfeditdataFee1').val();  //数据报价/万元
+	      
+	      var beginRentDate = $('#jfeditbeginRentDate1').val();   //起租日期
+	      
+	      var tasteDuration = $('#jfedittasteDuration1').val();  //试用期
+	      
+	      var chargeBeginDate = $('#jfeditchargeBeginDate1').val();//计费日期
+	      
+	      var chargeEndDate = $('#jfeditchargeEndDate1').val();//到期日期
+	      
+	      
+	      var introduceUnicom = $('#jfeditintroduceUnicom1').val();  //联通引入方
+	      
+	      var introduceTenant = $('#jfeditintroduceTenant1').val();  //引入方联系人（租户管理员）
+	      
+	      var contact = $('#jfeditcontact1').val();  //联系方式
+	      
+	      var askDate = $('#jfeditaskDate1').val(); //申请日期
+	      
+	      var signContract = $('#jfeditsignContract1').val(); //是否签署合同 
+	      
+	      var monthlyFeeRemark = $('#jfeditmonthlyFeeRemark1').val(); //月租备注
+
+	      var endRentDate = $('#jfeditendRentDate1').val();  //退租时间
+	      
+	      var remark = $('#jfeditremark1').val(); //备注
+	      
+	      var msg = "确认信息添加？\n\n请确认！";
+		   
+		  if (confirm(msg)==true){
+			  $.post("saveNewData",
+					 {
+	    	  	  		tenantName:tenantName, 		serviceType:serviceType, 
+	    	  	  		tenantType:tenantType, 		resourceTime:resourceTime, 
+	    	  	  		uniplatform4aTime: uniplatform4aTime, 		havedateTime:havedateTime, 
+	    	  	  		resideDuration:resideDuration, 		monthlyFee:monthlyFee,
+	    	  	  		dataFee:dataFee , 			beginRentDate:beginRentDate,
+	    	  	  		tasteDuration:tasteDuration ,		chargeBeginDate:chargeBeginDate ,chargeEndDate:chargeEndDate,
+	    	  	  		introduceUnicom:introduceUnicom ,		introduceTenant:introduceTenant ,
+	    	  	  		contact:contact ,			askDate:askDate ,
+	    	  	  		signContract:signContract ,		monthlyFeeRemark:monthlyFeeRemark,
+	    	  	  		endRentDate: endRentDate,		remark: remark ,
+					 },
+					 function(data){
+						 alert(data)
+						 $('#jfaddmodel').modal('hide');
+						 loaddata();
+					 })
+		  }
+   })
+   
+   
    /*   删除   */
    $('#charging_table tbody').on( 'click', 'button.jfdelete', function () {
 	   var jstcId = $(this).val();//获得tcId 主码
@@ -274,3 +354,29 @@ function loaddata() {
 	    }
 	   
 	});
+   /*	显示上传页面		*/
+   $('#uploadjfbutton').on( 'click', function () {
+	   $('#jfuploadmodel').modal('show');
+   });
+   
+   /*  上传			*/
+   
+   function jfdoUpload() {  
+	     var formData = new FormData($( "#jfuploadForm" )[0]);  
+	     $.ajax({  
+	          url: "/save" ,  
+	          type: 'POST',  
+	          data: formData,  
+	            
+	          cache: false,  
+	          contentType: false,  
+	          processData: false,  
+	          success: function (returndata) {  
+	              alert(returndata);  
+	              $('#jfuploadmodel').modal('hide');
+	              loaddata();
+	          }
+	           
+	     });  
+	}  
+   
