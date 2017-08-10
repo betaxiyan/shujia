@@ -24,9 +24,7 @@ $(document).ready(function() {
                    {data:"tenantName",},
                    {data:"tenantLevel",
         				render:function(data, type, row) {
-        						if(data == "" || data == null) {
-        							return "";
-        						}else if(data==2){
+        						 if(data==2){
         							return "大";
         						}else if(data==1){
         							return "中";
