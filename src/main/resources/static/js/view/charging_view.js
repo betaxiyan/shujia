@@ -49,7 +49,7 @@ function loaddata() {
                         	}
                         },
                         {//第二列 服务类型
-                        	"targets":2,
+                        	"targets":1,
                         	render: function(data, type, row) {
                         		if (data == 10) {
                         			return "内部"  //10：内部
@@ -58,7 +58,7 @@ function loaddata() {
                         	}
                         },
                         {//第三列 租户分类
-                        	"targets":3,
+                        	"targets":2,
                         	render: function(data, type, row) {
                         		if (data == 10) {
                         			return "近期租户" //10：近期租户
@@ -76,7 +76,7 @@ function loaddata() {
                         	}
                         },
                         {//第13列 到期日期 
-                        	"targets":13,
+                        	"targets":12,
                         	createdCell: function(td, cellData, rowData) {
                         		var data = cellData
                         		if ((data+"").length>=8) {
