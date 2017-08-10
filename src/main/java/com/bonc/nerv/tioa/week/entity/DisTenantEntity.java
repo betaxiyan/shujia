@@ -30,7 +30,7 @@ public class DisTenantEntity {
      * 租户Id
      */
     @Id
-    @Column(name = "tdid", nullable = false)
+    @Column(name = "td_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long tdId;
 
@@ -38,140 +38,126 @@ public class DisTenantEntity {
      * 服务类型
      */
     @Basic
-    @Column(name = "service_type", length = 45)
+    @Column(name = "service_type")
     private String serviceType;
 
     /*
      * 租户名
      */
     @Basic
-    @Column(name = "tenant_name", length = 45)
+    @Column(name = "tenant_name")
     private String tenantName;
 
     /*
      * 租户级别
      */
     @Basic
-    @Column(name = "tenant_level", length = 45)
+    @Column(name = "tenant_level")
     private Integer tenantLevel;
 
     /*
      * 租户负责人
      */
     @Basic
-    @Column(name = "tenant_boss", length = 45)
+    @Column(name = "tenant_boss")
     private String tenantBoss;
 
     /*
      * 租户负责人电话
      */
     @Basic
-    @Column(name = "tenant_tel", length = 45)
+    @Column(name = "tenant_tel")
     private String tenantTel;
 
     /*
      * 资源类型
      */
     @Basic
-    @Column(name = "resource_type", length = 45)
+    @Column(name = "resource_type")
     private Integer resourceType;
 
     /*
      * 文件数
      */
     @Basic
-    @Column(name = "file_count", length = 45)
+    @Column(name = "file_count")
     private Integer fileCount;
 
     /*
      * 存储
      */
     @Basic
-    @Column(name = "storage", length = 45)
-    private Integer storage;
-
-    /*
-     * 存储单位
-     */
-    @Basic
-    @Column(name = "storage_unit", length = 45)
-    private String storageUnit;
+    @Column(name = "storage")
+    private String storage;
 
     /*
      * 存储使用量
      */
     @Basic
-    @Column(name = "storage_usage", length = 45)
-    private Integer storageUsage;
-
-    /*
-     * 存储使用量单位
-     */
-    @Basic
-    @Column(name = "storage_usage_unit", length = 45)
-    private String storageUsageUnit;
+    @Column(name = "storage_usage")
+    private String storageUsage;
 
     /*
      * 存储使用量占比
      */
     @Basic
-    @Column(name = "storage_usage_rate", length = 45)
+    @Column(name = "storage_usage_rate")
     private Double storageUsageRate;
 
     /*
      * cpu 核数
      */
     @Basic
-    @Column(name = "cpu_num", length = 45)
-    private Integer cpuNum;
+    @Column(name = "cpu_num")
+    private String cpuNum;
 
     /*
      * cpu 最大数
      */
     @Basic
-    @Column(name = "cpu_max", length = 45)
+    @Column(name = "cpu_max")
     private Integer cpuMax;
 
     /*
      * cpu 平均数
      */
     @Basic
-    @Column(name = "cpu_avg", length = 45)
+    @Column(name = "cpu_avg")
     private Integer cpuAvg;
 
     /*
      * 内存大小
      */
     @Basic
-    @Column(name = "memory_size", length = 45)
-    private Integer memorySize;
+    @Column(name = "memory_size")
+    private String memorySize;
 
     /*
      * 内存最大值
      */
     @Basic
-    @Column(name = "memory_max", length = 45)
+    @Column(name = "memory_max")
     private Integer memoryMax;
 
     /*
      * 内存平均值
      */
     @Basic
-    @Column(name = "memory_avg", length = 45)
+    @Column(name = "memory_avg")
     private Integer memoryAvg;
 
     /*
      * 申请日期
      */
     @Basic
-    @Column(name = "ask_date", length = 45)
+    @Column(name = "ask_date")
     private String askDate;
 
     /*
      * 变更日期
      */
     @Basic
-    @Column(name = "change_date", length = 45)
+    @Column(name = "change_date")
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private String changeDate;
 
@@ -179,7 +165,7 @@ public class DisTenantEntity {
      * 开放日期
      */
     @Basic
-    @Column(name = "open_date", length = 45)
+    @Column(name = "open_date")
     private String openDate;
 
     public long getTdId() {
@@ -246,36 +232,20 @@ public class DisTenantEntity {
         this.fileCount = fileCount;
     }
 
-    public Integer getStorage() {
+    public String getStorage() {
         return storage;
     }
 
-    public void setStorage(Integer storage) {
+    public void setStorage(String storage) {
         this.storage = storage;
     }
 
-    public String getStorageUnit() {
-        return storageUnit;
-    }
-
-    public void setStorageUnit(String storageUnit) {
-        this.storageUnit = storageUnit;
-    }
-
-    public Integer getStorageUsage() {
+    public String getStorageUsage() {
         return storageUsage;
     }
 
-    public void setStorageUsage(Integer storageUsage) {
+    public void setStorageUsage(String storageUsage) {
         this.storageUsage = storageUsage;
-    }
-
-    public String getStorageUsageUnit() {
-        return storageUsageUnit;
-    }
-
-    public void setStorageUsageUnit(String storageUsageUnit) {
-        this.storageUsageUnit = storageUsageUnit;
     }
 
     public Double getStorageUsageRate() {
@@ -286,11 +256,11 @@ public class DisTenantEntity {
         this.storageUsageRate = storageUsageRate;
     }
 
-    public Integer getCpuNum() {
+    public String getCpuNum() {
         return cpuNum;
     }
 
-    public void setCpuNum(Integer cpuNum) {
+    public void setCpuNum(String cpuNum) {
         this.cpuNum = cpuNum;
     }
 
@@ -310,11 +280,11 @@ public class DisTenantEntity {
         this.cpuAvg = cpuAvg;
     }
 
-    public Integer getMemorySize() {
+    public String getMemorySize() {
         return memorySize;
     }
 
-    public void setMemorySize(Integer memorySize) {
+    public void setMemorySize(String memorySize) {
         this.memorySize = memorySize;
     }
 
@@ -357,6 +327,5 @@ public class DisTenantEntity {
     public void setOpenDate(String openDate) {
         this.openDate = openDate;
     }
-
 
 }

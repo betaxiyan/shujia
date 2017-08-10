@@ -144,7 +144,7 @@ public class DisTenantServiceImpl implements DisTenantService{
 
         // 写入表头信息
         String[] headers = {"序号", "服务类型", "租户名", "租户级别", "租户负责人", "租户负责人电话", "资源类型", "文件数", "存储",
-            "存储单位", "存储使用量", "存储使用量单位", "存储使用占比", "cpu核数", "cpu最大数", "cpu平均数", "内存大小", "内存最大值",
+            "存储使用量",  "存储使用占比", "cpu核数", "cpu最大数", "cpu平均数", "内存大小", "内存最大值",
             "内存平均值", "申请时间", "变更时间", "开放时间"};
 
         // 添加Excel内容
@@ -152,7 +152,7 @@ public class DisTenantServiceImpl implements DisTenantService{
         String fileName = DateUtils.formatDateToString(new Date(), "yyyyMMddHHmmss") + ".xlsx";
         try {
             PoiUtils.exportExelMerge(fileName, headers, dataset, true, response,
-                new Integer[] {5, 4, 2}, new Integer[] {1, 2, 3, 4, 5, 7}, new Integer[] {7},
+                new Integer[] {5,4,2}, new Integer[] {1, 2, 3, 4, 5, 7}, new Integer[] {7},
                 new Integer[] {4});
             System.out.println("excel导出成功！");
         }
@@ -184,15 +184,13 @@ public class DisTenantServiceImpl implements DisTenantService{
             String tenantTel = distenant.getTenantTel();
             String resourceType =distenant.getResourceType() == null ? " ":String.valueOf(distenant.getResourceType());
             String fileCount =distenant.getFileCount() == null ? " ":String.valueOf(distenant.getFileCount()) ;
-            String storage = distenant.getStorage() == null ? " " : String.valueOf(distenant.getStorage());
-            String storageUnit = distenant.getStorageUnit();
-            String storageUsage =distenant.getStorageUsage() == null ? " ": String.valueOf(distenant.getStorageUsage());
-            String storageUsageUnit = distenant.getStorageUsageUnit();
+            String storage = distenant.getStorage();
+            String storageUsage =distenant.getStorageUsage();
             String storageUsageRate = distenant.getStorageUsageRate() ==  null  ? " ": Double.toString(distenant.getStorageUsageRate());
-            String cpuNum = distenant.getCpuNum() == null ? " ":String.valueOf(distenant.getCpuNum()) ;
+            String cpuNum = distenant.getCpuNum();
             String cpuMax = distenant.getCpuMax() == null ? " " : String.valueOf(distenant.getCpuMax());
             String cpuAvg = distenant.getCpuAvg() == null ? " " :String.valueOf(distenant.getCpuAvg()) ;
-            String memorySize = distenant.getMemorySize() == null ? " ": String.valueOf(distenant.getMemorySize());
+            String memorySize = distenant.getMemorySize();
             String memoryMax = distenant.getMemoryMax() == null ? " ":String.valueOf(distenant.getMemoryMax());
             String memoryAvg = distenant.getMemoryAvg()== null ? " ": String.valueOf(distenant.getMemoryAvg());
             String askDate = distenant.getAskDate() == null ? " ": String.valueOf(distenant.getAskDate());
@@ -268,9 +266,8 @@ public class DisTenantServiceImpl implements DisTenantService{
             }
            
             //遍历集合，处理数据
-            String[] service = {tdId, serviceType, tenantName, tenantLevel, tenantBoss, tenantTel,
-                resourceType, fileCount, storage, storageUnit, storageUsage, storageUsageUnit,
-                storageUsageRate, cpuNum, cpuMax, cpuAvg, memorySize, memoryMax, memoryAvg,
+            String[] service = {Integer.toString(i+1), serviceType, tenantName, tenantLevel, tenantBoss, tenantTel,
+                resourceType, fileCount, storage,storageUsage,storageUsageRate, cpuNum, cpuMax, cpuAvg, memorySize, memoryMax, memoryAvg,
                 askDate, changeDate, openDate};
             dataset.add(service);
         }
@@ -350,6 +347,7 @@ public class DisTenantServiceImpl implements DisTenantService{
         Map<String, Object> map = new HashMap<String,Object>();
         try {
             distenantDao.save(ditenantEntity);
+            distenantDao.flush();
             map.put("status", 200);
         }
         catch (Exception e) {

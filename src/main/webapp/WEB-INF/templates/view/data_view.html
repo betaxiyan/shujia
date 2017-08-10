@@ -22,15 +22,19 @@
         <div class="view_tab">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist" id="view_tabs">
-                <!-- <li role="presentation" class="active"><a href="#view" aria-controls="view" role="tab" data-toggle="tab" id="total-view">文件统计</a></li> -->
+
                 <li role="presentation"><a href="#details_one" aria-controls="details_one" role="tab" data-toggle="tab" id="detail-one">已划配</a></li>
+
+                <!-- <li role="presentation"><a href="#view" aria-controls="view" role="tab" data-toggle="tab" id="total-view">文件统计</a></li> -->
+                <li role="presentation" class="active"><a href="#details_one" aria-controls="details_one" role="tab" data-toggle="tab" id="detail-one">已划配</a></li>
                 <li role="presentation"><a href="#details_two" aria-controls="details_two" role="tab" data-toggle="tab" id="detail-two">租户计费</a></li>
                 <li role="presentation"><a href="#details_three" aria-controls="details_three" role="tab" data-toggle="tab" id="detail-three">已退租</a></li>
                 <li role="presentation"><a href="#details_tenant" aria-controls="details_tenant" role="tab" data-toggle="tab" id="detail-tenant">租户信息</a></li>
             </ul>
             <!-- Tab panes -->
             <div class="tab-content">
-                <!-- <div th:replace="fragment/total_frg :: view"></div>  -->
+                <!-- <div th:replace="fragment/total_frg :: view"></div> -->  
+
                 <!-- 已划配 界面-->
                 <div th:replace="fragment/distribute_frg :: distribute"></div> 
                 <!-- 租户计费 界面-->

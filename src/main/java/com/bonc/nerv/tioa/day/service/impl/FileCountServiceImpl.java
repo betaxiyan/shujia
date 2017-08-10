@@ -8,21 +8,28 @@
 
 package com.bonc.nerv.tioa.day.service.impl;
 
+import java.io.BufferedOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bonc.nerv.tioa.day.dao.FileCountDao;
 import com.bonc.nerv.tioa.day.entity.FileCountEntity;
 import com.bonc.nerv.tioa.day.service.FileCountService;
+import com.bonc.nerv.tioa.day.util.FcPoiUtils;
 import com.bonc.nerv.tioa.week.entity.AccountFilecountMidEntity;
 import com.bonc.nerv.tioa.week.entity.ResourceAccountMidEntity;
 import com.bonc.nerv.tioa.week.service.ExternalRestService;
-
+import com.bonc.nerv.tioa.week.util.DateUtils;
 /**
  * 
  * 文件统计服务类的service实现类
@@ -40,6 +47,9 @@ public class FileCountServiceImpl implements FileCountService {
     @Autowired
     private FileCountDao fileCountDao;
     
+    /**
+     * 外部接口服务类
+     */
     @Autowired
     private ExternalRestService externalRestService;
     
@@ -70,7 +80,7 @@ public class FileCountServiceImpl implements FileCountService {
                 Integer folderNumTemp = accountFilecountMidEntity.getDfileNum();
                 String typeTemp = accountFilecountMidEntity.getType();
                 fileCountEntity.setFileNum(fileNumTemp);
-                fileCountEntity.setFolderNum(folderNumTemp);
+                fileCountEntity.setFloderNum(folderNumTemp);
                 fileCountEntity.setTotalNum(fileNumTemp + folderNumTemp);
                 fileCountEntity.setType(typeTemp);
                 fileCountEntity.setSysDate(sysDate);
@@ -105,7 +115,7 @@ public class FileCountServiceImpl implements FileCountService {
                         continue;
                     }else{
                         fctEntity.setFileNum(fctEntity.getFileNum() + fileCountEntity.getFileNum()); 
-                        fctEntity.setFolderNum(fctEntity.getFolderNum() + fileCountEntity.getFolderNum());
+                        fctEntity.setFloderNum(fctEntity.getFloderNum() + fileCountEntity.getFloderNum());
                         fctEntity.setTotalNum(fctEntity.getTotalNum() + fileCountEntity.getTotalNum());
                         fcMapTemp.put(fileCountEntity.getTenant(), fctEntity);
                     }
@@ -119,7 +129,7 @@ public class FileCountServiceImpl implements FileCountService {
     
     @Override
     public FileCountEntity addOneFc(FileCountEntity fileCountEntity) {
-        
+        fileCountEntity.setTotalNum(fileCountEntity.getFileNum() + fileCountEntity.getFloderNum());
         FileCountEntity newFileCountEntity = fileCountDao.save(fileCountEntity);
         return newFileCountEntity;
     }
@@ -137,6 +147,20 @@ public class FileCountServiceImpl implements FileCountService {
         return newFileCountEntity;
     }
 
-    
-    
+    @Override
+    public void exportExcel(String sysDate, HttpServletResponse response) throws IOException {
+        XSSFWorkbook wb = null;
+        List<FileCountEntity> fileCountEntities = fileCountDao.findBySysDate(sysDate);
+        String[] headers = {"租户名", "文件数", "文件夹数", "总数"};
+
+        // 添加Excel内容
+        String fileName = DateUtils.formatDateToString(new Date(), "yyyyMMddHHmmss") + ".xlsx";
+        wb = FcPoiUtils.exportTest("TEST", headers, fileCountEntities);
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+        BufferedOutputStream out = new BufferedOutputStream(response.getOutputStream());
+        wb.write(out);
+        out.flush();
+        out.close();
+    }
 }

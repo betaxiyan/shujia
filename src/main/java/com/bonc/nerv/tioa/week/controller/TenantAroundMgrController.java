@@ -51,6 +51,7 @@ public class TenantAroundMgrController {
      */
     @RequestMapping("/tenantAroundMgr")
     public String tenantAroundMgr(){
+        tenantAroundMgrService.saveIdAndNameFromHttp();
         return "manage/tenant_arount_show";
     }
     
@@ -66,17 +67,6 @@ public class TenantAroundMgrController {
         return JSON.toJSONString("");
     }
     
-    /**
-     * 从数据库导出到Excel进行批量修改
-     * @return ""
-     * @see
-     */
-    @RequestMapping("/exportFromTenantAroundMgr")
-    @ResponseBody
-    public String exportFromTenantAroundMgr(){
-        tenantAroundMgrService.exportFromTenantAroundMgr();
-        return JSON.toJSONString("从数据库导出Excel成功");
-    }
     
     /**
      * 对Excel进行批量修改后导入数据库
@@ -100,7 +90,7 @@ public class TenantAroundMgrController {
     public Map<String,Object> findAllTenantAroundMgr(){
         List<TioaTenantAroundShowEntity> list = tenantAroundMgrService.findAllTenantAroundMgr();
         Map<String,Object> map = new HashMap<String,Object>();
-        //map.put("draw","1");
+        map.put("draw","1");
         map.put("recordsFiltered", list.size());
         map.put("recordsTotal", list.size());
         map.put("data", list);
@@ -132,6 +122,22 @@ public class TenantAroundMgrController {
     public String deleteTenantAroundMgr(Long  ttaId){
         tenantAroundMgrService.deleteTenantAroundMgr(ttaId);
         return "manage/tenant_arount_show";
+    }
+    
+    /**
+     * 获取修改数据
+     * 
+     * @param ttaId
+     * @return 
+     * @see
+     */
+    @RequestMapping("/manage/update")
+    @ResponseBody
+    public TioaTenantAroundShowEntity updateTenantAroundMgr(Long ttaId){
+        TioaTenantAroundShowEntity tioaTenAro =  tenantAroundMgrService.updateTenantAroundMg(ttaId);
+       System.out.println(tioaTenAro);
+        return tioaTenAro;
+        
     }
     
     /**

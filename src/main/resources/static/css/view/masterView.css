@@ -1,3 +1,12 @@
+body {
+    font-size: 14px;
+    font-family: '微软雅黑';
+}
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, input, button, textarea, p, blockquote, th, td, form, pre {
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
 a:link,
 a:visited,
 a:active,
@@ -110,6 +119,7 @@ a:focus {
     color: #d9534f;
 }
 
+
 .table-responsive {
     overflow-x: hidden;
 }
@@ -126,7 +136,7 @@ a:focus {
 }
 
 thead {
-    background: #eee;
+    background: #EEEEEE;
 }
 
 .operateBtn,
@@ -235,6 +245,61 @@ thead {
 
 label{
   margin-left:20px;
-  margin-top:10px;  
+  margin-top:6px;  
+}
+
+.table{
+    border:none;
+    margin-top:6px;
+}
+
+.table>thead>tr>th,
+.table>tbody>tr>th,
+.table>tfoot>tr>th,
+.table>thead>tr>td,
+.table>tbody>tr>td,
+.table>tfoot>tr>td{
+    text-align:center;
+    vertical-align:middle;
+}
+
+
+.pagination>.active>a,
+.pagination>.active>span,
+.pagination>.active>a:hover,
+.pagination>.active>span:hover,
+.pagination>.active>a:focus,
+.pagination>.active>span:focus {
+    background-color: #d9534f;
+    border-color: #d9534f;
+}
+.pagination>li>a{
+    position: relative;
+    float: left;
+    margin-left: -1px;
+    line-height: 1.42857143;
+ }
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+	box-sizing:border-box;
+	display:inline-block;
+	padding:0;
+	margin-left:-1px;
+	text-align:center;
+	text-decoration: none !important;
+    text-decoration-line: none;
+    text-decoration-style: initial;
+    text-decoration-color: initial;
+    cursor: pointer;
+    color: #fff !important;
+    border-radius: 2px;
+}
+
+#leave_table,#tools_table,#charging_table,#detail_health,#detail_tenant,#view_table{
+	border-collapse: collapse;
+    border-spacing: 0;
+    border:1px solid #ddd;
+}
+.table-bordered>tbody>tr>td{
+	padding: 2px;
 }
  

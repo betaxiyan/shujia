@@ -64,10 +64,12 @@ public class TioTenChaShoController {
     @ResponseBody
     public String saveToDB(@RequestParam(value = "upload") MultipartFile excelFile) {
         try {
+            tioTenChaShoService.deleteAll();
             tioTenChaShoService.saveExcel(excelFile);
         } catch (ParseException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+            return JSON.toJSONString("出现错误！");
         }
         return JSON.toJSONString("导入数据库成功！");
     }
