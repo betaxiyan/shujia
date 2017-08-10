@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -155,7 +154,7 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
             String[] headers = {"序号", "租户id", "租户名", "租户级别", "租户负责人", "联系电话", "统一平台个数", "4A个数",
                 "需求", "平台接口人"};
             List<String[]> dataset = getTenList(list);
-            PoiUtils.exportExelMerge("能力开放平台周边信息情况表.xls", headers, dataset, true, response,
+            PoiUtils.exportExelMerge("能力开放平台周边信息情况表.xlsx", headers, dataset, true, response,
                 new Integer[] {0}, new Integer[] {0}, new Integer[] {0}, new Integer[] {0});
         }
         catch (FileNotFoundException e) {
