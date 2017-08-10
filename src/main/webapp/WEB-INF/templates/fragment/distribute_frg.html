@@ -12,12 +12,13 @@
                    <span>租户负责人</span><input type="text" style="width:140px;height:26px;" id="tenantBoss" name="tenantBoss" value=""/>   
                    <button type="button" class="btn btn-danger" style="margin-left:90px;margin-right:30px" th:onclick="'clickDisTable()'">查询</button>
                    <button type="button" class="btn btn-danger" th:onclick="'cleanDisSearch()'">清空</button>
-                   <button class="btn btn-danger export" style="margin-left:30px;" th:onclick="'exportDisFile()'"><!-- <i class="layui-icon">&#xe601;</i> --> 导出   </button><br/>
+                   <!-- <button class="btn btn-danger export" style="margin-left:30px;" th:onclick="'exportDisFile()'"><i class="layui-icon">&#xe601;</i> 导出   </button><br/> -->
+                   <a href="#" class="export" th:onclick="'exportDisFile()'">导出</a>
                </div>
-               <div class="tools-header">
+               <!-- <div class="tools-header">
                    <i class="upload_icon"></i>
                    <a href="#" class="upload" data-toggle="modal" data-target="#addToolModal" style="margin-left:1200px;">新增内容</a>
-               </div>
+               </div> -->
               <div class="tools_tab">
                 <div class="tools_body">
                     <div class="box">
