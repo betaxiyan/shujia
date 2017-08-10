@@ -15,11 +15,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bonc.nerv.tioa.week.util.WebClientUtil;
+import com.bonc.nerv.tioa.week.service.RestfulTableMgrService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -33,6 +34,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 @Controller
 public class RestfulTableMgrController {
+    
+    /**
+     * 浏览接口健康信息的服务层
+     */
+    @Autowired
+    private RestfulTableMgrService restfulTableMgrService;
+    
     /**
      * 接口健康信息界面
      * @return health_view
@@ -52,8 +60,8 @@ public class RestfulTableMgrController {
     @RequestMapping("/restfulHealth")
     @ResponseBody
     public String restfulHealth(){
-        //调用接口工具类中的health接口
-        String jsonString =  WebClientUtil.doGet("http://192.168.50.40:8080/bonc-nerv/health",null);
+        //调用接口健康信息service层
+        String jsonString = restfulTableMgrService.restfulHealth();
         return jsonString;
     }
     
