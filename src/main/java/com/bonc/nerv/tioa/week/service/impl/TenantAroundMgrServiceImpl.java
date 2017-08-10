@@ -66,18 +66,34 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
                 tioaTenantAroundShowEntity.setTenantName(nodeOne.get("tenantName").asText());
                 listInterface.add(tioaTenantAroundShowEntity);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         //获取数据库中的数据与接口中的数据进行比较
         List<TioaTenantAroundShowEntity> listFromDB = this.findAllTenantAroundMgr();
         listFromDB.removeAll(listInterface);
-        System.out.println(listInterface.size() + "接口中list大小");
-        System.out.println(listFromDB.size() + "数据库中大小");
+        
+        //比较两个list的差集
+        //用从接口获取的list减去从数据库获取的list，将差集添加到从数据库获取的list
+        int temp = 0;
+        for (int i = 0;i < listInterface.size(); i ++) {
+            temp = 0;
+            for (int j = 0; j < listFromDB.size(); j ++) {
+                if (listInterface.get(i).getTenantId().equals(listFromDB.get(j).getTenantId())) {
+                    temp = 1;
+                    continue;
+                }
+            }
+            
+            if (temp == 0) {
+                listFromDB.add(listInterface.get(i));
+            }
+            
+        }
+   
         // 保存到数据库
-        //tenantAroundMgrDao.save(list);
+        tenantAroundMgrDao.save(listFromDB);
         System.out.println("保存到数据库成功");
     }
 
