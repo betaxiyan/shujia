@@ -119,14 +119,6 @@ a:focus {
     color: #d9534f;
 }
 
-.tools_search  .export {
-    position: absolute;
-    right: 20px;
-    bottom: -3px;
-    font-size: 14px;
-    font-weight: bold;
-    color: #d9534f;
-}
 
 .table-responsive {
     overflow-x: hidden;
