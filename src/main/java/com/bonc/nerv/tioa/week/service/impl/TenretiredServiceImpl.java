@@ -30,10 +30,12 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+
 import com.bonc.nerv.tioa.week.dao.TenretiredDao;
 import com.bonc.nerv.tioa.week.entity.SearchTenretiredData;
 import com.bonc.nerv.tioa.week.entity.TenretiredEntity;
 import com.bonc.nerv.tioa.week.service.TenretiredService;
+import com.bonc.nerv.tioa.week.util.DateUtils;
 import com.bonc.nerv.tioa.week.util.PoiUtils;
 import com.bonc.nerv.tioa.week.util.ResultPager;
 
@@ -276,10 +278,10 @@ public class TenretiredServiceImpl implements  TenretiredService{
             String demand=tenretiredEntity.getDemand();
             String serviceName=tenretiredEntity.getServiceName();
             String sequenceName=tenretiredEntity.getSequenceName();
-            String askDate=tenretiredEntity.getAskDate();
-            String openDate=tenretiredEntity.getOpenDate();
+            String askDate=tenretiredEntity.getAskDate()==null?"":DateUtils.formatDateToString(tenretiredEntity.getAskDate(),"yyyyMMdd");
+            String openDate=tenretiredEntity.getOpenDate()==null?"":DateUtils.formatDateToString(tenretiredEntity.getOpenDate(),"yyyyMMdd");
             String changeDate=tenretiredEntity.getChangeDate();
-            String endRentDate=tenretiredEntity.getEndRentDate();
+            String endRentDate=tenretiredEntity.getEndRentDate()==null?"":DateUtils.formatDateToString(tenretiredEntity.getEndRentDate(),"yyyyMMdd");
             String tenantInterface=tenretiredEntity.getTenantInterface();
             String remark=tenretiredEntity.getRemark();
             switch (tenretiredEntity.getTenantLevel()) {
