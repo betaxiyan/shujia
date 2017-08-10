@@ -170,7 +170,6 @@ public class TenretiredServiceImpl implements  TenretiredService{
             tens.setAskIp(tenretiredEntity.getAskIp());
             tens.setHostNum(tenretiredEntity.getHostNum());
             tens.setStorage(tenretiredEntity.getStorage());
-            tens.setStorageUnit(tenretiredEntity.getStorageUnit());
             tens.setComputingResourceRate(tenretiredEntity.getComputingResourceRate());
             tens.setComputeRoom(tenretiredEntity.getComputeRoom());
             tens.setUniplatformNum(tenretiredEntity.getUniplatformNum());
@@ -238,10 +237,10 @@ public class TenretiredServiceImpl implements  TenretiredService{
     @Override
     public void getExcel(List<TenretiredEntity> list, HttpServletResponse response){
         try {
-            String[] headers={"序号","服务类型","租户","租户级别","租户负责人","联系电话","资源类型","访问IP","主机数量","存储使用量","存储使用量单位","计算资源","机房","统一平台数量","4A数量","需求","服务名","队列名","申请日期","开放日期","变更时间","退租时间","平台接口人","备注"};
+            String[] headers={"序号","服务类型","租户","租户级别","租户负责人","联系电话","资源类型","访问IP","主机数量","存储使用量","计算资源","机房","统一平台数量","4A数量","需求","服务名","队列名","申请日期","开放日期","变更时间","退租时间","平台接口人","备注"};
             List<String[]> dataset=getTenList(list);
-            PoiUtils.exportExelMerge("能力开放平台已退租户情况.xls", headers, dataset, true, response, 
-                                         new Integer[] {1,2,3,4,5,13,14,15,22}, new Integer[] {1,2,3,4,5,13,14,15,22}, new Integer[] {0}, new Integer[]{0});
+            PoiUtils.exportExelMerge("能力开放平台已退租户情况.xlsx", headers, dataset, true, response, 
+                                         new Integer[] {5,4,2}, new Integer[] {1,2,3,4,5,13,14,15,21}, new Integer[] {0}, new Integer[]{0});
         } catch (FileNotFoundException e) {  
             e.printStackTrace();  
         } catch (IOException e) {  
@@ -269,8 +268,7 @@ public class TenretiredServiceImpl implements  TenretiredService{
             String resourceType=tenretiredEntity.getResourceType()==null?"":Integer.toString(tenretiredEntity.getTenantLevel());
             String askIp=tenretiredEntity.getAskIp();
             String hostNum=tenretiredEntity.getHostNum()==null?"":Integer.toString(tenretiredEntity.getHostNum());
-            String storage=tenretiredEntity.getStorage()==null?"":Integer.toString(tenretiredEntity.getStorage());
-            String storageUnit=tenretiredEntity.getStorageUnit();
+            String storage=tenretiredEntity.getStorage();
             String computingResourceRate=tenretiredEntity.getComputingResourceRate()==null?"":Double.toString(tenretiredEntity.getComputingResourceRate());
             String computeRoom=tenretiredEntity.getComputeRoom();
             String uniplatformNum=tenretiredEntity.getUniplatformNum()==null?"":Integer.toString(tenretiredEntity.getUniplatformNum());
@@ -354,7 +352,7 @@ public class TenretiredServiceImpl implements  TenretiredService{
                     break;
             }
             String[] service={Integer.toString(i+1),serviceType,tenantName,tenantLevel,tenantBoss,
-                              tenantTel,resourceType,askIp,hostNum,storage,storageUnit,computingResourceRate,
+                              tenantTel,resourceType,askIp,hostNum,storage,computingResourceRate,
                               computeRoom,uniplatformNum,numOf4a,demand,serviceName,sequenceName,askDate,openDate,
                               changeDate,endRentDate,tenantInterface,remark};
             dataset.add(service);
