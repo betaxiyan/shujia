@@ -76,9 +76,9 @@ $(document).ready(function() {
 	
   //新增表单提交
     $('#addTeantAroundMgrBtn').click(function() {
-//        var bootstrapValidator = $('#addUserForm').data('bootstrapValidator');
-//        bootstrapValidator.validate();
-//        if (bootstrapValidator.isValid()) {
+        var bootstrapValidator = $('#addUserForm').data('bootstrapValidator');
+        bootstrapValidator.validate();
+        if (bootstrapValidator.isValid()) {
     	 var tenantId= $("#addaround-tenantId").val();
     	 var tenantName=$("#addaround-tenantName").val();
     	 var tenantLevel=$("#addaround-tenantLevel").val();
@@ -106,6 +106,7 @@ $(document).ready(function() {
 	      			}
       			}
       		});
+        }
     });
     
 	//点击关闭按钮重新加载表格
@@ -113,30 +114,84 @@ $(document).ready(function() {
     	window.location.reload();
     });
      
+
+        // 编辑表单验证
+        $('#updateTenForm').bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+            	tenantTel: {
+                    validators: {
+                        notEmpty: {
+                            message: '电话号码不能为空'
+                        },
+//                        stringLength: {
+//                            min: 11,
+//                            max: 11,
+//                            message: '请输入11位电话号码'
+//                        },
+                        regexp: {
+                            regexp: /^1[3|5|8]{1}[0-9]{9}$/,
+                            message: '请输入正确的电话号码'
+                        }
+                    }
+                },
+                numOfUnifiedPlatform:{
+                	validators:{
+                		notEmpty:{
+                			 message:'统一平台数量不能为空'
+                		},
+                		 numeric: {
+                			 message: '统一平台数量只能输入数字'
+                		}  
+                	}
+                },
+                numOf4a:{
+                	validators:{
+                		notEmpty:{
+                			message:'4A数量不能为空'
+                		},
+                		numeric:{
+                			message:'4A数量只能输入数字'
+                		}
+                	}
+                }
+                
+                
+            }
+        });
     
     //编辑表单提交
     $('#updateTenArrBtn').click(function() {
-    	 var ttaId=$("#updatearound-ttaId").val();
-    	 var tenantId= $("#updatearound-tenantId").val();
-    	 var tenantName=$("#updatearound-tenantName").val();
-    	 var tenantLevel=$("#updatearound-tenantLevel").val();
-    	 var tenantBoss=$("#updatearound-tenantBoss").val();
-    	 var tenantTel=$("#updatearound-tenantTel").val();
-    	 var numOfUnifiedPlatform=$("#updatearound-numOfUnifiedPlatform").val();
-    	 var numOf4a=$("#updatearound-numOf4a").val();
-    	 var tenantReqirement=$("#updatearound-tenantReqirement").val();
-    	 var tenantInterface=$("#updatearound-tenantInterface").val();
-        	 $.ajax({
-           		url :ctx+"manage/saveTenantAroundMgr",
-           		type : "post",
-           		data: {ttaId:ttaId,tenantId:tenantId,tenantName:tenantName,tenantName:tenantName,
-           			tenantLevel:tenantLevel,tenantBoss:tenantBoss,tenantTel:tenantTel,numOfUnifiedPlatform:numOfUnifiedPlatform,
-           			numOf4a:numOf4a,tenantReqirement:tenantReqirement,tenantInterface:tenantInterface},
-           		success : function(data) {
-           			updateTenArrClean();
-           			data = eval("(" + data + ")");
-           			}
-           		});
+    	 var bootstrapValidator = $('#updateTenForm').data('bootstrapValidator');
+         bootstrapValidator.validate();
+         if (bootstrapValidator.isValid()) {
+	    	 var ttaId=$("#updatearound-ttaId").val();
+	    	 var tenantId= $("#updatearound-tenantId").val();
+	    	 var tenantName=$("#updatearound-tenantName").val();
+	    	 var tenantLevel=$("#updatearound-tenantLevel").val();
+	    	 var tenantBoss=$("#updatearound-tenantBoss").val();
+	    	 var tenantTel=$("#updatearound-tenantTel").val();
+	    	 var numOfUnifiedPlatform=$("#updatearound-numOfUnifiedPlatform").val();
+	    	 var numOf4a=$("#updatearound-numOf4a").val();
+	    	 var tenantReqirement=$("#updatearound-tenantReqirement").val();
+	    	 var tenantInterface=$("#updatearound-tenantInterface").val();
+	        	 $.ajax({
+	           		url :ctx+"manage/saveTenantAroundMgr",
+	           		type : "post",
+	           		data: {ttaId:ttaId,tenantId:tenantId,tenantName:tenantName,tenantName:tenantName,
+	           			tenantLevel:tenantLevel,tenantBoss:tenantBoss,tenantTel:tenantTel,numOfUnifiedPlatform:numOfUnifiedPlatform,
+	           			numOf4a:numOf4a,tenantReqirement:tenantReqirement,tenantInterface:tenantInterface},
+	           		success : function(data) {
+	           			updateTenArrClean();
+	           			data = eval("(" + data + ")");
+	           			}
+	           		});
+	         }
     });
     
     //编辑点击提交后，重置验证

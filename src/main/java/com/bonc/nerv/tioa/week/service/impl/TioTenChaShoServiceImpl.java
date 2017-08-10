@@ -150,7 +150,7 @@ public class TioTenChaShoServiceImpl implements TioTenChaShoService{
      * @see
      */
     public Integer getSignContract(String signContract){
-        if (signContract.equals("是")) {
+        if (signContract.equals("已签署")) {
             return com.bonc.nerv.tioa.week.constant.TioaConstant.TENANT_CONTRACT;
         } else {
             return com.bonc.nerv.tioa.week.constant.TioaConstant.TENANT_NO_CONTRACT;
@@ -281,6 +281,15 @@ public class TioTenChaShoServiceImpl implements TioTenChaShoService{
     @Override
     public void sendEmailToInterface() {
         
+    }
+
+    /**
+     * 删除所有记录
+     */
+    @Override
+    public void deleteAll() {
+        // TODO Auto-generated method stub
+        tioaTenantChargingShowDao.deleteAll();
     }
     
 }

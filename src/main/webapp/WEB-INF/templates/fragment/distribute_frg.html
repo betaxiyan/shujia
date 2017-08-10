@@ -5,19 +5,20 @@
   <meta charset="UTF-8" />
 </head>
   <body>
-      <div th:fragment="distribute" role="tabpanel" class="tab-pane" id="details_one">
+      <div th:fragment="distribute" role="tabpanel" class="tab-pane active" id="details_one">
            <div class="view_body">
-              <div class="tools_search" style="margin: 20px 0;">
+              <div class="view_search" style="margin: 20px 0;">
                    <span>租户</span><input type="text" style="width:140px;height:26px;" id="tenantName" name="tenantName" value="" />                       
                    <span>租户负责人</span><input type="text" style="width:140px;height:26px;" id="tenantBoss" name="tenantBoss" value=""/>   
                    <button type="button" class="btn btn-danger" style="margin-left:90px;margin-right:30px" th:onclick="'clickDisTable()'">查询</button>
                    <button type="button" class="btn btn-danger" th:onclick="'cleanDisSearch()'">清空</button>
-                   <button class="btn btn-danger export" style="margin-left:30px;" th:onclick="'exportDisFile()'"><!-- <i class="layui-icon">&#xe601;</i> --> 导出   </button><br/>
+                   <!-- <button class="btn btn-danger export" style="margin-left:30px;" th:onclick="'exportDisFile()'"><i class="layui-icon">&#xe601;</i> 导出   </button><br/> -->
+                   <a href="#" class="export" th:onclick="'exportDisFile()'">导出</a>
                </div>
-               <div class="tools-header">
+               <!-- <div class="tools-header">
                    <i class="upload_icon"></i>
                    <a href="#" class="upload" data-toggle="modal" data-target="#addToolModal" style="margin-left:1200px;">新增内容</a>
-               </div>
+               </div> -->
               <div class="tools_tab">
                 <div class="tools_body">
                     <div class="box">
@@ -27,8 +28,8 @@
                                     <tr style="text-align: center">
                                            <th>序号</th><th>服务类型</th><th>租户</th>
                                            <th>租户级别</th><th>租户负责人</th><th>联系电话</th>
-                                           <th>资源类型</th><th>文件数</th><th>存储</th><th>存储单位</th>
-                                           <th>存储使用量</th><th>存储使用量单位</th><th>存储使用占比</th>
+                                           <th>资源类型</th><th>文件数</th><th>存储</th>
+                                           <th>存储使用量</th><th>存储使用占比</th>
                                            <th>CPU</th><th>CPU最大</th><th>CPU平均</th><th>内存</th>
                                            <th>内存最大</th><th>内存平均</th><th>申请时间</th>
                                            <th>变更时间</th><th>开放时间</th><th>操作</th>
@@ -67,7 +68,7 @@
                             <div class="form-group">
                                 <label for="tenantLevel" class="control-label col-md-2 ">租户级别</label>
                                 <div class="col-md-9">
-                                    <select name="tenantLevel" id="add-tenantLevel" >
+                                    <select class="form-control" name="tenantLevel" id="add-tenantLevel" >
                                        <option value="0">小</option>
                                        <option value="1">中</option>
                                        <option value="2">大</option>
@@ -89,7 +90,7 @@
                              <div class="form-group">
                                 <label for="resourceType" class="control-label col-md-2 ">资源类型</label>
                                 <div class="col-md-9">
-                                    <select name="resourceType" id="add-resourceType">
+                                    <select class="form-control"  name="resourceType" id="add-resourceType">
                                         <option value="1">Flume</option>
                                         <option value="2">FTP集群</option>
                                         <option value="3">Hbase</option>
@@ -123,21 +124,9 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="storageUnit" class="control-label col-md-2 ">存储单位</label>
-                                <div class="col-md-9">
-                                    <input class="form-control" id="add-storageUnit" name="storageUnit" placeholder="请输入存储单位"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 <label for="storageUsage" class="control-label col-md-2 ">存储使用量</label>
                                 <div class="col-md-9">
                                     <input class="form-control" id="add-storageUsage" name="storageUsage" placeholder="请输入存储使用量"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="storageUsageUnit" class="control-label col-md-2 ">存储使用量单位</label>
-                                <div class="col-md-9">
-                                    <input class="form-control" id="add-storageUsageUnit" name="storageUsageUnit" placeholder="请输入存储使用量单位"/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -185,19 +174,19 @@
                             <div class="form-group">
                                 <label for="askDate" class="control-label col-md-2 ">申请时间</label>
                                 <div class="col-md-9">
-                                    <input class="Wdate" id="add-askDate" name="askDate" placeholder="请输入申请时间"/>
+                                    <input class="Wdate" id="add-askDate" name="askDate"  th:onClick="'WdatePicker()'" placeholder="请输入申请时间"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="changeDate" class="control-label col-md-2 ">变更时间</label>
                                 <div class="col-md-9">
-                                    <input class="Wdate" id="add-changeDate" name="changeDate" placeholder="请输入变更时间"/>
+                                    <input class="Wdate" id="add-changeDate" name="changeDate"  th:onClick="'WdatePicker()'" placeholder="请输入变更时间"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="openDate" class="control-label col-md-2 ">开放时间</label>
                                 <div class="col-md-9">
-                                    <input class="Wdate" id="add-openDate" name="openDate" placeholder="请输入开放时间"/>
+                                    <input class="Wdate" id="add-openDate" name="openDate"  th:onClick="'WdatePicker()'" placeholder="请输入开放时间"/>
                                 </div>
                             </div>
                         </form>
@@ -222,42 +211,42 @@
                            <div class="form-group">
                                 <label for="serviceType" class="control-label col-md-2 ">服务类型</label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control" id="update-serviceType" name="serviceType" placeholder="请输入服务类型"/>
+                                    <input type="text" class="form-control" id="update-serviceType" name="serviceType" readonly="readonly" placeholder="请输入服务类型"/>
                                 </div>
                             </div>
                              <div class="form-group">
                                 <label for="tenantName" class="control-label col-md-2 ">租户</label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control" id="update-tenantName" name="tenantName" placeholder="请输入租户"/>
+                                    <input type="text" class="form-control" id="update-tenantName" name="tenantName" readonly="readonly" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="tenantLevel" class="control-label col-md-2 ">租户级别</label>
                                 <div class="col-md-9">
-                                <select name="tenantLevel" id="update-tenantLevel" >
-                                   <option value="0">小</option>
-                                   <option value="1">中</option>
-                                   <option value="2">大</option>
-                                </select>
+	                                <select name="tenantLevel" class="form-control" id="update-tenantLevel" disabled="disabled">
+	                                   <option value="0">小</option>
+	                                   <option value="1">中</option>
+	                                   <option value="2">大</option>
+	                                </select>
                                    <!--  <input rows="4" cols="20" class="form-control" id="add-tenantLevel" name="tenantLevel" placeholder="请输入租户级别"/> -->
                                 </div>
                             </div>
                              <div class="form-group">
                                 <label for="tenantBoss" class="control-label col-md-2 ">租户负责人</label>
                                 <div class="col-md-9">
-                                    <input class="form-control" id="update-tenantBoss" name="tenantBoss" placeholder="请输入租户负责人"/>
+                                    <input class="form-control" id="update-tenantBoss" name="tenantBoss" readonly="readonly"/>
                                 </div>
                             </div>
                              <div class="form-group">
                                 <label for="tenantTel" class="control-label col-md-2 ">联系电话</label>
                                 <div class="col-md-9">
-                                    <input class="form-control" id="update-tenantTel" name="tenantTel" placeholder="请输入联系电话"/>
+                                    <input class="form-control" id="update-tenantTel" name="tenantTel" readonly="readonly"/>
                                 </div>
                             </div>
                              <div class="form-group">
                                 <label for="resourceType" class="control-label col-md-2 ">资源类型</label>
                                 <div class="col-md-9">
-                                <select name="resourceType" id="update-resourceType">
+                                <select class="form-control" name="resourceType" id="update-resourceType" disabled="disabled">
                                     <option value="1">Flume</option>
                                     <option value="2">FTP集群</option>
                                     <option value="3">Hbase</option>
@@ -282,7 +271,7 @@
                             <div class="form-group">
                                 <label for="fileCount" class="control-label col-md-2 ">文件数</label>
                                 <div class="col-md-9">
-                                    <input  class="form-control" id="update-fileCount" name="fileCount" placeholder="请输入文件数"/>
+                                    <input  class="form-control" id="update-fileCount" name="fileCount" readonly="readonly"/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -292,21 +281,9 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="storageUnit" class="control-label col-md-2 ">存储单位</label>
-                                <div class="col-md-9">
-                                    <input class="form-control" id="update-storageUnit" name="storageUnit" placeholder="请输入存储单位"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 <label for="storageUsage" class="control-label col-md-2 ">存储使用量</label>
                                 <div class="col-md-9">
                                     <input class="form-control" id="update-storageUsage" name="storageUsage" placeholder="请输入存储使用量"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="storageUsageUnit" class="control-label col-md-2 ">存储使用量单位</label>
-                                <div class="col-md-9">
-                                    <input class="form-control" id="update-storageUsageUnit" name="storageUsageUnit" placeholder="请输入存储使用量单位"/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -354,19 +331,19 @@
                             <div class="form-group">
                                 <label for="askDate" class="control-label col-md-2 ">申请时间</label>
                                 <div class="col-md-9">
-                                    <input class="Wdate" id="update-askDate" name="askDate" placeholder="请输入申请时间"/>
+                                    <input class="Wdate" id="update-askDate" name="askDate" th:onClick="'WdatePicker()'" placeholder="请输入申请时间"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="changeDate" class="control-label col-md-2 ">变更时间</label>
                                 <div class="col-md-9">
-                                    <input class="Wdate" id="update-changeDate" name="changeDate" placeholder="请输入变更时间"/>
+                                    <input class="Wdate" id="update-changeDate" name="changeDate" th:onClick="'WdatePicker()'" placeholder="请输入变更时间"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="openDate" class="control-label col-md-2 ">开放时间</label>
                                 <div class="col-md-9">
-                                    <input class="Wdate" id="update-openDate" name="openDate" placeholder="请输入开放时间"/>
+                                    <input class="Wdate" id="update-openDate" name="openDate" th:onClick="'WdatePicker()'"  placeholder="请输入开放时间"/>
                                 </div>
                             </div>
                         </form>

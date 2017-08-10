@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,9 +49,9 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
      */
     @Override
     public void saveIdAndNameFromHttp() {
-        String jsonStr = WebClientUtil.doGet("findAllAroundTenant", null);
+        String jsonStr = WebClientUtil.doGet(findAllAroundTenant, null);
         ObjectMapper map = new ObjectMapper();
-        List<TioaTenantAroundShowEntity> list = new ArrayList<TioaTenantAroundShowEntity>();
+        List<TioaTenantAroundShowEntity> listInterface = new ArrayList<TioaTenantAroundShowEntity>();
         try {
             JsonNode jsonNode = map.readTree(jsonStr);
             String success = jsonNode.get("success").toString();
@@ -63,19 +62,38 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
             JsonNode dataNode = jsonNode.get("data");
             for (JsonNode nodeOne : dataNode) {
                 TioaTenantAroundShowEntity tioaTenantAroundShowEntity = new TioaTenantAroundShowEntity();
-                System.out.println(nodeOne.get("tenantId").asText());
                 tioaTenantAroundShowEntity.setTenantId(nodeOne.get("tenantId").asText());
-                System.out.println(nodeOne.get("tenantId").asText());
                 tioaTenantAroundShowEntity.setTenantName(nodeOne.get("tenantName").asText());
-                list.add(tioaTenantAroundShowEntity);
+                listInterface.add(tioaTenantAroundShowEntity);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
+        //获取数据库中的数据与接口中的数据进行比较
+        List<TioaTenantAroundShowEntity> listFromDB = this.findAllTenantAroundMgr();
+        listFromDB.removeAll(listInterface);
+        
+        //比较两个list的差集
+        //用从接口获取的list减去从数据库获取的list，将差集添加到从数据库获取的list
+        int temp = 0;
+        for (int i = 0;i < listInterface.size(); i ++) {
+            temp = 0;
+            for (int j = 0; j < listFromDB.size(); j ++) {
+                if (listInterface.get(i).getTenantId().equals(listFromDB.get(j).getTenantId())) {
+                    temp = 1;
+                    continue;
+                }
+            }
+            
+            if (temp == 0) {
+                listFromDB.add(listInterface.get(i));
+            }
+            
+        }
+   
         // 保存到数据库
-        tenantAroundMgrDao.save(list);
+        tenantAroundMgrDao.save(listFromDB);
         System.out.println("保存到数据库成功");
     }
 
@@ -155,7 +173,7 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
             String[] headers = {"序号", "租户id", "租户名", "租户级别", "租户负责人", "联系电话", "统一平台个数", "4A个数",
                 "需求", "平台接口人"};
             List<String[]> dataset = getTenList(list);
-            PoiUtils.exportExelMerge("能力开放平台周边信息情况表.xls", headers, dataset, true, response,
+            PoiUtils.exportExelMerge("能力开放平台周边信息情况表.xlsx", headers, dataset, true, response,
                 new Integer[] {0}, new Integer[] {0}, new Integer[] {0}, new Integer[] {0});
         }
         catch (FileNotFoundException e) {
