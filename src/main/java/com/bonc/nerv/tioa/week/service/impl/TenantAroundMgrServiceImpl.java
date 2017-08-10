@@ -50,9 +50,9 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
      */
     @Override
     public void saveIdAndNameFromHttp() {
-        String jsonStr = WebClientUtil.doGet("findAllAroundTenant", null);
+        String jsonStr = WebClientUtil.doGet(findAllAroundTenant, null);
         ObjectMapper map = new ObjectMapper();
-        List<TioaTenantAroundShowEntity> list = new ArrayList<TioaTenantAroundShowEntity>();
+        List<TioaTenantAroundShowEntity> listInterface = new ArrayList<TioaTenantAroundShowEntity>();
         try {
             JsonNode jsonNode = map.readTree(jsonStr);
             String success = jsonNode.get("success").toString();
@@ -63,19 +63,22 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
             JsonNode dataNode = jsonNode.get("data");
             for (JsonNode nodeOne : dataNode) {
                 TioaTenantAroundShowEntity tioaTenantAroundShowEntity = new TioaTenantAroundShowEntity();
-                System.out.println(nodeOne.get("tenantId").asText());
                 tioaTenantAroundShowEntity.setTenantId(nodeOne.get("tenantId").asText());
-                System.out.println(nodeOne.get("tenantId").asText());
                 tioaTenantAroundShowEntity.setTenantName(nodeOne.get("tenantName").asText());
-                list.add(tioaTenantAroundShowEntity);
+                listInterface.add(tioaTenantAroundShowEntity);
             }
         }
         catch (Exception e) {
             e.printStackTrace();
         }
 
+        //获取数据库中的数据与接口中的数据进行比较
+        List<TioaTenantAroundShowEntity> listFromDB = this.findAllTenantAroundMgr();
+        listFromDB.removeAll(listInterface);
+        System.out.println(listInterface.size() + "接口中list大小");
+        System.out.println(listFromDB.size() + "数据库中大小");
         // 保存到数据库
-        tenantAroundMgrDao.save(list);
+        //tenantAroundMgrDao.save(list);
         System.out.println("保存到数据库成功");
     }
 
