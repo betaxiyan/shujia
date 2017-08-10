@@ -51,6 +51,7 @@ public class TenantAroundMgrController {
      */
     @RequestMapping("/tenantAroundMgr")
     public String tenantAroundMgr(){
+        tenantAroundMgrService.saveIdAndNameFromHttp();
         return "manage/tenant_arount_show";
     }
     
