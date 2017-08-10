@@ -194,7 +194,7 @@ public class POIUtil {
         if (workbook != null) {
             // for(int sheetNum = 0;sheetNum < workbook.getNumberOfSheets();sheetNum++){  
             //获得当前sheet工作表  
-            Sheet sheet = workbook.getSheetAt(2);
+            Sheet sheet = workbook.getSheetAt(0);
             /*if(sheet == null){  
                 continue;  
             }*/
