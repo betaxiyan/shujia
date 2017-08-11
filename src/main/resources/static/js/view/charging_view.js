@@ -37,7 +37,7 @@ function loaddata() {
         "bInfo": true,
         "bAutoWidth": true,
         /*	数据源Ajax*/
-        "ajax":{ url:"findAll"},
+        "ajax":{ url: ctx+ "findAll"},
     	"columns": [				
     	            {"mData": "tenantName"},		{"mData": "serviceType"},			{"mData": "tenantType"}, 
     	            {"mData": "resourceTime"},		{"mData": "uniplatform4aTime"},		{"mData": "havedateTime"},
@@ -115,7 +115,7 @@ function loaddata() {
        var data_1
        /*AJAX获取被修改的一行数据*/
        $.ajax({
-    	   		url:"findByTcId",
+    	   		url: ctx + "findByTcId",
     	   		type: "GET",
     	   		async:false,			//同步执行
     	   		data:{jstcId:jstcId},
@@ -243,7 +243,7 @@ function loaddata() {
 	      var msg = "真的要修改吗？\n\n请确认！";
 		   
 		  if (confirm(msg)==true){
-			  $.post("saveModifyData",
+			  $.post(ctx + "saveModifyData",
 					 {tcId:tcId,
 	    	  	  		tenantName:tenantName, 		serviceType:serviceType, 
 	    	  	  		tenantType:tenantType, 		resourceTime:resourceTime, 
@@ -373,7 +373,7 @@ function loaddata() {
    function jfdoUpload() {  
 	     var formData = new FormData($( "#jfuploadForm" )[0]);  
 	     $.ajax({  
-	          url: "/save" ,  
+	          url: ctx + "/save" ,  
 	          type: 'POST',  
 	          data: formData,  
 	            
