@@ -1,5 +1,8 @@
 /*
- * 文件名：TenantAroundMgrService.java 版权：Copyright by www.bonc.com.cn 描述： 修改人：leijin 修改时间：2017年8月7日
+ * 文件名：TenantAroundMgrService.java 
+ * 版权：Copyright by www.bonc.com.cn 
+ * 描述： 修改人：leijin 
+ * 修改时间：2017年8月7日
  */
 
 package com.bonc.nerv.tioa.week.service.impl;
@@ -38,20 +41,28 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Service("tenantAroundMgrService")
 public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
 
+    /**
+     * 
+     */
     @Autowired
     private TenantAroundMgrDao tenantAroundMgrDao;
 
+    /**
+     * 从该接口获取数据
+     */
     @Value("${bonc.restful.findAllAroundTenant}")
     private String findAllAroundTenant;
 
     /**
      * 从接口导入数据到数据库
+     * 
      */
     @Override
     public void saveIdAndNameFromHttp() {
         String jsonStr = WebClientUtil.doGet(findAllAroundTenant, null);
         ObjectMapper map = new ObjectMapper();
         List<TioaTenantAroundShowEntity> listInterface = new ArrayList<TioaTenantAroundShowEntity>();
+        //解析接口中的json数据
         try {
             JsonNode jsonNode = map.readTree(jsonStr);
             String success = jsonNode.get("success").toString();
@@ -72,9 +83,7 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
 
         //获取数据库中的数据与接口中的数据进行比较
         List<TioaTenantAroundShowEntity> listFromDB = this.findAllTenantAroundMgr();
-        listFromDB.removeAll(listInterface);
         
-        //比较两个list的差集
         //用从接口获取的list减去从数据库获取的list，将差集添加到从数据库获取的list
         int temp = 0;
         for (int i = 0;i < listInterface.size(); i ++) {
@@ -85,13 +94,10 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
                     continue;
                 }
             }
-            
             if (temp == 0) {
                 listFromDB.add(listInterface.get(i));
             }
-            
         }
-   
         // 保存到数据库
         tenantAroundMgrDao.save(listFromDB);
     }
@@ -105,12 +111,7 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
         System.out.println("导出数据库成功");
     }
 
-    /**
-     * 将批量修改的Excel导入到数据库
-     */
-    public void importToTenantAroundMgr() {
-
-    }
+  
 
     /**
      * 查询所有记录显示到页面
@@ -131,8 +132,7 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
 
     /**
      * 删除一条记录
-     * 
-     * @param tioaTenantAroundShowEntity
+     * @param ttaId   
      */
     public void deleteTenantAroundMgr(Long ttaId) {
         tenantAroundMgrDao.delete(ttaId);
@@ -141,7 +141,7 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
     /**
      * 修改后保存一条记录到数据库
      * 
-     * @param tioaTenantAroundShowEntity
+     * @param tioaTenantAroundShowEntity  
      */
     public void saveTenantAroundMgr(TioaTenantAroundShowEntity tioaTenantAroundShowEntity) {
         tenantAroundMgrDao.save(tioaTenantAroundShowEntity);
@@ -172,13 +172,12 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
             String[] headers = {"租户id", "租户名", "租户级别", "租户负责人", "联系电话", "统一平台个数", "4A个数",
                 "需求", "平台接口人"};
             List<String[]> dataset = getTenList(list);
+            PoiUtils.setAddress("A:I");
             PoiUtils.exportExelMerge("能力开放平台周边信息情况表.xlsx", headers, dataset, true, response,
                 new Integer[] {0}, new Integer[] {0}, new Integer[] {0}, new Integer[] {0});
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -187,8 +186,8 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
     /**
      * Description: 数据放到list集合中
      * 
-     * @param list
-     * @return
+     * @param list  
+     * @return list
      * @see
      */
     private List<String[]> getTenList(List<TioaTenantAroundShowEntity> list) {
@@ -234,8 +233,7 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
         try {
             list = PoiUtils.readExcel(excelFile);
             System.out.println(list.size());
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         for (int i = 0; i < list.size(); i++ ) {
@@ -262,15 +260,14 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
     /**
      * 字符串转整形
      * 
-     * @param str
+     * @param str  
      * @return int
      * @see
      */
     public Integer getInteger(String str) {
         if (str != null && !str.equals("")) {
             return Integer.parseInt(str);
-        }
-        else {
+        } else {
             return null;
         }
     }

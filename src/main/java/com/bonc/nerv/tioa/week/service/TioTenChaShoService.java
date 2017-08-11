@@ -67,6 +67,10 @@ public interface TioTenChaShoService {
      * Description: <br>
      * 向接口人发送邮件
      * @see
+     * 
+     * 
+     * 
+     * 
      */
     void sendEmailToInterface();
 }
