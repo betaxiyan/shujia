@@ -402,7 +402,9 @@ $(document).ready(function() {
     	 var demand=$("#updateleave-demand").val();
     	 var serviceName=$("#updateleave-serviceName").val();
     	 var sequenceName=$("#updateleave-sequenceName").val();
+    	 alert(sequenceName);
     	 var askDate=$("#updateleave-askDate").val();
+    	 alert(askDate);
     	 var openDate=$("#updateleave-openDate").val();
     	 var changeDate=$("#updateleave-changeDate").val();
     	 var endRentDate=$("#updateleave-endRentDate").val();
@@ -463,7 +465,7 @@ $(document).ready(function() {
                     	    $("#updateleave-storageUnit").val(data.storageUnit);
                     	    $("#updateleave-computingResourceRate").val(data.computingResourceRate);
                     	    $("#updateleave-computeRoom").val(data.computeRoom);
-                    	    $("#updateleave-uniplatform").val(data.uniplatform);
+                    	    $("#updateleave-uniplatformNum").val(data.uniplatformNum);
                     	    $("#updateleave-numOf4a").val(data.numOf4a);
                     	    $("#updateleave-demand").val(data.demand);
                     	    $("#updateleave-serviceName").val(data.serviceName);
