@@ -174,7 +174,7 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
             List<String[]> dataset = getTenList(list);
             PoiUtils.setAddress("A:I");
             PoiUtils.exportExelMerge("能力开放平台周边信息情况表.xlsx", headers, dataset, true, response,
-                new Integer[] {0}, new Integer[] {0}, new Integer[] {0}, new Integer[] {0});
+                new Integer[] {}, new Integer[] {}, new Integer[] {}, new Integer[] {});
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
