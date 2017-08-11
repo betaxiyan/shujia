@@ -44,6 +44,18 @@ public class PoiUtils {
      * xlsx文档
      */
     private static final String XLSX = "xlsx";
+    
+  //添加自动筛选的列 如 A:M  
+    private static String address = "";
+    
+    /** 
+     * 设置表头自动筛选栏位,如A:AC. 
+     * @param address 
+     */  
+    public static void setAddress(String address) {  
+        PoiUtils.address = address;  
+    }  
+    
 	/**
 	 * @param fileName 文件名称
 	 * @param headers 表头
@@ -86,7 +98,12 @@ public class PoiUtils {
 		sheet.setDefaultColumnWidth(15); // 设置表格默认列宽度为15个字节  
 		XSSFCellStyle headStyle = createHeadStyle(workbook); // 生成头部样式 
 		XSSFCellStyle commonDataStyle = createCommonDataStyle(workbook); // 生成一般数据样式  
-
+		//为表头添加自动筛选  
+        if(!"".equals(address)){  
+            CellRangeAddress c = (CellRangeAddress) CellRangeAddress.valueOf(address);  
+            sheet.setAutoFilter(c);  
+        }  
+          
 		if(headers == null || headers.length <= 0){
 			return;
 		}
