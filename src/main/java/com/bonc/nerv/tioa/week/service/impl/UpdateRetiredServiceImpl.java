@@ -69,7 +69,12 @@ public class UpdateRetiredServiceImpl implements UpdateRetiredService{
         tenantAroundMgrService.saveIdAndNameFromHttp();//刷新租户周围数据
         tenantResourceService.tenResToDb();//刷新租户资源数据
         Date maxDate = tenretiredDao.maxTime();
-        List<TenantResourceMidEntity> teResourceList = tenantResourceMidDao.findByEndRentDate(maxDate);
+        List<TenantResourceMidEntity> teResourceList=null;
+        if(maxDate ==null) {
+            teResourceList = tenantResourceMidDao.findByEndRentDateNull();
+        } else {
+            teResourceList = tenantResourceMidDao.findByEndRentDate(maxDate);
+        }
         List<TioaTenantAroundShowEntity> aroundList = tenantAroundMgrService.findAllTenantAroundMgr();
         List<TenretiredEntity> tenretiredList = new ArrayList<>();
         TenretiredEntity tenretiredEntity =null;

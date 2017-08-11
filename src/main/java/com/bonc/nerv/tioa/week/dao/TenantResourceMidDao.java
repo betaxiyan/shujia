@@ -35,4 +35,11 @@ public interface TenantResourceMidDao extends JpaRepository<TenantResourceMidEnt
      */
     @Query("select ten from TenantResourceMidEntity ten where ten.isInvalid = 'invalid' and ten.endRentDate >:endrentdate")
     List<TenantResourceMidEntity> findByEndRentDate(@Param(value = "endrentdate")Date enDate);
+    
+    /**
+     * @return  list集合
+     * @see
+     */
+    @Query("select ten from TenantResourceMidEntity ten where ten.isInvalid = 'invalid'")
+    List<TenantResourceMidEntity> findByEndRentDateNull();
 }
