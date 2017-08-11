@@ -17,6 +17,7 @@ $(document).ready(function() {
         "bSort": false,
         "bInfo": true,
         "bAutoWidth": true,
+        "scrollX": true,
         "ajax":{
      		"url":ctx+"tenant/findTenretiredList",
         	"data":function(d){

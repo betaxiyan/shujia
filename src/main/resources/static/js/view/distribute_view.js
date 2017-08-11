@@ -15,6 +15,7 @@ $(document).ready(function() {
         "bSort": false,
         "bInfo": true,
         "bAutoWidth": true,
+        "scrollX": true,
          "ajax":{
          	"url":ctx+"users/findlist",
          	"data":function(d){
