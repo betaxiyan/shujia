@@ -433,6 +433,7 @@ $(document).ready(function() {
            			data = eval("(" + data + ")");
            			}
            		});
+        	 clickAllTable();
 //        }
     });
     
@@ -463,6 +464,10 @@ $(document).ready(function() {
 function clickDisTable(){
 	tables.api().ajax.reload();
 };
+
+function clickAllTable(){
+	table.api().ajax.reload();
+}
 
 //清空按钮
 function cleanDisSearch(){
