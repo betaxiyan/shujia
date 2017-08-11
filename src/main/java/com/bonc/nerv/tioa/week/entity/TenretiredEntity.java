@@ -70,7 +70,7 @@ public class TenretiredEntity {
     /**
      * 资源类型
      */
-    private Integer resourceType;
+    private String resourceType;
     
     /**
      * 访问IP
@@ -206,11 +206,11 @@ public class TenretiredEntity {
         this.tenantTel = tenantTel;
     }
     
-    public Integer getResourceType() {
+    public String getResourceType() {
         return resourceType;
     }
 
-    public void setResourceType(Integer resourceType) {
+    public void setResourceType(String resourceType) {
         this.resourceType = resourceType;
     }
     

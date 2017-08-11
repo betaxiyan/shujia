@@ -267,7 +267,7 @@ public class TenretiredServiceImpl implements  TenretiredService{
             String tenantLevel=tenretiredEntity.getTenantLevel()==null?"":Integer.toString(tenretiredEntity.getTenantLevel());
             String tenantBoss=tenretiredEntity.getTenantBoss();
             String tenantTel=tenretiredEntity.getTenantTel();
-            String resourceType=tenretiredEntity.getResourceType()==null?"":Integer.toString(tenretiredEntity.getTenantLevel());
+            String resourceType=tenretiredEntity.getResourceType();
             String askIp=tenretiredEntity.getAskIp();
             String hostNum=tenretiredEntity.getHostNum()==null?"":Integer.toString(tenretiredEntity.getHostNum());
             String storage=tenretiredEntity.getStorage();
@@ -284,75 +284,15 @@ public class TenretiredServiceImpl implements  TenretiredService{
             String endRentDate=tenretiredEntity.getEndRentDate()==null?"":DateUtils.formatDateToString(tenretiredEntity.getEndRentDate(),"yyyyMMdd");
             String tenantInterface=tenretiredEntity.getTenantInterface();
             String remark=tenretiredEntity.getRemark();
-            switch (tenretiredEntity.getTenantLevel()) {
-                case 0:
-                    tenantLevel= "小";
-                    break;
-                case 1:
-                    tenantLevel= "中";
-                    break;
-                case 2:
-                    tenantLevel= "大";
-                    break;
-                default:
-                    break;
-            }
-            
-            switch (tenretiredEntity.getResourceType()) {
-                case 1:
-                    resourceType= "Fiume";
-                    break;
-                case 2:
-                    resourceType= "FTP集群";
-                    break;
-                case 3:
-                    resourceType= "Hbase";
-                    break;
-                case 4:
-                    resourceType= "hue";
-                    break;
-                case 5:
-                    resourceType= "Hive";
-                    break;
-                case 6:
-                    resourceType= "IMPALA";
-                    break;
-                case 7:
-                    resourceType= "KAFKA";
-                    break;
-                case 8:
-                    resourceType= "MPP";
-                    break;
-                case 9:
-                    resourceType= "Mysql";
-                    break;
-                case 10:
-                    resourceType= "Oracle";
-                    break;
-                case 11:
-                    resourceType= "Redis";
-                    break;
-                case 12:
-                    resourceType= "spark";
-                    break;
-                case 13:
-                    resourceType= "storm";
-                    break;
-                case 14:
-                    resourceType= "接口机";
-                    break;
-                case 15:
-                    resourceType= "虚拟机";
-                    break;
-                case 16:
-                    resourceType= "物理机";
-                    break;
-                case 17:
-                    resourceType= "应用服务器";
-                    break;
-                default:
-                    break;
-            }
+            if (tenretiredEntity.getTenantLevel()== null) {
+                tenantLevel = ""; 
+            } else if (tenretiredEntity.getTenantLevel()== 0) {
+                tenantLevel = "小"; 
+            } else if (tenretiredEntity.getTenantLevel()== 1) {
+                tenantLevel = "中"; 
+            } else if (tenretiredEntity.getTenantLevel()== 2) {
+                tenantLevel = "大"; 
+            } 
             String[] service={Integer.toString(i+1),serviceType,tenantName,tenantLevel,tenantBoss,
                               tenantTel,resourceType,askIp,hostNum,storage,computingResourceRate,
                               computeRoom,uniplatformNum,numOf4a,demand,serviceName,sequenceName,askDate,openDate,
