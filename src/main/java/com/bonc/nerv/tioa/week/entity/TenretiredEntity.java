@@ -19,6 +19,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.alibaba.fastjson.annotation.JSONField;
 
 
@@ -126,12 +128,14 @@ public class TenretiredEntity {
      * 申请时间
      */
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyyMMdd")
     private Date askDate;
     
     /**
      * 开放时间
      */
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyyMMdd")
     private Date openDate;
     
     /**
@@ -143,6 +147,7 @@ public class TenretiredEntity {
      * 退租时间
      */
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyyMMdd")
     private Date endRentDate;
     
     /**
