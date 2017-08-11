@@ -13,14 +13,15 @@ function loaddata() {
             "info": "显示_START_到_END_, 共计_TOTAL_条数据",
             "emptyTable": "无记录",
             "infoEmpty": "共计0",
-            "search":"搜索："
+            "search":"搜索：",
+            "lengthMenu": "每页显示 _MENU_ 记录",
         },
         "scrollX": true,
         "destroy":true, //Cannot reinitialise DataTable,解决重新加载表格内容问题
         "bAutoWidth": true,        
         /* 分页设置 */
         "bPaginate": true,
-        "bLengthChange": false,
+        "bLengthChange": true,
         /* 搜索设置 */
         "bFilter": true,
         "bSort": false,
