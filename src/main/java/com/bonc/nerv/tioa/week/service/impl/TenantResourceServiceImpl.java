@@ -8,7 +8,9 @@
 
 package com.bonc.nerv.tioa.week.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,6 +46,7 @@ public class TenantResourceServiceImpl implements TenantResourceService{
     public void tenResToDb() {
         String validJson =  WebClientUtil.doGet("http://coptest.bonc.yz/resreq/res/myResourceV2!getResource.action?isInvalid=valid",null);
         String invalidJson =  WebClientUtil.doGet("http://coptest.bonc.yz/resreq/res/myResourceV2!getResource.action?isInvalid=invalid",null);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         ObjectMapper mapper = new ObjectMapper();
         //将ResourceAccountMidEntity的数据封装成list集合
         List<TenantResourceMidEntity> resultList =new ArrayList<TenantResourceMidEntity>();
@@ -59,7 +62,14 @@ public class TenantResourceServiceImpl implements TenantResourceService{
                     entity.setTenantId(nodeTwo.get("fixResource").get("tenant_id").asText());//租户id
                     entity.setTenantName(nodeTwo.get("fixResource").get("tenant_name").asText());//租户名
                     entity.setServiceType(nodeTwo.get("fixResource").get("request_type").asText());//服务类型
-                    entity.setEndRentData(nodeTwo.get("fixResource").get("update_time").asText());//更新时间
+                    String endDate = nodeTwo.get("fixResource").get("update_time").asText();
+                    try {
+                        Date enDate = format.parse(endDate);
+                        entity.setEndRentData(enDate);//更新时间
+                    } catch (Exception e) {
+                    }
+                    Date enDate = format.parse(endDate);
+                    entity.setEndRentData(enDate);//更新时间
                     if(nodeTwo.get("expendCodeResource").has("Account_Name")) {
                         entity.setTenantAccount(nodeTwo.get("expendCodeResource").get("Account_Name").asText());//租户账号
                     }
@@ -83,10 +93,21 @@ public class TenantResourceServiceImpl implements TenantResourceService{
                         entity.setComputeRoom(nodeTwo.get("expendCodeResource").get("Machine_Room").asText());//机房
                     }
                     if(nodeTwo.get("expendCodeResource").has("Apply_Time")) {
-                        entity.setAskDate(nodeTwo.get("expendCodeResource").get("Apply_Time").asText());//申请日期
+                        String asKDate = nodeTwo.get("expendCodeResource").get("Apply_Time").asText();
+                        try {
+                            Date askDate = format.parse(asKDate);
+                            entity.setAskDate(askDate);//申请日期
+                        } catch (Exception e) {
+                        }
                     }
                     if(nodeTwo.get("expendCodeResource").has("Start_Date")) {
-                        entity.setOpenDate(nodeTwo.get("expendCodeResource").get("Start_Date").asText());//开放日期
+                        String openDate = nodeTwo.get("expendCodeResource").get("Start_Date").asText();
+                        
+                        try {
+                            Date opeNDate = format.parse(openDate);
+                            entity.setOpenDate(opeNDate);//开放日期
+                        } catch (Exception e) {
+                        }
                     }
                     resultList.add(entity);
                 }
@@ -100,7 +121,14 @@ public class TenantResourceServiceImpl implements TenantResourceService{
                     entity.setTenantId(nodeTwo.get("fixResource").get("tenant_id").asText());//租户id
                     entity.setTenantName(nodeTwo.get("fixResource").get("tenant_name").asText());//租户名
                     entity.setServiceType(nodeTwo.get("fixResource").get("request_type").asText());//服务类型
-                    entity.setEndRentData(nodeTwo.get("fixResource").get("update_time").asText());//更新时间
+                    String endDate = nodeTwo.get("fixResource").get("update_time").asText();
+                    try {
+                        Date enDate = format.parse(endDate);
+                        entity.setEndRentData(enDate);//更新时间
+                    } catch (Exception e) {
+                    }
+                    Date enDate = format.parse(endDate);
+                    entity.setEndRentData(enDate);//更新时间
                     if(nodeTwo.get("expendCodeResource").has("Account_Name")) {
                         entity.setTenantAccount(nodeTwo.get("expendCodeResource").get("Account_Name").asText());//租户账号
                     }
@@ -124,10 +152,21 @@ public class TenantResourceServiceImpl implements TenantResourceService{
                         entity.setComputeRoom(nodeTwo.get("expendCodeResource").get("Machine_Room").asText());//机房
                     }
                     if(nodeTwo.get("expendCodeResource").has("Apply_Time")) {
-                        entity.setAskDate(nodeTwo.get("expendCodeResource").get("Apply_Time").asText());//申请日期
+                        String asKDate = nodeTwo.get("expendCodeResource").get("Apply_Time").asText();
+                        try {
+                            Date askDate = format.parse(asKDate);
+                            entity.setAskDate(askDate);//申请日期
+                        } catch (Exception e) {
+                        }
                     }
                     if(nodeTwo.get("expendCodeResource").has("Start_Date")) {
-                        entity.setOpenDate(nodeTwo.get("expendCodeResource").get("Start_Date").asText());//开放日期
+                        String openDate = nodeTwo.get("expendCodeResource").get("Start_Date").asText();
+                        
+                        try {
+                            Date opeNDate = format.parse(openDate);
+                            entity.setOpenDate(opeNDate);//开放日期
+                        } catch (Exception e) {
+                        }
                     }
                     resultList.add(entity);
                 }
@@ -137,7 +176,8 @@ public class TenantResourceServiceImpl implements TenantResourceService{
         }
         if(resultList!=null) {
             System.out.println(resultList);
-            tenantResourceMidDao.save(resultList);
+            tenantResourceMidDao.deleteAll();//清空数据库
+            tenantResourceMidDao.save(resultList);//刷新数据库
         }
         
     }
