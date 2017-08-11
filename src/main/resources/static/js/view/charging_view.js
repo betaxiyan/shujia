@@ -5,6 +5,7 @@ $(function(){
 function loaddata() {
 	
 	$('#charging_table').dataTable({
+		serverSide : false,
         "language": {
             "paginate": {
                 "previous": "上一页",
@@ -13,20 +14,29 @@ function loaddata() {
             "info": "显示_START_到_END_, 共计_TOTAL_条数据",
             "emptyTable": "无记录",
             "infoEmpty": "共计0",
-            "search":"搜索："
+            "search":"搜索：",
+            "lengthMenu": "每页显示 _MENU_ 记录",
+            
         },
-        "scrollX": true,
+       
+        "aLengthMenu":[  
+                     [5, 10, 20, 50 ], 
+                     [5, 10, 20, 50 ] 
+                     ],
+       
         "destroy":true, //Cannot reinitialise DataTable,解决重新加载表格内容问题
-        "bAutoWidth": true,        
+        
+        
         /* 分页设置 */
+        "scollX":true,
         "bPaginate": true,
-        "bLengthChange": false,
+        "bLengthChange": true,
         /* 搜索设置 */
         "bFilter": true,
         "bSort": false,
         /* 显示总条数 */
         "bInfo": true,
-        "bAutoWidth": false,
+        "bAutoWidth": true,
         /*	数据源Ajax*/
         "ajax":{ url:"findAll"},
     	"columns": [				
@@ -44,7 +54,7 @@ function loaddata() {
                         	"targets":-1,
                         	"bSortable": false,
                         	render: function(data, type, row) {
-                            	var html ='<button class="btn btn-xs jfedit btn-danger" value="'+row.tcId+'">编辑</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-xs btn-danger jfdelete" value="'+row.tcId+'">删除</button>';
+                            	var html ='<button class="btn btn-xs jfedit btn-danger" value="'+row.tcId+'">编辑</button></br><button class="btn btn-xs btn-danger jfdelete" value="'+row.tcId+'">删除</button>';
                                 return html;
                         	}
                         },
@@ -83,7 +93,7 @@ function loaddata() {
                         			var data1 = data.substr(0,4)+"/"+data.substr(4,2)+"/"+data.substr(6,2)
                         			var da_1 = new Date(Date.parse(data1));  
                         			var da_2 = new Date();
-                        			if ((da_1-da_2)/1000/3600/24 < 4 && (da_1-da_2)/1000/3600/24 > 0) {//三天内到期
+                        			if ((da_1-da_2)/1000/3600/24 < 4 && (da_1-da_2)/1000/3600/24 >-1) {//三天内到期
 										/*该行变色*/
                         				$(td).parents('tr').css("background-color","yellow");
                         				$(td).css("color","red");
