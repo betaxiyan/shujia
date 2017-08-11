@@ -38,11 +38,12 @@ public class PoiNewUtil {
      * @param sheetName sheet名字
      * @param headers 表头
      * @param ttEntityLists 数据集
-     * 
+     * @param mergeClom 合并列列号
      * @return XSSFWorkbook
      * @see
      */
-    public static XSSFWorkbook createWorkBook(String sheetName, String[] headers ,List<List<TenretiredEntity>> ttEntityLists ){
+    public static XSSFWorkbook createWorkBook(String sheetName, String[] headers ,List<List<TenretiredEntity>> ttEntityLists,
+                                              Integer[] mergeClom){
         XSSFWorkbook workbook = new XSSFWorkbook();
         //判断表头是否为空
         if(headers == null || headers.length <= 0){
@@ -52,7 +53,7 @@ public class PoiNewUtil {
             return workbook;
         }
         XSSFSheet sheet = workbook.createSheet(sheetName);
-        createSheet(sheet, headers, ttEntityLists);
+        createSheet(sheet, headers, ttEntityLists, mergeClom);
         
         return workbook;
         
@@ -64,10 +65,12 @@ public class PoiNewUtil {
      * @param sheet 一个传入的sheet
      * @param headers 表头
      * @param ttEntityLists 数据集
+     * @param mergeClom 合并列列号
      * @return XSSFSheet
      * @see
      */
-    public static XSSFSheet createSheet(XSSFSheet sheet, String[] headers ,List<List<TenretiredEntity>> ttEntityLists ){
+    public static XSSFSheet createSheet(XSSFSheet sheet, String[] headers ,List<List<TenretiredEntity>> ttEntityLists,
+                                        Integer[] mergeClom ){
         XSSFRow row = sheet.createRow(0); // 产生表格标题行  
         for (int i = 0; i < headers.length; i++) {
             XSSFCell cell = row.createCell(i);
@@ -75,21 +78,27 @@ public class PoiNewUtil {
             XSSFRichTextString text = new XSSFRichTextString(headers[i]);
             cell.setCellValue(text);
         }
-        int startRow = 1;
+        int startRow ;
         //大行
-        int rowNum=sheet.getLastRowNum()+1;//获得总行数
         for(int i=0; i<ttEntityLists.size() ;i++){
             int listSize = ttEntityLists.get(i).size();
             //生成待合并行
+            int rowNum=sheet.getLastRowNum()+1;//获得总行数
             startRow = rowNum; //起始行的行号
             for(int n =0; n< listSize; n++){
-                row = sheet.createRow(rowNum++);
-                rowNum=sheet.getLastRowNum();//更新总行数
+                row = sheet.createRow(rowNum);
+                rowNum=sheet.getLastRowNum()+1;//更新总行数
                 //生成列
-                XSSFCell cell = row.createCell(rowNum);
+                XSSFCell cell = row.createCell(0);
                 cell.setCellValue(ttEntityLists.get(i).get(n).getTenantName());
+                cell = row.createCell(1);
+                cell.setCellValue(ttEntityLists.get(i).get(n).getTenantLevel());
             }
-            //sheet.addMergedRegion(new CellRangeAddress( startRow, startRow+rowNum, 0, 0));
+            //new CellRangeAddress(0-base, 0-base, 0-based, 0-based)
+            for(int j =0 ;j<mergeClom.length; j++){
+                sheet.addMergedRegion(new CellRangeAddress(startRow, rowNum-1, mergeClom[j], mergeClom[j]));
+            }
+            
         }
         
         return null;

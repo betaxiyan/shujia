@@ -50,15 +50,34 @@ public class TioaController {
             "变更时间","退租时间","平台接口人","备注"};
         TenretiredEntity ten1 = new TenretiredEntity();
         ten1.setTenantName("test");
+        ten1.setTenantLevel(1);
         TenretiredEntity ten2 = new TenretiredEntity();
-        ten1.setTenantName("test");
+        ten2.setTenantName("test");
+        ten2.setTenantLevel(1);
+        TenretiredEntity ten3 = new TenretiredEntity();
+        ten3.setTenantName("test");
+        ten3.setTenantLevel(1);
+        TenretiredEntity ten4 = new TenretiredEntity();
+        ten4.setTenantName("test");
+        ten4.setTenantLevel(1);
         List<TenretiredEntity> tenList = new ArrayList<TenretiredEntity>();//已退租户
         //tenList = tenretiredDao.findAll();
         tenList.add(ten1);
         tenList.add(ten2);
+        tenList.add(ten3);
+        tenList.add(ten4);
+        
+        List<TenretiredEntity> tenList2 = new ArrayList<TenretiredEntity>();//已退租户
+        tenList2.add(ten1);
+        tenList2.add(ten2);
+        tenList2.add(ten3);
+        tenList2.add(ten4);
+        
         List<List<TenretiredEntity>> ttEntityLists = new ArrayList<List<TenretiredEntity>>();
         ttEntityLists.add(tenList);
-        XSSFWorkbook workbook = PoiNewUtil.createWorkBook(sheetName, headers ,ttEntityLists );
+        ttEntityLists.add(tenList2);
+        Integer[] mergeClom = {0 ,1};
+        XSSFWorkbook workbook = PoiNewUtil.createWorkBook(sheetName, headers ,ttEntityLists, mergeClom );
         FileOutputStream out = new FileOutputStream("D:/newExcel.xlsx");
         workbook.write(out);
         out.close();
