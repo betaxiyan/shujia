@@ -17,6 +17,7 @@ $(document).ready(function() {
         "bSort": false,
         "bInfo": true,
         "bAutoWidth": true,
+        "scrollX": true,
         "ajax":{
      		"url":ctx+"tenant/findTenretiredList",
         	"data":function(d){
@@ -222,7 +223,7 @@ $(document).ready(function() {
                  		 if(data == "" || data == null) {
                  			 return "-";
                  		 }
-                 		 return data;
+                 		 return (new Date(data)).Format("yyyyMMdd");
                  	 }
                 },
                 {
@@ -231,7 +232,7 @@ $(document).ready(function() {
                  		 if(data == "" || data == null) {
                  			 return "-";
                  		 }
-                 		 return data;
+                 		 return (new Date(data)).Format("yyyyMMdd");
                  	 }
                 },
                 {
@@ -249,7 +250,7 @@ $(document).ready(function() {
                  		 if(data == "" || data == null) {
                  			 return "-";
                  		 }
-                 		 return data;
+                 		 return (new Date(data)).Format("yyyyMMdd");
                  	 }
                 },
                 {
@@ -299,6 +300,36 @@ $(document).ready(function() {
         	});
         }
     });
+	
+    //格式化页面展示的时间
+    Date.prototype.Format = function(fmt) { //author: meizz 
+        var o = { 
+            "M+": this.getMonth() + 1, 
+            //月份 
+            "d+": this.getDate(), 
+            //日 
+            "h+": this.getHours(), 
+            //小时 
+            "m+": this.getMinutes(), 
+            //分 
+            "s+": this.getSeconds(), 
+            //秒 
+            "q+": Math.floor((this.getMonth() + 3) / 3), 
+            //季度 
+            "S": this.getMilliseconds() //毫秒 
+        }; 
+        if (/(y+)/.test(fmt)) { 
+            fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length)); 
+        } 
+        for (var k in o) { 
+            if (new RegExp("(" + k + ")").test(fmt)) { 
+                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length))); 
+            } 
+        } 
+        return fmt; 
+    } 
+
+
 	  
   //新增表单提交
 //    $('#addTenBtn').click(function() {
@@ -437,10 +468,10 @@ $(document).ready(function() {
                     	    $("#updateleave-demand").val(data.demand);
                     	    $("#updateleave-serviceName").val(data.serviceName);
                     	    $("#updateleave-sequenceName").val(data.sequenceName);
-                    	    $("#updateleave-askDate").val(data.askDate);
-                    	    $("#updateleave-openDate").val(data.openDate);
+                    	    $("#updateleave-askDate").val((new Date(data.askDate)).Format("yyyyMMdd"));
+                    	    $("#updateleave-openDate").val((new Date(data.openDate)).Format("yyyyMMdd"));
                     	    $("#updateleave-changeDate").val(data.changeDate);
-                    	    $("#updateleave-endRentDate").val(data.endRentDate);
+                    	    $("#updateleave-endRentDate").val((new Date(data.endRentDate)).Format("yyyyMMdd"));
                     	    $("#updateleave-tenantInterface").val(data.tenantInterface);
                     	    $("#updateleave-remark").val(data.remark);
                     }
@@ -526,8 +557,6 @@ $(document).ready(function() {
     }
    /*************************/     
 });
-
-  
 
 //查询操作按钮
 function clickLeaveTable(){

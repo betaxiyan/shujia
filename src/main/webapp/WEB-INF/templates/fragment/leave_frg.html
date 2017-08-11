@@ -17,7 +17,7 @@
                </div> -->
               <div class="box">
                  <div class="box-body table-responsive">
-                    <table id="leave_table" class="table table-bordered" cellspacing="0">
+                    <table id="leave_table" class="table table-bordered display nowrap">
                                 <thead>
                                     <tr style="text-align: center">
                                          <th>序号</th>
@@ -361,7 +361,7 @@
                         <div class="form-group">
                             <label for="openDate" class="control-label col-md-2 ">开放日期</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control Wdate" id="updateleave-openDate" name="openDate" placeholder="输入开放日期" th:onclick="'WdatePicker()'"/>
+                                <input type="text" class="form-control Wdate" id="updateleave-openDate" name="openDate" placeholder="输入开放日期" th:onclick="'WdatePicker()'" format="yyyyMMdd"/>
                             </div>
                         </div>
                         <div class="form-group">

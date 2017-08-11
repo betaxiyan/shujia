@@ -98,12 +98,12 @@ $(document).ready(function() {
       			//清空表单信息
       			addClean();
       			data = eval("(" + data + ")");
-	      			if (data.message == "200") {
+	      			/*if (data.message == "200") {
 	      				clickTable();
 	      				alert("添加成功");
 	      			} else {
 	      				alert("添加失败");
-	      			}
+	      			}*/
       			}
       		});
         }
@@ -308,7 +308,6 @@ function cleanLeaveSearch() {
 //文件导出
 function exportFile() {
 	var length = table.api().data().length;
-	alert(length);
 	if (length < 1) {
 		layui.use('layer', function(){
 			  var layer = layui.layer;
