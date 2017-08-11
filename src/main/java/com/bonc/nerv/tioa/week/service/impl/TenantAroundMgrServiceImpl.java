@@ -100,7 +100,6 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
         }
         // 保存到数据库
         tenantAroundMgrDao.save(listFromDB);
-        System.out.println("保存到数据库成功");
     }
 
     /**
@@ -170,9 +169,10 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
     @Override
     public void getExcel(List<TioaTenantAroundShowEntity> list, HttpServletResponse response) {
         try {
-            String[] headers = {"序号", "租户id", "租户名", "租户级别", "租户负责人", "联系电话", "统一平台个数", "4A个数",
+            String[] headers = {"租户id", "租户名", "租户级别", "租户负责人", "联系电话", "统一平台个数", "4A个数",
                 "需求", "平台接口人"};
             List<String[]> dataset = getTenList(list);
+            PoiUtils.setAddress("A:I");
             PoiUtils.exportExelMerge("能力开放平台周边信息情况表.xlsx", headers, dataset, true, response,
                 new Integer[] {0}, new Integer[] {0}, new Integer[] {0}, new Integer[] {0});
         } catch (FileNotFoundException e) {
@@ -206,7 +206,16 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
                 tioaTenantAroundShowEntity.getNumOf4a());
             String tenantReqirement = tioaTenantAroundShowEntity.getTenantReqirement();
             String tenantInterface = tioaTenantAroundShowEntity.getTenantInterface();
-            String[] service = {Integer.toString(i + 1), tenantId, tenantName, tenantLevel,
+            if (tioaTenantAroundShowEntity.getTenantLevel()== null) {
+                tenantLevel = ""; 
+            } else if (tioaTenantAroundShowEntity.getTenantLevel()== 0) {
+                tenantLevel = "小"; 
+            } else if (tioaTenantAroundShowEntity.getTenantLevel()== 1) {
+                tenantLevel = "中"; 
+            } else if (tioaTenantAroundShowEntity.getTenantLevel()== 2) {
+                tenantLevel = "大"; 
+            } 
+            String[] service = {tenantId, tenantName, tenantLevel,
                 tenantBoss, tenantTel, numOfUniplatformNum, numOf4a, tenantReqirement,
                 tenantInterface};
             dataset.add(service);
@@ -269,6 +278,12 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
     @Override
     public TioaTenantAroundShowEntity updateTenantAroundMg(Long ttaId) {
         return tenantAroundMgrDao.findOne(ttaId);
+    }
+
+
+    @Override
+    public void deleteAll(){
+       tenantAroundMgrDao.deleteAll();
     }
 
 }

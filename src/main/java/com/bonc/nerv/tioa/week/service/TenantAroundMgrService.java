@@ -99,4 +99,7 @@ public interface TenantAroundMgrService {
      * @see
      */
     TioaTenantAroundShowEntity updateTenantAroundMg(Long ttaId);
+
+
+    void deleteAll();
 }

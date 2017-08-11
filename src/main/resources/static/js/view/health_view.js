@@ -8,7 +8,7 @@ function restfulHealth(){
 
 		   $.ajax({
 		       type : "GET",
-		       url : "./restfulHealth",
+		       url : ctx+"restfulHealth",
 		       dataType:"json",
 		       contentType: "application/x-www-form-urlencoded; charset=utf-8",
 		       success : function(data) {
@@ -52,7 +52,7 @@ $('#detail_health').dataTable({
     "bInfo": true,
     "bAutoWidth": false,
     
-    "ajax":{ url:"./restfulHealth",},
+    "ajax":{ url: ctx+"restfulHealth",},
     		
     "columns": [ 
                    //mData 表示发请求时候本列的列明，返回的数据中相同下标名字的数据会填充到这一列
@@ -92,7 +92,7 @@ function updateTable(){
 	//刷新Ttl数据
 	   $.ajax({
 	       type : "GET",
-	       url : "./getMidDateToTtl",
+	       url : ctx+"getMidDateToTtl",
 	       dataType:"json",
 	       contentType: "application/x-www-form-urlencoded; charset=utf-8",
 	       success : function(data) {
@@ -114,7 +114,7 @@ function updateTable(){
 	   //刷新Ttd数据
 	   $.ajax({
 	       type : "GET",
-	       url : "./getMidDateToTtd",
+	       url : ctx+"getMidDateToTtd",
 	       dataType:"json",
 	       contentType: "application/x-www-form-urlencoded; charset=utf-8",
 	       success : function(data) {

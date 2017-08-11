@@ -159,25 +159,7 @@ $(document).ready(function() {
 	            	 }
 	             },
 	             {
-	            	 data:"storageUnit",
-	            	 render:function(data, type, row) {
-	            		 if(data == "" || data == null) {
-	            			 return "-";
-	            		 }
-	            		 return data;
-	            	 }
-	             },
-	             {
 	            	 data:"storageUsage",
-	            	 render:function(data, type, row) {
-	            		 if(data == "" || data == null) {
-	            			 return "-";
-	            		 }
-	            		 return data;
-	            	 }
-	             },
-	             {
-	            	 data:"storageUsageUnit",
 	            	 render:function(data, type, row) {
 	            		 if(data == "" || data == null) {
 	            			 return "-";
@@ -314,9 +296,7 @@ $(document).ready(function() {
         	var resourceType=$("#add-resourceType").val();
         	var fileCount=$("#add-fileCount").val();
         	var storage=$("#add-storage").val();
-        	var storageUnit=$("#add-storageUnit").val();
         	var storageUsage=$("#add-storageUsage").val();
-        	var storageUsageUnit=$("#add-storageUsageUnit").val();
         	var storageUsageRate=$("#add-storageUsageRate").val();
         	var cpuNum=$("#add-cpuNum").val();
         	var cpuMax=$("#add-cpuMax").val();
@@ -332,10 +312,10 @@ $(document).ready(function() {
           		type : "get",
           		data: {serviceType:serviceType,tenantName:tenantName,tenantLevel:tenantLevel,
           			tenantBoss:tenantBoss,tenantTel:tenantTel,resourceType:resourceType,
-          			fileCount:fileCount,storage:storage,storageUnit:storageUnit,
-          			storageUsage:storageUsage,storageUsageUnit:storageUsageUnit,storageUsageRate:storageUsageRate,
-          			cpuNum:cpuNum,cpuMax:cpuMax,cpuAvg:cpuAvg,memorySize:memorySize,memoryMax:memoryMax,
-          			memoryAvg:memoryAvg,askDate:askDate,changeDate:changeDate,openDate:openDate},
+          			fileCount:fileCount,storage:storage,storageUsage:storageUsage,
+          			storageUsageRate:storageUsageRate,cpuNum:cpuNum,cpuMax:cpuMax,cpuAvg:cpuAvg,
+          			memorySize:memorySize,memoryMax:memoryMax,memoryAvg:memoryAvg,
+          			askDate:askDate,changeDate:changeDate,openDate:openDate},
           		success : function(data) {
           			addClean();
           			data = eval("(" + data + ")");
@@ -343,67 +323,7 @@ $(document).ready(function() {
           		});
     });
     
-    //编辑表单提交
-    $('#updateToolBtn').click(function() {
-    	var serviceType=$("#update-serviceType").val();
-    	var tenantName=$("#update-tenantName").val();
-    	var tenantLevel=$("#update-tenantLevel").val();
-    	var tenantBoss=$("#update-tenantBoss").val();
-    	var tenantTel=$("#update-tenantTel").val();
-    	var resourceType=$("#update-resourceType").val();
-    	var fileCount=$("#update-fileCount").val();
-    	var storage=$("#update-storage").val();
-    	var storageUnit=$("#update-storageUnit").val();
-    	var storageUsage=$("#update-storageUsage").val();
-    	var storageUsageUnit=$("#update-storageUsageUnit").val();
-    	var storageUsageRate=$("#update-storageUsageRate").val();
-    	var cpuNum=$("#update-cpuNum").val();
-    	var cpuMax=$("#update-cpuMax").val();
-    	var cpuAvg=$("#update-cpuAvg").val();
-    	var memorySize=$("#update-memorySize").val();
-    	var memoryMax=$("#update-memoryMax").val();
-    	var memoryAvg=$("#update-memoryAvg").val();
-    	var askDate=$("#update-askDate").val();
-    	var changeDate=$("#update-changeDate").val();
-    	var openDate=$("#update-openDate").val();	
-        var tdId=$("#update-tdId").val();
-        	 $.ajax({
-           		url :ctx + "users/updateP",
-           		type : "get",
-           		data: {serviceType:serviceType,tenantName:tenantName,tenantLevel:tenantLevel,
-          			tenantBoss:tenantBoss,tenantTel:tenantTel,resourceType:resourceType,
-          			fileCount:fileCount,storage:storage,storageUnit:storageUnit,
-          			storageUsage:storageUsage,storageUsageUnit:storageUsageUnit,storageUsageRate:storageUsageRate,
-          			cpuNum:cpuNum,cpuMax:cpuMax,cpuAvg:cpuAvg,memorySize:memorySize,memoryMax:memoryMax,
-          			memoryAvg:memoryAvg,askDate:askDate,changeDate:changeDate,openDate:openDate,tdId:tdId},
-           		success : function(data) {
-           			updateClean();
-           			data = eval("(" + data + ")");
-           			}
-           		});
-//        }
-    });
-    
-    //编辑点击提交后，重置验证
-    function updateClean(){
-    	$('#uploadToolModal').modal('hide');
-    }
-    //新增点击提交后，重置验证
-    function addClean(){
-    	$('#addToolModal').modal('hide');
-    }
-
-    //新增表单关闭
-    $('#addReloadHTML').click(function() {
-        window.location.reload();
-    })
-     //编辑表单关闭
-    $('#updateReloadHTML').click(function() {
-        window.location.reload();
-    })
-    
-    
-    //编辑上传工具
+  //编辑上传工具
     function ToolOperate(e) {
         e = e || window.event;
         var tar = e.target || e.srcElement;
@@ -430,9 +350,7 @@ $(document).ready(function() {
                      	$("#update-resourceType").val(data.resourceType);
                      	$("#update-fileCount").val(data.fileCount);
                      	$("#update-storage").val(data.storage);
-                     	$("#update-storageUnit").val(data.storageUnit);
                      	$("#update-storageUsage").val(data.storageUsage);
-                     	$("#update-storageUsageUnit").val(data.storageUsageUnit);
                      	$("#update-storageUsageRate").val(data.storageUsageRate);
                      	$("#update-cpuNum").val(data.cpuNum);
                      	$("#update-cpuMax").val(data.cpuMax);
@@ -479,6 +397,65 @@ $(document).ready(function() {
     }
     $('#tools_table tbody').unbind('click', ToolOperate);
     $('#tools_table tbody').bind('click', ToolOperate);
+    
+    //编辑表单提交
+    $('#updateToolBtn').click(function() {
+    	var serviceType=$("#update-serviceType").val();
+    	var tenantName=$("#update-tenantName").val();
+    	var tenantLevel=$("#update-tenantLevel").val();
+    	var tenantBoss=$("#update-tenantBoss").val();
+    	var tenantTel=$("#update-tenantTel").val();
+    	var resourceType=$("#update-resourceType").val();
+    	var fileCount=$("#update-fileCount").val();
+    	var storage=$("#update-storage").val();
+    	var storageUsage=$("#update-storageUsage").val();
+    	var storageUsageRate=$("#update-storageUsageRate").val();
+    	var cpuNum=$("#update-cpuNum").val();
+    	var cpuMax=$("#update-cpuMax").val();
+    	var cpuAvg=$("#update-cpuAvg").val();
+    	var memorySize=$("#update-memorySize").val();
+    	var memoryMax=$("#update-memoryMax").val();
+    	var memoryAvg=$("#update-memoryAvg").val();
+    	var askDate=$("#update-askDate").val();
+    	var changeDate=$("#update-changeDate").val();
+    	var openDate=$("#update-openDate").val();	
+        var tdId=$("#update-tdId").val();
+        	 $.ajax({
+           		url :ctx + "users/updateP",
+           		type : "get",
+           		data: {serviceType:serviceType,tenantName:tenantName,tenantLevel:tenantLevel,
+          			tenantBoss:tenantBoss,tenantTel:tenantTel,resourceType:resourceType,
+          			fileCount:fileCount,storage:storage,storageUsage:storageUsage,storageUsageRate:storageUsageRate,
+          			cpuNum:cpuNum,cpuMax:cpuMax,cpuAvg:cpuAvg,memorySize:memorySize,memoryMax:memoryMax,
+          			memoryAvg:memoryAvg,askDate:askDate,changeDate:changeDate,openDate:openDate,tdId:tdId},
+           		success : function(data) {
+           			updateClean();
+           			data = eval("(" + data + ")");
+           			}
+           		});
+//        }
+    });
+    
+    //编辑点击提交后，重置验证
+    function updateClean(){
+    	$('#uploadToolModal').modal('hide');
+    }
+    //新增点击提交后，重置验证
+    function addClean(){
+    	$('#addToolModal').modal('hide');
+    }
+
+    //新增表单关闭
+    $('#addReloadHTML').click(function() {
+        window.location.reload();
+    })
+     //编辑表单关闭
+    $('#updateReloadHTML').click(function() {
+        window.location.reload();
+    })
+    
+    
+    
     
 });
 

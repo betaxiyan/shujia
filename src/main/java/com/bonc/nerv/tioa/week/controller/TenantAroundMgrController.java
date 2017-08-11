@@ -55,30 +55,8 @@ public class TenantAroundMgrController {
         return "manage/tenant_arount_show";
     }
     
-    /**
-     * 将id和name从接口导入到数据库
-     * @return "" 
-     * @see
-     */
-    @RequestMapping("/tenantAroundMgrController")
-    @ResponseBody
-    public String getTenantAroundMgr(){
-        tenantAroundMgrService.saveIdAndNameFromHttp();
-        return JSON.toJSONString("");
-    }
     
     
-    /**
-     * 对Excel进行批量修改后导入数据库
-     * @return “”
-     * @see
-     */
-    @RequestMapping("/importToTenantAroundMgr")
-    @ResponseBody
-    public String importToTenantAroundMgr() {
-        
-        return JSON.toJSONString("导入Excel到数据库成功");
-    }
     
     /**
      * 获取所有租户周边信息管理信息
@@ -147,12 +125,9 @@ public class TenantAroundMgrController {
      * @see
      */
     @RequestMapping(value={ "/manage/saveTenantAroundMgr"} , method = RequestMethod.POST)
-    @ResponseBody
     public String saveTenantAroundMgr(TioaTenantAroundShowEntity tioaTenantAroundShowEntity){
-        Map<String, Object> map = new HashMap<String, Object>();
         tenantAroundMgrService.saveTenantAroundMgr(tioaTenantAroundShowEntity);
-        map.put("message", "200");
-        return JSON.toJSONString(map);
+        return "redirect:/tenantAroundMgr";
     }
     
     /**
@@ -174,15 +149,15 @@ public class TenantAroundMgrController {
     * @see
     */
    @RequestMapping(value = "/manage/saveTenantAroundMgrExcel")
-   @ResponseBody
    public String saveToDB(@RequestParam(value = "upload") MultipartFile excelFile) {
+       tenantAroundMgrService.deleteAll();
        try {
            tenantAroundMgrService.saveExcel(excelFile);
        } catch (ParseException e) {
            // TODO Auto-generated catch block
            e.printStackTrace();
        }
-       return JSON.toJSONString("导入数据库成功！");
+       return "redirect:/tenantAroundMgr";
    }
-
+   
 }

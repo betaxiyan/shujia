@@ -11,10 +11,10 @@
                    <button type="button" class="btn btn-danger" th:onclick="'cleanLeaveSearch()'" style="margin-left:-20px;">清空</button>
                    <a href="#" class="export" th:onclick="'exportFile()'">导出</a>
               </div>
-              <div class="tools-header">
+              <!-- <div class="tools-header">
                    <i class="upload_icon"></i>
                    <a href="#" class="update" data-toggle="modal" data-target="#addTenModal" style="margin-left:1200px;">新增</a>
-               </div>
+               </div> -->
               <div class="box">
                  <div class="box-body table-responsive">
                     <table id="leave_table" class="table table-bordered" cellspacing="0">
@@ -30,7 +30,6 @@
                                          <th>访问Ip</th>
                                          <th>主机数量</th>
                                          <th>存储使用量</th>
-                                         <th>存储使用量单位</th>
                                          <th>计算资源</th>
                                          <th>机房</th>
                                          <th>统一平台数量</th>
@@ -53,7 +52,7 @@
                   </div>
               </div>
        </div>
-        <div class="modal fade" id="addTenModal" tabindex="-1" role="dialog" aria-labelledby="addToolModalLabel">
+       <!--  <div class="modal fade" id="addTenModal" tabindex="-1" role="dialog" aria-labelledby="addToolModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -123,7 +122,7 @@
                         <div class="form-group">
                             <label for="askIp" class="control-label col-md-2 ">访问Ip</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="addleave-askIp" name="askIp" placeholder="请输入联系电话"/>
+                                <input type="text" class="form-control" id="addleave-askIp" name="askIp" placeholder="请输入访问Ip"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -136,12 +135,6 @@
                             <label for="storage" class="control-label col-md-2 ">存储使用量</label>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" id="addleave-storage" name="storage" placeholder="存储容量"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="storageUnit" class="control-label col-md-2 ">存储使用量单位</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="addleave-storageUnit" name="storageUnit" placeholder="存储使用量单位"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -177,7 +170,7 @@
                         <div class="form-group">
                             <label for="serviceName" class="control-label col-md-2 ">服务名</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="addleave-serviceName" name="serviceName" placeholder="输入账号"/>
+                                <input type="text" class="form-control" id="addleave-serviceName" name="serviceName" placeholder="输入服务名"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -189,25 +182,25 @@
                         <div class="form-group">
                             <label for="askDate" class="control-label col-md-2 ">申请日期</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="addleave-askDate" name="askDate" placeholder="输入申请日期"/>
+                                <input type="text" class="form-control Wdate" id="addleave-askDate" name="askDate" placeholder="输入申请日期" th:onclick="'WdatePicker()'"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="openDate" class="control-label col-md-2 ">开放日期</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="addleave-openDate" name="openDate" placeholder="输入开放日期"/>
+                                <input type="text" class="form-control Wdate" id="addleave-openDate" name="openDate" placeholder="输入开放日期" th:onclick="'WdatePicker()'"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="changeDate" class="control-label col-md-2 ">变更时间</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="addleave-changeDate" name="changeDate" placeholder="输入变更时间"/>
+                                <input type="text" class="form-control Wdate" id="addleave-changeDate" name="changeDate" placeholder="输入变更时间" th:onclick="'WdatePicker()'"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="endRentDate" class="control-label col-md-2 ">退租时间</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="addleave-endRentDate" name="endRentDate" placeholder="输入退租时间"/>
+                                <input type="text" class="form-control Wdate" id="addleave-endRentDate" name="endRentDate" placeholder="输入退租时间" th:onclick="'WdatePicker()'"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -230,7 +223,7 @@
                   </div>
                 </div>
             </div>
-        </div>    
+        </div>    --> 
         <div class="modal fade" id="updateTenModal" tabindex="-1" role="dialog" aria-labelledby="uploadToolModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -244,19 +237,19 @@
                         <div class="form-group">
                             <label for="serviceType" class="control-label col-md-2 ">服务类型</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="updateleave-serviceType" name="serviceType" placeholder="请输入服务类型"/>
+                                <input type="text" class="form-control" id="updateleave-serviceType" name="serviceType" placeholder="请输入服务类型"  readonly="true"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="tenantName" class="control-label col-md-2 ">租户名称</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="updateleave-tenantName" name="tenantName" placeholder="请输入租户"/>
+                                <input type="text" class="form-control" id="updateleave-tenantName" name="tenantName" placeholder="请输入租户" readonly="true"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="tenantLevel" class="control-label col-md-2 ">租户级别</label>
                             <div class="col-md-9">
-                                <select  class="form-control" id="updateleave-tenantLevel">
+                                <select  class="form-control" id="updateleave-tenantLevel" disabled="disabled" >
                                     <option  value="0">小</option>
                                     <option  value="1">中</option>
                                     <option  value="2">大</option>
@@ -266,19 +259,19 @@
                         <div class="form-group">
                             <label for="tenantBoss" class="control-label col-md-2 ">租户负责人</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="updateleave-tenantBoss" name="tenantBoss" placeholder="请输入租户负责人"/>
+                                <input type="text" class="form-control" id="updateleave-tenantBoss" name="tenantBoss" placeholder="请输入租户负责人" readonly="true"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="tenantTel" class="control-label col-md-2 ">联系电话</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="updateleave-tenantTel" name="tenantTel" placeholder="请输入联系电话"/>
+                                <input type="text" class="form-control" id="updateleave-tenantTel" name="tenantTel" placeholder="请输入联系电话" readonly="true"/>
                             </div>
                         </div>
                         <div class="form-group">
                           <label for="resourceType" class="control-label col-md-2 ">资源类型</label>
                             <div class="col-md-9">
-                                <select  class="form-control" id="updateleave-resourceType">
+                                <select  class="form-control" id="updateleave-resourceType" disabled="disabled">
                                     <option  value="1">Flume</option>
                                     <option  value="2">FTP集群</option>
                                     <option  value="3">Hbase</option>
@@ -302,7 +295,7 @@
                         <div class="form-group">
                             <label for="askIp" class="control-label col-md-2 ">访问Ip</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="updateleave-askIp" name="askIp" placeholder="请输入联系电话"/>
+                                <input type="text" class="form-control" id="updateleave-askIp" name="askIp" placeholder="请输入访问Ip"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -315,12 +308,6 @@
                             <label for="storage" class="control-label col-md-2 ">存储使用量</label>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" id="updateleave-storage" name="storage" placeholder="存储容量"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="storageUnit" class="control-label col-md-2 ">存储使用量单位</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="updateleave-storageUnit" name="storageUnit" placeholder="存储使用量单位"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -338,13 +325,13 @@
                         <div class="form-group">
                             <label for="uniplatformNum" class="control-label col-md-2 ">统一平台数量</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="updateleave-uniplatformNum" name="uniplatformNum" placeholder="输入统一平台数量"/>
+                                <input type="text" class="form-control" id="updateleave-uniplatformNum" name="uniplatformNum" placeholder="输入统一平台数量" readonly="true"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="numOf4a" class="control-label col-md-2 ">4A数量</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="updateleave-numOf4a" name="numOf4a" placeholder="输入统4A数量"/>
+                                <input type="text" class="form-control" id="updateleave-numOf4a" name="numOf4a" placeholder="输入统4A数量" readonly="true"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -356,7 +343,7 @@
                         <div class="form-group">
                             <label for="serviceName" class="control-label col-md-2 ">服务名</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="updateleave-serviceName" name="serviceName" placeholder="输入账号"/>
+                                <input type="text" class="form-control" id="updateleave-serviceName" name="serviceName" placeholder="输入服务名"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -368,31 +355,31 @@
                         <div class="form-group">
                             <label for="askDate" class="control-label col-md-2 ">申请日期</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="updateleave-askDate" name="askDate" placeholder="输入申请日期"/>
+                                <input type="text" class="form-control Wdate" id="updateleave-askDate" name="askDate" placeholder="输入申请日期" th:onclick="'WdatePicker()'"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="openDate" class="control-label col-md-2 ">开放日期</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="updateleave-openDate" name="openDate" placeholder="输入开放日期"/>
+                                <input type="text" class="form-control Wdate" id="updateleave-openDate" name="openDate" placeholder="输入开放日期" th:onclick="'WdatePicker()'" format="yyyyMMdd"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="changeDate" class="control-label col-md-2 ">变更时间</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="updateleave-changeDate" name="changeDate" placeholder="输入变更时间"/>
+                                <input type="text" class="form-control Wdate" id="updateleave-changeDate" name="changeDate" placeholder="输入变更时间" th:onclick="'WdatePicker()'"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="endRentDate" class="control-label col-md-2 ">退租时间</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="updateleave-endRentDate" name="endRentDate" placeholder="输入退租时间"/>
+                                <input type="text" class="form-control Wdate" id="updateleave-endRentDate" name="endRentDate" placeholder="输入退租时间" th:onclick="'WdatePicker()'"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="tenantInterface" class="control-label col-md-2 ">平台接口人</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="updateleave-tenantInterface" name="tenantInterface" placeholder="输入平台接口人"/>
+                                <input type="text" class="form-control" id="updateleave-tenantInterface" name="tenantInterface" placeholder="输入平台接口人" readonly="true"/>
                             </div>
                         </div>
                         <div class="form-group">

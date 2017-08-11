@@ -9,6 +9,8 @@
 package com.bonc.nerv.tioa.week.entity;
 
 
+import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +18,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.alibaba.fastjson.annotation.JSONField;
 
 
 /**
@@ -81,12 +85,7 @@ public class TenretiredEntity {
     /**
      * 存储使用量
      */
-    private Integer storage;
-    
-    /**
-     * 存储使用量单位
-     */
-    private String storageUnit;
+    private String storage;
     
     /**
      * 计算资源
@@ -126,12 +125,14 @@ public class TenretiredEntity {
     /**
      * 申请时间
      */
-    private String askDate;
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    private Date askDate;
     
     /**
      * 开放时间
      */
-    private String openDate;
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    private Date openDate;
     
     /**
      * 变更时间
@@ -141,7 +142,8 @@ public class TenretiredEntity {
     /**
      * 退租时间
      */
-    private String endRentDate;
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    private Date endRentDate;
     
     /**
      * 平台接口人
@@ -228,20 +230,12 @@ public class TenretiredEntity {
         this.hostNum = hostNum;
     }
     
-    public Integer getStorage() {
+    public String getStorage() {
         return storage;
     }
 
-    public void setStorage(Integer storage) {
+    public void setStorage(String storage) {
         this.storage = storage;
-    }
-    
-    public String getStorageUnit() {
-        return storageUnit;
-    }
-
-    public void setStorageUnit(String storageUnit) {
-        this.storageUnit = storageUnit;
     }
     
     public Double getComputingResourceRate() {
@@ -300,19 +294,19 @@ public class TenretiredEntity {
         this.sequenceName = sequenceName;
     }
     
-    public String getAskDate() {
+    public Date getAskDate() {
         return askDate;
     }
 
-    public void setAskDate(String askDate) {
+    public void setAskDate(Date askDate) {
         this.askDate = askDate;
     }
     
-    public String getOpenDate() {
+    public Date getOpenDate() {
         return openDate;
     }
 
-    public void setOpenDate(String openDate) {
+    public void setOpenDate(Date openDate) {
         this.openDate = openDate;
     }
     
@@ -324,11 +318,11 @@ public class TenretiredEntity {
         this.changeDate = changeDate;
     }
     
-    public String getEndRentDate() {
+    public Date getEndRentDate() {
         return endRentDate;
     }
 
-    public void setEndRentDate(String endRentDate) {
+    public void setEndRentDate(Date endRentDate) {
         this.endRentDate = endRentDate;
     }
     
@@ -352,9 +346,8 @@ public class TenretiredEntity {
     public String toString() {
         return "TenretiredEntity [tlId=" + tlId + ", serviceType=" + serviceType
                + ", tenantName=" + tenantName + ", tenantLevel=" + tenantLevel + ", tenantBoss="
-               + tenantBoss + ", tenantTel=" + tenantTel +", resourceType=" + resourceType 
-               +", askIp=" + askIp +", hostNum=" + hostNum +", storage=" + storage 
-               +", storageUnit=" + storageUnit +", computingResourceRate=" + computingResourceRate
+               + tenantBoss + ", tenantTel=" + tenantTel +", resourceType=" + resourceType +", askIp=" + askIp 
+               +", hostNum=" + hostNum +", storage=" + storage+", computingResourceRate=" + computingResourceRate
                +", computeRoom=" + computeRoom +", uniplatformNum=" + uniplatformNum 
                +", numOf4a=" + numOf4a +", demand=" + demand +", serviceName=" + serviceName 
                +", sequenceName=" +sequenceName+", askDate=" + askDate +", openDate=" + openDate
