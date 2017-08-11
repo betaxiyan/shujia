@@ -7,8 +7,13 @@
  */
 
 package com.bonc.nerv.tioa.week.dao;
+import java.util.Date;
+import java.util.List;
+
 import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.bonc.nerv.tioa.week.entity.TenantResourceMidEntity;
 
@@ -21,5 +26,13 @@ import com.bonc.nerv.tioa.week.entity.TenantResourceMidEntity;
  */
 @Transactional
 public interface TenantResourceMidDao extends JpaRepository<TenantResourceMidEntity, Long>{
-
+    
+    /**
+     * 
+     * @param enDate 退租时间
+     * @return  list集合
+     * @see
+     */
+    @Query("select ten from TenantResourceMidEntity ten where ten.isInvalid = 'invalid' and ten.endRentDate >:endrentdate")
+    List<TenantResourceMidEntity> findByEndRentDate(@Param(value = "endrentdate")Date enDate);
 }
