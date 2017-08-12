@@ -13,6 +13,8 @@ package com.bonc.nerv.tioa.week.service.impl;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -27,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -38,10 +41,13 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.bonc.nerv.tioa.week.dao.DisTenantDao;
 import com.bonc.nerv.tioa.week.entity.DisTenantEntity;
 import com.bonc.nerv.tioa.week.entity.SearchDisTenant;
+import com.bonc.nerv.tioa.week.entity.TenretiredEntity;
 import com.bonc.nerv.tioa.week.service.DisTenantService;
 import com.bonc.nerv.tioa.week.util.DateUtils;
+import com.bonc.nerv.tioa.week.util.PoiNewUtil;
 import com.bonc.nerv.tioa.week.util.PoiUtils;
 import com.bonc.nerv.tioa.week.util.ResultPager;
+import com.bonc.nerv.tioa.week.util.SortList;
 
 
 /**
@@ -164,6 +170,9 @@ public class DisTenantServiceImpl implements DisTenantService{
         }
     }
 
+    
+    
+    
     /**
      * 
      * 添加excel内容
@@ -209,62 +218,7 @@ public class DisTenantServiceImpl implements DisTenantService{
                 default:
                     break;
             }
-            switch(distenant.getResourceType()){
-                case 1:
-                    resourceType = "Flume";
-                    break;
-                case 2:
-                    resourceType = "FTP集群";
-                    break;
-                case 3:
-                    resourceType = "Hbase";
-                    break;
-                case 4:
-                    resourceType = "hue";
-                    break;
-                case 5:
-                    resourceType = "Hive";
-                    break;
-                case 6:
-                    resourceType = "IMPALA";
-                    break;
-                case 7:
-                    resourceType = "KAFKA";
-                    break;
-                case 8:
-                    resourceType = "MPP";
-                    break;
-                case 9:
-                    resourceType = "Mysql";
-                    break;
-                case 10:
-                    resourceType = "Oracle";
-                    break;
-                case 11:
-                    resourceType = "Redis";
-                    break;
-                case 12:
-                    resourceType = "spark";
-                    break;
-                case 13:
-                    resourceType = "storm";
-                    break;
-                case 14:
-                    resourceType = "接口机";
-                    break;
-                case 15:
-                    resourceType = "虚拟机";
-                    break;
-                case 16:
-                    resourceType = "物理裸机";
-                    break;
-                case 17:
-                    resourceType = "应用服务器";
-                    break;
-                default:
-                    break;
-            }
-           
+            resourceType = distenant.getResourceType();
             //遍历集合，处理数据
             String[] service = {Integer.toString(i+1), serviceType, tenantName, tenantLevel, tenantBoss, tenantTel,
                 resourceType, fileCount, storage,storageUsage,storageUsageRate, cpuNum, cpuMax, cpuAvg, memorySize, memoryMax, memoryAvg,
@@ -367,5 +321,75 @@ public class DisTenantServiceImpl implements DisTenantService{
          * 
          * 将中间表数据汇总到展示表中
          */
+    }
+
+    @Override
+    public void getExcelNew(List<DisTenantEntity> list, HttpServletRequest request,
+                            HttpServletResponse response) throws IOException {
+        String fileName = "已划配情况导出.xlsx";
+        String sheetName = "租户退租情况";
+        String[] headers = {"序号", "服务类型", "租户名", "租户级别", "租户负责人", "租户负责人电话", "资源类型", "文件数", "存储",
+            "存储使用量",  "存储使用占比", "cpu核数", "cpu最大数", "cpu平均数", "内存大小", "内存最大值",
+            "内存平均值", "申请时间", "变更时间", "开放时间"};
+        SortList<DisTenantEntity> asort = new SortList<DisTenantEntity>();
+        asort.Sort(list, "getTenantName", "desc");
+        int index = 1;
+        List<List<String[]>> dtEntityLists = new ArrayList<List<String[]>>();
+        Map<String, List<String[]>> map = new HashMap<String, List<String[]>>();
+        for(DisTenantEntity dEntity : list){
+            String[] tenStr ={String.valueOf(index),
+                dEntity.getServiceType(),
+                dEntity.getTenantName(),
+                String.valueOf(dEntity.getTenantLevel()),
+                dEntity.getTenantBoss(),
+                dEntity.getTenantTel(),
+                String.valueOf(dEntity.getResourceType()),
+                String.valueOf(dEntity.getFileCount()),
+                dEntity.getStorage(),
+                String.valueOf(dEntity.getStorageUsage()),
+                String.valueOf(dEntity.getStorageUsageRate()),
+                dEntity.getCpuNum(),
+                String.valueOf(dEntity.getCpuMax()),
+                String.valueOf(dEntity.getCpuAvg()),
+                dEntity.getMemorySize(),
+                String.valueOf(dEntity.getMemoryMax()),
+                String.valueOf(dEntity.getMemoryAvg()),
+                String.valueOf(dEntity.getAskDate()),
+                String.valueOf(dEntity.getChangeDate()),
+                String.valueOf(dEntity.getOpenDate())
+            };
+            String tenantName = dEntity.getTenantName();
+            if(map.containsKey(tenantName)){
+                map.get(tenantName).add(tenStr);
+            } else{
+                List<String[]> newList = new ArrayList<String[]>();
+                newList.add(tenStr);
+                dtEntityLists.add(newList);
+                map.put(tenantName, newList);
+                index++;
+            }
+            
+        }
+        
+        Integer[] mergeClom = {0 , 1, 2, 3, 4, 5, 7};
+        XSSFWorkbook workbook = PoiNewUtil.createWorkBook(sheetName, headers ,dtEntityLists, mergeClom );
+        
+        
+        final String userAgent = request.getHeader("USER-AGENT");
+        if(StringUtils.contains(userAgent, "MSIE")){//IE浏览器
+            fileName = URLEncoder.encode(fileName,"UTF-8");
+        }else if(StringUtils.contains(userAgent, "Mozilla")){//google,火狐浏览器
+            fileName = new String(fileName.getBytes(), "ISO8859-1");
+        }else{
+            fileName = URLEncoder.encode(fileName,"UTF-8");//其他浏览器
+        }
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+        workbook.write(response.getOutputStream());
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.flushBuffer();
+        //response.getOutputStream().close();
+        System.out.println("excel导出成功！");
+        
     }
 }

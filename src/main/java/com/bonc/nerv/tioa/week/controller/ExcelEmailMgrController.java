@@ -8,6 +8,7 @@
 
 package com.bonc.nerv.tioa.week.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,8 +50,8 @@ public class ExcelEmailMgrController {
      */
     @RequestMapping("/getExcel")
     @ResponseBody
-    public String getExcel(HttpServletResponse response) {
-        mergeExcelService.getExcel(response);
+    public String getExcel(HttpServletRequest request, HttpServletResponse response) {
+        mergeExcelService.getExcelNew(request,response);
         return "导出Excel成功！";
     }
 }

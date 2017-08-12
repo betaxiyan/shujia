@@ -8,9 +8,12 @@
 
 package com.bonc.nerv.tioa.week.controller;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -138,8 +141,13 @@ public class TenretiredController {
      */
     @RequestMapping(value={"/tenant/exportTenretired"})
     @ResponseBody
-    public void exportTenretired(SearchTenretiredData searchData,HttpServletResponse response){
+    public void exportTenretired(SearchTenretiredData searchData, HttpServletRequest request,HttpServletResponse response){
         List<TenretiredEntity> list=tenretiredService.exportTenretired(searchData);
-        tenretiredService.getExcel(list, response);
+        //tenretiredService.getExcel(list, response);
+        try {
+            tenretiredService.getExcelNew(list,request , response);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

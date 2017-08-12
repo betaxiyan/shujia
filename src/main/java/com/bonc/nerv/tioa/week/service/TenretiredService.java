@@ -7,7 +7,11 @@
  */
 
 package com.bonc.nerv.tioa.week.service;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -103,6 +107,18 @@ public interface TenretiredService {
      * @see
      */
     void getExcel(List<TenretiredEntity> list, HttpServletResponse response);
+    
+    /**
+     * 
+     * Description: <br>
+     * 导出Excel的方法 新版的
+     * @param list  
+     * @param response   
+     * @throws FileNotFoundException 
+     * @throws IOException 
+     * @see
+     */
+    void getExcelNew(List<TenretiredEntity> list, HttpServletRequest request, HttpServletResponse response) throws FileNotFoundException, IOException;
     
     /**
      * Description: 数据放到list集合中

@@ -11,6 +11,8 @@
 
 package com.bonc.nerv.tioa.week.service;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -63,6 +65,18 @@ public interface DisTenantService {
     void getExcel(List<DisTenantEntity> list, HttpServletRequest request,
                   HttpServletResponse response);
 
+    /**
+     * 
+     * Description: <br>
+     * 将数据导出到Excel中 new
+     * @param list
+     * @param request
+     * @param response 
+     * @see
+     */
+    public void getExcelNew(List<DisTenantEntity> list, HttpServletRequest request,
+                            HttpServletResponse response) throws IOException;
+    
     /**
      * 
      * 新增内容保存

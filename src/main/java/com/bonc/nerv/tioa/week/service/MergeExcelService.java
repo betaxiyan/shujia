@@ -8,6 +8,7 @@
 
 package com.bonc.nerv.tioa.week.service;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -27,4 +28,14 @@ public interface MergeExcelService {
      * @see
      */
     void getExcel(HttpServletResponse response);
+    
+    /**
+     * 
+     * Description: <br>
+     * 新全量导出excel
+     * @param request
+     * @param response 
+     * @see
+     */
+    void getExcelNew(HttpServletRequest request, HttpServletResponse response);
 }
