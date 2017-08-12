@@ -73,6 +73,7 @@ public class PoiNewUtil {
                                         Integer[] mergeClom ){
         XSSFRow row = sheet.createRow(0); // 产生表格标题行  
         XSSFCellStyle headStyle = createHeadStyle(workbook);
+        XSSFCellStyle bodyStyle = createBodyStyle(workbook);
         fixheader(row, headStyle, headers);  //组装表头
         //int startRow ;
         //大行
@@ -88,13 +89,9 @@ public class PoiNewUtil {
                 for(int c =0; c< ttEntityLists.get(i).get(n).length; c++){
                     XSSFCell cell = row.createCell(c);
                     cell.setCellValue(ttEntityLists.get(i).get(n)[c]);
+                    cell.setCellStyle(bodyStyle);
                 }
-//                XSSFCell cell = row.createCell(0);
-//                cell.setCellValue(ttEntityLists.get(i).get(n).getTenantName());
-//                cell = row.createCell(1);
-//                cell.setCellValue(ttEntityLists.get(i).get(n).getTenantLevel());
             }
-            
             //new CellRangeAddress(0-base, 0-base, 0-based, 0-based)
             for(int j =0 ;j<mergeClom.length; j++){
                 sheet.addMergedRegion(new CellRangeAddress(startRow, rowNum-1, mergeClom[j], mergeClom[j]));
@@ -145,10 +142,25 @@ public class PoiNewUtil {
         headFont.setColor(IndexedColors.BLACK.getIndex());  
         headFont.setFontHeightInPoints((short) 12);  
         headFont.setBoldweight(XSSFFont.BOLDWEIGHT_BOLD);  
-        headFont.setFontName("宋体");
+        headFont.setFontName("微软雅黑");
         // 把字体应用到当前的样式  
         headStyle.setFont(headFont);  
         return headStyle;
+    }
+    
+    private static XSSFCellStyle createBodyStyle(XSSFWorkbook workbook){
+        XSSFCellStyle bodyStyle = workbook.createCellStyle();
+        bodyStyle.setVerticalAlignment(XSSFCellStyle.VERTICAL_CENTER);
+        bodyStyle.setBorderBottom(XSSFCellStyle.BORDER_THIN); //下边框   
+        bodyStyle.setBorderLeft(XSSFCellStyle.BORDER_THIN);//左边框   
+        bodyStyle.setBorderTop(XSSFCellStyle.BORDER_THIN);//上边框   
+        bodyStyle.setBorderRight(XSSFCellStyle.BORDER_THIN);//右边框  
+      //标题单元格字体  
+        XSSFFont bodyFont = workbook.createFont();  
+        bodyFont.setColor(IndexedColors.BLACK.getIndex());  
+        bodyFont.setFontName("微软雅黑");
+        bodyStyle.setFont(bodyFont);
+        return bodyStyle;
     }
     
 }
