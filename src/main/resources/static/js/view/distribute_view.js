@@ -16,6 +16,9 @@ $(document).ready(function() {
         "bInfo": true,
         "bAutoWidth": true,
         "scrollX": true,
+        "scollY":true,
+        "bScrollCollapse":true,
+        "sScrollXInner":"150%",
          "ajax":{
          	"url":ctx+"users/findlist",
          	"data":function(d){
@@ -285,7 +288,6 @@ $(document).ready(function() {
         	});
         }
     });
-    
 
     //新增表单提交
     $('#addToolBtn').click(function() {
@@ -434,6 +436,7 @@ $(document).ready(function() {
            			data = eval("(" + data + ")");
            			}
            		});
+        	 clickAllTable();
 //        }
     });
     
@@ -465,6 +468,10 @@ function clickDisTable(){
 	tables.api().ajax.reload();
 };
 
+function clickAllTable(){
+	table.api().ajax.reload();
+}
+
 //清空按钮
 function cleanDisSearch(){
 	$("#tenantName").val("");
@@ -484,4 +491,3 @@ function exportDisFile() {
 	
 	location.href=ctx+'users/disExport' ;
 }
-

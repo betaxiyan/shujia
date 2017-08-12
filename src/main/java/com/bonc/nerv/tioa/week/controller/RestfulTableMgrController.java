@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bonc.nerv.tioa.week.service.RestfulTableMgrService;
+import com.bonc.nerv.tioa.week.service.UpdateRetiredService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -40,6 +41,12 @@ public class RestfulTableMgrController {
      */
     @Autowired
     private RestfulTableMgrService restfulTableMgrService;
+    
+    /**
+     * 刷新tioa_tenant_leave_show数据表服务层
+     */
+    @Autowired
+    private UpdateRetiredService updateRetiredService;
     
     /**
      * 接口健康信息界面
@@ -83,16 +90,15 @@ public class RestfulTableMgrController {
         SimpleDateFormat myFmt=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         
         Map<String,Object> mapTtl = new HashMap<>();
-        //调用getMidDateToTtl()，用休眠模拟
-        try {
-            Thread.currentThread();
-            Thread.sleep(3000);
-        } catch (InterruptedException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
+        String statusTtl = "";
+        //调用getMidDateToTtl
+        Boolean isSuccess = updateRetiredService.updateRetired();
+        if(isSuccess){
+            statusTtl = "更新成功";
+        }else{
+            statusTtl = "更新失败";
         }
         Date ttl = new Date();
-        String statusTtl="Success"; //更新结果应由调用函数返回
         mapTtl.put("tableName", "tioa_tenant_leave_show");
         mapTtl.put("updateDate", myFmt.format(ttl));
         mapTtl.put("result", statusTtl);

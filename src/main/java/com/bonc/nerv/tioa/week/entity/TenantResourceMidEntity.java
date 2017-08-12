@@ -8,12 +8,15 @@
 
 package com.bonc.nerv.tioa.week.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import com.alibaba.fastjson.annotation.JSONField;
 
 /**
  *  租户资源中间表实体类
@@ -111,19 +114,22 @@ public class TenantResourceMidEntity {
      * 申请日期
      */
     @Column(name = "ask_date")
-    private String askDate;
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    private Date askDate;
     
     /**
      * 开放日期
      */
     @Column(name = "open_date")
-    private String openDate;
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    private Date openDate;
     
     /**
      * 更新时间(原为退租时间)
      */
-    @Column(name = "end_rent_data")
-    private String endRentData;
+    @Column(name = "end_rent_date")
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    private Date endRentDate;
     
     /**
      * 是否有效
@@ -234,31 +240,29 @@ public class TenantResourceMidEntity {
         this.computeRoom = computeRoom;
     }
 
-    public String getAskDate() {
+    public Date getAskDate() {
         return askDate;
     }
 
-    public void setAskDate(String askDate) {
+    public void setAskDate(Date askDate) {
         this.askDate = askDate;
     }
 
-    public String getOpenDate() {
+    public Date getOpenDate() {
         return openDate;
     }
 
-    public void setOpenDate(String openDate) {
+    public void setOpenDate(Date openDate) {
         this.openDate = openDate;
     }
 
-    public String getEndRentData() {
-        return endRentData;
+    public Date getEndRentData() {
+        return endRentDate;
     }
 
-    public void setEndRentData(String endRentData) {
-        this.endRentData = endRentData;
+    public void setEndRentData(Date endRentDate) {
+        this.endRentDate = endRentDate;
     }
-    
-    
     
     public String getIsInvalid() {
         return isInvalid;
@@ -275,7 +279,8 @@ public class TenantResourceMidEntity {
                + tenantAccount + ", ipAddr=" + ipAddr + ", typeName=" + typeName + ", storage="
                + storage + ", cpuNum=" + cpuNum + ", memory=" + memory + ", serviceName="
                + serviceName + ", sequenceName=" + sequenceName + ", computeRoom=" + computeRoom
-               + ", askDate=" + askDate + ", openDate=" + openDate + ", endRentData=" + endRentData
+               + ", askDate=" + askDate + ", openDate=" + openDate + ", endRentDate=" + endRentDate
                + ", isInvalid=" + isInvalid + "]";
     }
+    
 }
