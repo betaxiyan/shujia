@@ -33,9 +33,9 @@ public interface TenretiredService {
     /**
      * Description:添加分页的查询
      * @param searchData 查询条件对象
-     * @param start
-     * @param length
-     * @param draw
+     * @param start  
+     * @param length  
+     * @param draw  
      * @return  查询结果
      * @see
      */
@@ -112,8 +112,9 @@ public interface TenretiredService {
      * 
      * Description: <br>
      * 导出Excel的方法 新版的
-     * @param list  
-     * @param response   
+     * @param list  List
+     * @param response  HTTP
+     * @param request HTTP 
      * @throws FileNotFoundException 
      * @throws IOException 
      * @see

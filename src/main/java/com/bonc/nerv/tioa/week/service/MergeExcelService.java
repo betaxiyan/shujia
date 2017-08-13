@@ -33,8 +33,8 @@ public interface MergeExcelService {
      * 
      * Description: <br>
      * 新全量导出excel
-     * @param request
-     * @param response 
+     * @param request HTTP
+     * @param response HTTP
      * @see
      */
     void getExcelNew(HttpServletRequest request, HttpServletResponse response);

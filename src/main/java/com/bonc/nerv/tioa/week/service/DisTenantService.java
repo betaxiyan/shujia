@@ -69,12 +69,13 @@ public interface DisTenantService {
      * 
      * Description: <br>
      * 将数据导出到Excel中 new
-     * @param list
-     * @param request
-     * @param response 
+     * @param list List
+     * @param request HTTP
+     * @param response HTTP
+     * @throws IOException  
      * @see
      */
-    public void getExcelNew(List<DisTenantEntity> list, HttpServletRequest request,
+    void getExcelNew(List<DisTenantEntity> list, HttpServletRequest request,
                             HttpServletResponse response) throws IOException;
     
     /**

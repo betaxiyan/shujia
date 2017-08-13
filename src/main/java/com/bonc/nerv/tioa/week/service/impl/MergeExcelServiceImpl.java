@@ -225,21 +225,27 @@ public class MergeExcelServiceImpl implements MergeExcelService{
             weekInfoWorkbook.write(response.getOutputStream());
             response.setStatus(HttpServletResponse.SC_OK);
             response.flushBuffer();
-        }
-        catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         System.out.println("excel导出成功！");
     }
 
     
+    /**
+     * 
+     * Description: <br>
+     * 组装已划配租户信息sheet的方法
+     * @param workbook XSSFWorbook
+     * @param sheet 
+     * @see
+     */
     public void genDisTenantExcel(XSSFWorkbook workbook, XSSFSheet sheet){
         List<DisTenantEntity> disList = new ArrayList<DisTenantEntity>();//已划配租户情况
         disList = disTenantDao.findAll();//已划配租户情况
-        String sheetName = "租户退租情况";
+        //String sheetName = "租户退租情况";
         String[] headers = {"序号", "服务类型", "租户名", "租户级别", "租户负责人", "租户负责人电话", "资源类型", "文件数", "存储",
             "存储使用量",  "存储使用占比", "cpu核数", "cpu最大数", "cpu平均数", "内存大小", "内存最大值",
             "内存平均值", "申请时间", "变更时间", "开放时间"};
@@ -286,10 +292,19 @@ public class MergeExcelServiceImpl implements MergeExcelService{
         PoiNewUtil.createSheet(workbook, sheet, headers, dtEntityLists, mergeClom);
     }
     
+    /**
+     * 
+     * Description: <br>
+     * 组装租户退租情况的sheet方法
+     * 
+     * @param workbook XSSFWorkbook
+     * @param sheet 
+     * @see
+     */
     public void genTenretiredExcel(XSSFWorkbook workbook, XSSFSheet sheet){
         List<TenretiredEntity> tenList = new ArrayList<TenretiredEntity>();//已退租户
         tenList = tenretiredDao.findAll();
-        String sheetName = "租户退租情况";
+        //String sheetName = "租户退租情况";
         String[] headers = {"序号","服务类型","租户","租户级别","租户负责人","联系电话","资源类型","访问IP","主机数量",
             "存储使用量","存储使用量单位","计算资源","机房","统一平台数量","4A数量","需求","服务名","队列名","申请日期","开放日期",
             "变更时间","退租时间","平台接口人","备注"};
@@ -340,6 +355,14 @@ public class MergeExcelServiceImpl implements MergeExcelService{
         PoiNewUtil.createSheet(workbook, sheet, headers, ttEntityLists, mergeClom);
     }
     
+    /**
+     * 
+     * Description: <br>
+     * 组装租户计费情况的sheet的方法
+     * @param workbook XSSFWorkbook
+     * @param sheet 
+     * @see
+     */
     public void genChargingExcel(XSSFWorkbook workbook, XSSFSheet sheet){
         List<String> title = new ArrayList<String>();//租户计费情况标题
         title.add("租户");
