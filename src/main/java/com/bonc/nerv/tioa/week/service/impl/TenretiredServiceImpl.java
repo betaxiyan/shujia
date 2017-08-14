@@ -107,9 +107,25 @@ public class TenretiredServiceImpl implements  TenretiredService{
             @Override
             public Predicate toPredicate(Root<TenretiredEntity> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 List<Predicate> predicates = new ArrayList<Predicate>();
-
+                
+                if (StringUtils.isNotBlank(bean.getServiceType())) {
+                    predicates.add(cb.like(root.<String> get("serviceType"), "%" + bean.getServiceType() + "%"));
+                }
+                
                 if (StringUtils.isNotBlank(bean.getTenantName())) {
                     predicates.add(cb.like(root.<String> get("tenantName"), "%" + bean.getTenantName() + "%"));
+                }
+                
+                if (bean.getTenantLevel()!=null) {
+                    predicates.add(cb.equal(root.<Integer> get("tenantLevel"), bean.getTenantLevel()));
+                }
+                
+                if (StringUtils.isNotBlank(bean.getTenantBoss())) {
+                    predicates.add(cb.like(root.<String> get("tenantBoss"), "%" + bean.getTenantBoss() + "%"));
+                }
+                
+                if (StringUtils.isNotBlank(bean.getTenantTel())) {
+                    predicates.add(cb.like(root.<String> get("tenantTel"), "%" + bean.getTenantTel() + "%"));
                 }
 
                 if (StringUtils.isNotBlank(bean.getTenantInterface())) {
