@@ -84,7 +84,8 @@ public interface ExcelAnalyseService {
      * @return List<ResourceUsageMidEntity>
      * @see
      */
-    List<ResourceUsageMidEntity> analyseHbaseText(Workbook workbook);
+    //List<ResourceUsageMidEntity> analyseHbaseText(Workbook workbook);
+    List<ResourceUsageMidEntity> analyseHbaseText(String filePath);
     
     /**
      * 
