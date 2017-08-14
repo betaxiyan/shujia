@@ -13,7 +13,6 @@ package com.bonc.nerv.tioa.week.service.impl;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,7 +40,6 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.bonc.nerv.tioa.week.dao.DisTenantDao;
 import com.bonc.nerv.tioa.week.entity.DisTenantEntity;
 import com.bonc.nerv.tioa.week.entity.SearchDisTenant;
-import com.bonc.nerv.tioa.week.entity.TenretiredEntity;
 import com.bonc.nerv.tioa.week.service.DisTenantService;
 import com.bonc.nerv.tioa.week.util.DateUtils;
 import com.bonc.nerv.tioa.week.util.PoiNewUtil;
@@ -113,11 +111,20 @@ public class DisTenantServiceImpl implements DisTenantService{
             public Predicate toPredicate(Root<DisTenantEntity> root, CriteriaQuery<?> query,
                                          CriteriaBuilder cb) {
                 List<Predicate> predicates = new ArrayList<Predicate>();
+               if(StringUtils.isNotBlank(searchdisTenant.getServiceType())){
+                   predicates.add(cb.like(root.<String> get("serviceType"), "%"+searchdisTenant.getServiceType()+"%"));
+               }
                 if(StringUtils.isNotBlank(searchdisTenant.getTenantName())){
                     predicates.add(cb.like(root.<String> get("tenantName"),"%"+searchdisTenant.getTenantName()+"%"));
                 }
+                if(searchdisTenant.getTenantLevel() != null){
+                    predicates.add(cb.equal(root.<Integer> get("tenantLevel"),searchdisTenant.getTenantLevel() ));
+                }
                 if(StringUtils.isNotBlank(searchdisTenant.getTenantBoss())){
                     predicates.add(cb.like(root.<String> get("tenantBoss"),"%"+searchdisTenant.getTenantBoss()+"%"));
+                }
+                if(StringUtils.isNotBlank(searchdisTenant.getTenantTel())){
+                    predicates.add(cb.like(root.<String> get("tenantTel"), "%"+searchdisTenant.getTenantTel()+"%"));
                 }
                 return cb.and(predicates.toArray(new Predicate[predicates.size()]));
             }

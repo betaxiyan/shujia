@@ -1,15 +1,16 @@
-var table;
+var tables;
 $(document).ready(function() {
-    tables= $('#tools_table').DataTable({
-        scrollX:        true,
-        scrollCollapse: true,
-        paging:         true,
-        "fixedColumns":   {
-            leftColumns: 5,
+    tables= $('#tools_table').dataTable({
+    //	"scrollY":        "300px",
+    	"scrollX":        "100px",
+        "scrollCollapse": false,
+        "paging":         true,
+        "fixedColumns":  {
+            leftColumns: "2",
         },
-    	fixedHeader: {
-	        header: true
-	    },
+//    	"fixedHeader": {
+//	        header: true
+//	    },
 	    "dom": '<<t>ilp>',
 	    "pagingType": "simple_numbers",		// 设置分页控件的模式
         "processing": true, 				// 打开数据加载时的等待效果
@@ -25,10 +26,16 @@ $(document).ready(function() {
          "ajax":{
          	"url":ctx+"users/findlist",
          	"data":function(d){
+         		var serviceType = $("#serviceType").val();
          		var tenantName = $("#tenantName").val();
+         		var tenantLevel = $("#tenantLevel").val();
          		var tenantBoss = $("#tenantBoss").val();
+         		var tenantTel = $("#tenantTel").val();
+         		d.serviceType =serviceType;
          		d.tenantName = tenantName;
+         		d.tenantLevel = tenantLevel;
          		d.tenantBoss = tenantBoss;
+         		d.tenantTel = tenantTel;
          	}
          },
          "columns":[
@@ -471,13 +478,16 @@ function clickDisTable(){
 };
 
 function clickAllTable(){
-	table.api().ajax.reload();
+	tables.api().ajax.reload();
 }
 
 //清空按钮
 function cleanDisSearch(){
+	$("#serviceType").val("");
 	$("#tenantName").val("");
+	$("#tenantLevel").val("");
     $("#tenantBoss").val("");
+    $("#tenantTel").val("");
     clickDisTable();
 }
 //文件导出

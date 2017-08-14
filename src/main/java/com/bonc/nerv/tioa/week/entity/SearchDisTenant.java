@@ -12,13 +12,30 @@
 package com.bonc.nerv.tioa.week.entity;
 
 public class SearchDisTenant {
+    private String serviceType;
     private String tenantName;
+    private Integer tenantLevel;
     private String tenantBoss;
+    private String tenantTel;
+
+    
+    public String getServiceType() {
+        return serviceType;
+    }
+    public void setServiceType(String serviceType) {
+        this.serviceType = serviceType;
+    }
     public String getTenantName() {
         return tenantName;
     }
     public void setTenantName(String tenantName) {
         this.tenantName = tenantName;
+    }
+    public Integer getTenantLevel() {
+        return tenantLevel;
+    }
+    public void setTenantLevel(Integer tenantLevel) {
+        this.tenantLevel = tenantLevel;
     }
     public String getTenantBoss() {
         return tenantBoss;
@@ -26,5 +43,12 @@ public class SearchDisTenant {
     public void setTenantBoss(String tenantBoss) {
         this.tenantBoss = tenantBoss;
     }
+    public String getTenantTel() {
+        return tenantTel;
+    }
+    public void setTenantTel(String tenantTel) {
+        this.tenantTel = tenantTel;
+    }
+
     
 }
