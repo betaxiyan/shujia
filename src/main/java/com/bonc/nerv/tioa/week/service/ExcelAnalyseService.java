@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.apache.poi.ss.usermodel.Workbook;
 
+import com.bonc.nerv.tioa.week.entity.CpuMemoryMidEntity;
 import com.bonc.nerv.tioa.week.entity.ResourceUsageMidEntity;
 
 /**
@@ -63,10 +64,11 @@ public interface ExcelAnalyseService {
      * 
      * Description: <br>
      * 分析yarn的Excel表
-     * @return List<ResourceUsageMidEntity>
+     * @param workbook 获取workbook
+     * @return List<CpuMemoryMidEntity>
      * @see
      */
-    List<ResourceUsageMidEntity> analyseYarnExcel(Workbook workbook);
+    List<CpuMemoryMidEntity> analyseYarnExcel(Workbook workbook);
     
     /**
      * 
@@ -76,7 +78,7 @@ public interface ExcelAnalyseService {
      * @param reMidEntities 
      * @see
      */
-    void yarnToDb(List<ResourceUsageMidEntity> reMidEntities);
+    void yarnToDb(List<CpuMemoryMidEntity> reMidEntities);
     /**
      * 
      * Description: <br>
