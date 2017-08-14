@@ -10,6 +10,7 @@ package com.bonc.nerv.tioa.week.service.impl;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,9 +20,11 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,8 +39,10 @@ import com.bonc.nerv.tioa.week.entity.SearchTenretiredData;
 import com.bonc.nerv.tioa.week.entity.TenretiredEntity;
 import com.bonc.nerv.tioa.week.service.TenretiredService;
 import com.bonc.nerv.tioa.week.util.DateUtils;
+import com.bonc.nerv.tioa.week.util.PoiNewUtil;
 import com.bonc.nerv.tioa.week.util.PoiUtils;
 import com.bonc.nerv.tioa.week.util.ResultPager;
+import com.bonc.nerv.tioa.week.util.SortList;
 
 /**
  * 
@@ -267,7 +272,7 @@ public class TenretiredServiceImpl implements  TenretiredService{
             String tenantLevel=tenretiredEntity.getTenantLevel()==null?"":Integer.toString(tenretiredEntity.getTenantLevel());
             String tenantBoss=tenretiredEntity.getTenantBoss();
             String tenantTel=tenretiredEntity.getTenantTel();
-            String resourceType=tenretiredEntity.getResourceType()==null?"":Integer.toString(tenretiredEntity.getTenantLevel());
+            String resourceType=tenretiredEntity.getResourceType();
             String askIp=tenretiredEntity.getAskIp();
             String hostNum=tenretiredEntity.getHostNum()==null?"":Integer.toString(tenretiredEntity.getHostNum());
             String storage=tenretiredEntity.getStorage();
@@ -284,75 +289,15 @@ public class TenretiredServiceImpl implements  TenretiredService{
             String endRentDate=tenretiredEntity.getEndRentDate()==null?"":DateUtils.formatDateToString(tenretiredEntity.getEndRentDate(),"yyyyMMdd");
             String tenantInterface=tenretiredEntity.getTenantInterface();
             String remark=tenretiredEntity.getRemark();
-            switch (tenretiredEntity.getTenantLevel()) {
-                case 0:
-                    tenantLevel= "小";
-                    break;
-                case 1:
-                    tenantLevel= "中";
-                    break;
-                case 2:
-                    tenantLevel= "大";
-                    break;
-                default:
-                    break;
-            }
-            
-            switch (tenretiredEntity.getResourceType()) {
-                case 1:
-                    resourceType= "Fiume";
-                    break;
-                case 2:
-                    resourceType= "FTP集群";
-                    break;
-                case 3:
-                    resourceType= "Hbase";
-                    break;
-                case 4:
-                    resourceType= "hue";
-                    break;
-                case 5:
-                    resourceType= "Hive";
-                    break;
-                case 6:
-                    resourceType= "IMPALA";
-                    break;
-                case 7:
-                    resourceType= "KAFKA";
-                    break;
-                case 8:
-                    resourceType= "MPP";
-                    break;
-                case 9:
-                    resourceType= "Mysql";
-                    break;
-                case 10:
-                    resourceType= "Oracle";
-                    break;
-                case 11:
-                    resourceType= "Redis";
-                    break;
-                case 12:
-                    resourceType= "spark";
-                    break;
-                case 13:
-                    resourceType= "storm";
-                    break;
-                case 14:
-                    resourceType= "接口机";
-                    break;
-                case 15:
-                    resourceType= "虚拟机";
-                    break;
-                case 16:
-                    resourceType= "物理机";
-                    break;
-                case 17:
-                    resourceType= "应用服务器";
-                    break;
-                default:
-                    break;
-            }
+            if (tenretiredEntity.getTenantLevel()== null) {
+                tenantLevel = ""; 
+            } else if (tenretiredEntity.getTenantLevel()== 0) {
+                tenantLevel = "小"; 
+            } else if (tenretiredEntity.getTenantLevel()== 1) {
+                tenantLevel = "中"; 
+            } else if (tenretiredEntity.getTenantLevel()== 2) {
+                tenantLevel = "大"; 
+            } 
             String[] service={Integer.toString(i+1),serviceType,tenantName,tenantLevel,tenantBoss,
                               tenantTel,resourceType,askIp,hostNum,storage,computingResourceRate,
                               computeRoom,uniplatformNum,numOf4a,demand,serviceName,sequenceName,askDate,openDate,
@@ -374,5 +319,76 @@ public class TenretiredServiceImpl implements  TenretiredService{
          * （但是，只将中间表中日期大于展示表中日期的数据进行计算和汇总）
          */
 
+    }
+
+    @Override
+    public void getExcelNew(List<TenretiredEntity> list, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String fileName = "租户退租情况导出.xlsx";
+        String sheetName = "租户退租情况";
+        String[] headers = {"序号","服务类型","租户","租户级别","租户负责人","联系电话","资源类型","访问IP","主机数量",
+            "存储使用量","存储使用量单位","计算资源","机房","统一平台数量","4A数量","需求","服务名","队列名","申请日期","开放日期",
+            "变更时间","退租时间","平台接口人","备注"};
+        SortList<TenretiredEntity> asort = new SortList<TenretiredEntity>();
+        asort.Sort(list, "getTenantName", "desc");
+        int index = 1;
+        List<List<String[]>> ttEntityLists = new ArrayList<List<String[]>>();
+        Map<String, List<String[]>> map = new HashMap<String, List<String[]>>();
+        for(TenretiredEntity teEntity : list){
+            String[] tenStr ={String.valueOf(index),
+                teEntity.getServiceType(),
+                teEntity.getTenantName(),
+                String.valueOf(teEntity.getTenantLevel()),
+                teEntity.getTenantBoss(),
+                teEntity.getTenantTel(),
+                String.valueOf(teEntity.getResourceType()),
+                teEntity.getAskIp(),
+                String.valueOf(teEntity.getHostNum()), //8
+                teEntity.getStorage(),
+                String.valueOf(teEntity.getComputingResourceRate()),
+                teEntity.getComputeRoom(),
+                String.valueOf(teEntity.getUniplatformNum()),
+                String.valueOf(teEntity.getNumOf4a()),
+                teEntity.getDemand(),
+                teEntity.getServiceName(),
+                teEntity.getSequenceName(),
+                String.valueOf(teEntity.getAskDate()),
+                String.valueOf(teEntity.getOpenDate()),
+                String.valueOf(teEntity.getChangeDate()),
+                String.valueOf(teEntity.getTenantLevel()),
+                teEntity.getTenantInterface(),
+                teEntity.getRemark()
+            };
+            String tenantName = teEntity.getTenantName();
+            if(map.containsKey(tenantName)){
+                map.get(tenantName).add(tenStr);
+            } else{
+                List<String[]> newList = new ArrayList<String[]>();
+                newList.add(tenStr);
+                ttEntityLists.add(newList);
+                map.put(tenantName, newList);
+                index++;
+            }
+            
+        }
+        
+        Integer[] mergeClom = {0 , 1, 2, 3, 4, 5, 12, 13, 14, 21};
+        XSSFWorkbook workbook = PoiNewUtil.createWorkBook(sheetName, headers ,ttEntityLists, mergeClom );
+        
+        
+        final String userAgent = request.getHeader("USER-AGENT");
+        if(StringUtils.contains(userAgent, "MSIE")){//IE浏览器
+            fileName = URLEncoder.encode(fileName,"UTF-8");
+        }else if(StringUtils.contains(userAgent, "Mozilla")){//google,火狐浏览器
+            fileName = new String(fileName.getBytes(), "ISO8859-1");
+        }else{
+            fileName = URLEncoder.encode(fileName,"UTF-8");//其他浏览器
+        }
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+        workbook.write(response.getOutputStream());
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.flushBuffer();
+        //response.getOutputStream().close();
+        System.out.println("excel导出成功！");
     }
 }

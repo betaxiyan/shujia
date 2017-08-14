@@ -74,7 +74,7 @@ public class DisTenantEntity {
      */
     @Basic
     @Column(name = "resource_type")
-    private Integer resourceType;
+    private String resourceType;
 
     /*
      * 文件数
@@ -216,11 +216,11 @@ public class DisTenantEntity {
         this.tenantTel = tenantTel;
     }
 
-    public Integer getResourceType() {
+    public String getResourceType() {
         return resourceType;
     }
 
-    public void setResourceType(Integer resourceType) {
+    public void setResourceType(String resourceType) {
         this.resourceType = resourceType;
     }
 

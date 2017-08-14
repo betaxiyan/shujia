@@ -8,6 +8,7 @@
 
 package com.bonc.nerv.tioa.week.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -55,4 +56,14 @@ public interface TenretiredDao extends CrudRepository<TenretiredEntity,Long>,Jpa
      */
     @Query("select count(ten) from TenretiredEntity ten where ten.tlId = ?1")
     int findByTlId(long tlId);
+    
+    /**
+     * 
+     * 查询退租记录中最晚退租时间
+     * 
+     * @return 
+     * @see
+     */
+    @Query("select max(endRentDate) from TenretiredEntity")
+    Date maxTime();
 }

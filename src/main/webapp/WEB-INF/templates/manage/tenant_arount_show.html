@@ -6,237 +6,42 @@
   <head th:include="frame/common :: header"></head>
   <link type="text/css" rel="stylesheet" th:href="@{/css/manage/tenant_arount_show.css}"/>
   <script type="text/javascript" th:src="@{/js/manage/tenant_arount_show.js}"></script>
+  <title>实施自动化管理页面</title>
 </head>
 <body>
-     <div class="row" style="margin-left: 100px; margin-top: 30px;" 
-            role="tabpanel" id="details">
-            <div class="form-inline details-search-form ">
-                <button class="btn btn-danger import" style="margin-left:500px;margin-right:30px;" th:onclick="'uploadFile()'">
-                    <i class="layui-icon"></i> 导入
-                </button>
-                <button class = "btn btn-danger export" style = "margin-left:30px;margin-right:30px;" th:onclick="'exportFile()'">
-                    <i class = "layui-icon"></i>导出
-                </button>
-                <!-- <button class = "btn btn-danger add" style = "margin-left:30px;margin-right:30px;"    th:onclick="'addAroundTenantModal()'">
-                    <i class = "layui-icon"></i>新增
-                </button> -->
-            </div>
-     </div>
-     <table id = "tenant_arount_show_table" class="table table-bordered table-hover" width="98%">
-         <thead>
-             <tr style="text-align: center">
-                  <th>序号</th>
-                 <th>租户Id</th>
-                 <th>租户名</th>
-                 <th>租户级别</th>
-                 <th>租户负责人</th>
-                 <th>租户负责人联系电话</th>
-                 <th>统一平台个数</th>
-                 <th>4A个数</th>
-                 <th>需求</th>
-                 <th>平台接口人</th>                 
-                 <th>操作</th>
-             </tr>
-         </thead>
-         <tbody>
-         </tbody>
-    </table>
-    
-    
-     <div class="modal fade" id="addAroundTenantModal" tabindex="-1" role="dialog" aria-labelledby="addToolModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">新增</h4>
-                </div>
-                
-                <div class="modal-body" style="padding-left: 20px;">
-                    <form id="addTenForm"  class="form-horizontal" method="get">
-                    
-                        <div class="form-group">
-                            <label for="tenantId" class="control-label col-md-2 ">租户Id</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="addaround-tenantId" name="tenantId" placeholder="请输入租户Id"/>
-                            </div>
-                        </div>
-                          <div class="form-group">
-                            <label for="tenantName" class="control-label col-md-2 ">租户名</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="addaround-tenantName" name="tenantName" placeholder="请输入租户名"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="tenantLevel" class="control-label col-md-2 ">租户级别</label>
-                            <div class="col-md-9">
-                                <select  class="form-control" id="addaround-tenantLevel">
-                                    <option  value="0">小</option>
-                                    <option  value="1">中</option>
-                                    <option  value="2">大</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="tenantBoss" class="control-label col-md-2 ">租户负责人</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="addaround-tenantBoss" name="tenantBoss" placeholder="请输入租户负责人"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="tenantTel" class="control-label col-md-2 ">联系电话</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="addaround-tenantTel" name="tenantTel" placeholder="请输入联系电话"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="numOfUnifiedPlatform" class="control-label col-md-2 ">统一平台数量</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="addaround-numOfUnifiedPlatform" name="numOfUnifiedPlatform" placeholder="输入统一平台数量"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="numOf4a" class="control-label col-md-2 ">4A数量</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="addaround-numOf4a" name="numOf4a" placeholder="输入统4A数量"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="tenantReqirement" class="control-label col-md-2 ">需求</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="addaround-tenantReqirement" name="tenantReqirement" placeholder="输入需求"/>
-                            </div>
-                        </div>
-                     
-                        <div class="form-group">
-                            <label for="tenantInterface" class="control-label col-md-2 ">平台接口人</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="addaround-tenantInterface" name="tenantInterface" placeholder="输入平台接口人"/>
-                            </div>
-                        </div>
-                        
-                        
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" id="addTeantAroundMgrBtn">提交</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal" id="addReloadHTML">关闭</button>
-                </div>
-            </div>
+
+	<div class="view_contianer">
+      <!-- <div class="view_header">
+            <h5>自动化管理页面</h5>
+            <span>统计文件和文件夹个数生成Excel</span>
+        </div>  -->
+       <div class="view_tab">
+           <!-- Nav tabs -->
+           <ul class="nav nav-tabs" role="tablist" id="view_tabs">
+               <li role="presentation" class="active"><a href="#roundView" aria-controls="view" role="tab" data-toggle="tab" id="taround-view">租户信息</a></li>
+           	   <li role="presentation"><a href="#details_health" aria-controls="details_health" role="tab" data-toggle="tab" id="detail-health">接口健康</a></li>
+           </ul>
+           <!-- Tab panes -->
+	           <div class="tab-content">
+		            <!-- 租户周边信息的tab -->
+		            <div th:replace="fragment/taround_frg :: taround_view"></div> 
+		            <!-- 接口健康界面 -->
+                	<div th:replace="fragment/health_frg :: health"></div> 
+			   </div>
         </div>
     </div>
-    
-     <div class="modal fade" id="uploadTenArrModal" tabindex="-1" role="dialog" aria-labelledby="uploadTenModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">编辑类型</h4>
-                </div>
-                <div class="modal-body" style="padding-left: 20px;">
-                    <form id="updateTenForm"  class="form-horizontal"  method="get">
-                       <input id="updatearound-ttaId" type="hidden" name="ttaId"/>
-                         <div class="form-group">
-                            <label for="tenantId" class="control-label col-md-2 ">租户Id</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="updatearound-tenantId" name="tenantId"   placeholder="请输入租户Id"/>
-                            </div>
-                        </div>
-                          <div class="form-group">
-                            <label for="tenantName" class="control-label col-md-2 ">租户名称</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="updatearound-tenantName" name="tenantName"  placeholder="请输入租户"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="tenantLevel" class="control-label col-md-2 ">租户级别</label>
-                            <div class="col-md-9">
-	                            <select class="form-control" name="tenantLevel" id="updatearound-tenantLevel" >
-	                                   <option value="0">小</option>
-	                                   <option value="1">中</option>
-	                                   <option value="2">大</option>
-	                            </select>
-                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="tenantBoss" class="control-label col-md-2 ">租户负责人</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="updatearound-tenantBoss" name="tenantBoss" placeholder="请输入租户负责人"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="tenantTel" class="control-label col-md-2 ">联系电话</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="updatearound-tenantTel" name="tenantTel" placeholder="请输入联系电话"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="numOfUnifiedPlatform" class="control-label col-md-2 ">统一平台数量</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="updatearound-numOfUnifiedPlatform" name="numOfUnifiedPlatform" placeholder="输入统一平台数量"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="numOf4a" class="control-label col-md-2 ">4A数量</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="updatearound-numOf4a" name="numOf4a" placeholder="输入统4A数量"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="tenantReqirement" class="control-label col-md-2 ">需求</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="updatearound-tenantReqirement" name="tenantReqirement" placeholder="输入需求"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="tenantInterface" class="control-label col-md-2 ">平台接口人</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="updatearound-tenantInterface" name="tenantInterface" placeholder="输入平台接口人"/>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" id="updateTenArrBtn" th:onclick="'click()'">提交</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal" id="updateReloadHTML">关闭</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-      <div class="modal fade" id="alertTenArrModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel">
-        <div class="modal-dialog" role="document" style="width: 350px;">
-            <div class="modal-content" style="width: 350px;">
-                <div class="modal-body" style="text-align: center;font-weight: bold;padding: 30px;">
-                </div>
-                <div class="modal-footer" style="text-align: center;padding: 5px;">
-                    <button type="button" class="btn btn-danger btn-xs" id="removeTenArrTool">确定</button>
-                    <button type="button" class="btn btn-default btn-xs" data-dismiss="modal">取消</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- 租户周边信息界面的弹框-->
+    	<div th:replace="fragment/taround_frg :: around_add"></div> 
+    	<div th:replace="fragment/taround_frg :: around_edit"></div> 
+    	<div th:replace="fragment/taround_frg :: around_alert"></div> 
+    	<div th:replace="fragment/taround_frg :: around_upload"></div> 
+    	
     
      <form id="deleteTenArrForm" th:action="@{/manage/deleteTenantAroundMgr}" method="get">
         <input type="hidden" id="delete-ttaId" name="ttaId"/>
     </form>
     
-    
-    <div class="modal fade" id="uploadFileModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel">
-        <div class="modal-dialog" role="document" style="width: 350px;">
-            <div class="modal-content" style="width: 350px;">
-                <div class="modal-body" style="text-align: center;font-weight: bold;padding: 30px;">
-                    <form enctype="multipart/form-data" id="uploadFileForm" method="post" action = "/manage/saveTenantAroundMgrExcel">  
-                      <input type="file" name="upload"  id="upload"></input>  
-                    </form>
-                </div>
-                <div class="modal-footer" style="text-align: center;padding: 5px;">
-                    <button type="button" class="btn btn-danger btn-xs" id="submitUpload" th:onclick="'uploadFileSubmit()'">确定</button>
-                    <button type="button" class="btn btn-default btn-xs" data-dismiss="modal">取消</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
+    <script type="text/javascript" th:src="@{/js/view/health_view.js}"></script>
     <script type="text/javascript" th:inline="javascript">
      window.onscroll = function(){
             $('.fixedHeader-floating th').css('text-align','center');
