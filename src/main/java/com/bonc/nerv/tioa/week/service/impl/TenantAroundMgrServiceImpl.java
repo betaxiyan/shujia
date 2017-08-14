@@ -66,7 +66,6 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
         try {
             JsonNode jsonNode = map.readTree(jsonStr);
             String success = jsonNode.get("success").toString();
-            System.out.println(success);
             if (!success.equals("true")) {
                 return;
             }
@@ -196,8 +195,7 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
             TioaTenantAroundShowEntity tioaTenantAroundShowEntity = list.get(i);
             String tenantId = tioaTenantAroundShowEntity.getTenantId();
             String tenantName = tioaTenantAroundShowEntity.getTenantName();
-            String tenantLevel = tioaTenantAroundShowEntity.getTenantLevel() == null ? "" : Integer.toString(
-                tioaTenantAroundShowEntity.getTenantLevel());
+            String tenantLevel = getLevalStr(tioaTenantAroundShowEntity.getTenantLevel());
             String tenantBoss = tioaTenantAroundShowEntity.getTenantBoss();
             String tenantTel = tioaTenantAroundShowEntity.getTenantTel();
             String numOfUniplatformNum = tioaTenantAroundShowEntity.getNumOfUnifiedPlatform() == null ? "" : Integer.toString(
@@ -224,6 +222,24 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
     }
 
     /**
+     * 从数据库导出到Excel时，将租户级别转换成大中小
+     * @param level  
+     * @return 大，中，小
+     * @see
+     */
+    private String getLevalStr(Integer level) {
+        if (level == com.bonc.nerv.tioa.week.constant.TioaConstant.TENANT_LEVEL_LARGE) {
+            return "大";
+        } else if (level == com.bonc.nerv.tioa.week.constant.TioaConstant.TENANT_LEVEL_MIDDLE) {
+            return "中";
+        } else if (level == com.bonc.nerv.tioa.week.constant.TioaConstant.TENANT_LEVEL_SMALL) {
+            return "小";
+        } else {
+            return "";
+        }
+    }
+    
+    /**
      * 将文件导入到数据库
      */
     @Override
@@ -232,7 +248,6 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
         List<String[]> list = null;
         try {
             list = PoiUtils.readExcel(excelFile);
-            System.out.println(list.size());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -245,7 +260,7 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
             }
             tioaTenantAroundShow.setTenantId(list.get(i)[0]);
             tioaTenantAroundShow.setTenantName(list.get(i)[1]);
-            tioaTenantAroundShow.setTenantLevel(getInteger(list.get(i)[2]));
+            tioaTenantAroundShow.setTenantLevel(getLevalInteger(list.get(i)[2]));
             tioaTenantAroundShow.setTenantTel(list.get(i)[3]);
             tioaTenantAroundShow.setTenantBoss(list.get(i)[4]);
             tioaTenantAroundShow.setNumOfUnifiedPlatform(getInteger(list.get(i)[5]));
@@ -271,6 +286,25 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
             return null;
         }
     }
+    
+    /**
+     * 将用户级别转换成整形
+     * @param str  
+     * @return int 
+     * @see
+     */
+    public Integer getLevalInteger(String str) {
+        if (str.equals("大")) {
+            return com.bonc.nerv.tioa.week.constant.TioaConstant.TENANT_LEVEL_LARGE;
+        } else if (str.equals("中")) {
+            return com.bonc.nerv.tioa.week.constant.TioaConstant.TENANT_LEVEL_MIDDLE;
+        } else if (str.equals("小")) {
+            return com.bonc.nerv.tioa.week.constant.TioaConstant.TENANT_LEVEL_SMALL;
+        } else {
+            return null;
+        }
+    }
+    
 
     /**
      * 获取一条修改数据

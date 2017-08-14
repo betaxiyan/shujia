@@ -24,11 +24,11 @@ $(document).ready(function() {
                    {data:"tenantName",},
                    {data:"tenantLevel",
         				render:function(data, type, row) {
-        						 if(data==2){
+        						 if(data==30){
         							return "大";
-        						}else if(data==1){
+        						}else if(data==20){
         							return "中";
-        						}else if(data==0){
+        						}else if(data==10){
         							return "小";
         						}
         						return data;
@@ -129,14 +129,14 @@ $(document).ready(function() {
                         notEmpty: {
                             message: '电话号码不能为空'
                         },
-//                        stringLength: {
-//                            min: 11,
-//                            max: 11,
-//                            message: '请输入11位电话号码'
-//                        },
+                        /*stringLength: {
+                            min: 11,
+                            max: 11,
+                            message: '请输入11位电话号码'
+                        },*/
                         regexp: {
-                            regexp: /^1[3|5|8]{1}[0-9]{9}$/,
-                            message: '请输入正确的电话号码'
+                            regexp: /^1[0-9]{10}$/,
+                            message: '请输入长度为11位的电话号码'
                         }
                     }
                 },
