@@ -1,15 +1,16 @@
 var table;
 $(document).ready(function() {
-    tables= $('#tools_table').dataTable({
+    table= $('#tools_table').dataTable({
     	fixedHeader: {
 	        header: true
 	    },
 	    "dom": '<<t>ilp>',
-	    "pagingType": "simple_numbers",		// 设置分页控件的模式
+	    "pagingType": "full_numbers",		// 设置分页控件的模式
         "processing": true, 				// 打开数据加载时的等待效果
         "serverSide": true,					// 打开后台分页
         "ordering" : false,
         "bPaginate": true,                  // 分页设置
+        "bPaginate":false,
         "bLengthChange": true,
         "bFilter": false,                  // 搜索设置
         "bSort": false,
@@ -247,7 +248,7 @@ $(document).ready(function() {
 	            	 data:"changeDate",
 	            	 reder:function(data,type,row){
 	            		 if(data = "" || data == null){
-	            			 return "_";
+	            			 return "-";
 	            		 }
 	            		 return data;
 	            	 }
@@ -256,7 +257,7 @@ $(document).ready(function() {
 	            	 data:"openDate",
 	            	 reder:function(data,type,row){
 	            		 if(data = "" || data ==null){
-	            			 return "_";
+	            			 return "-";
 	            		 }
 	            		 return data;
 	            	 }
@@ -289,6 +290,9 @@ $(document).ready(function() {
         }
     });
 
+   // new $.fn.dataTable.FixedColumns(table);
+    
+    
     //新增表单提交
     $('#addToolBtn').click(function() {
         	var serviceType=$("#add-serviceType").val();
@@ -491,3 +495,4 @@ function exportDisFile() {
 	
 	location.href=ctx+'users/disExport' ;
 }
+
