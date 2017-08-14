@@ -4,16 +4,15 @@
 <body>
 	<div th:fragment="health" role="tabpanel" class="tab-pane"
 		id="details_health">
-		<div class="view_body">
+		<div class="row" style="margin-left: 100px; margin-top: 30px;" 
+                        role="tabpanel" id="details">
 			<div class="view_test">
 				<button id="test_health" type="button" class="btn btn-danger"
-					style="margin-left: 50%">测试接口</button>
+					style="margin-left: 45%">测试接口</button>
 
 			</div>
 		</div>
-		<div class="box">
-			<div class="box-body table-responsive">
-				<table id="detail_health" class="table table-bordered">
+				<table id="detail_health" class="table table-bordered table-hover" width="98%">
 					<thead>
 						<tr style="text-align: center">
 							<!-- <th width="5%">序号</th>  -->
@@ -46,14 +45,11 @@
                             <td class="updateresult"></td>
                         </tr>
 					</tbody>
-
 				</table>
-			</div>
-		</div>
 		<button id="update" type="button" class="btn btn-danger"
 			style="margin-left: 45%">刷新数据表数据</button>
 
-	</div>
+ 	</div>
 
 </body>
 </html>
