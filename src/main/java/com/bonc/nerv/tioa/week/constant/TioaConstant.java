@@ -42,5 +42,20 @@ public class TioaConstant {
      * 是否签署合同：否
      */
     public static final Integer TENANT_NO_CONTRACT = 20;
+    
+    /**
+     * 租户级别：大，30
+     */
+    public static final Integer TENANT_LEVEL_LARGE = 30;
+    
+    /**
+     * 租户级别：中，20
+     */
+    public static final Integer TENANT_LEVEL_MIDDLE = 20;
+    
+    /**
+     * 租户级别：小，10
+     */
+    public static final Integer TENANT_LEVEL_SMALL = 10;
   
 }
