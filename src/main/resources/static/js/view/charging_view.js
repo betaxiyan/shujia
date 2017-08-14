@@ -373,7 +373,7 @@ function loaddata() {
    function jfdoUpload() {  
 	     var formData = new FormData($( "#jfuploadForm" )[0]);  
 	     $.ajax({  
-	          url: ctx + "/save" ,  
+	          url: ctx + "save" ,  
 	          type: 'POST',  
 	          data: formData,  
 	            

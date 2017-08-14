@@ -1,6 +1,12 @@
 var table;
 $(document).ready(function() {
-    tables= $('#tools_table').dataTable({
+    tables= $('#tools_table').DataTable({
+        scrollX:        true,
+        scrollCollapse: true,
+        paging:         true,
+        "fixedColumns":   {
+            leftColumns: 5,
+        },
     	fixedHeader: {
 	        header: true
 	    },
@@ -15,10 +21,7 @@ $(document).ready(function() {
         "bSort": false,
         "bInfo": true,
         "bAutoWidth": true,
-        "scrollX": true,
-        "scollY":true,
-        "bScrollCollapse":true,
-        "sScrollXInner":"150%",
+        
          "ajax":{
          	"url":ctx+"users/findlist",
          	"data":function(d){
@@ -288,7 +291,6 @@ $(document).ready(function() {
         	});
         }
     });
-
     //新增表单提交
     $('#addToolBtn').click(function() {
         	var serviceType=$("#add-serviceType").val();
