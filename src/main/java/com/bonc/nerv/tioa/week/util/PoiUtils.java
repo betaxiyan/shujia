@@ -333,11 +333,10 @@ public class PoiUtils {
             }*/
             //获得当前sheet的开始行  
             int firstRowNum = sheet.getFirstRowNum();
-
             //获得当前sheet的结束行  
             int lastRowNum = sheet.getLastRowNum();
             //循环除了第二行的所有行  
-            for (int rowNum = firstRowNum + 2; rowNum <= lastRowNum; rowNum++ ) {
+            for (int rowNum = firstRowNum + 1; rowNum <= lastRowNum; rowNum++ ) {
                 //获得当前行  
                 Row row = sheet.getRow(rowNum);
                 if (row.getCell(0) == null || row.getCell(0).equals("")) {

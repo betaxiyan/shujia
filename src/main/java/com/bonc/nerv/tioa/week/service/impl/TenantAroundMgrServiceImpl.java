@@ -261,8 +261,8 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
             tioaTenantAroundShow.setTenantId(list.get(i)[0]);
             tioaTenantAroundShow.setTenantName(list.get(i)[1]);
             tioaTenantAroundShow.setTenantLevel(getLevalInteger(list.get(i)[2]));
-            tioaTenantAroundShow.setTenantTel(list.get(i)[3]);
-            tioaTenantAroundShow.setTenantBoss(list.get(i)[4]);
+            tioaTenantAroundShow.setTenantBoss(list.get(i)[3]);
+            tioaTenantAroundShow.setTenantTel(list.get(i)[4]);
             tioaTenantAroundShow.setNumOfUnifiedPlatform(getInteger(list.get(i)[5]));
             tioaTenantAroundShow.setNumOf4a(getInteger(list.get(i)[6]));
             tioaTenantAroundShow.setTenantReqirement(list.get(i)[7]);
