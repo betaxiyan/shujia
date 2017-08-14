@@ -28,10 +28,11 @@ public interface ExcelAnalyseService {
      * 
      * Description: <br>
      * 分析Orcal的Excel表 
+     * @param reMidEntities 
      * @return List<ResourceUsageMidEntity>
      * @see
      */
-    List<ResourceUsageMidEntity> analyseOrcelExcel();
+    List<ResourceUsageMidEntity> analyseOrcelExcel(Workbook workbook);
     
     /**
      * 
@@ -111,5 +112,7 @@ public interface ExcelAnalyseService {
      * @see
      */
     void webSeverToDb(List<ResourceUsageMidEntity> reMidEntities);
+
+    
      
 }

@@ -50,24 +50,21 @@ public class ExcelAnalyseServiceImpl implements ExcelAnalyseService {
      * @see com.bonc.nerv.tioa.week.service.ExcelAnalyseService#analyseOrcelExcel()
      * @author xiyan
      */
+    @SuppressWarnings("finally")
     @Override
-    public List<ResourceUsageMidEntity> analyseOrcelExcel()   {
-        
+    public List<ResourceUsageMidEntity> analyseOrcelExcel(Workbook workbook)   {
         List<ResourceUsageMidEntity> list = new ArrayList<ResourceUsageMidEntity>();
-        InputStream instream;
-        try {
-            instream = new FileInputStream("C:\\Users\\xiyan\\Desktop\\使用量统计\\使用量统计\\12c表空间使用情况-2017.08.10.xlsx");
-            Workbook  workbook = new XSSFWorkbook(instream);   
-            //Sheet的下标是从0开始   
-            //获取第一张Sheet表   
-            Sheet readsheet = workbook.getSheetAt(0); 
-            //获得当前sheet的开始行  
-            int firstRowNum  = readsheet.getFirstRowNum();  
-            //获得当前sheet的结束行  
-            int lastRowNum = readsheet.getLastRowNum();  
+        //获取第一张Sheet表   
+        Sheet readsheet = workbook.getSheetAt(0); 
+        //获得当前sheet的开始行  
+        int firstRowNum  = readsheet.getFirstRowNum();  
+        //获得当前sheet的结束行  
+        int lastRowNum = readsheet.getLastRowNum();  
             
-            //循环第一行到倒数第二行
-            for(int rowNum = firstRowNum+1;rowNum < lastRowNum;rowNum++){  
+        //循环除了第一行的所有行,此处不加一即可不跳过第一行
+        //修改之处。
+        for(int rowNum = firstRowNum+1;rowNum < lastRowNum;rowNum++){  
+            try{
                 //获得当前行  
                 Row row = readsheet.getRow(rowNum);  
                 if(row == null){  
@@ -80,21 +77,18 @@ public class ExcelAnalyseServiceImpl implements ExcelAnalyseService {
                 resourceUsageMidEntity.setStorageUsage(Double.parseDouble(cell2.toString()));
                 resourceUsageMidEntity.setType("Orcal");
                 list.add(resourceUsageMidEntity);  
-            }  
-            
-        } catch (IOException e) {
-            e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }finally {
+                continue;
+            }
         }   
-        
-
-        
-        
         return list;
     }
 
     @Override
     public void orcalToDb(List<ResourceUsageMidEntity> reMidEntities) {
-        // TODO Auto-generated method stub
+        resUsaMidDao.save(reMidEntities);
 
     }
 
@@ -168,7 +162,7 @@ public class ExcelAnalyseServiceImpl implements ExcelAnalyseService {
 
     @Override
     public void ftpToDb(List<ResourceUsageMidEntity> reMidEntities) {
-        // TODO Auto-generated method stub
+        resUsaMidDao.save(reMidEntities);
 
     }
 
