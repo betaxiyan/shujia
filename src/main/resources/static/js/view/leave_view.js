@@ -1,4 +1,4 @@
-var table;
+var table1;
 $(document).ready(function() {
 	
 	table = $('#leave_table').dataTable({
@@ -17,15 +17,22 @@ $(document).ready(function() {
         "bSort": false,
         "bInfo": true,
         "bAutoWidth": true,
-        scrollY:        "300px",
-		scrollX:        true,
-		scrollCollapse: true,
-		fixedColumns:   true,
+        scrollY: "300px",
+        scrollX:  true,
+        scrollCollapse: true,
+        paging:true,
+        fixedColumns:   {
+            leftColumns: 3,
+        },
         "ajax":{
      		"url":ctx+"tenant/findTenretiredList",
         	"data":function(d){
+        		d.serviceType=$("#tenantServiceType").val();
         		d.tenantName = $("#tenantLeaveName").val();
-        		d.tenantInterface= $("#tenantInterface").val();
+        		d.tenantLevel=$("#tenantLeaveLevel").val();
+        		d.tenantBoss=$("#tenantLeaveBoss").val();
+        		d.tenantTel=$("#tenantLeaveTel").val();
+        		d.tenantInterface= $("#tenantLeaveInterface").val();
              }
         },
         "columns":[
@@ -89,40 +96,6 @@ $(document).ready(function() {
                  	 render:function(data, type, row) {
                  		 if(data == "" || data == null) {
                  			 return "-";
-                 		 }else if(data==1){
-                 			 return "Flume";
-                 		 }else if(data==2){
-                 			 return "FTP集群";
-                 		 }else if(data==3){
-                 			 return "Hbase";
-                 		 }else if(data==4){
-                 			 return "hue";
-                 		 }else if(data==5){
-                 			 return "Hive";
-                 		 }else if(data==6){
-                 			 return "IMPALA";
-                 		 }else if(data==7){
-                 			 return "KAFKA";
-                 		 }else if(data==8){
-                 			 return "MPP";
-                 		 }else if(data==9){
-                 			 return "Mysql";
-                 		 }else if(data==10){
-                 			 return "Oracle";
-                 		 }else if(data==11){
-                 			 return "Redis";
-                 		 }else if(data==12){
-                 			 return "spark";
-                 		 }else if(data==13){
-                 			 return "storm";
-                 		 }else if(data==14){
-                 			 return "接口机";
-                 		 }else if(data==15){
-                 			 return "虚拟机";
-                 		 }else if(data==16){
-                 			 return "物理机";
-                 		 }else if(data==17){
-                 			 return "应用服务器";
                  		 }
                  		 return data;
                  	 }
@@ -405,9 +378,7 @@ $(document).ready(function() {
     	 var demand=$("#updateleave-demand").val();
     	 var serviceName=$("#updateleave-serviceName").val();
     	 var sequenceName=$("#updateleave-sequenceName").val();
-    	 alert(sequenceName);
     	 var askDate=$("#updateleave-askDate").val();
-    	 alert(askDate);
     	 var openDate=$("#updateleave-openDate").val();
     	 var changeDate=$("#updateleave-changeDate").val();
     	 var endRentDate=$("#updateleave-endRentDate").val();
@@ -570,8 +541,12 @@ function clickLeaveTable(){
 
 //清除查询数据
 function cleanLeaveSearch() {
+	$("#tenantServiceType").val("");
 	$("#tenantLeaveName").val("");
-	$("#tenantInterface").val("");
+	$("#tenantLeaveLevel").val("");
+	$("#tenantLeaveBoss").val("");
+	$("#tenantLeaveTel").val("");
+	$("#tenantLeaveInterface").val("");
 	clickLeaveTable();
 }
 
