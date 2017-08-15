@@ -257,10 +257,8 @@ public class TenretiredServiceImpl implements  TenretiredService{
      * @param tlId 
      * @see
      */
-    @Override
-    public void delete(long tlId){
-        TenretiredEntity tenretiredEntity = tenretiredDao.findOne(tlId);
-        tenretiredDao.delete(tenretiredEntity );
+    public void deleteByTlId(Long tlId){
+        tenretiredDao.delete(tlId);
     }
     
     /**
@@ -363,6 +361,14 @@ public class TenretiredServiceImpl implements  TenretiredService{
         Map<String, List<String[]>> map = new HashMap<String, List<String[]>>();
         for(TenretiredEntity teEntity : list){
             String tenantLevel=teEntity.getTenantLevel()==null?"":String.valueOf(teEntity.getTenantLevel());
+            String resourceType=teEntity.getResourceType()==null?"":String.valueOf(teEntity.getResourceType());
+            String hostNum=teEntity.getHostNum()==null?"":String.valueOf(teEntity.getHostNum());
+            String computingResourceRate=teEntity.getComputingResourceRate()==null?"":String.valueOf(teEntity.getComputingResourceRate());
+            String uniplatformNum=teEntity.getUniplatformNum()==null?"": String.valueOf(teEntity.getUniplatformNum());
+            String numOf4a=teEntity.getNumOf4a()==null?"": String.valueOf(teEntity.getNumOf4a());
+            String askDate=teEntity.getAskDate()==null?"":String.valueOf(teEntity.getAskDate());
+            String openDate=teEntity.getOpenDate()==null?"":String.valueOf(teEntity.getOpenDate());
+            String endRentDate=teEntity.getEndRentDate()==null?"":String.valueOf(teEntity.getEndRentDate());
             if (teEntity.getTenantLevel()== null) {
                 tenantLevel = ""; 
             } else if (teEntity.getTenantLevel()== 0) {
@@ -378,21 +384,21 @@ public class TenretiredServiceImpl implements  TenretiredService{
                 tenantLevel,
                 teEntity.getTenantBoss(),
                 teEntity.getTenantTel(),
-                String.valueOf(teEntity.getResourceType()),
+                resourceType,
                 teEntity.getAskIp(),
-                String.valueOf(teEntity.getHostNum()), //8
+                hostNum, //8
                 teEntity.getStorage(),
-                String.valueOf(teEntity.getComputingResourceRate()),
+                computingResourceRate,
                 teEntity.getComputeRoom(),
-                String.valueOf(teEntity.getUniplatformNum()),
-                String.valueOf(teEntity.getNumOf4a()),
+                uniplatformNum,
+                numOf4a,
                 teEntity.getDemand(),
                 teEntity.getServiceName(),
                 teEntity.getSequenceName(),
-                String.valueOf(teEntity.getAskDate()),
-                String.valueOf(teEntity.getOpenDate()),
-                String.valueOf(teEntity.getChangeDate()),
-                String.valueOf(teEntity.getTenantLevel()),
+                askDate,
+                openDate,
+                teEntity.getChangeDate(),
+                endRentDate,
                 teEntity.getTenantInterface(),
                 teEntity.getRemark()
             };
@@ -429,4 +435,5 @@ public class TenretiredServiceImpl implements  TenretiredService{
         //response.getOutputStream().close();
         System.out.println("excel导出成功！");
     }
+
 }
