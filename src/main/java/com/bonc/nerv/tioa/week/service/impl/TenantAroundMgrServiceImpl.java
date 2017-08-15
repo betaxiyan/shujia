@@ -317,7 +317,7 @@ public class TenantAroundMgrServiceImpl implements TenantAroundMgrService {
 
     @Override
     public void deleteAll(){
-       tenantAroundMgrDao.deleteAll();
+        tenantAroundMgrDao.deleteAll();
     }
 
 }

@@ -560,7 +560,11 @@ function exportFile() {
 		});   
 		return;
 	}
-	var tenantName=$("#tenantName").val();
-	var tenantInterface=$("#tenantInterface").val();
-	location.href=ctx+'tenant/exportTenretired?tenantName='+tenantName+ '&tenantInterface='+tenantInterface;
+    var serviceType=$("#tenantServiceType").val();
+	var tenantName = $("#tenantLeaveName").val();
+	var tenantLevel=$("#tenantLeaveLevel").val();
+	var tenantBoss=$("#tenantLeaveBoss").val();
+	var tenantTel=$("#tenantLeaveTel").val();
+	var tenantInterface= $("#tenantLeaveInterface").val();
+	location.href=ctx+'tenant/exportTenretired?serviceType='+serviceType+'&tenantName='+tenantName+'&tenantLevel='+tenantLevel+'&tenantBoss='+tenantBoss+'&tenantTel='+tenantTel+ '&tenantInterface='+tenantInterface;
 }
