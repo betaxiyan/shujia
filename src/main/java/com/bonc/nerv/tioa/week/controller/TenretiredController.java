@@ -22,6 +22,7 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bonc.nerv.tioa.week.entity.SearchTenretiredData;
@@ -127,10 +128,14 @@ public class TenretiredController {
      * @return 重定向到列表页
      * @see
      */
-    @RequestMapping(value = {"/tenant/tenretired/delete"}, method = RequestMethod.GET)
-    public String delete(long tlId) {
-        tenretiredService.delete(tlId);
-        return "redirect:/view";
+    @RequestMapping("/tenant/tenretired/delete")
+    @ResponseBody
+    public void deleteByTlId(Long tlId) {
+    	 try {
+    		 tenretiredService.deleteByTlId(tlId);
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
     }
      
     /**

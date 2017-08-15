@@ -98,7 +98,7 @@ public interface TenretiredService {
      * @param tlId 
      * @see
      */
-    void delete(long tlId);
+    void  deleteByTlId(Long tlId);
     
     /**
      * 导出Excel方法
@@ -123,7 +123,7 @@ public interface TenretiredService {
     
     /**
      * Description: 数据放到list集合中
-     * @param list  数组对象
+     * @param tenList  数组对象
      * @return  列表集合
      * @see
      */
