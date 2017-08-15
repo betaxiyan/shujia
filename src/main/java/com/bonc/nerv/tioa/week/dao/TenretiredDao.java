@@ -66,4 +66,22 @@ public interface TenretiredDao extends CrudRepository<TenretiredEntity,Long>,Jpa
      */
     @Query("select max(endRentDate) from TenretiredEntity")
     Date maxTime();
+    
+    /**
+     * 
+     * Description: <br>
+     * 联合查询
+     * @return List<TenretiredEntity>
+     * @see
+     */
+    @Query("select new com.bonc.nerv.tioa.week.entity.TenretiredEntity (t.tlId, t.tenantId, a.tenantName, t.serviceType, a.tenantLevel,"
+        +"a.tenantBoss, a.tenantTel, t.resourceType, t.askIp,"
+        +"t.hostNum, t.storage, t.computingResourceRate,"
+        +"t.computeRoom, a.numOfUnifiedPlatform, a.numOf4a,"
+        +"a.tenantReqirement, t.serviceName, t.sequenceName, t.askDate,"
+        +"t.openDate, t.changeDate, t.endRentDate,"
+        +"a.tenantInterface, t.remark)"
+        + " from TenretiredEntity t , TioaTenantAroundShowEntity a "
+        + "where t.tenantId = a.tenantId")
+    List<TenretiredEntity> findRefreshTenretired();
 }

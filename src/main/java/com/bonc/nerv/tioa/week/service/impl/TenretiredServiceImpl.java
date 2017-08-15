@@ -62,6 +62,17 @@ public class TenretiredServiceImpl implements  TenretiredService{
     private TenretiredDao  tenretiredDao;
     
     /**
+     * 
+     * Description: <br>
+     * 在查询退租信息之前，先用租户周边表里的数据更新一遍退租信息表
+     * @see
+     */
+    private void beforefindList(){
+        List<TenretiredEntity> entities = tenretiredDao.findRefreshTenretired();
+        tenretiredDao.save(entities);
+    }
+    
+    /**
      * Description:添加分页的查询
      * @param searchData 查询条件对象
      * @param start
@@ -73,6 +84,7 @@ public class TenretiredServiceImpl implements  TenretiredService{
     @Override
     public String findTenretiredList(SearchTenretiredData searchData, Integer start,
                                      Integer length, String draw){
+        beforefindList();
         PageRequest pageRequest=null;
         Map<String,Object> resultMap=new HashMap<>();
         if(start==null){
