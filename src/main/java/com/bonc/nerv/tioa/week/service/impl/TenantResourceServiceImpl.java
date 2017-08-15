@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.bonc.nerv.tioa.week.dao.TenantResourceMidDao;
@@ -40,12 +41,23 @@ public class TenantResourceServiceImpl implements TenantResourceService{
     private TenantResourceMidDao tenantResourceMidDao;
     
     /**
+     * 资源管理的有效资源url
+     */
+    @Value("${resreq.myresource.valid}")
+    private String resreqValid;
+    
+    /**
+     * 资源管理无效资源接口url
+     */
+    @Value("${resreq.myresource.invalid}")
+    private String resreqInvalid;
+    /**
      * 调用接口获取我的资源数据写入数据库
      * @see
      */
     public void tenResToDb() {
-        String validJson =  WebClientUtil.doGet("http://coptest.bonc.yz/resreq/res/myResourceV2!getResource.action?isInvalid=valid",null);
-        String invalidJson =  WebClientUtil.doGet("http://coptest.bonc.yz/resreq/res/myResourceV2!getResource.action?isInvalid=invalid",null);
+        String validJson =  WebClientUtil.doGet(resreqValid, null);
+        String invalidJson =  WebClientUtil.doGet(resreqInvalid, null);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         ObjectMapper mapper = new ObjectMapper();
         //将ResourceAccountMidEntity的数据封装成list集合
