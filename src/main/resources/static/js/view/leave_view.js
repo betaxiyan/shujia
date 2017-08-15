@@ -1,7 +1,7 @@
 var table1;
 $(document).ready(function() {
 	
-	table = $('#leave_table').dataTable({
+	table = $('#leave_table').DataTable({
 		fixedHeader: {
 	        header: true
 	    },
@@ -17,6 +17,7 @@ $(document).ready(function() {
         "bSort": false,
         "bInfo": true,
         "bAutoWidth": true,
+        "bStateSave":true,
         scrollY: "300px",
         scrollX:  true,
         scrollCollapse: true,
@@ -279,7 +280,6 @@ $(document).ready(function() {
         	});
         }
     });
-	
     //格式化页面展示的时间
     Date.prototype.Format = function(fmt) { //author: meizz 
         var o = { 
@@ -347,7 +347,8 @@ $(document).ready(function() {
            			updateClean();
            			}
            		});
-        	 clickLeaveTable();
+ //       	 clickLeaveTable();
+        	 refresh();
 //        }
     });
     
@@ -414,7 +415,7 @@ $(document).ready(function() {
     
   //删除
    $('#leave_table tbody').on( 'click', 'button.Tldelete', function () {
-	   var tlId = $(this).val();//获得tcId 主码
+	   var tlId = $(this).val();//获得tlId 主码
 	   $('#alertModal2 .modal-body').html('确定要删除该工具？');
        $('#alertModal2').modal('show');
        $('#removeTen').unbind('click');
@@ -423,11 +424,12 @@ $(document).ready(function() {
  	  		  	  { tlId:tlId,},
  	  	  			function(data){
  	  		  	    $('#alertModal2').modal('hide');
- 	  		        clickLeaveTable();
- 	  	  		    }
- 	  		  	  )
+// 	  		        clickLeaveTable();
+ 	  		  	    refresh();
+ 	  		    })
        })
 	});
+  
    
     $('#leave_table tbody').unbind('click',TenretiredOperate);
     $('#leave_table tbody').bind('click',TenretiredOperate);
@@ -460,6 +462,9 @@ $(document).ready(function() {
    /*************************/     
 });
 
+function refresh(){
+	table.draw(false);
+}
 //查询操作按钮
 function clickLeaveTable(){
 	table.api().ajax.reload();
