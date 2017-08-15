@@ -49,7 +49,7 @@ public class TenantAroundMgrController {
      * 显示页面
      * @return "tenant_arount_show"
      */
-    @RequestMapping("/tenantAroundMgr")
+    @RequestMapping(value ={"/tenantAroundMgr" , "/manager"})
     public String tenantAroundMgr(){
         tenantAroundMgrService.saveIdAndNameFromHttp();
         return "manage/tenant_arount_show";
