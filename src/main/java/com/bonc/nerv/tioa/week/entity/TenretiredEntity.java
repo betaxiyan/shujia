@@ -43,10 +43,15 @@ public class TenretiredEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO) 
      private long tlId;    
+    
+    /**
+     * 租户id
+     */
+    private String tenantId;
     /**
      * 租户名
      */
-     private String tenantName;
+    private String tenantName;
      
     
     /**
@@ -160,7 +165,69 @@ public class TenretiredEntity {
      */
     private String remark;
     
-   
+    public TenretiredEntity(){}
+    
+    /**
+     * 
+     * @param tlId
+     * @param tenantId
+     * @param tenantName
+     * @param serviceType
+     * @param tenantLevel
+     * @param tenantBoss
+     * @param tenantTel
+     * @param resourceType
+     * @param askIp
+     * @param hostNum
+     * @param storage
+     * @param computingResourceRate
+     * @param computeRoom
+     * @param uniplatformNum
+     * @param numOf4a
+     * @param demand
+     * @param serviceName
+     * @param sequenceName
+     * @param askDate
+     * @param openDate
+     * @param changeDate
+     * @param endRentDate
+     * @param tenantInterface
+     * @param remark
+     */
+    public TenretiredEntity(long tlId, String tenantId, String tenantName, String serviceType, Integer tenantLevel,
+                            String tenantBoss, String tenantTel, String resourceType, String askIp,
+                            Integer hostNum, String storage, Double computingResourceRate,
+                            String computeRoom, Integer uniplatformNum, Integer numOf4a,
+                            String demand, String serviceName, String sequenceName, Date askDate,
+                            Date openDate, String changeDate, Date endRentDate,
+                            String tenantInterface, String remark) {
+        super();
+        this.tlId = tlId;
+        this.tenantId = tenantId;
+        this.tenantName = tenantName;
+        this.serviceType = serviceType;
+        this.tenantLevel = tenantLevel;
+        this.tenantBoss = tenantBoss;
+        this.tenantTel = tenantTel;
+        this.resourceType = resourceType;
+        this.askIp = askIp;
+        this.hostNum = hostNum;
+        this.storage = storage;
+        this.computingResourceRate = computingResourceRate;
+        this.computeRoom = computeRoom;
+        this.uniplatformNum = uniplatformNum;
+        this.numOf4a = numOf4a;
+        this.demand = demand;
+        this.serviceName = serviceName;
+        this.sequenceName = sequenceName;
+        this.askDate = askDate;
+        this.openDate = openDate;
+        this.changeDate = changeDate;
+        this.endRentDate = endRentDate;
+        this.tenantInterface = tenantInterface;
+        this.remark = remark;
+    }
+
     public long getTlId() {
         return tlId;
     }
@@ -169,6 +236,14 @@ public class TenretiredEntity {
         this.tlId = tlId;
     }
     
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+    }
+
     public String getTenantName() {
         return tenantName;
     }

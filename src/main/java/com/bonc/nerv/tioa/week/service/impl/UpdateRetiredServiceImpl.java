@@ -82,6 +82,7 @@ public class UpdateRetiredServiceImpl implements UpdateRetiredService{
             for (int j=0;j<teResourceList.size();j++) {
                 if(aroundList.get(i).getTenantId().equals(teResourceList.get(j).getTenantId())) {
                     tenretiredEntity = new TenretiredEntity();
+                    tenretiredEntity.setTenantId(aroundList.get(i).getTenantId());
                     tenretiredEntity.setTenantName(aroundList.get(i).getTenantName());
                     tenretiredEntity.setServiceType(teResourceList.get(j).getServiceType());
                     tenretiredEntity.setTenantLevel(aroundList.get(i).getTenantLevel());

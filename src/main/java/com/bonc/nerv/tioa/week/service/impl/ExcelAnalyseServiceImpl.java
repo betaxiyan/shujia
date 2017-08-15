@@ -7,9 +7,8 @@ package com.bonc.nerv.tioa.week.service.impl;
 
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -24,8 +23,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bonc.nerv.tioa.week.dao.CpuMemoryMidDao;
-import com.bonc.nerv.tioa.week.entity.CpuMemoryMidEntity;
 import com.bonc.nerv.tioa.week.dao.ResUsaMidDao;
+import com.bonc.nerv.tioa.week.entity.CpuMemoryMidEntity;
 import com.bonc.nerv.tioa.week.entity.ResourceUsageMidEntity;
 import com.bonc.nerv.tioa.week.service.ExcelAnalyseService;
 import com.bonc.nerv.tioa.week.util.POIUtil;
@@ -232,37 +231,42 @@ public class ExcelAnalyseServiceImpl implements ExcelAnalyseService {
 
     /**
      * 分析Hbase的Txt
+     * @throws IOException 
      */
     @Override
-    public List<ResourceUsageMidEntity> analyseHbaseText(String filePath) {
+    public List<ResourceUsageMidEntity> analyseHbaseText(InputStream inputStream) throws IOException {
         List<ResourceUsageMidEntity> list = new ArrayList<ResourceUsageMidEntity>();
+        InputStreamReader isr = null;
+        BufferedReader br = null;
         try {
-            File file = new File(filePath);
-            if (file.isFile() && file.exists()) {
-                InputStreamReader isr = new InputStreamReader(new FileInputStream(file), "utf-8");
-                BufferedReader br = new BufferedReader(isr);
-                String lineTxt = null;
-                while ((lineTxt = br.readLine()) != null) {
-                    String[] arr = lineTxt.split("\\s+");
-                    if (arr.length < 8) {
-                        continue;
-                    }
-                    ResourceUsageMidEntity resourceUsageMidEntity = new ResourceUsageMidEntity();
-                    resourceUsageMidEntity.setType("hbase");
-                    resourceUsageMidEntity.setKeyword(arr[8]);
-                    resourceUsageMidEntity.setStorageUsage(getDouble(arr[7]));
-                    list.add(resourceUsageMidEntity);
+            isr = new InputStreamReader(inputStream, "utf-8");
+            br = new BufferedReader(isr);
+            String lineTxt = null;
+            while ((lineTxt = br.readLine()) != null) {
+                String[] arr = lineTxt.split("\\s+");
+                if (arr.length < 8) {
+                    continue;
                 }
-                br.close();
-            } else {
-                System.out.println("文件不存在!");
+                ResourceUsageMidEntity resourceUsageMidEntity = new ResourceUsageMidEntity();
+                resourceUsageMidEntity.setType("hbase");
+                resourceUsageMidEntity.setKeyword(arr[8]);
+                resourceUsageMidEntity.setStorageUsage(getDouble(arr[7]));
+                list.add(resourceUsageMidEntity);
             }
+            br.close();
+            isr.close();
+            inputStream.close();
         } catch (Exception e) {
-            System.out.println("文件读取错误!");
-        }
+            e.printStackTrace();
+            br.close();
+            isr.close();
+            inputStream.close();
+        } 
 
         return list;
     }
+
+
 
     @Override
     public void hbaseToDb(List<ResourceUsageMidEntity> reMidEntities) {
@@ -318,7 +322,7 @@ public class ExcelAnalyseServiceImpl implements ExcelAnalyseService {
     /**
      * 将字符型转换成double型数据
      * 
-     * @param str
+     * @param str  
      * @return data
      * @see
      */

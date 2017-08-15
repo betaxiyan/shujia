@@ -11,8 +11,10 @@
 
 package com.bonc.nerv.tioa.week.service.impl;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,20 +30,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.bonc.nerv.tioa.week.dao.DisTenantDao;
+import com.bonc.nerv.tioa.week.entity.CpuMemoryMidEntity;
 import com.bonc.nerv.tioa.week.entity.DisTenantEntity;
+import com.bonc.nerv.tioa.week.entity.ResourceUsageMidEntity;
 import com.bonc.nerv.tioa.week.entity.SearchDisTenant;
 import com.bonc.nerv.tioa.week.service.DisTenantService;
+import com.bonc.nerv.tioa.week.service.ExcelAnalyseService;
 import com.bonc.nerv.tioa.week.util.DateUtils;
+import com.bonc.nerv.tioa.week.util.POIUtil;
 import com.bonc.nerv.tioa.week.util.PoiNewUtil;
 import com.bonc.nerv.tioa.week.util.PoiUtils;
 import com.bonc.nerv.tioa.week.util.ResultPager;
@@ -65,6 +73,9 @@ public class DisTenantServiceImpl implements DisTenantService{
      */
     @Autowired
     private DisTenantDao distenantDao;
+    
+    @Autowired
+    private ExcelAnalyseService excelAnalyseService;
 
     /**
      * 
@@ -398,5 +409,66 @@ public class DisTenantServiceImpl implements DisTenantService{
         //response.getOutputStream().close();
         System.out.println("excel导出成功！");
         
+    }
+    
+    /**
+     * 
+     * Description: <br>
+     * 请求分析OrcalAndFtp表
+     * @param excelFile 
+     * @throws IOException 
+     * @see
+     */
+    public void analyseOrcalAndFtp(MultipartFile excelFile) throws IOException{
+        POIUtil.checkFile(excelFile);
+        Workbook workbook = POIUtil.getWorkBook(excelFile);
+        List<ResourceUsageMidEntity> orcalData = excelAnalyseService.analyseOrcelExcel(workbook);
+        List<ResourceUsageMidEntity> ftpData = excelAnalyseService.analyseFtpExcel(workbook);
+        excelAnalyseService.orcalToDb(orcalData);
+        excelAnalyseService.ftpToDb(ftpData);
+    }
+    
+    /**
+     * 
+     * Description: <br>
+     * 请求分析Hbase的txt
+     * @param txtFile 
+     * @throws IOException 
+     * @see
+     */
+    public void ananlyseHbase(MultipartFile txtFile) throws IOException{
+        InputStream is = txtFile.getInputStream();
+        List<ResourceUsageMidEntity> hbaseData = excelAnalyseService.analyseHbaseText(is);
+        excelAnalyseService.hbaseToDb(hbaseData);
+    }
+    
+    /**
+     * 
+     * Description: <br>
+     * 请求分析websever的excel
+     * @param excelFile 
+     * @throws IOException 
+     * @see
+     */
+    public void analyseWebSever(MultipartFile excelFile) throws IOException{
+        POIUtil.checkFile(excelFile);
+        Workbook workbook = POIUtil.getWorkBook(excelFile);
+        List<ResourceUsageMidEntity> webSeverData = excelAnalyseService.analyseWebSeverExcel(workbook);
+        excelAnalyseService.orcalToDb(webSeverData);
+    }
+    
+    /**
+     * 
+     * Description: <br>
+     * 请求分析yarn的excel
+     * @param excelFile 
+     * @throws IOException 
+     * @see
+     */
+    public void analyseYarn(MultipartFile excelFile) throws IOException{
+        POIUtil.checkFile(excelFile);
+        Workbook workbook = POIUtil.getWorkBook(excelFile);
+        List<CpuMemoryMidEntity> orcalData = excelAnalyseService.analyseYarnExcel(workbook);
+        excelAnalyseService.yarnToDb(orcalData);
     }
 }

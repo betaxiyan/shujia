@@ -8,6 +8,8 @@
 
 package com.bonc.nerv.tioa.week.service;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Workbook;
@@ -88,7 +90,7 @@ public interface ExcelAnalyseService {
      * @see
      */
     //List<ResourceUsageMidEntity> analyseHbaseText(Workbook workbook);
-    List<ResourceUsageMidEntity> analyseHbaseText(String filePath);
+    List<ResourceUsageMidEntity> analyseHbaseText(InputStream inputStream)throws IOException;
     
     /**
      * 

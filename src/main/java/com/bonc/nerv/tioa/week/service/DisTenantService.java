@@ -18,6 +18,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.bonc.nerv.tioa.week.entity.DisTenantEntity;
 import com.bonc.nerv.tioa.week.entity.SearchDisTenant;
 
@@ -138,4 +140,43 @@ public interface DisTenantService {
      */
     void getMidDataToTtd();
 
+    /**
+     * 
+     * Description: <br>
+     * 请求分析OrcalAndFtp表
+     * @param excelFile 
+     * @throws IOException 
+     * @see
+     */
+    void analyseOrcalAndFtp(MultipartFile excelFile) throws IOException;
+    
+    /**
+     * 
+     * Description: <br>
+     * 请求分析Hbase的txt
+     * @param txtFile 
+     * @throws IOException 
+     * @see
+     */
+    void ananlyseHbase(MultipartFile txtFile) throws IOException;
+    
+    /**
+     * 
+     * Description: <br>
+     * 请求分析websever的excel
+     * @param excelFile 
+     * @throws IOException 
+     * @see
+     */
+    void analyseWebSever(MultipartFile excelFile) throws IOException;
+    
+    /**
+     * 
+     * Description: <br>
+     * 请求分析yarn的excel
+     * @param excelFile 
+     * @throws IOException 
+     * @see
+     */
+    void analyseYarn(MultipartFile excelFile) throws IOException;
 }
