@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.apache.poi.ss.usermodel.Workbook;
 
+import com.bonc.nerv.tioa.week.entity.CpuMemoryMidEntity;
 import com.bonc.nerv.tioa.week.entity.ResourceUsageMidEntity;
 
 /**
@@ -28,10 +29,11 @@ public interface ExcelAnalyseService {
      * 
      * Description: <br>
      * 分析Orcal的Excel表 
+     * @param reMidEntities 
      * @return List<ResourceUsageMidEntity>
      * @see
      */
-    List<ResourceUsageMidEntity> analyseOrcelExcel();
+    List<ResourceUsageMidEntity> analyseOrcelExcel(Workbook workbook);
     
     /**
      * 
@@ -63,10 +65,11 @@ public interface ExcelAnalyseService {
      * 
      * Description: <br>
      * 分析yarn的Excel表
-     * @return List<ResourceUsageMidEntity>
+     * @param workbook 获取workbook
+     * @return List<CpuMemoryMidEntity>
      * @see
      */
-    List<ResourceUsageMidEntity> analyseYarnExcel(Workbook workbook);
+    List<CpuMemoryMidEntity> analyseYarnExcel(Workbook workbook);
     
     /**
      * 
@@ -76,7 +79,7 @@ public interface ExcelAnalyseService {
      * @param reMidEntities 
      * @see
      */
-    void yarnToDb(List<ResourceUsageMidEntity> reMidEntities);
+    void yarnToDb(List<CpuMemoryMidEntity> reMidEntities);
     /**
      * 
      * Description: <br>
@@ -84,7 +87,8 @@ public interface ExcelAnalyseService {
      * @return List<ResourceUsageMidEntity>
      * @see
      */
-    List<ResourceUsageMidEntity> analyseHbaseText(Workbook workbook);
+    //List<ResourceUsageMidEntity> analyseHbaseText(Workbook workbook);
+    List<ResourceUsageMidEntity> analyseHbaseText(String filePath);
     
     /**
      * 
@@ -111,5 +115,7 @@ public interface ExcelAnalyseService {
      * @see
      */
     void webSeverToDb(List<ResourceUsageMidEntity> reMidEntities);
+
+    
      
 }
