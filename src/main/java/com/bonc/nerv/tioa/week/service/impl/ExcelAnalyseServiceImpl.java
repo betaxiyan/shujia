@@ -49,8 +49,10 @@ public class ExcelAnalyseServiceImpl implements ExcelAnalyseService {
     @Autowired
     private CpuMemoryMidDao cpuMemoryMidDao;
 
+    /**
+     * ResUsaMidDao
+     */
     @Autowired
-
     private ResUsaMidDao resUsaMidDao;
 
     /*
@@ -142,13 +144,13 @@ public class ExcelAnalyseServiceImpl implements ExcelAnalyseService {
                     if (!string1.equals("0")) { // String1 !=0
                         // 对数值继续处理
                         String str1 = string1.substring(0, string1.length() - 1);
-                        char X = string1.charAt(string1.length() - 1);
+                        char x = string1.charAt(string1.length() - 1);
                         Double useing = Double.parseDouble(str1);
-                        if (X == 'K') {
+                        if (x == 'K') {
                             useing = useing / 1024 / 1024;
-                        } else if (X == 'M') {
+                        } else if (x == 'M') {
                             useing = useing / 1024;
-                        } else if (X == 't') {
+                        } else if (x == 'T') {
                             useing = useing * 1024;
                         }
                         resourceUsageMidEntity.setStorageUsage(useing);
