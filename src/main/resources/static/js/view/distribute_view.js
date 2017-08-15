@@ -506,3 +506,7 @@ function exportDisFile() {
 	location.href=ctx+'users/disExport' ;
 }
 
+
+function  uploadFileNum(){
+	$('#uploadFileNumModal').modal('show');
+}
