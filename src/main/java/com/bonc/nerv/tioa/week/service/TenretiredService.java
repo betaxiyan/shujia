@@ -127,8 +127,8 @@ public interface TenretiredService {
      * @return  列表集合
      * @see
      */
-    List<String[]> getTenList(List<TenretiredEntity> list);
-    
+    List<String[]> getTenList(List<TenretiredEntity> tenList);
+   
     /**
      * 
      * 获取中间表数据到 tioa_tenant_leave_show表中
@@ -136,6 +136,8 @@ public interface TenretiredService {
      * @see
      */
     void getMidDateToTtl();
+
+
 }
     
     

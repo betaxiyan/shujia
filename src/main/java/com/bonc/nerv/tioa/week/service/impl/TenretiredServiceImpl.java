@@ -336,7 +336,7 @@ public class TenretiredServiceImpl implements  TenretiredService{
          */
 
     }
-
+    
     @Override
     public void getExcelNew(List<TenretiredEntity> list, HttpServletRequest request, HttpServletResponse response) throws IOException {
         String fileName = "租户退租情况导出.xlsx";
@@ -350,10 +350,20 @@ public class TenretiredServiceImpl implements  TenretiredService{
         List<List<String[]>> ttEntityLists = new ArrayList<List<String[]>>();
         Map<String, List<String[]>> map = new HashMap<String, List<String[]>>();
         for(TenretiredEntity teEntity : list){
+            String tenantLevel=teEntity.getTenantLevel()==null?"":String.valueOf(teEntity.getTenantLevel());
+            if (teEntity.getTenantLevel()== null) {
+                tenantLevel = ""; 
+            } else if (teEntity.getTenantLevel()== 0) {
+                tenantLevel = "小"; 
+            } else if (teEntity.getTenantLevel()== 1) {
+                tenantLevel = "中"; 
+            } else if (teEntity.getTenantLevel()== 2) {
+                tenantLevel = "大"; 
+            } 
             String[] tenStr ={String.valueOf(index),
                 teEntity.getServiceType(),
                 teEntity.getTenantName(),
-                String.valueOf(teEntity.getTenantLevel()),
+                tenantLevel,
                 teEntity.getTenantBoss(),
                 teEntity.getTenantTel(),
                 String.valueOf(teEntity.getResourceType()),
