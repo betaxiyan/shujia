@@ -256,8 +256,8 @@ $(document).ready(function() {
 	             },
 	             {
 	            	 data:"changeDate",
-	            	 reder:function(data,type,row){
-	            		 if(data = "" || data == null){
+	            	 render:function(data, type, row) {
+	            		 if(data == "" || data == null) {
 	            			 return "-";
 	            		 }
 	            		 return data;
@@ -265,8 +265,8 @@ $(document).ready(function() {
 	             },
 	             {
 	            	 data:"openDate",
-	            	 reder:function(data,type,row){
-	            		 if(data = "" || data ==null){
+	            	 render:function(data, type, row) {
+	            		 if(data == "" || data == null) {
 	            			 return "-";
 	            		 }
 	            		 return data;
@@ -335,6 +335,7 @@ $(document).ready(function() {
           			data = eval("(" + data + ")");
           			}
           		});
+        	 clickAllTable();
     });
     
   //编辑上传工具
@@ -506,7 +507,22 @@ function exportDisFile() {
 	location.href=ctx+'users/disExport' ;
 }
 
-
-function  uploadFileNum(){
+function uploadFileNum(){
 	$('#uploadFileNumModal').modal('show');
+}
+
+function uploadOraFtp(){
+	$('#uploadOraFtpForm').submit();
+}
+
+function uploadHdfsTxt(){
+	$('#uploadHdfsTxtForm').submit();
+}
+
+function uploadWeb(){
+	$('#uploadWebForm').submit();
+}
+
+function uploadCpuMem(){
+	$('#uploadCpuMemForm').submit();
 }

@@ -13,12 +13,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.alibaba.fastjson.JSON;
 import com.bonc.nerv.tioa.week.entity.DisTenantEntity;
 import com.bonc.nerv.tioa.week.entity.SearchDisTenant;
 import com.bonc.nerv.tioa.week.service.DisTenantService;
@@ -166,13 +169,15 @@ public class DisTenantController {
      */
     @RequestMapping(value ="analyse/orcftp",method = RequestMethod.POST)
     @ResponseBody
-    public String analyseOrcalAndFtp(MultipartFile excelFile){
+    public String analyseOrcalAndFtp(@RequestParam(value="upload")MultipartFile excelFile)throws ParseException{
+        System.out.println(excelFile);
         try {
             distenantService.analyseOrcalAndFtp(excelFile);
         } catch (IOException e) {
             e.printStackTrace();
+            return JSON.toJSONString("出现错误");
         }
-        return null;
+        return JSON.toJSONString("导入成功");
     }
     
     /**
@@ -184,13 +189,14 @@ public class DisTenantController {
      */
     @RequestMapping(value ="analyse/hbase",method = RequestMethod.POST)
     @ResponseBody
-    public String ananlyseHbase(MultipartFile txtFile){
+    public String ananlyseHbase(@RequestParam(value="upload")MultipartFile txtFile) throws ParseException{
         try {
             distenantService.ananlyseHbase(txtFile);
         }catch (IOException e) {
             e.printStackTrace();
+            return JSON.toJSONString("出现错误");
         }
-        return null;
+        return JSON.toJSONString("导入成功");
     }
     
     /**
@@ -202,13 +208,14 @@ public class DisTenantController {
      */
     @RequestMapping(value ="analyse/websever",method = RequestMethod.POST)
     @ResponseBody
-    public String analyseWebSever(MultipartFile excelFile){
+    public String analyseWebSever(@RequestParam(value="upload")MultipartFile excelFile) throws ParseException{
         try {
             distenantService.analyseWebSever(excelFile);
         } catch (IOException e) {
             e.printStackTrace();
+            return JSON.toJSONString("出现错误");
         }
-        return null;
+        return JSON.toJSONString("导入成功");
     }
     
     /**
@@ -220,12 +227,13 @@ public class DisTenantController {
      */
     @RequestMapping(value ="analyse/yarn",method = RequestMethod.POST)
     @ResponseBody
-    public String analyseYarn(MultipartFile excelFile){
+    public String analyseYarn(@RequestParam(value="upload")MultipartFile excelFile) throws ParseException{
         try {
             distenantService.analyseYarn(excelFile);
         } catch (IOException e) {
             e.printStackTrace();
+            return JSON.toJSONString("出现错误");
         }
-        return null;
+        return JSON.toJSONString("导入成功");
     }
 }
