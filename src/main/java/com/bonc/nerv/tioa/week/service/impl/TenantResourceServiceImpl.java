@@ -127,6 +127,9 @@ public class TenantResourceServiceImpl implements TenantResourceService{
                 if(nodeTwo.get("expendCodeResource").has("Service_Name")) {
                     entity.setServiceName(nodeTwo.get("expendCodeResource").get("Service_Name").asText());//服务名
                 }
+                if(nodeTwo.get("expendCodeResource").has("Path")) {
+                    entity.setServiceName(nodeTwo.get("expendCodeResource").get("Path").asText());//服务名
+                }
                 if(nodeTwo.get("expendCodeResource").has("Machine_Room")) {
                     entity.setComputeRoom(nodeTwo.get("expendCodeResource").get("Machine_Room").asText());//机房
                 }

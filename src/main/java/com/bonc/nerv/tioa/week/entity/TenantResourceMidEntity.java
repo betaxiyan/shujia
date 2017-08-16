@@ -105,6 +105,11 @@ public class TenantResourceMidEntity {
     private String sequenceName;
     
     /**
+     * 路径名
+     */
+    private String path;
+    
+    /**
      * 机房
      */
     @Column(name = "compute_room")
@@ -230,6 +235,14 @@ public class TenantResourceMidEntity {
 
     public void setSequenceName(String sequenceName) {
         this.sequenceName = sequenceName;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public String getComputeRoom() {
