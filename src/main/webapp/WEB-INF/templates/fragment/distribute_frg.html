@@ -387,25 +387,25 @@
             <div class="modal-content" style="width: 350px;">
                 <div class="modal-body" style="text-align: center;font-weight: bold;padding: 30px;">
                       
-                       <form enctype="multipart/form-data" id="uploadOraFtpForm" action="/analyse/orcftp"  method="post">
+                       <form enctype="multipart/form-data" id="uploadOraFtpForm"   method="post">
                              <span style="float:left;">1、请上传Oracle和FTP</span>                    
                              <input type="file" name="upload"  id="upload"></input>
                              <button  type="button"  style="margin-left:200px;margin-top: -50px" class="btn btn-danger btn-sm" th:onclick="'uploadOraFtp()'" >上传</button> 
                        </form>
                        
-                        <form enctype="multipart/form-data" id="uploadHdfsTxtForm" action="/analyse/hbase" method="post">
+                        <form enctype="multipart/form-data" id="uploadHdfsTxtForm"   method="post">
                             <span style="float:left;">2、请上传hdfs和txt</span>
                             <input type="file" name="upload"  id="upload"></input> 
                             <button  type="button"  style="margin-left:200px;margin-top: -50px" class="btn btn-danger btn-sm" th:onclick="'uploadHdfsTxt()'" >上传</button>
                         </form>
                         
-                        <form enctype="multipart/form-data" id="uploadWebForm" action="/analyse/websever" method="post">
+                        <form enctype="multipart/form-data" id="uploadWebForm"  method="post">
                             <span style="float:left;">3、请上传web服务器使用情况的excel </span>
                             <input type="file" name="upload"  id="upload"></input> 
                             <button  type="button"  style="margin-left:200px;margin-top: -50px" class="btn btn-danger btn-sm" th:onclick="'uploadWeb()'" >上传</button>
                         </form>
                         
-                        <form enctype="multipart/form-data" id="uploadCpuMemForm" action="/analyse/yarn" method="post">
+                        <form enctype="multipart/form-data" id="uploadCpuMemForm"  method="post">
                             <span style="float:left;">4、请上传cpu和内存使用情况的excel</span>
                             <input type="file" name="upload"  id="upload"></input> 
                             <button type="button"  style="margin-left:200px;margin-top: -50px" class="btn btn-danger btn-sm" th:onclick="'uploadCpuMem()'" >上传</button>
