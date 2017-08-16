@@ -1,4 +1,4 @@
-var table1;
+var table;
 $(document).ready(function() {
 	
 	table = $('#leave_table').DataTable({
@@ -18,7 +18,7 @@ $(document).ready(function() {
         "bInfo": true,
         "bAutoWidth": true,
         "bStateSave":true,
-        scrollY: "300px",
+//        scrollY: "300px",
         scrollX:  true,
         scrollCollapse: true,
         paging:true,
@@ -347,7 +347,7 @@ $(document).ready(function() {
            			updateClean();
            			}
            		});
- //       	 clickLeaveTable();
+//        	 clickLeaveTable();
         	 refresh();
 //        }
     });
@@ -400,10 +400,25 @@ $(document).ready(function() {
                     	    $("#updateleave-demand").val(data.demand);
                     	    $("#updateleave-serviceName").val(data.serviceName);
                     	    $("#updateleave-sequenceName").val(data.sequenceName);
-                    	    $("#updateleave-askDate").val((new Date(data.askDate)).Format("yyyyMMdd"));
-                    	    $("#updateleave-openDate").val((new Date(data.openDate)).Format("yyyyMMdd"));
+                    	    var askDate=data.askDate;
+                    	    if(askDate==null){
+                    	    	 $("#updateleave-askDate").val("");
+                    	    }else{
+                    	    	$("#updateleave-askDate").val((new Date(askDate)).Format("yyyyMMdd"));
+                    	    }
+                    	    var openDate=data.openDate;
+                    	    if(opneDate==null){
+                    	    	$("#updateleave-openDate").val("");
+                    	    }else{
+                    	    	$("#updateleave-openDate").val((new Date(openDate)).Format("yyyyMMdd"));
+                    	    }
                     	    $("#updateleave-changeDate").val(data.changeDate);
-                    	    $("#updateleave-endRentDate").val((new Date(data.endRentDate)).Format("yyyyMMdd"));
+                    	    var endRentDate=data.endRentDate;
+                    	    if(endRentDate==null){
+                    	    	 $("#updateleave-endRentDate").val("");
+                    	    }else{
+                    	    	 $("#updateleave-endRentDate").val((new Date(endRentDate)).Format("yyyyMMdd"));
+                    	    }
                     	    $("#updateleave-tenantInterface").val(data.tenantInterface);
                     	    $("#updateleave-remark").val(data.remark);
                     }
@@ -467,7 +482,7 @@ function refresh(){
 }
 //查询操作按钮
 function clickLeaveTable(){
-	table.api().ajax.reload();
+	table.ajax.reload();
 }
 
 //清除查询数据
@@ -483,14 +498,6 @@ function cleanLeaveSearch() {
 
 //文件导出
 function exportFile() {
-	var length = table.api().data().length;
-	if (length < 1) {
-		layui.use('layer', function(){
-			  var layer = layui.layer;
-			  layer.alert('导出数据为空，请您重新选择导出数据', {icon: 5});
-		});   
-		return;
-	}
     var serviceType=$("#tenantServiceType").val();
 	var tenantName = $("#tenantLeaveName").val();
 	var tenantLevel=$("#tenantLeaveLevel").val();

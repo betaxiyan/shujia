@@ -290,8 +290,8 @@ public class DisTenantServiceImpl implements DisTenantService{
      * @see
      */
     public void deleteDisTenant(long tdId) {
-        DisTenantEntity dst = distenantDao.findOne(tdId);
-        distenantDao.delete(dst);
+//        DisTenantEntity dst = distenantDao.findOne(tdId);
+       distenantDao.delete(tdId);
         distenantDao.flush();        
     }
 

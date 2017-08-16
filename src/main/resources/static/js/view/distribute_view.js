@@ -1,29 +1,29 @@
 var tables;
 $(document).ready(function() {
-    tables= $('#tools_table').dataTable({
-    //	"scrollY":        "300px",
-    	"scrollX":        "100px",
-        "scrollCollapse": false,
-        "paging":         true,
-        "fixedColumns":  {
-            leftColumns: "2",
-        },
+    tables= $('#tools_table').DataTable({
     	fixedHeader: {
 	        header: true
 	    },
-	    "dom": '<<t>ilp>',
-	    "pagingType": "full_numbers",		// 设置分页控件的模式
-        "processing": true, 				// 打开数据加载时的等待效果
-        "serverSide": true,					// 打开后台分页
+	    "dom": '<<t>ilp>',   		
+ 	    "pagingType": "simple_numbers",		// 设置分页控件的模式
+ 	    "processing": false, 				// 打开数据加载时的等待效果
+        "serverSide": true,				// 打开后台分页
         "ordering" : false,
+        "order": [[1, 'asc']],
         "bPaginate": true,                  // 分页设置
-        "bPaginate":false,
         "bLengthChange": true,
-        "bFilter": false,                  // 搜索设置
+        "bFilter": false,                   // 搜索设置
         "bSort": false,
         "bInfo": true,
         "bAutoWidth": true,
-        
+        "bStateSave":true,
+//        scrollY: "300px",
+        scrollX:  true,
+        scrollCollapse: true,
+        paging:true,
+        fixedColumns:   {
+            leftColumns: 3,
+        },
          "ajax":{
          	"url":ctx+"users/findlist",
          	"data":function(d){
@@ -272,24 +272,30 @@ $(document).ready(function() {
 	            		 return data;
 	            	 }
 	             },
-	             {
-	            	 data:"tdId",
-	            	 render:function(data, type, row) {
-	            		 return '<td><button class="btn btn-xs btn-danger" value="'+data+'">编辑</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-xs btn-danger" value="'+data+'">删除</button></td>';
-	            	 }
-	             }
-	             
+	             null
 	     ],
-	     "language": {
-             "paginate": {
-                 "previous": "首页",
-                 "next": "下一页"
-             },
+	     "aoColumnDefs":[
+	                     {//倒数第一列
+	                     	"targets":-1,
+	                     	"bSortable": false,
+	                     	 render: function(data, type, row) {
+	                         	var html ='<button class="btn btn-xs tdEdit btn-danger" value="'+row.tdId+'">编辑</button></br><button class="btn btn-xs btn-danger tdDelete" value="'+row.tdId+'">删除</button>';
+	                             return html;
+	                     	}
+	                     }],
+         "language": {
+ 	        "paginate": {
+ 	                 "previous": "首页",
+ 	                 "next": "下一页"
+ 	        },
              "info": "显示_START_到_END_, 共计_TOTAL_条数据",
-             "emptyTable": "无记录",
+             "zeroRecords": "无记录",
              "infoEmpty": "共计0",
              "lengthMenu": "每页显示 _MENU_ 记录",
-             "processing": "加载中......"
+             "infoFiltered": ""
+             //"processing": "加载中......"
+             // "zeroRecords": "没有找到相关内容",
+             // "search": "搜索 : "
          },
         "fnDrawCallback": function(){
         	var api = this.api();
@@ -332,10 +338,10 @@ $(document).ready(function() {
           			askDate:askDate,changeDate:changeDate,openDate:openDate},
           		success : function(data) {
           			addClean();
-          			data = eval("(" + data + ")");
           			}
           		});
-        	 clickAllTable();
+//        	 clickAllTable();
+        	 refreshTables();
     });
     
   //编辑上传工具
@@ -380,36 +386,26 @@ $(document).ready(function() {
                      }
             	});
                 $('#uploadToolModal').modal('show');
-            } else if (tarHTML == '删除') {
-                $('#alertModal .modal-body').html('确定要删除该工具？');
-                $('#alertModal').modal('show');
-                $('#removeTool').unbind('click');
-                $('#removeTool').click(function() {
-                	$.ajax({
-               		 type:"get",
-                        url:ctx + "users/validateById",
-                        data:{"tdId":tarval},
-                        success:function(data){
-                        	if(data){
-                        		$("#delete-tdId").val(tarval);
-                            	$("#deleteToolForm").submit();
-                        	}else{ 
-                        		layui.use('layer', function(){
-                      			var layer = layui.layer;
-                      			layer.alert('此类型有工具引用无法删除', {icon: 5});
-                      		}); 
-                        	}
-                        }
-                	});
-                	$('#alertModal').modal('hide');
-                	
-                })
-            }
-            
+            } 
         }
-       
-        
     }
+    
+    
+    //删除
+    $('#tools_table tbody').on('click','button.tdDelete',function(){
+    	 var tdId=$(this).val();
+    	 $('#alertModal .modal-body').html('确定要删除该工具？');
+         $('#alertModal').modal('show');
+         $('#removeTool').unbind('click');
+         $('#removeTool').click(function(){
+        	 $.post( ctx+"users/delete",
+    	  		  	  { tdId:tdId,},
+    	  	  			function(data){
+    	  		  	    $('#alertModal').modal('hide');
+    	  		  	    refreshTables();
+    	  		    })
+         })
+    });
     $('#tools_table tbody').unbind('click', ToolOperate);
     $('#tools_table tbody').bind('click', ToolOperate);
     
@@ -445,10 +441,9 @@ $(document).ready(function() {
           			memoryAvg:memoryAvg,askDate:askDate,changeDate:changeDate,openDate:openDate,tdId:tdId},
            		success : function(data) {
            			updateClean();
-           			data = eval("(" + data + ")");
            			}
            		});
-        	 clickAllTable();
+        	 refreshTables();
 //        }
     });
     
@@ -477,13 +472,17 @@ $(document).ready(function() {
 
 //搜索按钮
 function clickDisTable(){
-	tables.api().ajax.reload();
+	tables.ajax.reload();
 };
 
 function clickAllTable(){
-	tables.api().ajax.reload();
+	tables.ajax.reload();
 }
 
+//当页刷新
+function refreshTables(){
+	tables.draw(false);
+}
 //清空按钮
 function cleanDisSearch(){
 	$("#serviceType").val("");
@@ -495,15 +494,6 @@ function cleanDisSearch(){
 }
 //文件导出
 function exportDisFile() {
-	var length = tables.api().data().length;
-	if (length < 1) {
-		layui.use('layer', function(){
-			  var layer = layui.layer;
-			  layer.alert('导出数据为空，请您重新选择导出数据', {icon: 5});
-		});   
-		return;
-	}
-	
 	location.href=ctx+'users/disExport' ;
 }
 

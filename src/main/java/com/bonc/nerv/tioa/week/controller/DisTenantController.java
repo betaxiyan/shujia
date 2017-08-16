@@ -124,11 +124,10 @@ public class DisTenantController {
      * @return 重定向到方法
      * @see
      */
-    @RequestMapping(value = "users/delete" ,method = RequestMethod.GET)
-    public String deleteDisTenant(long tdId){
+    @RequestMapping(value = "users/delete")
+    @ResponseBody
+    public void deleteDisTenant(long tdId){
         distenantService.deleteDisTenant(tdId);
-        return "redirect:/users";
-        
     }
     
     /**
