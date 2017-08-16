@@ -4,10 +4,10 @@ $(document).ready(function() {
     	fixedHeader: {
 	        header: true
 	    },
-	    "dom": '<<t>ilp>',   		
- 	    "pagingType": "simple_numbers",		// 设置分页控件的模式
- 	    "processing": false, 				// 打开数据加载时的等待效果
-        "serverSide": true,				// 打开后台分页
+	    "dom": '<<t>ilp>',
+	    "pagingType": "simple_numbers",		// 设置分页控件的模式
+        "processing": true, 				// 打开数据加载时的等待效果
+        "serverSide": true,					// 打开后台分页
         "ordering" : false,
         "order": [[1, 'asc']],
         "bPaginate": true,                  // 分页设置
@@ -502,17 +502,67 @@ function uploadFileNum(){
 }
 
 function uploadOraFtp(){
-	$('#uploadOraFtpForm').submit();
+	 var formData = new FormData($( "#uploadOraFtpForm" )[0]);  
+	 $.ajax({  
+         url: ctx + "analyse/orcftp" ,  
+         type: 'POST',  
+         data: formData,  
+           
+         cache: false,  
+         contentType: false,  
+         processData: false,  
+         success: function (returndata) {  
+             alert(returndata);  
+         }
+          
+    });  
 }
 
 function uploadHdfsTxt(){
-	$('#uploadHdfsTxtForm').submit();
+	var formData = new FormData($('#uploadHdfsTxtForm')[0]);
+	$.ajax({  
+        url: ctx + "analyse/hbase" ,  
+        type: 'POST',  
+        data: formData,  
+          
+        cache: false,  
+        contentType: false,  
+        processData: false,  
+        success: function (returndata) {  
+            alert(returndata);  
+        }
+         
+   });  
 }
 
 function uploadWeb(){
-	$('#uploadWebForm').submit();
+	var formData = new FormData($('#uploadWebForm')[0]);
+	$.ajax({
+		url:  ctx + "analyse/websever",
+		type:  'POST',
+		data: formData,
+		
+		cache: false,
+		contentType: false,
+		processData: false,
+		success: function(returndata){
+			alert(returndata);
+		}
+	})
 }
 
 function uploadCpuMem(){
-	$('#uploadCpuMemForm').submit();
+	var formData = new FormData($('#uploadCpuMemForm')[0]);
+	$.ajax({
+		url: ctx + "analyse/yarn",
+		type: 'POST',
+		data: formData,
+		
+		cache: false,
+		contentType:false,
+		processData: false,
+		success: function(returndata){
+			alert(returndata);
+		}
+	})
 }
