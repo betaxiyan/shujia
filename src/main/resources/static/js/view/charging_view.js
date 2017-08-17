@@ -1,11 +1,13 @@
 $(function(){
+	var char_table;
 	loaddata()
 })
 
 function loaddata() {
 	
-	$('#charging_table').dataTable({
+  char_table=$('#charging_table').DataTable({
 		serverSide : false,
+		"bStateSave" :true,
         "language": {
             "paginate": {
                 "previous": "上一页",
@@ -25,9 +27,9 @@ function loaddata() {
        
         "destroy":true, //Cannot reinitialise DataTable,解决重新加载表格内容问题
         
-        
+        "bDestory":true,
         /* 分页设置 */
-        scrollX:  true,
+        "sScollX":true,
         "bPaginate": true,
         "bLengthChange": true,
         /* 搜索设置 */
@@ -108,6 +110,9 @@ function loaddata() {
     });
 }
 
+function refreshCharTable(){
+	char_table.draw(false);
+}
 
 /*	显示修改页面		*/
    $('#charging_table tbody').on( 'click', 'button.jfedit', function () {
@@ -259,6 +264,7 @@ function loaddata() {
 					 function(data){
 						 alert(data)
 						 $('#jfeditmodel').modal('hide');
+						 refreshCharTable();
 						 loaddata();
 					 })
 		  }
@@ -354,6 +360,7 @@ function loaddata() {
 	  		  	  { tcId:jstcId,},
 	  	  			function(data){
 	  		  		  alert(data)
+	  		  		   refreshCharTable();
 	  		  		  loaddata();
 	  	  		    }
 	  		  	  )
