@@ -163,33 +163,30 @@ public class DisTenantServiceImpl implements DisTenantService{
      * @param response  响应的response对象
      * @see
      */
-    public void getExcel(List<DisTenantEntity> list, HttpServletRequest request,
-                         HttpServletResponse response) {
-
-        // 写入表头信息
-        String[] headers = {"序号", "服务类型", "租户名", "租户级别", "租户负责人", "租户负责人电话", "资源类型", "文件数", "存储",
-            "存储使用量",  "存储使用占比", "cpu核数", "cpu最大数", "cpu平均数", "内存大小", "内存最大值",
-            "内存平均值", "申请时间", "变更时间", "开放时间"};
-
-        // 添加Excel内容
-        List<String[]> dataset = getList(list);
-        String fileName = DateUtils.formatDateToString(new Date(), "yyyyMMddHHmmss") + ".xlsx";
-        try {
-            PoiUtils.exportExelMerge(fileName, headers, dataset, true, response,
-                new Integer[] {5,4,2}, new Integer[] {1, 2, 3, 4, 5, 7}, new Integer[] {7},
-                new Integer[] {4});
-            System.out.println("excel导出成功！");
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    
-    
+//    public void getExcel(List<DisTenantEntity> list, HttpServletRequest request,
+//                         HttpServletResponse response) {
+//
+//        // 写入表头信息
+//        String[] headers = {"序号", "服务类型", "租户名", "租户级别", "租户负责人", "租户负责人电话", "资源类型", "文件数", "存储",
+//            "存储使用量",  "存储使用占比", "cpu核数", "cpu最大数", "cpu平均数", "内存大小", "内存最大值",
+//            "内存平均值", "申请时间", "变更时间", "开放时间"};
+//
+//        // 添加Excel内容
+//        List<String[]> dataset = getList(list);
+//        String fileName = DateUtils.formatDateToString(new Date(), "yyyyMMddHHmmss") + ".xlsx";
+//        try {
+//            PoiUtils.exportExelMerge(fileName, headers, dataset, true, response,
+//                new Integer[] {5,4,2}, new Integer[] {1, 2, 3, 4, 5, 7}, new Integer[] {7},
+//                new Integer[] {4});
+//            System.out.println("excel导出成功！");
+//        }
+//        catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
     
     /**
      * 
@@ -355,28 +352,43 @@ public class DisTenantServiceImpl implements DisTenantService{
         List<List<String[]>> dtEntityLists = new ArrayList<List<String[]>>();
         Map<String, List<String[]>> map = new HashMap<String, List<String[]>>();
         for(DisTenantEntity dEntity : list){
-            String[] tenStr ={String.valueOf(index),
-                dEntity.getServiceType(),
-                dEntity.getTenantName(),
-                String.valueOf(dEntity.getTenantLevel()),
-                dEntity.getTenantBoss(),
-                dEntity.getTenantTel(),
-                String.valueOf(dEntity.getResourceType()),
-                String.valueOf(dEntity.getFileCount()),
-                dEntity.getStorage(),
-                String.valueOf(dEntity.getStorageUsage()),
-                String.valueOf(dEntity.getStorageUsageRate()),
-                dEntity.getCpuNum(),
-                String.valueOf(dEntity.getCpuMax()),
-                String.valueOf(dEntity.getCpuAvg()),
-                dEntity.getMemorySize(),
-                String.valueOf(dEntity.getMemoryMax()),
-                String.valueOf(dEntity.getMemoryAvg()),
-                String.valueOf(dEntity.getAskDate()),
-                String.valueOf(dEntity.getChangeDate()),
-                String.valueOf(dEntity.getOpenDate())
-            };
+            String serviceType = dEntity.getServiceType();
             String tenantName = dEntity.getTenantName();
+            String tenantLevel =dEntity.getTenantLevel()== null ? " " :String.valueOf(dEntity.getTenantLevel()) ;
+            String tenantBoss = dEntity.getTenantBoss();
+            String tenantTel = dEntity.getTenantTel();
+            String resourceType =dEntity.getResourceType() == null ? " ":String.valueOf(dEntity.getResourceType());
+            String fileCount =dEntity.getFileCount() == null ? " ":String.valueOf(dEntity.getFileCount()) ;
+            String storage = dEntity.getStorage();
+            String storageUsage =dEntity.getStorageUsage();
+            String storageUsageRate = dEntity.getStorageUsageRate() ==  null  ? " ": Double.toString(dEntity.getStorageUsageRate());
+            String cpuNum = dEntity.getCpuNum();
+            String cpuMax = dEntity.getCpuMax() == null ? " " : String.valueOf(dEntity.getCpuMax());
+            String cpuAvg = dEntity.getCpuAvg() == null ? " " :String.valueOf(dEntity.getCpuAvg()) ;
+            String memorySize = dEntity.getMemorySize();
+            String memoryMax = dEntity.getMemoryMax() == null ? " ":String.valueOf(dEntity.getMemoryMax());
+            String memoryAvg = dEntity.getMemoryAvg()== null ? " ": String.valueOf(dEntity.getMemoryAvg());
+            String askDate = dEntity.getAskDate() == null ? " ": String.valueOf(dEntity.getAskDate());
+            String changeDate = dEntity.getChangeDate() == null ? " " : String.valueOf(dEntity.getChangeDate());
+            String openDate = dEntity.getOpenDate() == null ? " ":String.valueOf(dEntity.getOpenDate());
+            switch (dEntity.getTenantLevel()) {
+                case 0: 
+                    tenantLevel = "小";
+                    break;
+                case 1:
+                    tenantLevel = "中";
+                    break;
+                case 2:
+                    tenantLevel = "大";
+                    break;
+                default:
+                    break;
+            }
+            String[] tenStr ={String.valueOf(index),
+                serviceType, tenantName, tenantLevel, tenantBoss, tenantTel,
+                resourceType, fileCount, storage,storageUsage,storageUsageRate, cpuNum, cpuMax, cpuAvg, memorySize, memoryMax, memoryAvg,
+                askDate, changeDate, openDate
+            };
             if(map.containsKey(tenantName)){
                 map.get(tenantName).add(tenStr);
             } else{

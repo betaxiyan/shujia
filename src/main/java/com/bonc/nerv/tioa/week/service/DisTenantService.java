@@ -64,8 +64,8 @@ public interface DisTenantService {
      * @param response  响应的response对象
      * @see
      */
-    void getExcel(List<DisTenantEntity> list, HttpServletRequest request,
-                  HttpServletResponse response);
+//    void getExcel(List<DisTenantEntity> list, HttpServletRequest request,
+//                  HttpServletResponse response);
 
     /**
      * 
