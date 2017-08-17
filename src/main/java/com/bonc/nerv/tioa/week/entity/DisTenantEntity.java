@@ -10,7 +10,6 @@
 
 package com.bonc.nerv.tioa.week.entity;
 
-
 import java.util.Date;
 
 import javax.persistence.Basic;
@@ -177,6 +176,7 @@ public class DisTenantEntity {
     /**
      * 申请日期
      */
+    @Basic
     @Column(name = "ask_date")
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern="yyyyMMdd")
@@ -199,7 +199,6 @@ public class DisTenantEntity {
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern="yyyyMMdd")
     private Date openDate;
-
 
     public long getTdId() {
         return tdId;
@@ -393,10 +392,6 @@ public class DisTenantEntity {
         this.openDate = openDate;
     }
 
-    public DisTenantEntity(){
-        
-    }
-    
     public DisTenantEntity(String serviceType, String tenantName, Integer tenantLevel,
                            String tenantBoss, String tenantTel, String resourceType,
                            String ipAddr, String serviceName, String path, String sequenceName,
@@ -420,5 +415,52 @@ public class DisTenantEntity {
         this.changeDate = changeDate;
         this.openDate = openDate;
     }
+
+    public DisTenantEntity() {
+        super();
+    }
+
+    public DisTenantEntity(long tdId, String serviceType, String tenantName, Integer tenantLevel,
+                           String tenantBoss, String tenantTel, String resourceType,
+                           Integer fileCount, String storage, String storageUsage,
+                           Double storageUsageRate, String cpuNum, Integer cpuMax, Integer cpuAvg,
+                           String memorySize, Integer memoryMax, Integer memoryAvg, Date askDate,
+                           Date changeDate, Date openDate) {
+        super();
+        this.tdId = tdId;
+        this.serviceType = serviceType;
+        this.tenantName = tenantName;
+        this.tenantLevel = tenantLevel;
+        this.tenantBoss = tenantBoss;
+        this.tenantTel = tenantTel;
+        this.resourceType = resourceType;
+        this.fileCount = fileCount;
+        this.storage = storage;
+        this.storageUsage = storageUsage;
+        this.storageUsageRate = storageUsageRate;
+        this.cpuNum = cpuNum;
+        this.cpuMax = cpuMax;
+        this.cpuAvg = cpuAvg;
+        this.memorySize = memorySize;
+        this.memoryMax = memoryMax;
+        this.memoryAvg = memoryAvg;
+        this.askDate = askDate;
+        this.changeDate = changeDate;
+        this.openDate = openDate;
+    }
+
+    @Override
+    public String toString() {
+        return "DisTenantEntity [tdId=" + tdId + ", serviceType=" + serviceType + ", tenantName="
+               + tenantName + ", tenantLevel=" + tenantLevel + ", tenantBoss=" + tenantBoss
+               + ", tenantTel=" + tenantTel + ", resourceType=" + resourceType + ", fileCount="
+               + fileCount + ", storage=" + storage + ", storageUsage=" + storageUsage
+               + ", storageUsageRate=" + storageUsageRate + ", cpuNum=" + cpuNum + ", cpuMax="
+               + cpuMax + ", cpuAvg=" + cpuAvg + ", memorySize=" + memorySize + ", memoryMax="
+               + memoryMax + ", memoryAvg=" + memoryAvg + ", askDate=" + askDate + ", changeDate="
+               + changeDate + ", openDate=" + openDate + "]";
+    }
+
+    
 
 }
