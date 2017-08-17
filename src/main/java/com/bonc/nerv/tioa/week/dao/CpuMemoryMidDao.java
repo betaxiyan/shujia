@@ -10,7 +10,7 @@ package com.bonc.nerv.tioa.week.dao;
 
 import javax.transaction.Transactional;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.bonc.nerv.tioa.week.entity.CpuMemoryMidEntity;
 
@@ -23,6 +23,6 @@ import com.bonc.nerv.tioa.week.entity.CpuMemoryMidEntity;
  * @since
  */
 @Transactional
-public interface CpuMemoryMidDao extends CrudRepository<CpuMemoryMidEntity, Long>{
+public interface CpuMemoryMidDao extends JpaRepository<CpuMemoryMidEntity, Long>{
 
 }

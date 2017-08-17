@@ -33,9 +33,11 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-
+import com.bonc.nerv.tioa.week.constant.TioaConstant;
+import com.bonc.nerv.tioa.week.dao.TenantResourceMidDao;
 import com.bonc.nerv.tioa.week.dao.TenretiredDao;
 import com.bonc.nerv.tioa.week.entity.SearchTenretiredData;
+import com.bonc.nerv.tioa.week.entity.TenantResourceMidEntity;
 import com.bonc.nerv.tioa.week.entity.TenretiredEntity;
 import com.bonc.nerv.tioa.week.service.TenretiredService;
 import com.bonc.nerv.tioa.week.util.DateUtils;
@@ -61,6 +63,11 @@ public class TenretiredServiceImpl implements  TenretiredService{
     @Autowired
     private TenretiredDao  tenretiredDao;
     
+    /**
+     * 租户资源dao
+     */
+    @Autowired
+    TenantResourceMidDao tenantResourceMidDao;
     /**
      * 
      * Description: <br>
@@ -257,8 +264,15 @@ public class TenretiredServiceImpl implements  TenretiredService{
      * @param tlId 
      * @see
      */
+    @Override
     public void deleteByTlId(Long tlId){
-        tenretiredDao.delete(tlId);
+        //1、在退租表里删除
+        TenretiredEntity tenretiredEntity = tenretiredDao.findOne(tlId);
+        tenretiredDao.delete(tenretiredEntity );
+        //2、在租户资源表里标记为 删除
+        TenantResourceMidEntity entity = tenantResourceMidDao.findOne(tenretiredEntity.getRresId());
+        entity.setState(TioaConstant.RESOURCE_STATE_DELETE);
+        tenantResourceMidDao.save(entity);
     }
     
     /**

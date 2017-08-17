@@ -111,15 +111,6 @@ $(document).ready(function() {
                  	 }
                 },
                 {
-                 	 data:"hostNum",
-                 	 render:function(data, type, row) {
-                 		 if(data == "" || data == null) {
-                 			 return "-";
-                 		 }
-                 		 return data;
-                 	 }
-                },
-                {
                  	 data:"storage",
                  	 render:function(data, type, row) {
                  		 if(data == "" || data == null) {
@@ -129,34 +120,7 @@ $(document).ready(function() {
                  	 }
                 },
                 {
-                 	 data:"computingResourceRate",
-                 	 render:function(data, type, row) {
-                 		 if(data == "" || data == null) {
-                 			 return "-";
-                 		 }
-                 		 return data;
-                 	 }
-                },
-                {
                  	 data:"computeRoom",
-                 	 render:function(data, type, row) {
-                 		 if(data == "" || data == null) {
-                 			 return "-";
-                 		 }
-                 		 return data;
-                 	 }
-                },
-                {
-                 	 data:"uniplatformNum",
-                 	 render:function(data, type, row) {
-                 		 if(data == "" || data == null) {
-                 			 return "-";
-                 		 }
-                 		 return data;
-                 	 }
-                },
-                {
-                 	 data:"numOf4a",
                  	 render:function(data, type, row) {
                  		 if(data == "" || data == null) {
                  			 return "-";
@@ -324,12 +288,12 @@ $(document).ready(function() {
     	 var tenantTel=$("#updateleave-tenantTel").val();
     	 var resourceType=$("#updateleave-resourceType").val();
     	 var askIp=$("#updateleave-askIp").val();
-    	 var hostNum=$("#updateleave-hostNum").val();
+    	 //var hostNum=$("#updateleave-hostNum").val();
     	 var storage=$("#updateleave-storage").val();
-    	 var computingResourceRate=$("#updateleave-computingResourceRate").val();
+    	 //var computingResourceRate=$("#updateleave-computingResourceRate").val();
     	 var computeRoom=$("#updateleave-computeRoom").val();
-    	 var uniplatformNum=$("#updateleave-uniplatformNum").val();
-    	 var numOf4a=$("#updateleave-numOf4a").val();
+    	 //var uniplatformNum=$("#updateleave-uniplatformNum").val();
+    	 //var numOf4a=$("#updateleave-numOf4a").val();
     	 var demand=$("#updateleave-demand").val();
     	 var serviceName=$("#updateleave-serviceName").val();
     	 var sequenceName=$("#updateleave-sequenceName").val();
@@ -342,7 +306,12 @@ $(document).ready(function() {
         	 $.ajax({
            		url :ctx+"tenant/tenretired/update",
            		type : "get",
-           		data: {tlId:tlId,serviceType:serviceType,tenantName:tenantName,tenantLevel:tenantLevel,tenantBoss:tenantBoss,tenantTel:tenantTel,resourceType:resourceType,askIp:askIp,hostNum:hostNum,storage:storage,computingResourceRate:computingResourceRate,computeRoom:computeRoom,uniplatformNum:uniplatformNum,numOf4a:numOf4a,demand:demand,serviceName:serviceName,sequenceName:sequenceName,askDate:askDate,openDate:openDate,changeDate:changeDate,endRentDate:endRentDate,tenantInterface:tenantInterface,remark:remark},
+           		data: {tlId:tlId,serviceType:serviceType,tenantName:tenantName,tenantLevel:tenantLevel,
+           			tenantBoss:tenantBoss,tenantTel:tenantTel,resourceType:resourceType,
+           			askIp:askIp,storage:storage,computeRoom:computeRoom,
+           			demand:demand,serviceName:serviceName,sequenceName:sequenceName,
+           			askDate:askDate,openDate:openDate,changeDate:changeDate,
+           			endRentDate:endRentDate,tenantInterface:tenantInterface,remark:remark},
            		success : function(data) {
            			updateClean();
            			}
