@@ -73,8 +73,8 @@ public class TenantResourceServiceImpl implements TenantResourceService{
             e.printStackTrace();
         }
         if(resultList!=null) {
-            System.out.println(resultList);
-            tenantResourceMidDao.deleteAll();//清空数据库
+            //System.out.println(resultList);
+            //tenantResourceMidDao.deleteAll();//清空数据库
             tenantResourceMidDao.save(resultList);//刷新数据库
         }
         
@@ -95,6 +95,7 @@ public class TenantResourceServiceImpl implements TenantResourceService{
             for (JsonNode nodeTwo : nodeOne) {
                 TenantResourceMidEntity entity = new TenantResourceMidEntity();
                 entity.setIsInvalid(isvalid);//是否有效 invalid
+                entity.setRresId(nodeTwo.get("fixResource").get("rres_id").asText()); //资源id
                 entity.setTenantId(nodeTwo.get("fixResource").get("tenant_id").asText());//租户id
                 entity.setTenantName(nodeTwo.get("fixResource").get("tenant_name").asText());//租户名
                 if(nodeTwo.get("fixResource").has("tenantCharacter")){
@@ -104,7 +105,7 @@ public class TenantResourceServiceImpl implements TenantResourceService{
                 String endDate = nodeTwo.get("fixResource").get("update_time").asText();
                 try {
                     Date enDate = format.parse(endDate);
-                    entity.setEndRentData(enDate);//更新时间
+                    entity.setEndRentDate(enDate);//更新时间
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -12,8 +12,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import com.alibaba.fastjson.annotation.JSONField;
@@ -34,9 +32,8 @@ public class TenantResourceMidEntity {
      * 表id
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "trm_id")
-    private Long trmId;
+    @Column(name = "rres_id")
+    private String rresId;
     
     /**
      * 租户id
@@ -141,12 +138,17 @@ public class TenantResourceMidEntity {
      */
     private String isInvalid;
     
-    public Long getTrmId() {
-        return trmId;
+    /**
+     * 是否删除
+     */
+    private Integer state;
+
+    public String getRresId() {
+        return rresId;
     }
 
-    public void setTrmId(Long trmId) {
-        this.trmId = trmId;
+    public void setRresId(String rresId) {
+        this.rresId = rresId;
     }
 
     public String getTenantId() {
@@ -269,14 +271,14 @@ public class TenantResourceMidEntity {
         this.openDate = openDate;
     }
 
-    public Date getEndRentData() {
+    public Date getEndRentDate() {
         return endRentDate;
     }
 
-    public void setEndRentData(Date endRentDate) {
+    public void setEndRentDate(Date endRentDate) {
         this.endRentDate = endRentDate;
     }
-    
+
     public String getIsInvalid() {
         return isInvalid;
     }
@@ -285,15 +287,13 @@ public class TenantResourceMidEntity {
         this.isInvalid = isInvalid;
     }
 
-    @Override
-    public String toString() {
-        return "TenantResourceMidEntity [trmId=" + trmId + ", tenantId=" + tenantId
-               + ", tenantName=" + tenantName + ", serviceType=" + serviceType + ", tenantAccount="
-               + tenantAccount + ", ipAddr=" + ipAddr + ", typeName=" + typeName + ", storage="
-               + storage + ", cpuNum=" + cpuNum + ", memory=" + memory + ", serviceName="
-               + serviceName + ", sequenceName=" + sequenceName + ", computeRoom=" + computeRoom
-               + ", askDate=" + askDate + ", openDate=" + openDate + ", endRentDate=" + endRentDate
-               + ", isInvalid=" + isInvalid + "]";
+    public Integer getState() {
+        return state;
     }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+    
     
 }

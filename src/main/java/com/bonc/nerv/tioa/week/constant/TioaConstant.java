@@ -58,4 +58,13 @@ public class TioaConstant {
      */
     public static final Integer TENANT_LEVEL_SMALL = 10;
   
+    /**
+     * 资源状态: 删除
+     */
+    public static final Integer RESOURCE_STATE_DELETE = 1;
+    
+    /**
+     * 资源状态:未删除
+     */
+    public static final Integer RESOURCE_STATE_NORMAL = 0;
 }
