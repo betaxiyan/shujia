@@ -183,7 +183,7 @@ $(document).ready(function() {
                  		 if(data == "" || data == null) {
                  			 return "-";
                  		 }
-                 		 return data;
+                 		 return (new Date(data)).Format("yyyyMMdd");
                  	 }
                 },
                 {
@@ -381,7 +381,12 @@ $(document).ready(function() {
                     	    }else{
                     	    	$("#updateleave-openDate").val((new Date(openDate)).Format("yyyyMMdd"));
                     	    }
-                    	    $("#updateleave-changeDate").val(data.changeDate);
+                    	    var changeDate=data.changeDate;
+                    	    if(changeDate==null){
+                    	    	 $("#updateleave-changeDate").val("");
+                    	    }else{
+                    	    	 $("#updateleave-changeDate").val((new Date(changeDate)).Format("yyyyMMdd"));
+                    	    }
                     	    var endRentDate=data.endRentDate;
                     	    if(endRentDate==null){
                     	    	 $("#updateleave-endRentDate").val("");

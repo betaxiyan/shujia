@@ -325,7 +325,7 @@ public class TenretiredServiceImpl implements  TenretiredService{
             String sequenceName=tenretiredEntity.getSequenceName();
             String askDate=tenretiredEntity.getAskDate()==null?"":DateUtils.formatDateToString(tenretiredEntity.getAskDate(),"yyyyMMdd");
             String openDate=tenretiredEntity.getOpenDate()==null?"":DateUtils.formatDateToString(tenretiredEntity.getOpenDate(),"yyyyMMdd");
-            String changeDate=tenretiredEntity.getChangeDate();
+            String changeDate=tenretiredEntity.getChangeDate()==null?"":DateUtils.formatDateToString(tenretiredEntity.getChangeDate(),"yyyyMMdd");
             String endRentDate=tenretiredEntity.getEndRentDate()==null?"":DateUtils.formatDateToString(tenretiredEntity.getEndRentDate(),"yyyyMMdd");
             String tenantInterface=tenretiredEntity.getTenantInterface();
             String remark=tenretiredEntity.getRemark();
@@ -380,9 +380,11 @@ public class TenretiredServiceImpl implements  TenretiredService{
             String computingResourceRate=teEntity.getComputingResourceRate()==null?"":String.valueOf(teEntity.getComputingResourceRate());
             String uniplatformNum=teEntity.getUniplatformNum()==null?"": String.valueOf(teEntity.getUniplatformNum());
             String numOf4a=teEntity.getNumOf4a()==null?"": String.valueOf(teEntity.getNumOf4a());
-            String askDate=teEntity.getAskDate()==null?"":String.valueOf(teEntity.getAskDate());
-            String openDate=teEntity.getOpenDate()==null?"":String.valueOf(teEntity.getOpenDate());
-            String endRentDate=teEntity.getEndRentDate()==null?"":String.valueOf(teEntity.getEndRentDate());
+            String askDate=teEntity.getAskDate()==null?"":DateUtils.formatDateToString(teEntity.getAskDate(),"yyyyMMdd");
+            String openDate=teEntity.getOpenDate()==null?"":DateUtils.formatDateToString(teEntity.getOpenDate(),"yyyyMMdd");
+            String changeDate=teEntity.getChangeDate()==null?"":DateUtils.formatDateToString(teEntity.getChangeDate(),"yyyyMMdd");
+            String endRentDate=teEntity.getEndRentDate()==null?"":DateUtils.formatDateToString(teEntity.getEndRentDate(),"yyyyMMdd");
+            
             if (teEntity.getTenantLevel()== null) {
                 tenantLevel = ""; 
             } else if (teEntity.getTenantLevel()== 0) {
@@ -411,7 +413,7 @@ public class TenretiredServiceImpl implements  TenretiredService{
                 teEntity.getSequenceName(),
                 askDate,
                 openDate,
-                teEntity.getChangeDate(),
+                changeDate,
                 endRentDate,
                 teEntity.getTenantInterface(),
                 teEntity.getRemark()

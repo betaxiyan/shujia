@@ -150,7 +150,9 @@ public class TenretiredEntity {
     /**
      * 变更时间
      */
-    private String changeDate;
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyyMMdd")
+    private Date changeDate;
     
     /**
      * 退租时间
@@ -203,7 +205,7 @@ public class TenretiredEntity {
                             Integer hostNum, String storage, Double computingResourceRate,
                             String computeRoom, 
                             String demand, String serviceName, String sequenceName, Date askDate,
-                            Date openDate, String changeDate, Date endRentDate, String rresId,
+                            Date openDate, Date changeDate, Date endRentDate, String rresId,
                             String tenantInterface, String remark) {
         super();
         this.tlId = tlId;
@@ -423,11 +425,11 @@ public class TenretiredEntity {
         this.openDate = openDate;
     }
     
-    public String getChangeDate() {
+    public Date getChangeDate() {
         return changeDate;
     }
 
-    public void setChangeDate(String changeDate) {
+    public void setChangeDate(Date changeDate) {
         this.changeDate = changeDate;
     }
     
