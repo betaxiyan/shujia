@@ -254,7 +254,7 @@ $(document).ready(function() {
 	                     	"targets":-1,
 	                     	"bSortable": false,
 	                     	 render: function(data, type, row) {
-	                         	var html ='<button class="btn btn-xs Tledit btn-danger" value="'+row.tlId+'">编辑</button></br><button class="btn btn-xs btn-danger Tldelete" value="'+row.tlId+'">删除</button>';
+	                         	var html ='<button class="btn btn-xs Tledit btn-danger" value="'+row.tlId+'">编辑</button><button class="btn btn-xs btn-danger Tldelete" value="'+row.tlId+'">删除</button>';
 	                             return html;
 	                     	}
 	                     }],

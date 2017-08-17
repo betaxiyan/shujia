@@ -279,7 +279,7 @@ $(document).ready(function() {
 	                     	"targets":-1,
 	                     	"bSortable": false,
 	                     	 render: function(data, type, row) {
-	                         	var html ='<button class="btn btn-xs tdEdit btn-danger" value="'+row.tdId+'">编辑</button></br><button class="btn btn-xs btn-danger tdDelete" value="'+row.tdId+'">删除</button>';
+	                         	var html ='<button class="btn btn-xs tdEdit btn-danger" value="'+row.tdId+'">编辑</button><button class="btn btn-xs btn-danger tdDelete" value="'+row.tdId+'">删除</button>';
 	                             return html;
 	                     	}
 	                     }],
