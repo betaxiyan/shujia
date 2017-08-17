@@ -1,14 +1,3 @@
-/*
- * 文件名：DisTenantServiceImpl.java
- * 版权：Copyright by www.bonc.com.cn
- * 描述：
- * 修改人：Administrator
- * 修改时间：2017年8月3日
- * 跟踪单号：
- * 修改单号：
- * 修改内容：
- */
-
 package com.bonc.nerv.tioa.week.service.impl;
 
 import java.io.FileInputStream;
@@ -49,7 +38,6 @@ import com.bonc.nerv.tioa.week.entity.CpuMemoryMidEntity;
 import com.bonc.nerv.tioa.week.entity.DisTenantEntity;
 import com.bonc.nerv.tioa.week.entity.ResourceUsageMidEntity;
 import com.bonc.nerv.tioa.week.entity.SearchDisTenant;
-import com.bonc.nerv.tioa.week.entity.TenantResourceMidEntity;
 import com.bonc.nerv.tioa.week.service.DisTenantService;
 import com.bonc.nerv.tioa.week.service.ExcelAnalyseService;
 import com.bonc.nerv.tioa.week.util.DateUtils;
@@ -300,8 +288,8 @@ public class DisTenantServiceImpl implements DisTenantService{
      * @see
      */
     public void deleteDisTenant(long tdId) {
-        DisTenantEntity dst = distenantDao.findOne(tdId);
-        distenantDao.delete(dst);
+//        DisTenantEntity dst = distenantDao.findOne(tdId);
+       distenantDao.delete(tdId);
         distenantDao.flush();        
     }
 

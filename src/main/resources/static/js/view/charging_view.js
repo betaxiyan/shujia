@@ -27,7 +27,7 @@ function loaddata() {
         
         
         /* 分页设置 */
-        "scollX":true,
+        scrollX:  true,
         "bPaginate": true,
         "bLengthChange": true,
         /* 搜索设置 */
@@ -53,7 +53,7 @@ function loaddata() {
                         	"targets":-1,
                         	"bSortable": false,
                         	render: function(data, type, row) {
-                            	var html ='<button class="btn btn-xs jfedit btn-danger" value="'+row.tcId+'">编辑</button></br><button class="btn btn-xs btn-danger jfdelete" value="'+row.tcId+'">删除</button>';
+                            	var html ='<button class="btn btn-xs jfedit btn-danger" value="'+row.tcId+'">编辑</button><button class="btn btn-xs btn-danger jfdelete" value="'+row.tcId+'">删除</button>';
                                 return html;
                         	}
                         },

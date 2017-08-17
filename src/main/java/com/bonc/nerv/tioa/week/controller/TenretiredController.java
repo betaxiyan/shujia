@@ -1,25 +1,12 @@
-/*
- * 文件名：TenRetiredController.java
- * 版权：Copyright by www.bonc.com.cn
- * 描述：
- * 修改人：ymm
- * 修改时间：2017年7月27日
- */
-
 package com.bonc.nerv.tioa.week.controller;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.ServletRequestDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -127,10 +114,14 @@ public class TenretiredController {
      * @return 重定向到列表页
      * @see
      */
-    @RequestMapping(value = {"/tenant/tenretired/delete"}, method = RequestMethod.GET)
-    public String delete(long tlId) {
-        tenretiredService.delete(tlId);
-        return "redirect:/view";
+    @RequestMapping("/tenant/tenretired/delete")
+    @ResponseBody
+    public void deleteByTlId(Long tlId) {
+    	 try {
+    		 tenretiredService.deleteByTlId(tlId);
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
     }
      
     /**

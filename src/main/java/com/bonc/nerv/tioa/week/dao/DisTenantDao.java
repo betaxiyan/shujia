@@ -30,7 +30,7 @@ import com.bonc.nerv.tioa.week.entity.DisTenantEntity;
  * @see DisTenantDao
  * @since
  */
-public interface DisTenantDao extends CrudRepository<DisTenantEntity, Integer>,JpaRepository<DisTenantEntity, Integer>,JpaSpecificationExecutor<DisTenantEntity>{
+public interface DisTenantDao extends CrudRepository<DisTenantEntity, Long>,JpaRepository<DisTenantEntity, Long>,JpaSpecificationExecutor<DisTenantEntity>{
 
     /**
      * 
