@@ -1,6 +1,6 @@
 var table;
 $(document).ready(function() {
-	table = $('#tenant_arount_show_table').dataTable({
+	table = $('#tenant_arount_show_table').DataTable({
 		fixedHeader: {
 	        header: true
 	    },
@@ -12,6 +12,8 @@ $(document).ready(function() {
         "bSort": false,
         "bInfo": true,
         "bAutoWidth": true,
+        "bDestory":true,
+        "bStateSave" :true,
         "ajax":{
      		"url":ctx+"manage/findAllTenantAroundMgr",
         	"data":function(d){
@@ -66,7 +68,7 @@ $(document).ready(function() {
         //设置序号列
        "fnDrawCallback": function(){
         	var api = this.api();
-        	//var startIndex= api.context[0]._iDisplayStart;//获取到本页开始的条数
+//        	var startIndex= api.context[0]._iDisplayStart;//获取到本页开始的条数
         	api.column(0).nodes().each(function(cell, i) {
         		cell.innerHTML = i + 1;
         	});
@@ -187,11 +189,10 @@ $(document).ready(function() {
 	           			tenantLevel:tenantLevel,tenantBoss:tenantBoss,tenantTel:tenantTel,numOfUnifiedPlatform:numOfUnifiedPlatform,
 	           			numOf4a:numOf4a,tenantReqirement:tenantReqirement,tenantInterface:tenantInterface},
 	           		success : function(data) {
+	           		    refreshArroundTable();
 	           			updateTenArrClean();
-	           			data = eval("(" + data + ")");
 	           			}
 	           		});
-	        	 clickTable();
 	         }
     });
     
@@ -251,6 +252,7 @@ $(document).ready(function() {
                    	if(data){
                    		$("#delete-ttaId").val(tarval);
                     	$("#deleteTenArrForm").submit();
+                    	refreshArroundTable();
                    	}else{ 
                    		layui.use('layer', function(){
                   			var layer = layui.layer;
@@ -283,6 +285,12 @@ function addClean(){
 	$("#addaround-tenantReqirement").val("");
 	$("#addaround-tenantInterface").val("");
 }
+
+//当页刷新
+function refreshArroundTable(){
+	table.draw(false);
+}
+
 
 //新增按钮
 function addAroundTenantModal(){

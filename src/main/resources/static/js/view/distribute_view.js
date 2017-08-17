@@ -440,10 +440,10 @@ $(document).ready(function() {
           			cpuNum:cpuNum,cpuMax:cpuMax,cpuAvg:cpuAvg,memorySize:memorySize,memoryMax:memoryMax,
           			memoryAvg:memoryAvg,askDate:askDate,changeDate:changeDate,openDate:openDate,tdId:tdId},
            		success : function(data) {
+           		    refreshTables();
            			updateClean();
            			}
            		});
-        	 refreshTables();
 //        }
     });
     
