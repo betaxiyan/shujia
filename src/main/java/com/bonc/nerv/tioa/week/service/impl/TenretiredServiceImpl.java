@@ -272,6 +272,7 @@ public class TenretiredServiceImpl implements  TenretiredService{
         //2、在租户资源表里标记为 删除
         TenantResourceMidEntity entity = tenantResourceMidDao.findOne(tenretiredEntity.getRresId());
         entity.setState(TioaConstant.RESOURCE_STATE_DELETE);
+        tenantResourceMidDao.save(entity);
     }
     
     /**
