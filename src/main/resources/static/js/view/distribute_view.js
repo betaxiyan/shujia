@@ -98,57 +98,6 @@ $(document).ready(function() {
 	             {
 	            	 data:"resourceType",
 	            	 render:function(data, type, row) {
-	            		 if(data == 1 ){
-	            			 return "Flume";
-	            		 }
-	            		 if(data == 2 ){
-	            			 return "FTP集群";
-	            		 }
-	            		 if(data == 3 ){
-	            			 return "Hbase";
-	            		 }
-	            		 if(data == 4 ){
-	            			 return "hue";
-	            		 }
-	            		 if(data == 5 ){
-	            			 return "Hive";
-	            		 }
-	            		 if(data == 6 ){
-	            			 return "IMPALA";
-	            		 }
-	            		 if(data == 7 ){
-	            			 return "KAFKA";
-	            		 }
-	            		 if(data == 8 ){
-	            			 return "MPP";
-	            		 }
-	            		 if(data == 9 ){
-	            			 return "Mysql";
-	            		 }
-	            		 if(data == 10 ){
-	            			 return "Oracle";
-	            		 }
-	            		 if(data == 11 ){
-	            			 return "Redis";
-	            		 }
-	            		 if(data == 12 ){
-	            			 return "spark";
-	            		 }
-	            		 if(data == 13 ){
-	            			 return "storm";
-	            		 }
-	            		 if(data == 14 ){
-	            			 return "接口机";
-	            		 }
-	            		 if(data == 15 ){
-	            			 return "虚拟机";
-	            		 }
-	            		 if(data == 16 ){
-	            			 return "物理裸机";
-	            		 }
-	            		 if(data == 17 ){
-	            			 return "应用服务器";
-	            		 }
 	            		 if(data == "" || data == null) {
 	            			 return "-";
 	            		 }
@@ -251,7 +200,7 @@ $(document).ready(function() {
 	            		 if(data == "" || data == null) {
 	            			 return "-";
 	            		 }
-	            		 return data;
+	            		 return (new Date(data).Format("yyyyMMdd"));
 	            	 }
 	             },
 	             {
@@ -260,7 +209,7 @@ $(document).ready(function() {
 	            		 if(data == "" || data == null) {
 	            			 return "-";
 	            		 }
-	            		 return data;
+	            		 return (new Date(data).Format("yyyyMMdd"));
 	            	 }
 	             },
 	             {
@@ -269,7 +218,7 @@ $(document).ready(function() {
 	            		 if(data == "" || data == null) {
 	            			 return "-";
 	            		 }
-	            		 return data;
+	            		 return (new Date(data).Format("yyyyMMdd"));
 	            	 }
 	             },
 	             null
@@ -306,6 +255,34 @@ $(document).ready(function() {
         }
     });
 
+  //格式化页面展示的时间
+    Date.prototype.Format = function(fmt) { //author: meizz 
+        var o = { 
+            "M+": this.getMonth() + 1, 
+            //月份 
+            "d+": this.getDate(), 
+            //日 
+            "h+": this.getHours(), 
+            //小时 
+            "m+": this.getMinutes(), 
+            //分 
+            "s+": this.getSeconds(), 
+            //秒 
+            "q+": Math.floor((this.getMonth() + 3) / 3), 
+            //季度 
+            "S": this.getMilliseconds() //毫秒 
+        }; 
+        if (/(y+)/.test(fmt)) { 
+            fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length)); 
+        } 
+        for (var k in o) { 
+            if (new RegExp("(" + k + ")").test(fmt)) { 
+                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length))); 
+            } 
+        } 
+        return fmt; 
+    } 
+    
         //新增表单提交
     $('#addToolBtn').click(function() {
         	var serviceType=$("#add-serviceType").val();
@@ -335,7 +312,7 @@ $(document).ready(function() {
           			fileCount:fileCount,storage:storage,storageUsage:storageUsage,
           			storageUsageRate:storageUsageRate,cpuNum:cpuNum,cpuMax:cpuMax,cpuAvg:cpuAvg,
           			memorySize:memorySize,memoryMax:memoryMax,memoryAvg:memoryAvg,
-          			askDate:askDate,changeDate:changeDate,openDate:openDate},
+          			openDate:openDate},
           		success : function(data) {
           			addClean();
           			}
@@ -379,9 +356,24 @@ $(document).ready(function() {
                      	$("#update-memorySize").val(data.memorySize);
                      	$("#update-memoryMax").val(data.memoryMax);
                      	$("#update-memoryAvg").val(data.memoryAvg);
-                     	$("#update-askDate").val(data.askDate);
-                     	$("#update-changeDate").val(data.changeDate);
-                     	$("#update-openDate").val(data.openDate);	
+                     	var askDate = data.askDate;
+                     	if(askDate == null){
+                     		$("#update-askDate").val("");
+                     	}else{
+                     		$("#update-askDate").val(new Date(askDate).Format("yyyyMMdd"));
+                     	}
+                     	var changeDate = data.changeDate;
+                     	if(changeDate == null){
+                     		$('#update-changeDate').val("");
+                     	}else{
+                     		$('#update-changeDate').val(new Date(changeDate).Format("yyyyMMdd"));
+                     	}
+                     	var openDate = data.openDate;
+                     	if(openDate == null){
+                     		$("#update-openDate").val("");
+                     	}else{
+                     		$("#update-openDate").val(new Date(openDate).Format("yyyyMMdd"));
+                     	}
                        $("#update-tdId").val(data.tdId);
                      }
             	});

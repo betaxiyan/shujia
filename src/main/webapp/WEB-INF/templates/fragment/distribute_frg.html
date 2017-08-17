@@ -257,26 +257,7 @@
                              <div class="form-group">
                                 <label for="resourceType" class="control-label col-md-2 ">资源类型</label>
                                 <div class="col-md-9">
-                                <select class="form-control" name="resourceType" id="update-resourceType" disabled="disabled">
-                                    <option value="1">Flume</option>
-                                    <option value="2">FTP集群</option>
-                                    <option value="3">Hbase</option>
-                                    <option value="4">hue</option>
-                                    <option value="5">Hive</option>
-                                    <option value="6">IMPALA</option>
-                                    <option value="7">KAFKA</option>
-                                    <option value="8">MPP</option>
-                                    <option value="9">Mysql</option>
-                                    <option value="10">Oracle</option>
-                                    <option value="11">Redis</option>
-                                    <option value="12">spark</option>
-                                    <option value="13">storm</option>
-                                    <option value="14">接口机</option>
-                                    <option value="15">虚拟机</option>
-                                    <option value="16">物理裸机</option>
-                                    <option value="17">应用服务器</option>
-                                </select>
-                                   <!--  <input rows="4" cols="20" class="form-control" id="add-resourceType" name="resourceType" placeholder="请输入密码"/> -->
+                                    <input class="form-control" id="update-resourceType" name="resourceType" readonly="readonly" />
                                 </div>
                             </div>
                             <div class="form-group">
@@ -342,19 +323,19 @@
                             <div class="form-group">
                                 <label for="askDate" class="control-label col-md-2 ">申请时间</label>
                                 <div class="col-md-9">
-                                    <input class="Wdate" id="update-askDate" name="askDate" th:onClick="'WdatePicker()'" placeholder="请输入申请时间"/>
+                                    <input type="text" class="form-control Wdate" id="update-askDate" name="askDate" th:onClick="'WdatePicker()'" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="changeDate" class="control-label col-md-2 ">变更时间</label>
                                 <div class="col-md-9">
-                                    <input class="Wdate" id="update-changeDate" name="changeDate" th:onClick="'WdatePicker()'" placeholder="请输入变更时间"/>
+                                    <input type="text" class="form-control Wdate" id="update-changeDate" name="changeDate" th:onClick="'WdatePicker()'" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="openDate" class="control-label col-md-2 ">开放时间</label>
                                 <div class="col-md-9">
-                                    <input class="Wdate" id="update-openDate" name="openDate" th:onClick="'WdatePicker()'"  placeholder="请输入开放时间"/>
+                                    <input type="text" class="form-control Wdate" id="update-openDate" name="openDate" th:onClick="'WdatePicker()'"  />
                                 </div>
                             </div>
                         </form>

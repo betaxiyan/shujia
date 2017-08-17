@@ -16,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -348,6 +349,7 @@ public class DisTenantServiceImpl implements DisTenantService{
             "内存平均值", "申请时间", "变更时间", "开放时间"};
         SortList<DisTenantEntity> asort = new SortList<DisTenantEntity>();
         asort.Sort(list, "getTenantName", "desc");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         int index = 1;
         List<List<String[]>> dtEntityLists = new ArrayList<List<String[]>>();
         Map<String, List<String[]>> map = new HashMap<String, List<String[]>>();
@@ -368,9 +370,9 @@ public class DisTenantServiceImpl implements DisTenantService{
             String memorySize = dEntity.getMemorySize();
             String memoryMax = dEntity.getMemoryMax() == null ? " ":String.valueOf(dEntity.getMemoryMax());
             String memoryAvg = dEntity.getMemoryAvg()== null ? " ": String.valueOf(dEntity.getMemoryAvg());
-            String askDate = dEntity.getAskDate() == null ? " ": String.valueOf(dEntity.getAskDate());
-            String changeDate = dEntity.getChangeDate() == null ? " " : String.valueOf(dEntity.getChangeDate());
-            String openDate = dEntity.getOpenDate() == null ? " ":String.valueOf(dEntity.getOpenDate());
+            String askDate = dEntity.getAskDate() == null ? " ": String.valueOf(simpleDateFormat.format(dEntity.getAskDate()));
+            String changeDate = dEntity.getChangeDate() == null ? " " : String.valueOf(simpleDateFormat.format(dEntity.getChangeDate()));
+            String openDate = dEntity.getOpenDate() == null ? " ":String.valueOf(simpleDateFormat.format(dEntity.getOpenDate()));
             switch (dEntity.getTenantLevel()) {
                 case 0: 
                     tenantLevel = "小";

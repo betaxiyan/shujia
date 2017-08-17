@@ -11,6 +11,9 @@
 package com.bonc.nerv.tioa.week.entity;
 
 
+
+import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +21,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
@@ -151,7 +156,9 @@ public class DisTenantEntity {
      */
     @Basic
     @Column(name = "ask_date")
-    private String askDate;
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyyMMdd")
+    private Date askDate;
 
     /*
      * 变更日期
@@ -159,14 +166,17 @@ public class DisTenantEntity {
     @Basic
     @Column(name = "change_date")
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
-    private String changeDate;
+    @DateTimeFormat(pattern="yyyyMMdd")
+    private Date changeDate;
 
     /*
      * 开放日期
      */
     @Basic
     @Column(name = "open_date")
-    private String openDate;
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyyMMdd")
+    private Date openDate;
 
     public long getTdId() {
         return tdId;
@@ -304,28 +314,75 @@ public class DisTenantEntity {
         this.memoryAvg = memoryAvg;
     }
 
-    public String getAskDate() {
+    public Date getAskDate() {
         return askDate;
     }
 
-    public void setAskDate(String askDate) {
+    public void setAskDate(Date askDate) {
         this.askDate = askDate;
     }
 
-    public String getChangeDate() {
+    public Date getChangeDate() {
         return changeDate;
     }
 
-    public void setChangeDate(String changeDate) {
+    public void setChangeDate(Date changeDate) {
         this.changeDate = changeDate;
     }
 
-    public String getOpenDate() {
+    public Date getOpenDate() {
         return openDate;
     }
 
-    public void setOpenDate(String openDate) {
+    public void setOpenDate(Date openDate) {
         this.openDate = openDate;
     }
+
+    public DisTenantEntity() {
+        super();
+    }
+
+    public DisTenantEntity(long tdId, String serviceType, String tenantName, Integer tenantLevel,
+                           String tenantBoss, String tenantTel, String resourceType,
+                           Integer fileCount, String storage, String storageUsage,
+                           Double storageUsageRate, String cpuNum, Integer cpuMax, Integer cpuAvg,
+                           String memorySize, Integer memoryMax, Integer memoryAvg, Date askDate,
+                           Date changeDate, Date openDate) {
+        super();
+        this.tdId = tdId;
+        this.serviceType = serviceType;
+        this.tenantName = tenantName;
+        this.tenantLevel = tenantLevel;
+        this.tenantBoss = tenantBoss;
+        this.tenantTel = tenantTel;
+        this.resourceType = resourceType;
+        this.fileCount = fileCount;
+        this.storage = storage;
+        this.storageUsage = storageUsage;
+        this.storageUsageRate = storageUsageRate;
+        this.cpuNum = cpuNum;
+        this.cpuMax = cpuMax;
+        this.cpuAvg = cpuAvg;
+        this.memorySize = memorySize;
+        this.memoryMax = memoryMax;
+        this.memoryAvg = memoryAvg;
+        this.askDate = askDate;
+        this.changeDate = changeDate;
+        this.openDate = openDate;
+    }
+
+    @Override
+    public String toString() {
+        return "DisTenantEntity [tdId=" + tdId + ", serviceType=" + serviceType + ", tenantName="
+               + tenantName + ", tenantLevel=" + tenantLevel + ", tenantBoss=" + tenantBoss
+               + ", tenantTel=" + tenantTel + ", resourceType=" + resourceType + ", fileCount="
+               + fileCount + ", storage=" + storage + ", storageUsage=" + storageUsage
+               + ", storageUsageRate=" + storageUsageRate + ", cpuNum=" + cpuNum + ", cpuMax="
+               + cpuMax + ", cpuAvg=" + cpuAvg + ", memorySize=" + memorySize + ", memoryMax="
+               + memoryMax + ", memoryAvg=" + memoryAvg + ", askDate=" + askDate + ", changeDate="
+               + changeDate + ", openDate=" + openDate + "]";
+    }
+
+    
 
 }
