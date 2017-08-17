@@ -80,7 +80,7 @@ public class DisTenantController {
     public void exportFile(HttpServletRequest request, HttpServletResponse response)
         throws Exception {
         List<DisTenantEntity> list = distenantService.exportFile();
-        distenantService.getExcel(list, request, response);
+        distenantService.getExcelNew(list, request, response);
 
     }
 
