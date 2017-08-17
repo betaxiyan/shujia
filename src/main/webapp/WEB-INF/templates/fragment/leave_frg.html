@@ -38,12 +38,8 @@
                                          <th>租户负责人联系电话</th>
                                          <th>资源类型</th>
                                          <th>访问Ip</th>
-                                         <th>主机数量</th>
                                          <th>存储使用量</th>
-                                         <th>计算资源</th>
                                          <th>机房</th>
-                                         <th>统一平台数量</th>
-                                         <th>4A数量</th>
                                          <th>需求</th>
                                          <th>服务名</th>
                                          <th>队列名</th>
@@ -62,178 +58,7 @@
                   </div>
               </div>
        </div>
-       <!--  <div class="modal fade" id="addTenModal" tabindex="-1" role="dialog" aria-labelledby="addToolModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">新增内容</h4>
-                    </div>
-                    <div class="modal-body" style="padding-left: 20px;">
-                      <form id="addTenForm"  class="form-horizontal"  method="get">
-                        <div class="form-group">
-                            <label for="serviceType" class="control-label col-md-2 ">服务类型</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="addleave-serviceType" name="serviceType" placeholder="请输入服务类型"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="tenantName" class="control-label col-md-2 ">租户名称</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="addleave-tenantName" name="tenantName" placeholder="请输入租户"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="tenantLevel" class="control-label col-md-2 ">租户级别</label>
-                            <div class="col-md-9">
-                                <select  class="form-control" id="addleave-tenantLevel">
-                                    <option  value="0">小</option>
-                                    <option  value="1">中</option>
-                                    <option  value="2">大</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="tenantBoss" class="control-label col-md-2 ">租户负责人</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="addleave-tenantBoss" name="tenantBoss" placeholder="请输入租户负责人"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="tenantTel" class="control-label col-md-2 ">联系电话</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="addleave-tenantTel" name="tenantTel" placeholder="请输入联系电话"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                          <label for="resourceType" class="control-label col-md-2 ">资源类型</label>
-                            <div class="col-md-9">
-                                 <select  class="form-control" id="addleave-resourceType">
-                                    <option  value="1">Flume</option>
-                                    <option  value="2">FTP集群</option>
-                                    <option  value="3">Hbase</option>
-                                    <option  value="4">hue</option>
-                                    <option  value="5">Hive</option>
-                                    <option  value="6">IMPAL</option>
-                                    <option  value="7">KAFKA</option>
-                                    <option  value="8">MPP</option>
-                                    <option  value="9">Mysql</option>
-                                    <option  value="10">Oracle</option>
-                                    <option  value="11">Redis</option>
-                                    <option  value="12">spark</option>
-                                    <option  value="13">storm</option>
-                                    <option  value="14">接口机</option>
-                                    <option  value="15">虚拟机</option>
-                                    <option  value="16">物理机</option>
-                                    <option  value="17">应用服务器</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="askIp" class="control-label col-md-2 ">访问Ip</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="addleave-askIp" name="askIp" placeholder="请输入访问Ip"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="hostNum" class="control-label col-md-2 ">主机数量</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="addleave-hostNum" name="hostNum" placeholder="请输入主机数量"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="storage" class="control-label col-md-2 ">存储使用量</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="addleave-storage" name="storage" placeholder="存储容量"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="computingResourceRate" class="control-label col-md-2 ">计算资源</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="addleave-computingResourceRate" name="computingResourceRate" placeholder="计算资源"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="computeRoom" class="control-label col-md-2 ">机房</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="addleave-computeRoom" name="computeRoom" placeholder="输入机房"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="uniplatformNum" class="control-label col-md-2 ">统一平台数量</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="addleave-uniplatformNum" name="uniplatformNum" placeholder="输入统一平台数量"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="numOf4a" class="control-label col-md-2 ">4A数量</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="addleave-numOf4a" name="numOf4a" placeholder="输入统4A数量"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="demand" class="control-label col-md-2 ">需求</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="addleave-demand" name="demand" placeholder="输入需求"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="serviceName" class="control-label col-md-2 ">服务名</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="addleave-serviceName" name="serviceName" placeholder="输入服务名"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="sequenceName" class="control-label col-md-2 ">队列名</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="addleave-sequenceName" name="sequenceName" placeholder="输入队列名"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="askDate" class="control-label col-md-2 ">申请日期</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control Wdate" id="addleave-askDate" name="askDate" placeholder="输入申请日期" th:onclick="'WdatePicker()'"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="openDate" class="control-label col-md-2 ">开放日期</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control Wdate" id="addleave-openDate" name="openDate" placeholder="输入开放日期" th:onclick="'WdatePicker()'"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="changeDate" class="control-label col-md-2 ">变更时间</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control Wdate" id="addleave-changeDate" name="changeDate" placeholder="输入变更时间" th:onclick="'WdatePicker()'"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="endRentDate" class="control-label col-md-2 ">退租时间</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control Wdate" id="addleave-endRentDate" name="endRentDate" placeholder="输入退租时间" th:onclick="'WdatePicker()'"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="tenantInterface" class="control-label col-md-2 ">平台接口人</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="addleave-tenantInterface" name="tenantInterface" placeholder="输入平台接口人"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="remark" class="control-label col-md-2 ">备注</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="addleave-remark" name="remark" placeholder="输入备注"/>
-                            </div>
-                        </div>
-                      </form>
-                    </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" id="addTenBtn">提交</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal" id="addReloadHTML">关闭</button>
-                  </div>
-                </div>
-            </div>
-        </div>    --> 
+       
         <div class="modal fade" id="updateTenModal" tabindex="-1" role="dialog" aria-labelledby="uploadToolModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -291,39 +116,15 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="hostNum" class="control-label col-md-2 ">主机数量</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="updateleave-hostNum" name="hostNum" placeholder="请输入主机数量"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <label for="storage" class="control-label col-md-2 ">存储使用量</label>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" id="updateleave-storage" name="storage" placeholder="存储容量"/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="computingResourceRate" class="control-label col-md-2 ">计算资源</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="updateleave-computingResourceRate" name="computingResourceRate" placeholder="计算资源"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <label for="computeRoom" class="control-label col-md-2 ">机房</label>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" id="updateleave-computeRoom" name="computeRoom" placeholder="输入机房"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="uniplatformNum" class="control-label col-md-2 ">统一平台数量</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="updateleave-uniplatformNum" name="uniplatformNum" placeholder="输入统一平台数量" readonly="true"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="numOf4a" class="control-label col-md-2 ">4A数量</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="updateleave-numOf4a" name="numOf4a" placeholder="输入统4A数量" readonly="true"/>
                             </div>
                         </div>
                         <div class="form-group">

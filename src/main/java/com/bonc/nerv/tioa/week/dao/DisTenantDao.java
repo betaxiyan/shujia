@@ -11,6 +11,9 @@
 
 package com.bonc.nerv.tioa.week.dao;
 
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -29,16 +32,42 @@ import com.bonc.nerv.tioa.week.entity.DisTenantEntity;
  */
 public interface DisTenantDao extends CrudRepository<DisTenantEntity, Long>,JpaRepository<DisTenantEntity, Long>,JpaSpecificationExecutor<DisTenantEntity>{
 
-    /*
-     * 查询数据总和
+    /**
+     * 
+     * Description: <br>
+     * 通过id查询记录数
+     * @param tdId   
+     * @return int
+     * @see
      */
     @Query("select count(dt) from DisTenantEntity dt where dt.tdId = ?1")
     int findById(long tdId);
 
-    /*
-     * 查询每一条数据
+    /**
+     * 
+     * Description: <br>
+     * 通过id查询记录
+     * @param tdId 
+     * @return DisTenantEntity 
+     * @see
      */
     @Query("select dt from DisTenantEntity dt where dt.tdId = ?1")
     DisTenantEntity findOne(long tdId);
+    
+    /**
+     * 
+     * Description: <br>
+     * 通过租户资源表和租户周边信息表查询结果来组装租户已划配表的部分
+     * @return List<DisTenantEntity>
+     * @see
+     */
+    @Query("select new com.bonc.nerv.tioa.week.entity.DisTenantEntity(t.serviceType, s.tenantName, s.tenantLevel,"
+                           +"s.tenantBoss, s.tenantTel, t.typeName,"
+                           +"t.ipAddr, t.serviceName, t.path, t.sequenceName,"
+                           +"t.storage, t.cpuNum, t.memory, t.askDate,"
+                           +"t.endRentDate, t.openDate)"
+                           + " from TenantResourceMidEntity t, TioaTenantAroundShowEntity s "
+                           + " where t.tenantId = s.tenantId and t.isInvalid ='valid'")
+    List<DisTenantEntity> fixPartOfDisTenant();
     
 }

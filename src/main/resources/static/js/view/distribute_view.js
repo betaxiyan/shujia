@@ -17,6 +17,7 @@ $(document).ready(function() {
         "bInfo": true,
         "bAutoWidth": true,
         "bStateSave":true,
+        "bDestory":true,
 //        scrollY: "300px",
         scrollX:  true,
         scrollCollapse: true,
@@ -314,11 +315,10 @@ $(document).ready(function() {
           			memorySize:memorySize,memoryMax:memoryMax,memoryAvg:memoryAvg,
           			openDate:openDate},
           		success : function(data) {
+          			refreshTables();
           			addClean();
           			}
           		});
-//        	 clickAllTable();
-        	 refreshTables();
     });
     
   //编辑上传工具
@@ -432,10 +432,10 @@ $(document).ready(function() {
           			cpuNum:cpuNum,cpuMax:cpuMax,cpuAvg:cpuAvg,memorySize:memorySize,memoryMax:memoryMax,
           			memoryAvg:memoryAvg,askDate:askDate,changeDate:changeDate,openDate:openDate,tdId:tdId},
            		success : function(data) {
+           		 refreshTables();
            			updateClean();
            			}
            		});
-        	 refreshTables();
 //        }
     });
     
@@ -486,6 +486,14 @@ function cleanDisSearch(){
 }
 //文件导出
 function exportDisFile() {
+	var length = table.data().length;
+	if (length < 1) {
+		layui.use('layer', function(){
+			  var layer = layui.layer;
+			  layer.alert('导出数据为空，请您重新选择导出数据', {icon: 5});
+		});   
+		return;
+	}
 	location.href=ctx+'users/disExport' ;
 }
 

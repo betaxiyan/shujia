@@ -33,9 +33,11 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-
+import com.bonc.nerv.tioa.week.constant.TioaConstant;
+import com.bonc.nerv.tioa.week.dao.TenantResourceMidDao;
 import com.bonc.nerv.tioa.week.dao.TenretiredDao;
 import com.bonc.nerv.tioa.week.entity.SearchTenretiredData;
+import com.bonc.nerv.tioa.week.entity.TenantResourceMidEntity;
 import com.bonc.nerv.tioa.week.entity.TenretiredEntity;
 import com.bonc.nerv.tioa.week.service.TenretiredService;
 import com.bonc.nerv.tioa.week.util.DateUtils;
@@ -61,6 +63,11 @@ public class TenretiredServiceImpl implements  TenretiredService{
     @Autowired
     private TenretiredDao  tenretiredDao;
     
+    /**
+     * 租户资源dao
+     */
+    @Autowired
+    TenantResourceMidDao tenantResourceMidDao;
     /**
      * 
      * Description: <br>
@@ -257,8 +264,15 @@ public class TenretiredServiceImpl implements  TenretiredService{
      * @param tlId 
      * @see
      */
+    @Override
     public void deleteByTlId(Long tlId){
-        tenretiredDao.delete(tlId);
+        //1、在退租表里删除
+        TenretiredEntity tenretiredEntity = tenretiredDao.findOne(tlId);
+        tenretiredDao.delete(tenretiredEntity );
+        //2、在租户资源表里标记为 删除
+        TenantResourceMidEntity entity = tenantResourceMidDao.findOne(tenretiredEntity.getRresId());
+        entity.setState(TioaConstant.RESOURCE_STATE_DELETE);
+        tenantResourceMidDao.save(entity);
     }
     
     /**
@@ -311,7 +325,7 @@ public class TenretiredServiceImpl implements  TenretiredService{
             String sequenceName=tenretiredEntity.getSequenceName();
             String askDate=tenretiredEntity.getAskDate()==null?"":DateUtils.formatDateToString(tenretiredEntity.getAskDate(),"yyyyMMdd");
             String openDate=tenretiredEntity.getOpenDate()==null?"":DateUtils.formatDateToString(tenretiredEntity.getOpenDate(),"yyyyMMdd");
-            String changeDate=tenretiredEntity.getChangeDate();
+            String changeDate=tenretiredEntity.getChangeDate()==null?"":DateUtils.formatDateToString(tenretiredEntity.getChangeDate(),"yyyyMMdd");
             String endRentDate=tenretiredEntity.getEndRentDate()==null?"":DateUtils.formatDateToString(tenretiredEntity.getEndRentDate(),"yyyyMMdd");
             String tenantInterface=tenretiredEntity.getTenantInterface();
             String remark=tenretiredEntity.getRemark();
@@ -366,9 +380,11 @@ public class TenretiredServiceImpl implements  TenretiredService{
             String computingResourceRate=teEntity.getComputingResourceRate()==null?"":String.valueOf(teEntity.getComputingResourceRate());
             String uniplatformNum=teEntity.getUniplatformNum()==null?"": String.valueOf(teEntity.getUniplatformNum());
             String numOf4a=teEntity.getNumOf4a()==null?"": String.valueOf(teEntity.getNumOf4a());
-            String askDate=teEntity.getAskDate()==null?"":String.valueOf(teEntity.getAskDate());
-            String openDate=teEntity.getOpenDate()==null?"":String.valueOf(teEntity.getOpenDate());
-            String endRentDate=teEntity.getEndRentDate()==null?"":String.valueOf(teEntity.getEndRentDate());
+            String askDate=teEntity.getAskDate()==null?"":DateUtils.formatDateToString(teEntity.getAskDate(),"yyyyMMdd");
+            String openDate=teEntity.getOpenDate()==null?"":DateUtils.formatDateToString(teEntity.getOpenDate(),"yyyyMMdd");
+            String changeDate=teEntity.getChangeDate()==null?"":DateUtils.formatDateToString(teEntity.getChangeDate(),"yyyyMMdd");
+            String endRentDate=teEntity.getEndRentDate()==null?"":DateUtils.formatDateToString(teEntity.getEndRentDate(),"yyyyMMdd");
+            
             if (teEntity.getTenantLevel()== null) {
                 tenantLevel = ""; 
             } else if (teEntity.getTenantLevel()== 0) {
@@ -397,7 +413,7 @@ public class TenretiredServiceImpl implements  TenretiredService{
                 teEntity.getSequenceName(),
                 askDate,
                 openDate,
-                teEntity.getChangeDate(),
+                changeDate,
                 endRentDate,
                 teEntity.getTenantInterface(),
                 teEntity.getRemark()

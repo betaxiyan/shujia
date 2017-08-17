@@ -1,14 +1,3 @@
-/*
- * 文件名：DisTenantServiceImpl.java
- * 版权：Copyright by www.bonc.com.cn
- * 描述：
- * 修改人：Administrator
- * 修改时间：2017年8月3日
- * 跟踪单号：
- * 修改单号：
- * 修改内容：
- */
-
 package com.bonc.nerv.tioa.week.service.impl;
 
 import java.io.FileInputStream;
@@ -42,7 +31,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.bonc.nerv.tioa.week.dao.CpuMemoryMidDao;
 import com.bonc.nerv.tioa.week.dao.DisTenantDao;
+import com.bonc.nerv.tioa.week.dao.ResUsaMidDao;
+import com.bonc.nerv.tioa.week.dao.TenantResourceMidDao;
 import com.bonc.nerv.tioa.week.entity.CpuMemoryMidEntity;
 import com.bonc.nerv.tioa.week.entity.DisTenantEntity;
 import com.bonc.nerv.tioa.week.entity.ResourceUsageMidEntity;
@@ -78,6 +70,15 @@ public class DisTenantServiceImpl implements DisTenantService{
     @Autowired
     private ExcelAnalyseService excelAnalyseService;
 
+    @Autowired
+    private ResUsaMidDao resUsaMidDao;
+    
+    @Autowired
+    private CpuMemoryMidDao cpuMemoryMidDao;
+    
+    @Autowired
+    private TenantResourceMidDao tenantResourceMidDao;
+    
     /**
      * 
      * 加载列表数据并查询
@@ -123,9 +124,9 @@ public class DisTenantServiceImpl implements DisTenantService{
             public Predicate toPredicate(Root<DisTenantEntity> root, CriteriaQuery<?> query,
                                          CriteriaBuilder cb) {
                 List<Predicate> predicates = new ArrayList<Predicate>();
-               if(StringUtils.isNotBlank(searchdisTenant.getServiceType())){
-                   predicates.add(cb.like(root.<String> get("serviceType"), "%"+searchdisTenant.getServiceType()+"%"));
-               }
+                if(StringUtils.isNotBlank(searchdisTenant.getServiceType())){
+                    predicates.add(cb.like(root.<String> get("serviceType"), "%"+searchdisTenant.getServiceType()+"%"));
+                }
                 if(StringUtils.isNotBlank(searchdisTenant.getTenantName())){
                     predicates.add(cb.like(root.<String> get("tenantName"),"%"+searchdisTenant.getTenantName()+"%"));
                 }
@@ -154,40 +155,6 @@ public class DisTenantServiceImpl implements DisTenantService{
         List<DisTenantEntity> list = distenantDao.findAll();
         return list;
     }
-
-    /**
-     * 
-     * 将数据填入到处的表格
-     * 
-     * @param list  租户列表
-     * @param request 请求的request对象
-     * @param response  响应的response对象
-     * @see
-     */
-//    public void getExcel(List<DisTenantEntity> list, HttpServletRequest request,
-//                         HttpServletResponse response) {
-//
-//        // 写入表头信息
-//        String[] headers = {"序号", "服务类型", "租户名", "租户级别", "租户负责人", "租户负责人电话", "资源类型", "文件数", "存储",
-//            "存储使用量",  "存储使用占比", "cpu核数", "cpu最大数", "cpu平均数", "内存大小", "内存最大值",
-//            "内存平均值", "申请时间", "变更时间", "开放时间"};
-//
-//        // 添加Excel内容
-//        List<String[]> dataset = getList(list);
-//        String fileName = DateUtils.formatDateToString(new Date(), "yyyyMMddHHmmss") + ".xlsx";
-//        try {
-//            PoiUtils.exportExelMerge(fileName, headers, dataset, true, response,
-//                new Integer[] {5,4,2}, new Integer[] {1, 2, 3, 4, 5, 7}, new Integer[] {7},
-//                new Integer[] {4});
-//            System.out.println("excel导出成功！");
-//        }
-//        catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
     
     /**
      * 
@@ -258,8 +225,7 @@ public class DisTenantServiceImpl implements DisTenantService{
             distenantDao.save(distenantEntity);
             distenantDao.flush();
             map.put("status", "200");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             map.put("status", "400");
         }
@@ -319,26 +285,13 @@ public class DisTenantServiceImpl implements DisTenantService{
             distenantDao.save(ditenantEntity);
             distenantDao.flush();
             map.put("status", 200);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             map.put("status", 400);
         }
         return JSON.toJSONString(map);
     }
     
-    /**
-     * 获取中间表数据到tioa_tenant_distribute_show 表中
-     */
-    @Override
-    public void getMidDataToTtd() {
-        /**
-         * 调用接口更新中间表数据
-         * 
-         * 将中间表数据汇总到展示表中
-         */
-    }
-
     @Override
     public void getExcelNew(List<DisTenantEntity> list, HttpServletRequest request,
                             HttpServletResponse response) throws IOException {
@@ -484,5 +437,92 @@ public class DisTenantServiceImpl implements DisTenantService{
         Workbook workbook = POIUtil.getWorkBook(excelFile);
         List<CpuMemoryMidEntity> orcalData = excelAnalyseService.analyseYarnExcel(workbook);
         excelAnalyseService.yarnToDb(orcalData);
+    }
+    
+    /**
+     * 获取中间表数据到tioa_tenant_distribute_show 表中
+     */
+    @Override
+    public void getMidDataToTtd() {
+        Map<String, Map<String, Object>> typeMap = new HashMap<String, Map<String, Object>>();
+        Map<String, CpuMemoryMidEntity> cmMap = new HashMap<String, CpuMemoryMidEntity>();
+        List<ResourceUsageMidEntity> resourceUsageMidEntities = resUsaMidDao.findAll();
+        List<CpuMemoryMidEntity> cpuMemoryMidEntities = cpuMemoryMidDao.findAll();
+//        List<TenantResourceMidEntity> tenantResourceMidEntities =tenantResourceMidDao.findAll();
+        List<DisTenantEntity> disTenantEntities = distenantDao.fixPartOfDisTenant();
+        List<DisTenantEntity> disTenantEntitiesFix = new ArrayList<DisTenantEntity>();
+        for(ResourceUsageMidEntity usageMidEntity : resourceUsageMidEntities){
+            if(typeMap.containsKey(usageMidEntity.getType())){
+                if(typeMap.get(usageMidEntity.getType()).containsKey(usageMidEntity.getKeyword())){
+                    continue;
+                }else{
+                    typeMap.get(usageMidEntity.getType()).put(usageMidEntity.getKeyword(), usageMidEntity.getStorageUsage());
+                }
+            }else{
+                Map<String, Object> keyMap = new HashMap<String, Object>();
+                keyMap.put(usageMidEntity.getKeyword(), usageMidEntity.getStorageUsage());
+                typeMap.put(usageMidEntity.getType(), keyMap);
+            }
+        }
+
+        for(CpuMemoryMidEntity cmEntity : cpuMemoryMidEntities){
+            if(cmMap.containsKey(cmEntity.getSequenceName())){
+                continue;
+            }else{
+                cmMap.put(cmEntity.getSequenceName(), cmEntity);
+            }
+        }
+        
+        for(DisTenantEntity disEntity  : disTenantEntities){
+            Map<String, Object> webSeverMap = typeMap.get("web服务器");
+            Map<String, Object> orcalMap = typeMap.get("orcal");
+            Map<String, Object> ftpMap = typeMap.get("ftp");
+            Map<String, Object> hbaseMap = typeMap.get("hbase");
+            String[] ips =  disEntity.getIpAddr().split(",");
+            double usageTemp = 0;
+            
+            //组装web服务器的使用量
+            if(disEntity.getResourceType().equals("web服务器") & ips.length >  0){
+                for(String ip : ips){
+                    if(webSeverMap.containsKey(ip)){
+                        usageTemp += Double.valueOf(webSeverMap.get(ip).toString());
+                    }
+                    
+                }
+                disEntity.setResourceType("web服务器");
+                disEntity.setStorageUsage(String.valueOf(usageTemp));
+                //disEntity.setStorageUsageRate();
+            }
+            
+            //组装orcal的使用量
+            if(disEntity.getResourceType().equals("orcal") & orcalMap.containsKey(disEntity.getServiceName())){
+                String usageStr = orcalMap.get(disEntity.getServiceName()).toString();
+                disEntity.setStorageUsage(usageStr);
+            }
+            
+            //组装ftp的使用量
+            if(disEntity.getResourceType().equals("ftp") & ftpMap.containsKey(disEntity.getPath())){
+                String usageStr = ftpMap.get(disEntity.getPath()).toString();
+                disEntity.setStorageUsage(usageStr);
+            }
+            
+            //组黄hbase的使用量
+            if(disEntity.getResourceType().equals("hbase") & hbaseMap.containsKey(disEntity.getPath())){
+                String usageStr = hbaseMap.get(disEntity.getPath()).toString();
+                disEntity.setStorageUsage(usageStr);
+            }
+            
+            //组装cpu和内存的最大值和平均值
+            if("hive,spark".contains(disEntity.getResourceType()) & cmMap.containsKey(cmMap.get(disEntity.getSequenceName()))){
+                CpuMemoryMidEntity cEntity = new CpuMemoryMidEntity();
+                cEntity = cmMap.get(disEntity.getSequenceName());
+                disEntity.setCpuAvg(Integer.valueOf(cEntity.getCpuAvg()));
+                disEntity.setCpuMax(Integer.valueOf(cEntity.getCpuMax()));
+                disEntity.setMemoryAvg(Integer.valueOf(cEntity.getMemoryAvg()));
+                disEntity.setMemoryMax(Integer.valueOf(cEntity.getMemoryMax()));
+            }
+            disTenantEntitiesFix.add(disEntity);
+        }
+//        distenantDao.save(disTenantEntitiesFix);
     }
 }

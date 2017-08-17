@@ -130,6 +130,10 @@ public class TenretiredEntity {
     private String sequenceName;
     
     /**
+     * 资源id
+     */
+    private String rresId;
+    /**
      * 申请时间
      */
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
@@ -146,7 +150,9 @@ public class TenretiredEntity {
     /**
      * 变更时间
      */
-    private String changeDate;
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyyMMdd")
+    private Date changeDate;
     
     /**
      * 退租时间
@@ -197,9 +203,9 @@ public class TenretiredEntity {
     public TenretiredEntity(long tlId, String tenantId, String tenantName, String serviceType, Integer tenantLevel,
                             String tenantBoss, String tenantTel, String resourceType, String askIp,
                             Integer hostNum, String storage, Double computingResourceRate,
-                            String computeRoom, Integer uniplatformNum, Integer numOf4a,
+                            String computeRoom, 
                             String demand, String serviceName, String sequenceName, Date askDate,
-                            Date openDate, String changeDate, Date endRentDate,
+                            Date openDate, Date changeDate, Date endRentDate, String rresId,
                             String tenantInterface, String remark) {
         super();
         this.tlId = tlId;
@@ -215,8 +221,6 @@ public class TenretiredEntity {
         this.storage = storage;
         this.computingResourceRate = computingResourceRate;
         this.computeRoom = computeRoom;
-        this.uniplatformNum = uniplatformNum;
-        this.numOf4a = numOf4a;
         this.demand = demand;
         this.serviceName = serviceName;
         this.sequenceName = sequenceName;
@@ -224,8 +228,39 @@ public class TenretiredEntity {
         this.openDate = openDate;
         this.changeDate = changeDate;
         this.endRentDate = endRentDate;
+        this.rresId = rresId;
         this.tenantInterface = tenantInterface;
         this.remark = remark;
+    }
+
+    
+    
+    public TenretiredEntity(String tenantId, String tenantName, String serviceType,
+                            Integer tenantLevel, String tenantBoss, String tenantTel,
+                            String resourceType, String askIp, String storage,
+                            String computeRoom, String demand,
+                            String serviceName, String sequenceName, String rresId, Date askDate,
+                            Date openDate, Date endRentDate, String tenantInterface
+                            ) {
+        super();
+        this.tenantId = tenantId;
+        this.tenantName = tenantName;
+        this.serviceType = serviceType;
+        this.tenantLevel = tenantLevel;
+        this.tenantBoss = tenantBoss;
+        this.tenantTel = tenantTel;
+        this.resourceType = resourceType;
+        this.askIp = askIp;
+        this.storage = storage;
+        this.computeRoom = computeRoom;
+        this.demand = demand;
+        this.serviceName = serviceName;
+        this.sequenceName = sequenceName;
+        this.rresId = rresId;
+        this.askDate = askDate;
+        this.openDate = openDate;
+        this.endRentDate = endRentDate;
+        this.tenantInterface = tenantInterface;
     }
 
     public long getTlId() {
@@ -390,11 +425,11 @@ public class TenretiredEntity {
         this.openDate = openDate;
     }
     
-    public String getChangeDate() {
+    public Date getChangeDate() {
         return changeDate;
     }
 
-    public void setChangeDate(String changeDate) {
+    public void setChangeDate(Date changeDate) {
         this.changeDate = changeDate;
     }
     
@@ -421,21 +456,13 @@ public class TenretiredEntity {
     public void setRemark(String remark) {
         this.remark = remark;
     }
-    
-    @Override
-    public String toString() {
-        return "TenretiredEntity [tlId=" + tlId + ", serviceType=" + serviceType
-               + ", tenantName=" + tenantName + ", tenantLevel=" + tenantLevel + ", tenantBoss="
-               + tenantBoss + ", tenantTel=" + tenantTel +", resourceType=" + resourceType +", askIp=" + askIp 
-               +", hostNum=" + hostNum +", storage=" + storage+", computingResourceRate=" + computingResourceRate
-               +", computeRoom=" + computeRoom +", uniplatformNum=" + uniplatformNum 
-               +", numOf4a=" + numOf4a +", demand=" + demand +", serviceName=" + serviceName 
-               +", sequenceName=" +sequenceName+", askDate=" + askDate +", openDate=" + openDate
-               +", changeDate=" + changeDate+", endRentDate=" + endRentDate+", tenantInterface=" +tenantInterface
-               +", remark=" + remark +"]";
+
+    public String getRresId() {
+        return rresId;
     }
 
-    
-    
+    public void setRresId(String rresId) {
+        this.rresId = rresId;
+    }
     
 }

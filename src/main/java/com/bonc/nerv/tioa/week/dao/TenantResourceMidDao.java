@@ -16,6 +16,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.bonc.nerv.tioa.week.entity.TenantResourceMidEntity;
+import com.bonc.nerv.tioa.week.entity.TenretiredEntity;
 
 /**
  * 租户资源中间表JPA
@@ -25,7 +26,7 @@ import com.bonc.nerv.tioa.week.entity.TenantResourceMidEntity;
  * @since
  */
 @Transactional
-public interface TenantResourceMidDao extends JpaRepository<TenantResourceMidEntity, Long>{
+public interface TenantResourceMidDao extends JpaRepository<TenantResourceMidEntity, String>{
     
     /**
      * 
@@ -42,4 +43,23 @@ public interface TenantResourceMidDao extends JpaRepository<TenantResourceMidEnt
      */
     @Query("select ten from TenantResourceMidEntity ten where ten.isInvalid = 'invalid'")
     List<TenantResourceMidEntity> findByEndRentDateNull();
+    
+    /**
+     * 
+     * Description: <br>
+     * 租户资源表和租户信息表联合查询
+     * @return 
+     * @see
+     */
+    @Query("select new com.bonc.nerv.tioa.week.entity.TenretiredEntity("
+        + "t.tenantId, a.tenantName, t.serviceType,"
+        +"a.tenantLevel, a.tenantBoss, a.tenantTel,"
+        +"t.typeName, t.ipAddr, t.storage,"
+        +"t.computeRoom, a.tenantReqirement,"
+        +"t.serviceName, t.sequenceName, t.rresId, t.askDate,"
+        +"t.openDate, t.endRentDate, a.tenantInterface) "
+        + " from TenantResourceMidEntity t , TioaTenantAroundShowEntity a "
+        + " where t.tenantId = a.tenantId and t.state is null or t.state = 0")
+    //@Query("select t from TenretiredEntity t")
+    List<TenretiredEntity> fixTrmAndTam();
 }
