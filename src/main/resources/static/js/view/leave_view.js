@@ -407,7 +407,7 @@ $(document).ready(function() {
                     	    	$("#updateleave-askDate").val((new Date(askDate)).Format("yyyyMMdd"));
                     	    }
                     	    var openDate=data.openDate;
-                    	    if(opneDate==null){
+                    	    if(openDate==null){
                     	    	$("#updateleave-openDate").val("");
                     	    }else{
                     	    	$("#updateleave-openDate").val((new Date(openDate)).Format("yyyyMMdd"));
