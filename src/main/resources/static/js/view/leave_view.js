@@ -18,6 +18,7 @@ $(document).ready(function() {
         "bInfo": true,
         "bAutoWidth": true,
         "bStateSave":true,
+        "bDestory":true,
 //        scrollY: "300px",
         scrollX:  true,
         scrollCollapse: true,
@@ -313,18 +314,17 @@ $(document).ready(function() {
            			askDate:askDate,openDate:openDate,changeDate:changeDate,
            			endRentDate:endRentDate,tenantInterface:tenantInterface,remark:remark},
            		success : function(data) {
-           			updateClean();
+           		          refresh();
+           		          updateClean();
            			}
            		});
 //        	 clickLeaveTable();
-        	 refresh();
 //        }
     });
     
     //编辑点击提交后，重置验证
     function updateClean(){
     	$('#updateTenModal').modal('hide');
-//    	$('#updateTenForm').bootstrapValidator('resetForm', true);
     }
     
     
@@ -418,32 +418,6 @@ $(document).ready(function() {
     $('#leave_table tbody').unbind('click',TenretiredOperate);
     $('#leave_table tbody').bind('click',TenretiredOperate);
    
-    function updateClean(){
-    	$('#updateTenModal').modal('hide');
-    	$("#update-tenantName").val("");
-    	$("#update-tenantLevel").val("");
-    	$("#update-tenantBoss").val("");
-    	$("#update-tenantTel").val("");
-    	$("#update-resourceType").val("");
-    	$("#update-askIp").val("");
-    	$("#update-hostNum").val("");
-    	$("#update-storage").val("");
-    	$("#update-computingResourceRate").val("");
-    	$("#update-computeRoom").val("");
-    	$("#update-uniplatformNum").val("");
-    	$("#update-numOf4a").val("");
-    	$("#update-demand").val("");
-    	$("#update-serviceName").val("");
-    	$("#update-sequenceName").val("");
-    	$("#update-askDate").val("");
-    	$("#update-openDate").val("");
-    	$("#update-changeDate").val("");
-    	$("#update-endRentDate").val("");
-    	$("#update-tenantInterface").val("");
-    	$("#update-remark").val("");
-
-    }
-   /*************************/     
 });
 
 function refresh(){
@@ -467,6 +441,14 @@ function cleanLeaveSearch() {
 
 //文件导出
 function exportFile() {
+	var length = table.data().length;
+	if (length < 1) {
+		layui.use('layer', function(){
+			  var layer = layui.layer;
+			  layer.alert('导出数据为空，请您重新选择导出数据', {icon: 5});
+		});   
+		return;
+	}
     var serviceType=$("#tenantServiceType").val();
 	var tenantName = $("#tenantLeaveName").val();
 	var tenantLevel=$("#tenantLeaveLevel").val();
