@@ -1,6 +1,6 @@
-var table;
+var around_table;
 $(document).ready(function() {
-	table = $('#tenant_arount_show_table').DataTable({
+	around_table = $('#tenant_arount_show_table').DataTable({
 		fixedHeader: {
 	        header: true
 	    },
@@ -252,7 +252,7 @@ $(document).ready(function() {
                    	if(data){
                    		$("#delete-ttaId").val(tarval);
                     	$("#deleteTenArrForm").submit();
-                    	refreshArroundTable();
+                    	refreshArroundTable2();
                    	}else{ 
                    		layui.use('layer', function(){
                   			var layer = layui.layer;
@@ -288,7 +288,11 @@ function addClean(){
 
 //当页刷新
 function refreshArroundTable(){
-	table.draw(false);
+	around_table.ajax.reload(null,false);
+}
+
+function refreshArroundTable2(){
+	around_table.draw(false);
 }
 
 
@@ -299,13 +303,13 @@ function addAroundTenantModal(){
 }
 
 //查询操作按钮
-function clickLeaveTable(){
-	table.api().ajax.reload();
+function clickAroundTable(){
+	around_table.ajax.reload();
 }
 
 
 function clickTable(){
-	table.api().ajax.reload();
+	around_table.ajax.reload();
 }
 //清除查询数据
 function cleanLeaveSearch() {
