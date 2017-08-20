@@ -117,7 +117,7 @@ public class TenantResourceServiceImpl implements TenantResourceService{
                 }
                 entity.setTypeName(nodeTwo.get("fixResource").get("type_name").asText());//资源类型
                 if(nodeTwo.get("expendCodeResource").has("Storage")) {
-                    entity.setStorage(nodeTwo.get("expendCodeResource").get("Storage").asText());//存储使用量
+                    entity.setStorage(nodeTwo.get("expendCodeResource").get("Storage").asText());//存储总量
                 } 
                 if(nodeTwo.get("expendCodeResource").has("CPU")) {
                     entity.setCpuNum(nodeTwo.get("expendCodeResource").get("CPU").asText());//CPU 核数
@@ -129,7 +129,13 @@ public class TenantResourceServiceImpl implements TenantResourceService{
                     entity.setServiceName(nodeTwo.get("expendCodeResource").get("Service_Name").asText());//服务名
                 }
                 if(nodeTwo.get("expendCodeResource").has("Path")) {
-                    entity.setServiceName(nodeTwo.get("expendCodeResource").get("Path").asText());//服务名
+                    entity.setPath(nodeTwo.get("expendCodeResource").get("Path").asText());//目录路径
+                }
+                if(nodeTwo.get("expendCodeResource").has("Queue_Name")) {
+                    entity.setSequenceName(nodeTwo.get("expendCodeResource").get("Queue_Name").asText());//队列名
+                }
+                if(nodeTwo.get("expendCodeResource").has("Count")) {
+                    entity.setCount(nodeTwo.get("expendCodeResource").get("Count").asText());//计算资源
                 }
                 if(nodeTwo.get("expendCodeResource").has("Machine_Room")) {
                     entity.setComputeRoom(nodeTwo.get("expendCodeResource").get("Machine_Room").asText());//机房

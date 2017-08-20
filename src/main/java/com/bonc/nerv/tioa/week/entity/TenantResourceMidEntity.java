@@ -107,6 +107,11 @@ public class TenantResourceMidEntity {
     private String path;
     
     /**
+     * 计算资源
+     */
+    private String count;
+    
+    /**
      * 机房
      */
     @Column(name = "compute_room")
@@ -217,6 +222,14 @@ public class TenantResourceMidEntity {
 
     public String getMemory() {
         return memory;
+    }
+
+    public String getCount() {
+        return count;
+    }
+
+    public void setCount(String count) {
+        this.count = count;
     }
 
     public void setMemory(String memory) {
