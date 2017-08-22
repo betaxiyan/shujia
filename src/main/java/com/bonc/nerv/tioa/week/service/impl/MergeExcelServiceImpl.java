@@ -85,7 +85,8 @@ public class MergeExcelServiceImpl implements MergeExcelService{
      * 导出Excel
      */
     @Override
-    public void getExcel(HttpServletResponse response) {
+    public Boolean getExcel(HttpServletResponse response) {
+        Boolean result = false;
         List<DisTenantEntity> disList = new ArrayList<DisTenantEntity>();//已划配租户情况
         disList = disTenantDao.findAll();//已划配租户情况
         /*JSON jsonss = (JSON)JSON.toJSON(disList);
@@ -197,13 +198,16 @@ public class MergeExcelServiceImpl implements MergeExcelService{
             response.setStatus(HttpServletResponse.SC_OK);
             response.flushBuffer();
             System.out.println("excel导出成功！");
+            result = true;
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return result;
     }
 
     @Override
-    public void getExcelNew(HttpServletRequest request, HttpServletResponse response) {
+    public Boolean getExcelNew(HttpServletRequest request, HttpServletResponse response) {
+        Boolean result = false;
         String fileName = "全量导出测试.xlsx";
         XSSFWorkbook weekInfoWorkbook = new XSSFWorkbook();
         XSSFSheet sheetOne = weekInfoWorkbook.createSheet("已划配租户情况");
@@ -232,6 +236,8 @@ public class MergeExcelServiceImpl implements MergeExcelService{
             e.printStackTrace();
         }
         System.out.println("excel导出成功！");
+        result = true;
+        return result;
     }
 
     

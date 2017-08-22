@@ -25,9 +25,10 @@ public interface MergeExcelService {
      * 
      *  导出Excel
      *  @param response HttpServletResponse
+     *  @return 判断是否成功
      * @see
      */
-    void getExcel(HttpServletResponse response);
+    Boolean getExcel(HttpServletResponse response);
     
     /**
      * 
@@ -35,7 +36,8 @@ public interface MergeExcelService {
      * 新全量导出excel
      * @param request HTTP
      * @param response HTTP
+     * @return 判断是否成功
      * @see
      */
-    void getExcelNew(HttpServletRequest request, HttpServletResponse response);
+    Boolean getExcelNew(HttpServletRequest request, HttpServletResponse response);
 }
