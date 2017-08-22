@@ -376,7 +376,7 @@ public class TenretiredServiceImpl implements  TenretiredService{
         for(TenretiredEntity teEntity : list){
             String tenantLevel=teEntity.getTenantLevel()==null?"":String.valueOf(teEntity.getTenantLevel());
             String resourceType=teEntity.getResourceType()==null?"":String.valueOf(teEntity.getResourceType());
-            String hostNum=teEntity.getHostNum()==null?"":String.valueOf(teEntity.getHostNum());
+            String hostNum=countNum(teEntity.getAskIp())==0?"":String.valueOf(countNum(teEntity.getAskIp()));
             String computingResourceRate=teEntity.getComputingResourceRate()==null?"":String.valueOf(teEntity.getComputingResourceRate());
             String uniplatformNum=teEntity.getUniplatformNum()==null?"": String.valueOf(teEntity.getUniplatformNum());
             String numOf4a=teEntity.getNumOf4a()==null?"": String.valueOf(teEntity.getNumOf4a());
@@ -451,5 +451,56 @@ public class TenretiredServiceImpl implements  TenretiredService{
         //response.getOutputStream().close();
         System.out.println("excel导出成功！");
     }
-
+    
+    public int countNum(String string){
+        int count = 0;
+        int start =0;
+        int end = 0;
+        if(string!=null && string.matches(".*\\d+.*")){ 
+            if(string.contains(",")){
+                if(string.contains("~")||string.contains("/")){
+                    for(int i = 0;i < string.length(); i++){
+                        
+                    }
+                } else {
+                    count=1;
+                    for(int i = 0;i < string.length();i++){
+                        if(string.charAt(i)==','){
+                            count++;
+                        }
+                    }
+                }
+            } else if(string.contains("~")){
+                for (int i=string.length()-1;i >= 0;i--){
+                    if(string.charAt(i)=='~'){
+                        end = Integer.valueOf(string.substring(i+1));
+                    }
+                    if(string.charAt(i)=='.'){
+                        int index = string.indexOf('~');
+                        if(start ==0){
+                            start = Integer.valueOf(string.substring(i+1,index));
+                        }
+                    }
+                }
+                count = end-start+1;
+                
+            } else if(string.contains("/")){
+                for (int i=string.length()-1;i >= 0;i--){
+                    if(string.charAt(i)=='/'){
+                        end = Integer.valueOf(string.substring(i+1));
+                    }
+                    if(string.charAt(i)=='.'){
+                        int index = string.indexOf('/');
+                        if(start ==0){
+                            start = Integer.valueOf(string.substring(i+1,index));
+                        }
+                    }
+                }
+                count = end-start+1;
+            } else {
+                count=1;
+            }
+        }
+        return count;
+    }
 }
