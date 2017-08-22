@@ -9,6 +9,7 @@
 package com.bonc.nerv.tioa.week.controller;
 
 
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
@@ -85,6 +86,7 @@ public class TioTenChaShoController {
     
     /**
      * 根据TcId查询记录
+     * @param id id
      * @return ""
      * @see
      */
@@ -195,4 +197,27 @@ public class TioTenChaShoController {
     public void savaToFile(HttpServletRequest request, HttpServletResponse response){
         tioTenChaShoService.savaToFile(request, response);
     }
+    
+    /**
+     * 根据是否近期、租户类型来查询
+     * @param flag 是否近期 
+     * @param tenantType tenantType
+     * @return ""
+     * @throws SQLException  SQLException
+     * @throws ClassNotFoundException  ClassNotFoundException
+     * @see
+     */
+    @RequestMapping(value = "/jffindByTypeAndDate")
+    @ResponseBody
+    public Object findByTypeAndDate(@RequestParam("flag") Boolean flag,
+                                    @RequestParam("tenantType") Integer tenantType) throws ClassNotFoundException, SQLException{
+         
+       
+        List<TioaTenantChargingShow> list = tioTenChaShoService.findByTypeAndDate(flag,tenantType);
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("data",list);
+        return (JSON)JSON.toJSON(map);
+    }
+    
+    
 }

@@ -8,7 +8,9 @@
 
 package com.bonc.nerv.tioa.week.service;
 
+import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +25,7 @@ import com.bonc.nerv.tioa.week.entity.TioaTenantChargingShow;
  * @see TioaTenantChargingShowService
  * @since
  */
+
 public interface TioTenChaShoService {
     /**
      * 将Excel文件保存到数据库
@@ -73,4 +76,15 @@ public interface TioTenChaShoService {
      * 
      */
     void sendEmailToInterface();
+
+    /**
+     * 根据是否近期、租户类型来查询
+     * @param flag 是否近期 
+     * @param tenantType tenantType
+     * @return ""
+     * @throws SQLException  SQLException
+     * @throws ClassNotFoundException  ClassNotFoundException
+     * @see
+     */
+    List<TioaTenantChargingShow> findByTypeAndDate(Boolean flag, Integer tenantType) ;
 }

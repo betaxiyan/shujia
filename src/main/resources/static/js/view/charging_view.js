@@ -1,9 +1,10 @@
 $(function(){
 	var char_table;
-	loaddata()
+	loaddata("findAll");
+	
 })
 
-function loaddata() {
+function loaddata(xxxx,datayyy) {
 	
   char_table=$('#charging_table').DataTable({
 		serverSide : false,
@@ -39,7 +40,7 @@ function loaddata() {
         "bInfo": true,
         "bAutoWidth": true,
         /*	数据源Ajax*/
-        "ajax":{ url: ctx+ "findAll"},
+        "ajax":{ url: ctx+xxxx,data:datayyy},
     	"columns": [				
     	            {"mData": "tenantName"},		{"mData": "serviceType"},			{"mData": "tenantType"}, 
     	            {"mData": "resourceTime"},		{"mData": "uniplatform4aTime"},		{"mData": "havedateTime"},
@@ -108,6 +109,7 @@ function loaddata() {
                         
                     ],
     });
+
 }
 
 function refreshCharTable(){
@@ -265,7 +267,7 @@ function refreshCharTable(){
 						 alert(data)
 						 $('#jfeditmodel').modal('hide');
 						 refreshCharTable();
-						 loaddata();
+						 loaddata("findAll");
 					 })
 		  }
    })
@@ -343,7 +345,7 @@ function refreshCharTable(){
 					 function(data){
 						 alert(data)
 						 $('#jfaddmodel').modal('hide');
-						 loaddata();
+						 loaddata("findAll");
 					 })
 		  }
    })
@@ -361,7 +363,7 @@ function refreshCharTable(){
 	  	  			function(data){
 	  		  		  alert(data)
 	  		  		   refreshCharTable();
-	  		  		  loaddata();
+	  		  		  loaddata("findAll");
 	  	  		    }
 	  		  	  )
 	    
@@ -390,9 +392,34 @@ function refreshCharTable(){
 	          success: function (returndata) {  
 	              alert(returndata);  
 	              $('#jfuploadmodel').modal('hide');
-	              loaddata();
+	              loaddata("findAll");
 	          }
 	           
 	     });  
 	}  
+   
+   /*     搜索            */
+   $('#jfondate').on('change', function(){
+	   ggg();
+   })
+    $('#jfzhtype').on('change', function(){
+	   ggg();
+   })
+   
+   
+ function ggg(){
+	
+	var jfondate = $('#jfondate').is(':checked');  //联系方式
+	var jfzhtype = $('#jfzhtype').val();  //联系方式
+	
+    var data={flag:jfondate,tenantType:jfzhtype};
+
+    loaddata("jffindByTypeAndDate",data);
+}
+   
+/*     刷新             */
+$('#jfrefresh').on('click', function(){
+	   ggg();
+   })
+
    

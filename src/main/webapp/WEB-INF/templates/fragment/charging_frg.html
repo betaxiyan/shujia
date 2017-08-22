@@ -4,11 +4,20 @@
   <body>
       <div th:fragment="charging" role="tabpanel" class="tab-pane" id="details_two">
           <div class="view_body">
-               <div class="tools_search" style="margin: 20px 0;" align="center">
-                <button class="btn btn-danger" style="margin-left:90px;margin-right:30px" id ="addjfbutton">新增</button>
-                <button class="btn btn-danger" style="margin-left:90px;margin-right:30px" id ="uploadjfbutton">上传</button>
-                   
-                <a href="/savaToFile" class="btn btn-danger" style="margin-left:90px;margin-right:30px">导出</a>
+               <div class="tools_search" style="margin: 20px 0;" >
+                 <label>即将到期:</label>
+                <input type="checkbox" id="jfondate"/>
+                <label>租户类型:</label>
+                <select id="jfzhtype">
+                    <option value="0">请选择</option>
+                    <option value="10">近期租户</option>
+                    <option value="20">历史租户</option>
+                </select>
+                
+                <a href="/savaToFile" class="btn btn-danger" style="margin-left:30px;margin-right:30px;float: right;">导出</a>
+                <button class="btn btn-danger" style="margin-left:30px;margin-right:30px;float: right;" id ="uploadjfbutton">上传</button>
+                <button class="btn btn-danger" style="margin-left:30px;margin-right:30px;float: right;" id ="addjfbutton">新增</button>
+                <button class="btn btn-danger" style="margin-left:30px;margin-right:30px;float: right;" id ="jfrefresh">刷新</button>
                </div>
                <div class="view_search">
                     

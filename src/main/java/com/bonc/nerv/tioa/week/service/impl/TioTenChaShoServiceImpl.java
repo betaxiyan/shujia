@@ -9,6 +9,7 @@
 package com.bonc.nerv.tioa.week.service.impl;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -288,8 +289,27 @@ public class TioTenChaShoServiceImpl implements TioTenChaShoService{
      */
     @Override
     public void deleteAll() {
-        // TODO Auto-generated method stub
         tioaTenantChargingShowDao.deleteAll();
     }
-    
+
+
+    /**
+     * 根据类型和到期时间查询一条数据
+     * @param tenantType 
+     * @param flag 
+     * @return list
+     * @throws SQLException 
+     * @throws ClassNotFoundException 
+     * @see
+     */
+    @Override
+    public List<TioaTenantChargingShow>  findByTypeAndDate(Boolean flag, Integer tenantType){
+        List<TioaTenantChargingShow> list = null;
+        try{
+            list =  tioTenChaSho_2Dao.findByTypeAndDate(flag,tenantType);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
 }

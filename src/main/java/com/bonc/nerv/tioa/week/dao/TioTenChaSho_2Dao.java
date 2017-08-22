@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import com.bonc.nerv.tioa.week.entity.TioaTenantChargingShow;
+
 
 /**
  * 因为TioaTenantChargingShowDao没有实现类，也无法写一个实现类，
@@ -26,4 +28,15 @@ public interface TioTenChaSho_2Dao {
      * @see 
      */
     List<List<Object>> getAllTioa() throws ClassNotFoundException, SQLException;
+    
+    /**
+     * 根据是否近期、租户类型来查询
+     * @param flag 是否近期 
+     * @param tenantType tenantType
+     * @return ""
+     * @throws SQLException  SQLException
+     * @throws ClassNotFoundException  ClassNotFoundException
+     * @see
+     */
+    List<TioaTenantChargingShow> findByTypeAndDate(Boolean flag, Integer tenantType) throws ClassNotFoundException, SQLException;
 }
