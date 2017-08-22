@@ -2,14 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 <body>
-	<div th:fragment="health" role="tabpanel" class="tab-pane"
+	<div th:fragment="health" role="tabpanel" class="tab-pane active"
 		id="details_health">
-		<div class="row" style="margin-left: 100px; margin-top: 30px;" 
+		<div class="row" style="margin-left: 100px; margin-top: 25px;" 
                         role="tabpanel" id="details">
 			<div class="view_test">
 				<button id="test_health" type="button" class="btn btn-danger"
 					style="margin-left: 45%">测试接口</button>
-
 			</div>
 		</div>
 				<table id="detail_health" class="table table-bordered table-hover" width="98%">
@@ -25,30 +24,59 @@
 					<tbody>
 					</tbody>
 				</table>
+				
 				<table id="upTableData" class="table table-bordered">
-					<thead>
-						<tr style="text-align: center">
-							<th width="10%">表名</th>
-							<th width="15%">更新日期</th>
-							<th width="10%">更新结果</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr id="Ttl">
-							<td>tioa_tenant_leave_show</td>
-							<td>未刷新</td>
-							<td class="updateresult"></td>
-						</tr>
-						<tr id="Ttd">
+                    <thead>
+                        <tr style="text-align: center">
+                            <th width="10%">表名</th>
+                            <th width="15%">更新日期</th>
+                            <th width="10%">更新结果</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="Ttl">
+                            <td>tioa_tenant_leave_show</td>
+                            <td>未刷新</td>
+                            <td class="updateresult"></td>
+                        </tr>
+                        <tr id="Ttd">
                             <td>tioa_tenant_distribute_show</td>
                             <td>未刷新</td>
                             <td class="updateresult"></td>
                         </tr>
+                    </tbody>
+                </table>
+                <button id="update" type="button" class="btn btn-danger"
+                    style="margin-left: 48%">刷新数据表数据</button>
+				
+				<table id="totalExport" class="table table-bordered">
+					<thead>
+						<tr style="text-align: center">
+							<th width="10%">Excel文件名</th>
+							<th width="15%">导出日期</th>
+							<th width="10%">导出结果</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr id="tdOne">
+							<td>已划配租户情况</td>
+							<td>未刷新</td>
+							<td class="exportresult"></td>
+						</tr>
+						<tr id="tdTwo">
+                            <td>租户计费情况</td>
+                            <td>未刷新</td>
+                            <td class="exportresult"></td>
+                        </tr>
+                        <tr id="tdThree">
+                            <td>已退租户情况</td>
+                            <td>未刷新</td>
+                            <td class="exportresult"></td>
+                        </tr>
 					</tbody>
 				</table>
-		<button id="update" type="button" class="btn btn-danger"
-			style="margin-left: 45%">刷新数据表数据</button>
-
+				<button id="export" type="button" class="btn btn-danger"
+                    style="margin-left: 50%">全量导出</button>
  	</div>
 
 </body>

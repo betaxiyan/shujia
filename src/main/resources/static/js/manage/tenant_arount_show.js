@@ -37,9 +37,7 @@ $(document).ready(function() {
         				}
                    },         
                    {data:"tenantBoss",},
-                   {data:"tenantTel", },
-                   {data:"numOfUnifiedPlatform",},
-                   {data:"numOf4a",},   
+                   {data:"tenantTel", },   
                    {data:"tenantReqirement",},
                    {data:"tenantInterface",}, 
                    {
@@ -86,16 +84,14 @@ $(document).ready(function() {
     	 var tenantLevel=$("#addaround-tenantLevel").val();
     	 var tenantBoss=$("#addaround-tenantBoss").val();
     	 var tenantTel=$("#addaround-tenantTel").val();
-    	 var numOfUnifiedPlatform=$("#addaround-numOfUnifiedPlatform").val();
-    	 var numOf4a=$("#addaround-numOf4a").val();
     	 var tenantReqirement=$("#addaround-tenantReqirement").val();
     	 var tenantInterface=$("#addaround-tenantInterface").val();
     	$.ajax({
       		url :ctx + "manage/saveTenantAroundMgr",
       		type : "post",
       		data: {tenantId:tenantId,tenantName:tenantName,tenantLevel:tenantLevel,
-      			tenantBoss:tenantBoss,tenantTel:tenantTel,numOfUnifiedPlatform:numOfUnifiedPlatform,
-      			numOf4a:numOf4a,tenantReqirement:tenantReqirement,tenantInterface:tenantInterface,},
+      			tenantBoss:tenantBoss,tenantTel:tenantTel,tenantReqirement:tenantReqirement,
+      			tenantInterface:tenantInterface,},
       		success : function(data) {
       			//清空表单信息
       			addClean();
@@ -141,29 +137,7 @@ $(document).ready(function() {
                             message: '请输入长度为11位的电话号码'
                         }
                     }
-                },
-                numOfUnifiedPlatform:{
-                	validators:{
-                		notEmpty:{
-                			 message:'统一平台数量不能为空'
-                		},
-                		 numeric: {
-                			 message: '统一平台数量只能输入数字'
-                		}  
-                	}
-                },
-                numOf4a:{
-                	validators:{
-                		notEmpty:{
-                			message:'4A数量不能为空'
-                		},
-                		numeric:{
-                			message:'4A数量只能输入数字'
-                		}
-                	}
                 }
-                
-                
             }
         });
     
@@ -178,16 +152,14 @@ $(document).ready(function() {
 	    	 var tenantLevel=$("#updatearound-tenantLevel").val();
 	    	 var tenantBoss=$("#updatearound-tenantBoss").val();
 	    	 var tenantTel=$("#updatearound-tenantTel").val();
-	    	 var numOfUnifiedPlatform=$("#updatearound-numOfUnifiedPlatform").val();
-	    	 var numOf4a=$("#updatearound-numOf4a").val();
 	    	 var tenantReqirement=$("#updatearound-tenantReqirement").val();
 	    	 var tenantInterface=$("#updatearound-tenantInterface").val();
 	        	 $.ajax({
 	           		url :ctx+"manage/saveTenantAroundMgr",
 	           		type : "post",
 	           		data: {ttaId:ttaId,tenantId:tenantId,tenantName:tenantName,tenantName:tenantName,
-	           			tenantLevel:tenantLevel,tenantBoss:tenantBoss,tenantTel:tenantTel,numOfUnifiedPlatform:numOfUnifiedPlatform,
-	           			numOf4a:numOf4a,tenantReqirement:tenantReqirement,tenantInterface:tenantInterface},
+	           			tenantLevel:tenantLevel,tenantBoss:tenantBoss,tenantTel:tenantTel,
+	           			tenantReqirement:tenantReqirement,tenantInterface:tenantInterface},
 	           		success : function(data) {
 	           		    refreshArroundTable();
 	           			updateTenArrClean();
@@ -232,8 +204,6 @@ $(document).ready(function() {
                    	 $("#updatearound-tenantLevel").val(data.tenantLevel);
                    	 $("#updatearound-tenantBoss").val(data.tenantBoss);
                    	 $("#updatearound-tenantTel").val(data.tenantTel);
-                   	 $("#updatearound-numOfUnifiedPlatform").val(data.numOfUnifiedPlatform);
-                   	 $("#updatearound-numOf4a").val(data.numOf4a);
                    	 $("#updatearound-tenantReqirement").val(data.tenantReqirement);
                    	 $("#updatearound-tenantInterface").val(data.tenantInterface);
                     }
@@ -280,8 +250,6 @@ function addClean(){
 	$("#addaround-tenantLevel").val("");
 	$("#addaround-tenantBoss").val("");
 	$("#addaround-tenantTel").val("");
-	$("#addaround-numOfUnifiedPlatform").val("");
-	$("#addaround-numOf4a").val("");
 	$("#addaround-tenantReqirement").val("");
 	$("#addaround-tenantInterface").val("");
 }

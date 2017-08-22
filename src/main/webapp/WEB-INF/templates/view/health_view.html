@@ -17,7 +17,7 @@
         <div class="view_tab">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist" id="view_tabs">
-                <li role="presentation"><a href="#details_health" aria-controls="details_health" role="tab" data-toggle="tab" id="detail-health">接口健康</a></li>
+                <li role="presentation" class="active"><a href="#details_health" aria-controls="details_health" role="tab" data-toggle="tab" id="detail-health">全量导出</a></li>
             </ul>
             <!-- Tab panes -->
             <div class="tab-content">
@@ -32,6 +32,10 @@
         <div th:replace="fragment/total_frg :: view_edit"></div> 
     </div>
     
+    <script type="text/javascript" th:src="@{/js/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/plugins/jquery.dataTables.js}"></script>
+    <script type="text/javascript" th:src="@{/js/plugins/dataTables.bootstrap.js}"></script>
     <script type="text/javascript" th:src="@{/js/view/health_view.js}"></script>
 </body>
 </html>
