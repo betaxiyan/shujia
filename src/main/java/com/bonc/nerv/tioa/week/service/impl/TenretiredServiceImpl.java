@@ -374,12 +374,18 @@ public class TenretiredServiceImpl implements  TenretiredService{
         List<List<String[]>> ttEntityLists = new ArrayList<List<String[]>>();
         Map<String, List<String[]>> map = new HashMap<String, List<String[]>>();
         for(TenretiredEntity teEntity : list){
+            int countTy = tenretiredDao.countType(teEntity.getTenantId(), "统一平台");//计算统一平台数量
+            int count4A = tenretiredDao.countType(teEntity.getTenantId(), "4A");//计算4A数量
             String tenantLevel=teEntity.getTenantLevel()==null?"":String.valueOf(teEntity.getTenantLevel());
             String resourceType=teEntity.getResourceType()==null?"":String.valueOf(teEntity.getResourceType());
             String hostNum=countNum(teEntity.getAskIp())==0?"":String.valueOf(countNum(teEntity.getAskIp()));
+            //根据资源类型判断是否需计算主机数量
+            if(checkResourceType(resourceType)){
+                hostNum = "*";
+            }
             String computingResourceRate=teEntity.getComputingResourceRate()==null?"":String.valueOf(teEntity.getComputingResourceRate());
-            String uniplatformNum=teEntity.getUniplatformNum()==null?"": String.valueOf(teEntity.getUniplatformNum());
-            String numOf4a=teEntity.getNumOf4a()==null?"": String.valueOf(teEntity.getNumOf4a());
+            String uniplatformNum=countTy == 0?"":String.valueOf(countTy);
+            String numOf4a=count4A == 0?"":String.valueOf(count4A);
             String askDate=teEntity.getAskDate()==null?"":DateUtils.formatDateToString(teEntity.getAskDate(),"yyyyMMdd");
             String openDate=teEntity.getOpenDate()==null?"":DateUtils.formatDateToString(teEntity.getOpenDate(),"yyyyMMdd");
             String changeDate=teEntity.getChangeDate()==null?"":DateUtils.formatDateToString(teEntity.getChangeDate(),"yyyyMMdd");
@@ -420,13 +426,17 @@ public class TenretiredServiceImpl implements  TenretiredService{
             };
             String tenantName = teEntity.getTenantName();
             if(map.containsKey(tenantName)){
-                map.get(tenantName).add(tenStr);
+                if(!resourceType.equals("统一平台")&& !resourceType.equals("4A")){
+                    map.get(tenantName).add(tenStr);
+                } 
             } else{
                 List<String[]> newList = new ArrayList<String[]>();
-                newList.add(tenStr);
-                ttEntityLists.add(newList);
-                map.put(tenantName, newList);
-                index++;
+                if(!resourceType.equals("统一平台")&& !resourceType.equals("4A")){
+                    newList.add(tenStr);
+                    ttEntityLists.add(newList);
+                    map.put(tenantName, newList);
+                    index++;
+                } 
             }
             
         }
@@ -452,16 +462,52 @@ public class TenretiredServiceImpl implements  TenretiredService{
         System.out.println("excel导出成功！");
     }
     
+    /**
+     * 计算主机数量
+     * @param string ip地址字符串
+     * @return 主机数量
+     */
     public int countNum(String string){
-        int count = 0;
-        int start =0;
-        int end = 0;
-        if(string!=null && string.matches(".*\\d+.*")){ 
+        
+        int count = 0;//主机数量
+        int start =0;//起始位置
+        int end = 0;//结束位置
+        
+        //判断IP地址非空，且包含数字
+        if(string!=null && string.matches(".*\\d+.*")){
+            //字符串包含','
             if(string.contains(",")){
-                if(string.contains("~")||string.contains("/")){
-                    for(int i = 0;i < string.length(); i++){
-                        
+                //字符串包含'~'和'/'
+                if(string.contains("~") && string.contains("/")){
+                   
+               
+                } else if(string.contains("~")){ //字符串只包含'~'
+                    String[] strArray = string.split(",");
+                    for(int i = 0;i < strArray.length;i++){
+                        for(int j = strArray[i].length()-1;j >= 0 ;j--) {
+                            if(strArray[i].charAt(j) == '~'){
+                                try {
+                                    end = Integer.valueOf(strArray[i].substring(j+1));
+                                } catch (Exception e) {
+                                }
+                                
+                            }
+                            if(strArray[i].charAt(j) =='.'){
+                                int index = strArray[i].indexOf('~');
+                                if(start ==0){ 
+                                    try {
+                                        start = Integer.valueOf(strArray[i].substring(j+1,index)); 
+                                    } catch (Exception e) {
+                                    }
+                                }
+                            }
+                        }
+                        count = count + end - start +1;
+                        start = 0;
+                        end = 0;
                     }
+                } else if(string.contains("/")){//字符串只包含'/'
+                    
                 } else {
                     count=1;
                     for(int i = 0;i < string.length();i++){
@@ -473,26 +519,38 @@ public class TenretiredServiceImpl implements  TenretiredService{
             } else if(string.contains("~")){
                 for (int i=string.length()-1;i >= 0;i--){
                     if(string.charAt(i)=='~'){
-                        end = Integer.valueOf(string.substring(i+1));
+                        try {
+                            end = Integer.valueOf(string.substring(i+1));
+                        } catch (Exception e) {
+                        }
+                        
                     }
                     if(string.charAt(i)=='.'){
                         int index = string.indexOf('~');
-                        if(start ==0){
-                            start = Integer.valueOf(string.substring(i+1,index));
+                        if(start ==0){ 
+                            try {
+                                start = Integer.valueOf(string.substring(i+1,index)); 
+                            } catch (Exception e) {
+                            }
                         }
                     }
                 }
                 count = end-start+1;
-                
             } else if(string.contains("/")){
                 for (int i=string.length()-1;i >= 0;i--){
                     if(string.charAt(i)=='/'){
-                        end = Integer.valueOf(string.substring(i+1));
+                        try {
+                            end = Integer.valueOf(string.substring(i+1));
+                        } catch (Exception e) {
+                        }
                     }
                     if(string.charAt(i)=='.'){
                         int index = string.indexOf('/');
                         if(start ==0){
-                            start = Integer.valueOf(string.substring(i+1,index));
+                            try {
+                                start = Integer.valueOf(string.substring(i+1,index));
+                            } catch (Exception e) {
+                            }
                         }
                     }
                 }
@@ -501,6 +559,28 @@ public class TenretiredServiceImpl implements  TenretiredService{
                 count=1;
             }
         }
+        if(count < 0){
+            count = 0;
+        }
         return count;
+    }
+    
+    
+    /**
+     * 检查资源类型
+     * @param type 资源类型
+     * @return 返回值
+     * @see
+     */
+    public static Boolean checkResourceType(String type){
+        Boolean result = false;
+        //资源类型
+        String[] resource = {"Hive","Oracle","FTP集群","Spark","Flume","mysql","FTP资源"};
+        for(int i = 0;i < resource.length;i++){
+            if(resource[i].equalsIgnoreCase(type)){
+                result = true;
+            }
+        }
+        return result;
     }
 }

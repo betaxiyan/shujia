@@ -85,4 +85,15 @@ public interface TenretiredDao extends CrudRepository<TenretiredEntity,Long>,Jpa
         + " from TenretiredEntity t , TioaTenantAroundShowEntity a "
         + "where t.tenantId = a.tenantId")
     List<TenretiredEntity> findRefreshTenretired();
+    
+    /**
+     * 计算4A或统一数量
+     * @param tenantid 租户ID
+     * @param resource 资源类型
+     * @return 数量
+     * @see
+     */
+    @Query("select count(ten) from TenretiredEntity  ten "
+        +"where ten.tenantId = ?1 and ten.resourceType = ?2")
+    int countType(String tenantid,String resource);
 }
