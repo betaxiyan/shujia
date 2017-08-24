@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -144,6 +145,20 @@ public class TenantResourceServiceImpl implements TenantResourceService {
     }
     
     /**
+     * 简单工具类，获取一个数字组成的随机字符串
+     * @return String
+     * @see
+     */
+    public String getRandomId(){
+        Random ran = new Random();
+        int a=ran.nextInt(99999999);
+        int b=ran.nextInt(99999999);
+        long l=a*125237L+b;
+        String num=String.valueOf(l);
+        return num;
+    }
+    
+    /**
      * 
      * Description: <br>
      * 分析租户资源的json数据
@@ -233,8 +248,12 @@ public class TenantResourceServiceImpl implements TenantResourceService {
                     } catch (Exception e) {
                     }
                 }
+                //添加recordId
+                String recordId = getRandomId();
+                entity.setRecordId(recordId);
                 resultList.add(entity);
             }
         }
     }
+    
 }

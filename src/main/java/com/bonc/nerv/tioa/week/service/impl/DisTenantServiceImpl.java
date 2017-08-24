@@ -1,13 +1,10 @@
 package com.bonc.nerv.tioa.week.service.impl;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,10 +38,8 @@ import com.bonc.nerv.tioa.week.entity.ResourceUsageMidEntity;
 import com.bonc.nerv.tioa.week.entity.SearchDisTenant;
 import com.bonc.nerv.tioa.week.service.DisTenantService;
 import com.bonc.nerv.tioa.week.service.ExcelAnalyseService;
-import com.bonc.nerv.tioa.week.util.DateUtils;
 import com.bonc.nerv.tioa.week.util.POIUtil;
 import com.bonc.nerv.tioa.week.util.PoiNewUtil;
-import com.bonc.nerv.tioa.week.util.PoiUtils;
 import com.bonc.nerv.tioa.week.util.ResultPager;
 import com.bonc.nerv.tioa.week.util.SortList;
 
@@ -444,6 +439,6 @@ public class DisTenantServiceImpl implements DisTenantService{
      */
     @Override
     public void getMidDataToTtd() {
-        
+        //实现在UpdateDistributeServiceImpl中
     }
 }

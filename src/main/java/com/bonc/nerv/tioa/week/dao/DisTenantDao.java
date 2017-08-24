@@ -11,7 +11,6 @@
 
 package com.bonc.nerv.tioa.week.dao;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -55,6 +54,20 @@ public interface DisTenantDao extends CrudRepository<DisTenantEntity, Long>,JpaR
     DisTenantEntity findOne(long tdId);
     
     /**
+     * 以租户资源表为基础提取化配表的信息
+     * 
+     * @return List<DisTenantEntity>
+     * @see
+     */
+    @Query("select new com.bonc.nerv.tioa.week.entity.DisTenantEntity( "
+                           +"t.serviceType, t.tenantName, t.typeName,"
+                           +"t.ipAddr, t.serviceName, t.path, t.sequenceName,"
+                           +"t.storage, t.cpuNum, t.memory, t.askDate,"
+                           +"t.endRentDate, t.openDate, t.recordId)"
+                           + " from TenantResourceMidEntity t where t.isInvalid ='valid'")
+    List<DisTenantEntity> basicOfDisTenant();
+    
+    /**
      * 
      * Description: <br>
      * 通过租户资源表和租户周边信息表查询结果来组装租户已划配表的部分
@@ -65,9 +78,68 @@ public interface DisTenantDao extends CrudRepository<DisTenantEntity, Long>,JpaR
                            +"s.tenantBoss, s.tenantTel, t.typeName,"
                            +"t.ipAddr, t.serviceName, t.path, t.sequenceName,"
                            +"t.storage, t.cpuNum, t.memory, t.askDate,"
-                           +"t.endRentDate, t.openDate)"
-                           + " from TenantResourceMidEntity t, TioaTenantAroundShowEntity s "
+                           +"t.endRentDate, t.openDate, t.recordId)"
+                           + " from TenantResourceMidEntity t, TioaTenantAroundShowEntity s"
                            + " where t.tenantId = s.tenantId and t.isInvalid ='valid'")
     List<DisTenantEntity> fixPartOfDisTenant();
     
+    /**
+     * 
+     * Description: <br>
+     * 租户资源表和yarn表联合查询结果来组装租户已划配表的部分
+     * @return List<DisTenantEntity>
+     * @see
+     */
+    @Query("select new com.bonc.nerv.tioa.week.entity.DisTenantEntity("
+        + "t.serviceType, t.tenantName,"
+        +"t.typeName, t.ipAddr, t.serviceName,"
+        +"t.path, t.sequenceName,"
+        +"t.storage, t.cpuNum, a.cpuMax, a.cpuAvg,"
+        +"t.memory, a.memoryMax, a.memoryAvg,"
+        + "t.askDate, t.endRentDate, t.openDate, t.recordId)"
+        + " from TenantResourceMidEntity t , CpuMemoryMidEntity a "
+        + " where t.sequenceName = a.sequenceName and t.isInvalid ='valid'")
+    List<DisTenantEntity> fixTrmAndCmm();
+    
+    /**
+     * 
+     * Description: <br>
+     * 通过ipAddr和typeName对租户资源表和存储使用大小表进行联合查询
+     * @param ip 
+     * @param typename 
+     * @return String
+     * @see
+     */
+    @Query("select r.storageUsage from ResourceUsageMidEntity r where r.keyword = ?1 and r.type = ?2")
+    String findStoUsageByIpAndType(String ip,String typename);
+    
+    /**
+     * 
+     * Description: <br>
+     * 通过path和typeName对租户资源表和存储使用大小表进行联合查询
+     * @param path 
+     * @param typename 
+     * @return String
+     * @see
+     */
+    @Query("select r.storageUsage from ResourceUsageMidEntity r where r.keyword = ?1 and r.type = ?2")
+    String findStoUsageByPathAndType(String path,String typename);
+    
+    /**
+     * 
+     * Description: <br>
+     * 整合租户资源表和account_filecount_mid表，获取文件数
+     * @return List<DisTenantEntity>
+     * @see
+     */
+    @Query("select new com.bonc.nerv.tioa.week.entity.DisTenantEntity("
+        + "t.serviceType, t.tenantName,"
+        +"t.typeName, t.ipAddr, t.serviceName,"
+        +"t.path, t.sequenceName,"
+        +"t.storage, t.cpuNum, "
+        +"t.memory, a.fileNum,"
+        + "t.askDate, t.endRentDate, t.openDate, t.recordId)"
+        + " from TenantResourceMidEntity t , AccountFilecountMidEntity a "
+        + " where t.sequenceName = a.seqName and t.isInvalid ='valid'")
+    List<DisTenantEntity> fixTrmAndAfm();
 }

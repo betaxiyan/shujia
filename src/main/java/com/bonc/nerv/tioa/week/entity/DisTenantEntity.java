@@ -25,7 +25,15 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
-
+/**
+ * 
+ * 已化配租户情况表实体类
+ * 注意：有四个在数据库表上没有字段的属性 （用@Transient注释）
+ * @author HCN
+ * @version 2017年8月24日
+ * @see DisTenantEntity
+ * @since
+ */
 @Entity
 @Table(name = "tioa_tenant_distribute_show", schema = "nerv-tioa", catalog = "")
 public class DisTenantEntity {
@@ -69,7 +77,7 @@ public class DisTenantEntity {
     /**
      * 租户负责人电话
      */
-    @Basic
+    
     @Column(name = "tenant_tel")
     private String tenantTel;
 
@@ -143,14 +151,14 @@ public class DisTenantEntity {
      */
     @Basic
     @Column(name = "cpu_max")
-    private Integer cpuMax;
+    private String cpuMax;
 
     /**
      * cpu 平均数
      */
     @Basic
     @Column(name = "cpu_avg")
-    private Integer cpuAvg;
+    private String cpuAvg;
 
     /**
      * 内存大小
@@ -164,14 +172,14 @@ public class DisTenantEntity {
      */
     @Basic
     @Column(name = "memory_max")
-    private Integer memoryMax;
+    private String memoryMax;
 
     /**
      * 内存平均值
      */
     @Basic
     @Column(name = "memory_avg")
-    private Integer memoryAvg;
+    private String memoryAvg;
 
     /**
      * 申请日期
@@ -199,6 +207,20 @@ public class DisTenantEntity {
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern="yyyyMMdd")
     private Date openDate;
+
+    /**
+     * 记录Id,用于标识一条记录，不同于表ID，在表中没有相应字段,作为整合其他表时连接字段
+     */
+    @Transient
+    private String recordId;
+    
+    public String getRecordId() {
+        return recordId;
+    }
+
+    public void setRecordId(String recordId) {
+        this.recordId = recordId;
+    }
 
     public long getTdId() {
         return tdId;
@@ -328,19 +350,19 @@ public class DisTenantEntity {
         this.cpuNum = cpuNum;
     }
 
-    public Integer getCpuMax() {
+    public String getCpuMax() {
         return cpuMax;
     }
 
-    public void setCpuMax(Integer cpuMax) {
+    public void setCpuMax(String cpuMax) {
         this.cpuMax = cpuMax;
     }
 
-    public Integer getCpuAvg() {
+    public String getCpuAvg() {
         return cpuAvg;
     }
 
-    public void setCpuAvg(Integer cpuAvg) {
+    public void setCpuAvg(String cpuAvg) {
         this.cpuAvg = cpuAvg;
     }
 
@@ -352,19 +374,19 @@ public class DisTenantEntity {
         this.memorySize = memorySize;
     }
 
-    public Integer getMemoryMax() {
+    public String getMemoryMax() {
         return memoryMax;
     }
 
-    public void setMemoryMax(Integer memoryMax) {
+    public void setMemoryMax(String memoryMax) {
         this.memoryMax = memoryMax;
     }
 
-    public Integer getMemoryAvg() {
+    public String getMemoryAvg() {
         return memoryAvg;
     }
 
-    public void setMemoryAvg(Integer memoryAvg) {
+    public void setMemoryAvg(String memoryAvg) {
         this.memoryAvg = memoryAvg;
     }
 
@@ -392,11 +414,32 @@ public class DisTenantEntity {
         this.openDate = openDate;
     }
 
+    public DisTenantEntity(String serviceType, String tenantName, String resourceType,
+                           String ipAddr, String serviceName, String path, String sequenceName,
+                           String storage, String cpuNum, String memorySize, Date askDate,
+                           Date changeDate, Date openDate, String recordId) {
+        super();
+        this.serviceType = serviceType;
+        this.tenantName = tenantName;
+        this.resourceType = resourceType;
+        this.ipAddr = ipAddr;
+        this.serviceName = serviceName;
+        this.path = path;
+        this.sequenceName = sequenceName;
+        this.storage = storage;
+        this.cpuNum = cpuNum;
+        this.memorySize = memorySize;
+        this.askDate = askDate;
+        this.changeDate = changeDate;
+        this.openDate = openDate;
+        this.recordId = recordId;
+    }
+    
     public DisTenantEntity(String serviceType, String tenantName, Integer tenantLevel,
                            String tenantBoss, String tenantTel, String resourceType,
                            String ipAddr, String serviceName, String path, String sequenceName,
                            String storage, String cpuNum, String memorySize, Date askDate,
-                           Date changeDate, Date openDate) {
+                           Date changeDate, Date openDate, String recordId) {
         super();
         this.serviceType = serviceType;
         this.tenantName = tenantName;
@@ -414,8 +457,82 @@ public class DisTenantEntity {
         this.askDate = askDate;
         this.changeDate = changeDate;
         this.openDate = openDate;
+        this.recordId = recordId;
     }
 
+    public DisTenantEntity(String serviceType, String tenantName,
+                           String typeName,String ipAddr, String serviceName,
+                           String path, String sequenceName, String storage,
+                           String cpuNum, String cpuMax, String cpuAvg,
+                           String memory, String memoryMax, String memoryAvg, 
+                           Date askDate,Date changeDate, Date openDate, String recordId) {
+        super();
+        this.serviceType = serviceType;
+        this.tenantName = tenantName;
+        this.resourceType = typeName;
+        this.ipAddr = ipAddr;
+        this.serviceName = serviceName;
+        this.path = path;
+        this.sequenceName = sequenceName;
+        this.storage = storage;
+        this.cpuNum = cpuNum;
+        this.cpuMax = cpuMax;
+        this.cpuAvg = cpuAvg;
+        this.memorySize = memory;
+        this.memoryMax = memoryMax;
+        this.memoryAvg = memoryAvg;
+        this.askDate = askDate;
+        this.changeDate = changeDate;
+        this.openDate = openDate;
+        this.recordId = recordId;
+    }
+
+    public DisTenantEntity(String serviceType, String tenantName,
+                           String typeName,String ipAddr, String serviceName,
+                           String path, String sequenceName, String storage,
+                           String cpuNum, String memory, Double storageUsage,
+                           Date askDate,Date changeDate, Date openDate, String recordId) {
+        super();
+        this.serviceType = serviceType;
+        this.tenantName = tenantName;
+        this.resourceType = typeName;
+        this.ipAddr = ipAddr;
+        this.serviceName = serviceName;
+        this.path = path;
+        this.sequenceName = sequenceName;
+        this.storage = storage;
+        this.cpuNum = cpuNum;
+        this.memorySize = memory;
+        this.storageUsage = storageUsage+"";
+        this.askDate = askDate;
+        this.changeDate = changeDate;
+        this.openDate = openDate;
+        this.recordId = recordId;
+    }
+    
+    public DisTenantEntity(String serviceType, String tenantName,
+                           String typeName,String ipAddr, String serviceName,
+                           String path, String sequenceName, String storage,
+                           String cpuNum, String memory, Integer fileNum,
+                           Date askDate,Date changeDate, Date openDate, String recordId) {
+        super();
+        this.serviceType = serviceType;
+        this.tenantName = tenantName;
+        this.resourceType = typeName;
+        this.ipAddr = ipAddr;
+        this.serviceName = serviceName;
+        this.path = path;
+        this.sequenceName = sequenceName;
+        this.storage = storage;
+        this.cpuNum = cpuNum;
+        this.memorySize = memory;
+        this.fileCount = fileNum;
+        this.askDate = askDate;
+        this.changeDate = changeDate;
+        this.openDate = openDate;
+        this.recordId = recordId;
+    }
+    
     public DisTenantEntity() {
         super();
     }
@@ -423,8 +540,8 @@ public class DisTenantEntity {
     public DisTenantEntity(long tdId, String serviceType, String tenantName, Integer tenantLevel,
                            String tenantBoss, String tenantTel, String resourceType,
                            Integer fileCount, String storage, String storageUsage,
-                           Double storageUsageRate, String cpuNum, Integer cpuMax, Integer cpuAvg,
-                           String memorySize, Integer memoryMax, Integer memoryAvg, Date askDate,
+                           Double storageUsageRate, String cpuNum, String cpuMax, String cpuAvg,
+                           String memorySize, String memoryMax, String memoryAvg, Date askDate,
                            Date changeDate, Date openDate) {
         super();
         this.tdId = tdId;
@@ -448,7 +565,7 @@ public class DisTenantEntity {
         this.changeDate = changeDate;
         this.openDate = openDate;
     }
-
+    
     @Override
     public String toString() {
         return "DisTenantEntity [tdId=" + tdId + ", serviceType=" + serviceType + ", tenantName="

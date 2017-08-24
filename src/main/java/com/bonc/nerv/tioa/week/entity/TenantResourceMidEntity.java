@@ -147,6 +147,20 @@ public class TenantResourceMidEntity {
      * 是否删除
      */
     private Integer state;
+    
+    /**
+     * 记录Id,用于标识一条记录，不同于表ID
+     */
+    @Column(name = "record_id")
+    private String recordId;
+
+    public String getRecordId() {
+        return recordId;
+    }
+
+    public void setRecordId(String recordId) {
+        this.recordId = recordId;
+    }
 
     public String getRresId() {
         return rresId;
