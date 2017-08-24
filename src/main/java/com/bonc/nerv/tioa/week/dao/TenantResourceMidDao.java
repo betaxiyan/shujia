@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -48,7 +49,7 @@ public interface TenantResourceMidDao extends JpaRepository<TenantResourceMidEnt
      * 
      * Description: <br>
      * 租户资源表和租户信息表联合查询
-     * @return 
+     * @return List<TenretiredEntity>
      * @see
      */
     @Query("select new com.bonc.nerv.tioa.week.entity.TenretiredEntity("
@@ -62,4 +63,5 @@ public interface TenantResourceMidDao extends JpaRepository<TenantResourceMidEnt
         + " where t.tenantId = a.tenantId and t.state is null or t.state = 0")
     //@Query("select t from TenretiredEntity t")
     List<TenretiredEntity> fixTrmAndTam();
+    
 }

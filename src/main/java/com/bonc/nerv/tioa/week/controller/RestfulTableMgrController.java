@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bonc.nerv.tioa.week.service.RestfulTableMgrService;
+import com.bonc.nerv.tioa.week.service.UpdateDistributeService;
 import com.bonc.nerv.tioa.week.service.UpdateRetiredService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -47,6 +48,12 @@ public class RestfulTableMgrController {
      */
     @Autowired
     private UpdateRetiredService updateRetiredService;
+    
+    /**
+     * 获取中间表数据到tioa_tenant_distribute_show 服务层
+     */
+    @Autowired
+    private UpdateDistributeService updateDistributeService;
     
     /**
      * 接口健康信息界面
@@ -131,18 +138,17 @@ public class RestfulTableMgrController {
         String jsonString="";
         //格式化检查日期的SimpleDateFormat
         SimpleDateFormat myFmt=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        
         Map<String,Object> mapTtd = new HashMap<>();
-        //调用getMidDateToTtd(),用休眠模拟，
-        try {
-            Thread.currentThread();
-            Thread.sleep(6000);
-        } catch (InterruptedException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
+        String statusTtd=""; //调用函数的结果
+        //调用getMidDateToTtd()
+        Boolean isSuccess = updateDistributeService.getMidDataToTtd();
+        if(isSuccess){
+            statusTtd = "更新成功";
+        }else{
+            statusTtd = "更新失败";
         }
         Date ttd = new Date();
-        String statusTtd="Success"; //调用函数的结果
+        
         mapTtd.put("tableName", "tioa_tenant_distribute_show");
         mapTtd.put("updateDate", myFmt.format(ttd));
         mapTtd.put("result", statusTtd);
