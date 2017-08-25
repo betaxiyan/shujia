@@ -288,7 +288,7 @@ function cleanLeaveSearch() {
 
 //文件导出
 function exportFile() {
-	var length = table.api().data().length;
+	var length = around_table.data().length;
 	if (length < 1) {
 		layui.use('layer', function(){
 			  var layer = layui.layer;

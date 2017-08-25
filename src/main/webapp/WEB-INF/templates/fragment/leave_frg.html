@@ -5,8 +5,8 @@
      <div th:fragment="leave" role="tabpanel" class="tab-pane" id="details_three">
         <div class="view_body">
               <div class="view_search">
-                   <span>服务类型</span><input type="text" style="width:130px;height:26px;" id="tenantServiceType" name="serviceType" value="" />  
-                   <span>租户名称</span><input type="text" style="width:130px;height:26px;" id="tenantLeaveName" name="tenantName" value="" />  
+                   <span>服务类型</span><input type="text" style="width:120px;height:26px;" id="tenantServiceType" name="serviceType" value="" />  
+                   <span>租户名称</span><input type="text" style="width:120px;height:26px;" id="tenantLeaveName" name="tenantName" value="" />  
                    <sapn>租户级别</sapn>
                    <select  name="tenantLeavel" id="tenantLeaveLevel">
                       <option value=""></option>
@@ -14,11 +14,11 @@
                       <option value="1">中</option>
                       <option value="2">大</option>
                    </select>
-                   <span>租户负责人</span><input type="text" style="width:130px;height:26px;" id="tenantLeaveBoss" name="tenantBoss" value=""/>                     
-                   <span>联系电话</span><input type="text" style="width:130px;height:26px;" id="tenantLeaveTel" name="tenantTel" value=""/>                      
-                   <span>平台接口人</span><input type="text" style="width:130px;height:26px;" id="tenantLeaveInterface" name="tenantInterface" value=""/>   
-                   <button type="button" class="btn btn-danger" style="margin-left:10px;margin-right:5px" th:onclick="'clickLeaveTable()'">查询</button>
-                   <button type="button" class="btn btn-danger" th:onclick="'cleanLeaveSearch()'" style="margin-left:-6px;">清空</button>
+                   <span>租户负责人</span><input type="text" style="width:120px;height:26px;" id="tenantLeaveBoss" name="tenantBoss" value=""/>                     
+                   <span>联系电话</span><input type="text" style="width:120px;height:26px;" id="tenantLeaveTel" name="tenantTel" value=""/>                      
+                   <span>平台接口人</span><input type="text" style="width:120px;height:26px;" id="tenantLeaveInterface" name="tenantInterface" value=""/>   
+                   <button type="button" class="btn btn-danger" style="margin-left:5px;" th:onclick="'clickLeaveTable()'">查询</button>
+                   <button type="button" class="btn btn-danger" th:onclick="'cleanLeaveSearch()'" style="margin-left:-40px;">清空</button>
                    <a href="#" class="export" th:onclick="'exportFile()'">导出</a>
               </div>
               <!-- <div class="tools-header">
