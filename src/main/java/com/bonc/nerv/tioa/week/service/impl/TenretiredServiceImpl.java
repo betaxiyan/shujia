@@ -67,7 +67,7 @@ public class TenretiredServiceImpl implements  TenretiredService{
      * 租户资源dao
      */
     @Autowired
-    TenantResourceMidDao tenantResourceMidDao;
+    private TenantResourceMidDao tenantResourceMidDao;
     /**
      * 
      * Description: <br>
@@ -467,7 +467,7 @@ public class TenretiredServiceImpl implements  TenretiredService{
      * @param string ip地址字符串
      * @return 主机数量
      */
-    public int countNum(String string){
+    public static int countNum(String string){
         
         int count = 0;//主机数量
         int start =0;//起始位置

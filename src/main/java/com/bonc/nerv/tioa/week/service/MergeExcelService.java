@@ -19,17 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  * @see MergeExcelService
  * @since
  */
-public interface MergeExcelService {
-    
-    /**
-     * 
-     *  导出Excel
-     *  @param response HttpServletResponse
-     *  @return 判断是否成功
-     * @see
-     */
-    Boolean getExcel(HttpServletResponse response);
-    
+public interface MergeExcelService {    
     /**
      * 
      * Description: <br>
