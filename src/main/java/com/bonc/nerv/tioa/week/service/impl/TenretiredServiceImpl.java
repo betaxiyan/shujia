@@ -202,29 +202,6 @@ public class TenretiredServiceImpl implements  TenretiredService{
     public String update(TenretiredEntity tenretiredEntity) {
         Map<String,Object> map=new HashMap<String,Object>();
         try {
-//            TenretiredEntity tens=tenretiredDao.findOne(tenretiredEntity.getTlId());
-//            tens.setServiceType(tenretiredEntity.getServiceType());
-//            tens.setTenantName(tenretiredEntity.getTenantName());
-//            tens.setTenantLevel(tenretiredEntity.getTenantLevel());
-//            tens.setTenantBoss(tenretiredEntity.getTenantBoss());
-//            tens.setTenantTel(tenretiredEntity.getTenantTel());
-//            tens.setResourceType(tenretiredEntity.getResourceType());
-//            tens.setAskIp(tenretiredEntity.getAskIp());
-//            tens.setHostNum(tenretiredEntity.getHostNum());
-//            tens.setStorage(tenretiredEntity.getStorage());
-//            tens.setComputingResourceRate(tenretiredEntity.getComputingResourceRate());
-//            tens.setComputeRoom(tenretiredEntity.getComputeRoom());
-//            tens.setUniplatformNum(tenretiredEntity.getUniplatformNum());
-//            tens.setNumOf4a(tenretiredEntity.getNumOf4a());
-//            tens.setDemand(tenretiredEntity.getDemand());
-//            tens.setServiceName(tenretiredEntity.getServiceName());
-//            tens.setSequenceName(tenretiredEntity.getSequenceName());
-//            tens.setAskDate(tenretiredEntity.getAskDate());
-//            tens.setOpenDate(tenretiredEntity.getOpenDate());
-//            tens.setChangeDate(tenretiredEntity.getChangeDate());
-//            tens.setEndRentDate(tenretiredEntity.getEndRentDate());
-//            tens.setTenantInterface(tenretiredEntity.getTenantInterface());
-//            tens.setRemark(tenretiredEntity.getRemark());
             tenretiredDao.save(tenretiredEntity);
             map.put("status", "200");
         }catch (Exception e) {

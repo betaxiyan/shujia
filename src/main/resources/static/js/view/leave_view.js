@@ -273,14 +273,78 @@ $(document).ready(function() {
         return fmt; 
     } 
 
-
+//编辑
+function TenretiredOperate(e) {
+	   e = e || window.event;
+	   var tar = e.target || e.srcElement;
+	   var tarName = tar.tagName;
+	   var tarHTML = tar.innerHTML;
+	   var tarval = tar.value;
+	   console.log(tar);
+	   console.log(tarName);
+	   console.log(tarHTML);
+	   console.log(tarval);
+	   if (tarName == 'BUTTON') {
+	   if (tarHTML == '编辑') {
+   	   $.ajax({
+   		       type:"get",
+               url:ctx+"tenant/tenretired/edit",
+               data:{"tlId":tarval},
+               success:function(data){
+            	    $("#updateleave-tlId").val(data.tlId);
+            	    $("#updateleave-serviceType").val(data.serviceType);
+            	    $("#updateleave-tenantName").val(data.tenantName);
+            	    $("#updateleave-tenantLevel").val(data.tenantLevel);
+            	    $("#updateleave-tenantBoss").val(data.tenantBoss);
+            	    $("#updateleave-tenantTel").val(data.tenantTel);
+            	    $("#updateleave-resourceType").val(data.resourceType);
+            	    $("#updateleave-askIp").val(data.askIp);
+            	    $("#updateleave-hostNum").val(data.hostNum);
+            	    $("#updateleave-storage").val(data.storage);
+            	    $("#updateleave-storageUnit").val(data.storageUnit);
+            	    $("#updateleave-computingResourceRate").val(data.computingResourceRate);
+            	    $("#updateleave-computeRoom").val(data.computeRoom);
+            	    $("#updateleave-uniplatformNum").val(data.uniplatformNum);
+            	    $("#updateleave-numOf4a").val(data.numOf4a);
+            	    $("#updateleave-demand").val(data.demand);
+            	    $("#updateleave-serviceName").val(data.serviceName);
+            	    $("#updateleave-sequenceName").val(data.sequenceName);
+            	    var askDate=data.askDate;
+            	    if(askDate==null){
+            	    	 $("#updateleave-askDate").val("");
+            	    }else{
+            	    	$("#updateleave-askDate").val((new Date(askDate)).Format("yyyyMMdd"));
+            	    }
+            	    var openDate=data.openDate;
+            	    if(openDate==null){
+            	    	$("#updateleave-openDate").val("");
+            	    }else{
+            	    	$("#updateleave-openDate").val((new Date(openDate)).Format("yyyyMMdd"));
+            	    }
+            	    var changeDate=data.changeDate;
+            	    if(changeDate==null){
+            	    	 $("#updateleave-changeDate").val("");
+            	    }else{
+            	    	 $("#updateleave-changeDate").val((new Date(changeDate)).Format("yyyyMMdd"));
+            	    }
+            	    var endRentDate=data.endRentDate;
+            	    if(endRentDate==null){
+            	    	 $("#updateleave-endRentDate").val("");
+            	    }else{
+            	    	 $("#updateleave-endRentDate").val((new Date(endRentDate)).Format("yyyyMMdd"));
+            	    }
+            	    $("#updateleave-tenantInterface").val(data.tenantInterface);
+            	    $("#updateleave-remark").val(data.remark);
+            }
+         });
+      $('#updateTenModal').modal('show');
+       }
+     }
+   }
 	  
      
     //编辑表单提交
     $('#updateTenBtn').click(function() {
-//       var bootstrapValidator = $('#updateUserForm').data('bootstrapValidator');
-//        bootstrapValidator.validate();
-//        if (bootstrapValidator.isValid()) {
     	 var tlId=$("#updateleave-tlId").val();
     	 var serviceType= $("#updateleave-serviceType").val();
     	 var tenantName=$("#updateleave-tenantName").val();
@@ -318,107 +382,35 @@ $(document).ready(function() {
            		          updateClean();
            			}
            		});
-//        	 clickLeaveTable();
-//        }
     });
     
-    //编辑点击提交后，重置验证
-    function updateClean(){
-    	$('#updateTenModal').modal('hide');
-    }
+//编辑点击提交后，重置验证
+function updateClean(){
+	$('#updateTenModal').modal('hide');
+}
     
     
-    //编辑表单关闭
-    $('#updateReloadHTML').click(function(){
-    	window.location.reload();
-    });
+//编辑表单关闭
+$('#updateReloadHTML').click(function(){
+	window.location.reload();
+});
     
-    //编辑
-    function TenretiredOperate(e) {
-       e = e || window.event;
-       var tar = e.target || e.srcElement;
-       var tarName = tar.tagName;
-       var tarHTML = tar.innerHTML;
-       var tarval = tar.value;
-       console.log(tar);
-       console.log(tarName);
-       console.log(tarHTML);
-       console.log(tarval);
-       if (tarName == 'BUTTON') {
-           if (tarHTML == '编辑') {
-           	$.ajax({
-           		 type:"get",
-                    url:ctx+"tenant/tenretired/edit",
-                    data:{"tlId":tarval},
-                    success:function(data){
-                    	    $("#updateleave-tlId").val(data.tlId);
-                    	    $("#updateleave-serviceType").val(data.serviceType);
-                    	    $("#updateleave-tenantName").val(data.tenantName);
-                    	    $("#updateleave-tenantLevel").val(data.tenantLevel);
-                    	    $("#updateleave-tenantBoss").val(data.tenantBoss);
-                    	    $("#updateleave-tenantTel").val(data.tenantTel);
-                    	    $("#updateleave-resourceType").val(data.resourceType);
-                    	    $("#updateleave-askIp").val(data.askIp);
-                    	    $("#updateleave-hostNum").val(data.hostNum);
-                    	    $("#updateleave-storage").val(data.storage);
-                    	    $("#updateleave-storageUnit").val(data.storageUnit);
-                    	    $("#updateleave-computingResourceRate").val(data.computingResourceRate);
-                    	    $("#updateleave-computeRoom").val(data.computeRoom);
-                    	    $("#updateleave-uniplatformNum").val(data.uniplatformNum);
-                    	    $("#updateleave-numOf4a").val(data.numOf4a);
-                    	    $("#updateleave-demand").val(data.demand);
-                    	    $("#updateleave-serviceName").val(data.serviceName);
-                    	    $("#updateleave-sequenceName").val(data.sequenceName);
-                    	    var askDate=data.askDate;
-                    	    if(askDate==null){
-                    	    	 $("#updateleave-askDate").val("");
-                    	    }else{
-                    	    	$("#updateleave-askDate").val((new Date(askDate)).Format("yyyyMMdd"));
-                    	    }
-                    	    var openDate=data.openDate;
-                    	    if(openDate==null){
-                    	    	$("#updateleave-openDate").val("");
-                    	    }else{
-                    	    	$("#updateleave-openDate").val((new Date(openDate)).Format("yyyyMMdd"));
-                    	    }
-                    	    var changeDate=data.changeDate;
-                    	    if(changeDate==null){
-                    	    	 $("#updateleave-changeDate").val("");
-                    	    }else{
-                    	    	 $("#updateleave-changeDate").val((new Date(changeDate)).Format("yyyyMMdd"));
-                    	    }
-                    	    var endRentDate=data.endRentDate;
-                    	    if(endRentDate==null){
-                    	    	 $("#updateleave-endRentDate").val("");
-                    	    }else{
-                    	    	 $("#updateleave-endRentDate").val((new Date(endRentDate)).Format("yyyyMMdd"));
-                    	    }
-                    	    $("#updateleave-tenantInterface").val(data.tenantInterface);
-                    	    $("#updateleave-remark").val(data.remark);
-                    }
-           	});
-              $('#updateTenModal').modal('show');
-          }
-     }
-   }
     
   //删除
    $('#leave_table tbody').on( 'click', 'button.Tldelete', function () {
-	   var tlId = $(this).val();//获得tlId 主码
-	   $('#alertModal2 .modal-body').html('确定要删除该工具？');
-       $('#alertModal2').modal('show');
-       $('#removeTen').unbind('click');
-       $('#removeTen').click(function() {
-    	   $.post( ctx+"tenant/tenretired/delete",
- 	  		  	  { tlId:tlId,},
- 	  	  			function(data){
- 	  		  	    $('#alertModal2').modal('hide');
-// 	  		        clickLeaveTable();
- 	  		  	    refresh();
- 	  		    })
-       })
-	});
-  
+   var tlId = $(this).val();//获得tlId 主码
+   $('#alertModal2 .modal-body').html('确定要删除该工具？');
+   $('#alertModal2').modal('show');
+   $('#removeTen').unbind('click');
+   $('#removeTen').click(function() {
+   $.post( ctx+"tenant/tenretired/delete",
+  	       { tlId:tlId,},
+		   function(data){
+  	            $('#alertModal2').modal('hide');
+  		  	    refresh();
+  		   })
+   })
+});
    
     $('#leave_table tbody').unbind('click',TenretiredOperate);
     $('#leave_table tbody').bind('click',TenretiredOperate);
