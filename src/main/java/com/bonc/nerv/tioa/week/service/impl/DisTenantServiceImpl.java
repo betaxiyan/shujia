@@ -304,7 +304,7 @@ public class DisTenantServiceImpl implements DisTenantService{
         for(DisTenantEntity dEntity : list){
             String serviceType = dEntity.getServiceType();
             String tenantName = dEntity.getTenantName();
-            String tenantLevel =dEntity.getTenantLevel()== null ? " " :String.valueOf(dEntity.getTenantLevel()) ;
+            String tenantLevel =dEntity.getTenantLevel()== null ? " " :Integer.toString(dEntity.getTenantLevel()) ;
             String tenantBoss = dEntity.getTenantBoss();
             String tenantTel = dEntity.getTenantTel();
             String resourceType =dEntity.getResourceType() == null ? " ":String.valueOf(dEntity.getResourceType());
@@ -321,19 +321,15 @@ public class DisTenantServiceImpl implements DisTenantService{
             String askDate = dEntity.getAskDate() == null ? " ": String.valueOf(simpleDateFormat.format(dEntity.getAskDate()));
             String changeDate = dEntity.getChangeDate() == null ? " " : String.valueOf(simpleDateFormat.format(dEntity.getChangeDate()));
             String openDate = dEntity.getOpenDate() == null ? " ":String.valueOf(simpleDateFormat.format(dEntity.getOpenDate()));
-            switch (dEntity.getTenantLevel()) {
-                case 0: 
-                    tenantLevel = "小";
-                    break;
-                case 1:
-                    tenantLevel = "中";
-                    break;
-                case 2:
-                    tenantLevel = "大";
-                    break;
-                default:
-                    break;
-            }
+           if(dEntity.getTenantLevel()== null){
+               tenantLevel = "";
+           }else if(dEntity.getTenantLevel() == 0){
+               tenantLevel = "小";
+           }else if(dEntity.getTenantLevel()==1){
+               tenantLevel = "中";
+           }else if(dEntity.getTenantLevel()==2){
+               tenantLevel = "大";
+           }
             String[] tenStr ={String.valueOf(index),
                 serviceType, tenantName, tenantLevel, tenantBoss, tenantTel,
                 resourceType, fileCount, storage,storageUsage,storageUsageRate, cpuNum, cpuMax, cpuAvg, memorySize, memoryMax, memoryAvg,
