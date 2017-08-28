@@ -1,12 +1,17 @@
 $(function(){
 	var char_table;
-	loaddata("findAll");
+	loaddata();
 	
 })
 
-function loaddata(xxxx,datayyy) {
+function loaddata() {
 	
-  char_table=$('#charging_table').DataTable({
+	var jfondate = $('#jfondate').is(':checked');  //联系方式
+	var jfzhtype = $('#jfzhtype').val();  //联系方式
+	
+    var data={flag:jfondate,tenantType:jfzhtype};
+
+    char_table=$('#charging_table').DataTable({
 		serverSide : false,
 		"bStateSave" :true,
         "language": {
@@ -40,7 +45,8 @@ function loaddata(xxxx,datayyy) {
         "bInfo": true,
         "bAutoWidth": true,
         /*	数据源Ajax*/
-        "ajax":{ url: ctx+xxxx,data:datayyy},
+        "ajax":{ url: ctx+"jffindByTypeAndDate",
+        		data:data},
     	"columns": [				
     	            {"mData": "tenantName"},		{"mData": "serviceType"},			{"mData": "tenantType"}, 
     	            {"mData": "resourceTime"},		{"mData": "uniplatform4aTime"},		{"mData": "havedateTime"},
@@ -267,7 +273,7 @@ function refreshCharTable(){
 						 alert(data)
 						 $('#jfeditmodel').modal('hide');
 						 refreshCharTable();
-						 loaddata("findAll");
+						 loaddata();
 					 })
 		  }
    })
@@ -275,6 +281,30 @@ function refreshCharTable(){
    
    /*	显示新增页面		*/
    $('#addjfbutton').on( 'click', function () {
+	   /*   新增页面清空*/
+	   $('#jfedittenantName1').val('');  //租户
+	   $('#jfeditserviceType1').val(0);//服务类型
+	   $('#jfedittenantType1').val(0);   //租户分类
+	   $('#jfeditresourceTime1').val(''); //资源 
+	   $('#jfedituniplatform4aTime1').val('');  //统一及4A
+	   $('#jfedithavedateTime1').val(''); //数据实际具备
+	   $('#jfeditresideDuration1').val('');  //入住时长
+	   $('#jfeditmonthlyFee1').val(''); //月租费用（元/月）
+	   $('#jfeditdataFee1').val('');  //数据报价/万元
+	   $('#jfeditbeginRentDate1').val('');   //起租日期
+	   $('#jfedittasteDuration1').val('');  //试用期
+	   $('#jfeditchargeBeginDate1').val('');//计费日期
+	   $('#jfeditchargeEndDate1').val('');//到期日期
+	   $('#jfeditintroduceUnicom1').val('');  //联通引入方
+	   $('#jfeditintroduceTenant1').val('');  //引入方联系人（租户管理员）
+	   $('#jfeditcontact1').val('');  //联系方式
+	   $('#jfeditaskDate1').val(''); //申请日期
+	   $('#jfeditsignContract1').val(0); //是否签署合同 
+	   $('#jfeditmonthlyFeeRemark1').val(''); //月租备注
+	   $('#jfeditendRentDate1').val('');  //退租时间
+	   $('#jfeditremark1').val(''); //备注
+	   
+	   /*显示*/
 	   $('#jfaddmodel').modal('show');
    });
    
@@ -345,7 +375,7 @@ function refreshCharTable(){
 					 function(data){
 						 alert(data)
 						 $('#jfaddmodel').modal('hide');
-						 loaddata("findAll");
+						 loaddata();
 					 })
 		  }
    })
@@ -363,7 +393,7 @@ function refreshCharTable(){
 	  	  			function(data){
 	  		  		  alert(data)
 	  		  		   refreshCharTable();
-	  		  		  loaddata("findAll");
+	  		  		  loaddata();
 	  	  		    }
 	  		  	  )
 	    
@@ -392,7 +422,7 @@ function refreshCharTable(){
 	          success: function (returndata) {  
 	              alert(returndata);  
 	              $('#jfuploadmodel').modal('hide');
-	              loaddata("findAll");
+	              loaddata();
 	          }
 	           
 	     });  
@@ -400,26 +430,21 @@ function refreshCharTable(){
    
    /*     搜索            */
    $('#jfondate').on('change', function(){
-	   ggg();
+	   loaddata();
    })
     $('#jfzhtype').on('change', function(){
-	   ggg();
+    	loaddata();
    })
    
    
- function ggg(){
-	
-	var jfondate = $('#jfondate').is(':checked');  //联系方式
-	var jfzhtype = $('#jfzhtype').val();  //联系方式
-	
-    var data={flag:jfondate,tenantType:jfzhtype};
+ 
 
-    loaddata("jffindByTypeAndDate",data);
-}
+    
+
    
 /*     刷新             */
 $('#jfrefresh').on('click', function(){
-	   ggg();
+	loaddata();
    })
 
    

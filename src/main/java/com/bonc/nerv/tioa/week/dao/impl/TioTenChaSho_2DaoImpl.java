@@ -111,7 +111,7 @@ public class TioTenChaSho_2DaoImpl implements TioTenChaSho_2Dao {
                     if (enddata.length()>=8) {
                         enddata=enddata.substring(0,8);
                         Date d1 = sdf.parse(enddata);
-                        if (SavaToExcelUtils.daysBetween(new Date(),d1)<3 && SavaToExcelUtils.daysBetween(new Date(),d1)>=0) {
+                        if (SavaToExcelUtils.daysBetween(new Date(),d1)<=3 && SavaToExcelUtils.daysBetween(new Date(),d1)>=0) {
                             //如果日期小于三天
                             
                             TioaTenantChargingShow tio = new TioaTenantChargingShow();
