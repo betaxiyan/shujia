@@ -566,3 +566,20 @@ function uploadCpuMem(){
 		}
 	})
 }
+
+function uploadFileSubmit(){
+
+	$.ajax({
+		url: ctx + "users/merge",
+		type: 'GET',
+		
+		cache: false,
+		contentType:false,
+		processData: false,
+		success: function(returndata){
+			alert(returndata);
+			//重新加载页面
+			refreshTables();
+		}
+	});
+}

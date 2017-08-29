@@ -24,11 +24,11 @@ import com.bonc.nerv.tioa.week.service.UpdateDistributeService;
  * 刷新已化配租户情况服务层的实现类
  * @author HCN
  * @version 2017年8月22日
- * @see UpdateDistributeServiceImpl
+ * @see UpdateDistServiceImpl
  * @since
  */
 @Service("updateDistributeService")
-public class UpdateDistributeServiceImpl implements UpdateDistributeService{
+public class UpdateDistServiceImpl implements UpdateDistributeService{
     
     /**
      * DisTenantDao
@@ -46,8 +46,8 @@ public class UpdateDistributeServiceImpl implements UpdateDistributeService{
      */
     @SuppressWarnings("deprecation")
     @Override
-    public Boolean getMidDataToTtd() {
-        Boolean result = false;
+    public boolean getMidDataToTtd() {
+        boolean result = false;
         //组合资源表为基础
         List<DisTenantEntity> disTenantEntities = disTenantDao.basicOfDisTenant();
         //租户资源表和租户周边信息表数据整合

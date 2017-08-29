@@ -22,5 +22,5 @@ public interface UpdateDistributeService {
      * @return 是否刷新成功
      * @see
      */
-    Boolean getMidDataToTtd();
+    boolean getMidDataToTtd();
 }

@@ -20,6 +20,7 @@ import com.alibaba.fastjson.JSON;
 import com.bonc.nerv.tioa.week.entity.DisTenantEntity;
 import com.bonc.nerv.tioa.week.entity.SearchDisTenant;
 import com.bonc.nerv.tioa.week.service.DisTenantService;
+import com.bonc.nerv.tioa.week.service.UpdateDistributeService;
 
 /**
  * 
@@ -33,11 +34,17 @@ import com.bonc.nerv.tioa.week.service.DisTenantService;
 @Controller
 public class DisTenantController {
 
-    /*
+    /**
      * distenantService
      */
     @Autowired
     private DisTenantService distenantService;
+    
+    /**
+     * 刷新已化配租户表用的Service updateDistributeService
+     */
+    @Autowired
+    private UpdateDistributeService updateDistributeService;
     
     /**
      * 展示列表信息
@@ -115,8 +122,7 @@ public class DisTenantController {
      * 
      * 进行删除操作
      * 
-     * @param tdId
-     * @return 重定向到方法
+     * @param tdId 
      * @see
      */
     @RequestMapping(value = "users/delete")
@@ -159,6 +165,8 @@ public class DisTenantController {
      * Description: <br>
      * 请求分析OrcalAndFtp表
      * @param excelFile 
+     * @throws ParseException 
+     * @return ""
      * @see
      */
     @RequestMapping(value ="analyse/orcftp",method = RequestMethod.POST)
@@ -179,6 +187,8 @@ public class DisTenantController {
      * Description: <br>
      * 请求分析Hbase的txt
      * @param txtFile 
+     * @throws ParseException 
+     * @return "" 
      * @see
      */
     @RequestMapping(value ="analyse/hbase",method = RequestMethod.POST)
@@ -198,6 +208,8 @@ public class DisTenantController {
      * Description: <br>
      * 请求分析websever的excel
      * @param excelFile 
+     * @throws ParseException 
+     * @return "" 
      * @see
      */
     @RequestMapping(value ="analyse/websever",method = RequestMethod.POST)
@@ -217,6 +229,8 @@ public class DisTenantController {
      * Description: <br>
      * 请求分析yarn的excel
      * @param excelFile 
+     * @throws ParseException 
+     * @return "" 
      * @see
      */
     @RequestMapping(value ="analyse/yarn",method = RequestMethod.POST)
@@ -229,5 +243,22 @@ public class DisTenantController {
             return JSON.toJSONString("出现错误");
         }
         return JSON.toJSONString("导入成功");
+    }
+    
+    /**
+     * 点击确定，将数据库中的几张表数据合并，装配成已化配表
+     * 
+     * @return ""
+     * @see
+     */
+    @RequestMapping(value = "users/merge", method = RequestMethod.GET)
+    @ResponseBody
+    public String mergeToDistribute() {
+        boolean result = updateDistributeService.getMidDataToTtd();
+        if (result) {
+            return JSON.toJSONString("刷新成功");
+        }else {
+            return JSON.toJSONString("刷新失败");
+        }
     }
 }
