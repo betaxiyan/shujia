@@ -101,7 +101,7 @@ function loaddata() {
                         			var data1 = data.substr(0,4)+"/"+data.substr(4,2)+"/"+data.substr(6,2)
                         			var da_1 = new Date(Date.parse(data1));  
                         			var da_2 = new Date();
-                        			if ((da_1-da_2)/1000/3600/24 < 4 && (da_1-da_2)/1000/3600/24 >-1) {//三天内到期
+                        			if ((da_1-da_2)/1000/3600/24 <= 3 && (da_1-da_2)/1000/3600/24 >-1) {//三天内到期
 										/*该行变色*/
                         				$(td).parents('tr').css("background-color","yellow");
                         				$(td).css("color","red");
