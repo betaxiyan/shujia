@@ -47,6 +47,11 @@ public class RecipientsEntity {
     private Integer state;
     
     /**
+     * 收件人类型
+     */
+    private Integer type;
+    
+    /**
      * 对应模板
      */
     @OneToOne
@@ -90,6 +95,14 @@ public class RecipientsEntity {
 
     public void setModelEntity(EmailModelEntity modelEntity) {
         this.modelEntity = modelEntity;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
     
     
