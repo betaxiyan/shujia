@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  * 
@@ -36,11 +37,8 @@ public class EmailRecordEntity {
     /**
      * 收件人
      */
-    private String recipient;
-    /**
-     * 目标地址
-     */
-    private String targetEmail;
+    @ManyToOne
+    private RecipientsEntity recipientsEntity;
     
     /**
      * 邮件内容
@@ -62,60 +60,6 @@ public class EmailRecordEntity {
      */
     private String remark;
 
-    public Long getErId() {
-        return erId;
-    }
-
-    public void setErId(Long erId) {
-        this.erId = erId;
-    }
-
-    public String getRecipient() {
-        return recipient;
-    }
-
-    public void setRecipient(String recipient) {
-        this.recipient = recipient;
-    }
-
-    public String getTargetEmail() {
-        return targetEmail;
-    }
-
-    public void setTargetEmail(String targetEmail) {
-        this.targetEmail = targetEmail;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public Date getSendTime() {
-        return sendTime;
-    }
-
-    public void setSendTime(Date sendTime) {
-        this.sendTime = sendTime;
-    }
-
-    public Integer getResult() {
-        return result;
-    }
-
-    public void setResult(Integer result) {
-        this.result = result;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
+   
     
 }
