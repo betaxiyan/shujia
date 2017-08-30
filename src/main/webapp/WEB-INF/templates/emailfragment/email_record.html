@@ -1,10 +1,25 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 <body>
-
+   <div th:fragment="recored" role="tabpanel" class="tab-pane" id="email_three">
+        <div class="view_body">
+            <div class="view_search">
+                <span style="margin-left: 30px">待处理Excel</span><input type="file" multiple="multiple" name="file" id="file" />
+                <button type="button" class="btn btn-danger" th:onclick="'submitExcel()'">提交</button>
+                <a class="export" th:onclick = "'exportExcel()'">导出</a>
+            </div>
+            <div class="box">
+                <div class="box-body table-responsive">
+                    <table id="view_table" class="table table-bordered">
+                        <thead>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+   </div>
 </body>
 </html>

@@ -1,10 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<meta charset="UTF-8"/>
+    <head th:include="frame/common :: header"></head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>邮箱管理页面</title>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/view/masterView.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/dataTables/dataTables.bootstrap.css}"/>
 </head>
 <body>
+    <div class="view_contianer">
+        <div class="view_tab">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist" id="view_tabs">
 
+
+                <!-- <li role="presentation"><a href="#view" aria-controls="view" role="tab" data-toggle="tab" id="total-view">文件统计</a></li> -->
+                <li role="presentation" class="active"><a href="#email_one" aria-controls="email_one" role="tab" data-toggle="tab" id="email-one">收件人</a></li>
+                <li role="presentation"><a href="#email_two" aria-controls="email_two" role="tab" data-toggle="tab" id="email-two">模板</a></li>
+                <li role="presentation"><a href="#email_three" aria-controls="email_three" role="tab" data-toggle="tab" id="email-three">发送记录</a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <!-- <div th:replace="fragment/total_frg :: view"></div> -->  
+
+                <!-- 收件人 界面-->
+                <div th:replace="emailfragment/email_recipients :: recipients"></div> 
+                <!-- 模板 界面-->
+                <div th:replace="emailfragment/email_model :: model"></div>  
+                <!-- 发送记录 界面-->
+                <div th:replace="emailfragment/email_record :: record"></div> 
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" th:src="@{/js/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/plugins/jquery.dataTables.js}"></script>
+    <script type="text/javascript" th:src="@{/js/plugins/dataTables.bootstrap.js}"></script>
 </body>
 </html>
