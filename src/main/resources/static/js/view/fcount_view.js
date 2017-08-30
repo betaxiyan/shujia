@@ -5,6 +5,18 @@ $(document).ready(function(){
             $(this).tab('show')
         });
     showFileCountTable("11");
+    var d1 = new Date();
+    var year = d1.getFullYear();
+    var month = d1.getMonth()+1;
+    var day = d1.getDate();
+    if((""+month).length<2){
+    	month="0"+month;
+    }
+    if((""+day).length<2){
+    	day="0"+day;
+    }
+    var todaydata=""+year+month+day
+    $('#fc_date').val(todaydata);
 })
 
 /**
@@ -22,11 +34,24 @@ function fcSearch(){
 }
 
 function searchFc(){
+	
+    
 	var fcDate = $('#fc_date').val();
 	var fcTime = $('#fc_time').val();
 	var sysDate = fcDate+fcTime;
 	if(fcDate.length<8){
-		sysDate = '201707011630';
+		var d1 = new Date();
+	    var year = d1.getFullYear();
+	    var month = d1.getMonth()+1;
+	    var day = d1.getDate();
+	    if((""+month).length<2){
+	    	month="0"+month;
+	    }
+	    if((""+day).length<2){
+	    	day="0"+day;
+	    }
+	    var todaydata=""+year+month+day
+		sysDate = todaydata+fcTime;
 	}
     var params = {
     		'sysDate' : sysDate
